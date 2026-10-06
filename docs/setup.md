@@ -38,7 +38,7 @@
 | gemini.google.com | Lab1–3 기본 AI | 로그인 → 입력창의 ＋ → 파일 업로드 메뉴가 보이는지 | Claude로 |
 | chatgpt.com | (선택) ChatGPT | 로그인 → 새 채팅 | Claude·Gemini로 |
 | colab.research.google.com | 🟣 Challenge 노트북 | 새 노트북 → 첫 칸에 `1+1` 입력 → ▶ 실행 → `2`가 나오는지 | Basic으로 진행 |
-| [과정 사이트 주소 — 강사 입력] | 이 사이트·파일 받기 | Day1 → 파일 받기 → 템플릿을 내려받아 열리는지 | 강사가 USB·오픈채팅으로 배포 |
+| [brainini.github.io/tradefin-ai-2026](https://brainini.github.io/tradefin-ai-2026/) | 이 사이트·파일 받기 | Day1 → 파일 받기 → 템플릿을 내려받아 열리는지 | 강사가 USB·오픈채팅으로 배포 |
 | docs.google.com (Google Forms) | 산출물 제출·미닛카드 | 제출 폼 링크가 열리는지 | 종이 미닛카드, 오픈채팅으로 파일 제출 |
 | slido.com | 참여 퀴즈·질문 | 코드 입력 화면이 열리는지 | 손들기 |
 | www.sec.gov · data.sec.gov | 🟣 Lab1 Challenge(SEC API) | 브라우저로 www.sec.gov가 열리는지 | 강사 추출본 `real_buyers_ratios.csv` 사용 |

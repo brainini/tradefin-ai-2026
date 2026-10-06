@@ -12,11 +12,11 @@
 site_name: 생성형 AI 기반 무역 금융 리스크 최적화 과정
 site_description: (가상) 한빛정밀(주) 데이터로 AI로 읽고, 검증하고, 문제를 정의하는 6일 실습 과정의 수강생 사이트
 site_author: 한태구
-# [강사 입력] 배포 주소가 정해지면 아래 세 줄의 주석을 풀고 <org>를 바꾼다(CHECKLIST_D-1 §2-2).
+# 배포 주소(GitHub Pages): brainini/tradefin-ai-2026 — 다른 조직·이름으로 옮기면 아래 세 줄을 함께 바꾼다(CHECKLIST_D-1 §2-2).
 #   site_url이 비어 있으면 404 페이지의 링크·스타일이 저장소 하위 주소(/tradefin-ai-2026/)에서 깨진다.
-# site_url: https://<org>.github.io/tradefin-ai-2026/
-# repo_url: https://github.com/<org>/tradefin-ai-2026
-# repo_name: tradefin-ai-2026
+site_url: https://brainini.github.io/tradefin-ai-2026/
+repo_url: https://github.com/brainini/tradefin-ai-2026
+repo_name: tradefin-ai-2026
 copyright: >-
   코드 MIT · 합성 데이터·문서 CC BY 4.0 · SEC 공시 발췌는 공개 공시의 교육용 일부 인용 ·
   (가상) 한빛정밀(주)·Halden은 교육용 가상 회사이며 실존 기업과 무관합니다
