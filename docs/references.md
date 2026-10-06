@@ -36,7 +36,7 @@ AI 도구의 모델·요금·한도는 **2026-09-26 확인** 기준이며 자주
 - 아주경제, [하나은행, 금융권 최초 '비대면 AI 수출환 심사' 서비스 시행](https://www.ajunews.com/view/20250509084554411) (2025-05-09)
 - 문화경제(CNB), [하나은행, 비대면 AI 수출서류작성 가이드 서비스 시행](https://weekly.cnbnews.com/news/article.html?no=210064) (2026-03-26)
 - HighRadius, [Yaskawa Case Study: Zero Bad Debt and 5.5-Day DSO Cut with A/R Automation](https://www.highradius.com/resources/case-studies/yaskawa/) — **벤더 사례**
-- 한국무역협회, [수출 실무자의 업무 효율성을 높이는 AI 솔루션 활용법](https://www.kita.net/researchTrade/report/tradeFocus/tradeFocusDetail.do?no=2804) (Trade Brief No.08, 2025-06-05) — 'AI가 필요하다' 78.0% vs '실제로 쓴다' 15.5%
+- 한국무역협회, [AI 시대가 이끄는 한국 주력 수출 산업 변화](https://www.kita.net/researchTrade/report/tradeFocus/tradeFocusDetail.do?no=2807) (트레이드 포커스 11호, 2025-06, 396개사 설문) — 'AI가 필요하다' 78.0% vs '생산성 향상 수준까지 쓴다' 16.9%
 
 국내 은행들은 심사 시간 단축 같은 정량 성과를 공개하지 않았습니다.
 
