@@ -32,9 +32,11 @@ concurrency:
 env:
   NO_MKDOCS_2_WARNING: "true"   # mkdocs<2로 고정했으므로 Material의 MkDocs 2.0 안내 배너는 끈다
 
+# 러너는 ubuntu-24.04로 고정한다 — ubuntu-latest는 2026-10-19부터 Ubuntu 26으로 바뀌어
+# 과정(10/14–10/21) 중 같은 push의 빌드 환경이 달라질 수 있다. 과정이 끝난 뒤 ubuntu-latest로 되돌려도 된다.
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -55,7 +57,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
