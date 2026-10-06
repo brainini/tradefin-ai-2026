@@ -1,0 +1,31 @@
+{
+  "builder": "tools/build_checkpoints.py",
+  "seed": 20261014,
+  "config_sha256": "489d375bc28e9f6d11417843c41c38798af593887eb93981c81b486aafabb6a4",
+  "files": {
+    "checkpoints/d1_buyers_raw.csv": {
+      "sha256": "d90b0459412ddd578a34c3c996bba453d07e8f91a9d916a66afbbdfce487a55d"
+    },
+    "checkpoints/d1_buyers_raw.xlsx": {
+      "sha256": "77bea92240bfa7182c3dd52adb9feced0596ed4d1254b42dbdd2a95b669f04c9"
+    },
+    "checkpoints/d1_invoices.csv": {
+      "sha256": "d130abd7cbd1cf29d9fb9f8f15abf972e3e4802c78298f6221cd37ea08e84112"
+    },
+    "checkpoints/d1_invoices.xlsx": {
+      "sha256": "1b80a415b333f0d152b1c1bd842d18066d2f48787d7aedfe1ee8024d41b823ba"
+    },
+    "checkpoints/d2_start.xlsx": {
+      "sha256": "3c3ba3c5d93caeb3ecbc1110c6f4647a5c0740d72105a8a6d86ec8b535fe3e23"
+    },
+    "checkpoints/fx_krw_daily.csv": {
+      "sha256": "d0960323829ffc999b81e1e7bad3932a36dfd1f80bb0f1face588c38ae34ede7"
+    },
+    "data_dictionary.xlsx": {
+      "sha256": "d2cb2be1d80b00a0ba92e6de19b5b59b713a827f0ad810a3d8ed35429f9fe9c4"
+    },
+    "raw/dirty_log.csv": {
+      "sha256": "de4cffe7289051ebb699f04b80ae95b0477d9a9cbe16179e747d297dddfa0442"
+    }
+  }
+}

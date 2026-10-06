@@ -1,0 +1,64 @@
+# 과정 사이트 빌드 → GitHub Pages 배포
+# 처음 한 번: 저장소 Settings → Pages → Build and deployment → Source = "GitHub Actions"
+# 그다음부터는 main에 push하거나 Actions 탭에서 "Run workflow"를 누르면 배포된다.
+# 주의: 정답 파일(instructor/…/answers, data/raw/)은 사이트에 들어가지 않는다 — tools/sync_site_assets.py가
+#       허용 목록(수강생용 Day1 파일)만 docs/downloads/로 복사한다.
+name: site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
+      - "labs/**"
+      - "data/day1/**"
+      - "data/data_dictionary.xlsx"
+      - "tools/sync_site_assets.py"
+      - "tools/mkdocs_hooks.py"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  NO_MKDOCS_2_WARNING: "true"   # mkdocs<2로 고정했으므로 Material의 MkDocs 2.0 안내 배너는 끈다
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-docs.txt
+      - name: Install MkDocs
+        run: pip install -r requirements-docs.txt
+      - name: Copy learner files into docs/downloads
+        run: python tools/sync_site_assets.py
+      - name: Build (strict)
+        run: mkdocs build --strict -d site
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
