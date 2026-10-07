@@ -15,19 +15,51 @@
 결제조건 비중은 실제 한국 수출과 닮게 만들었습니다 — 한국 수출 결제는 송금 70.7%, 신용장 약 6%입니다(2024, 업계 집계 · 원통계 미표기 — [레퍼런스](references.md#d1-32)).
 무역금융 판단은 여러분이 전문가입니다. 이 시나리오는 방법을 연습하는 무대입니다.
 
-## Day1 파일 {#files}
+## 파일 체인 — 1일차 → 6일차 {#chain}
+
+6일 동안 **어제의 결과 파일이 오늘의 입력**이 됩니다. 실습을 다 못 끝냈거나 결석했어도, 매일 **08:30**에 공개되는 강사 정답본(시작 파일)으로 그날 실습에 바로 합류합니다.
+
+| 일차 | 시작 파일(강사 공개) | 내가 만들어 내는 것(제출) | 다음 날 시작 파일 |
+|---|---|---|---|
+| [1일차](day1/index.md) · 10/14(수) | `d1_buyers_raw.xlsx`/`.csv`(153행) · 보고서 발췌 `reports/` · `real_buyers_ratios.csv` · 🟣 `d1_invoices.xlsx`(약 5,000행) | `d1_end_eda__T{조}-{번호}.xlsx` — 변수 정의서 · EDA 차트 · 현안 정의서 | `d2_start.xlsx` |
+| [2일차](day2/index.md) · 10/15(목) | `d2_start.xlsx` · `fx_krw_daily.csv` · `d2_news.csv` · 15:35 `d2_news_answer.csv` | `d2_end_features__T{조}-{번호}.csv` · `d2_work__T{조}-{번호}.xlsx` · 개인 저장소 커밋 링크 | `d3_start_features.csv` + `d3_start_scoring.csv` |
+| [3일차](day3/index.md) · 10/16(금) | `d3_start_features.csv`(300행) · `d3_start_scoring.csv`(150행) · 🔵🟣 `d3_features_panel.csv` | `d3_end_scored__T{조}-{번호}.csv` · `d3_work__T{조}-{번호}.xlsx` · `d3_shap_memo__T{조}-{번호}.docx` | `d4_start_scored.csv`(월요일) |
+| [4일차](day4/index.md) · 10/19(월) | `d4_start_scored.csv`(150행) · 한도 워크북 `d4_limit_model.xlsx` · `d4_params.csv` · `d4_scenarios.csv` · `d4_open_inv.csv` | `d4_end_limits__T{조}-{번호}.xlsx` · `d4_credit_report__T{조}-{번호}.docx` · 이슈 링크 | `d5_start.csv` |
+| [5일차](day5/index.md) · 10/20(화) | `d5_start.csv`(300행 이하) · 규정·골든셋·평가 시트(`rag/`) · 워크플로(`agents/`) | `d5_rag_eval__T{조}-{번호}.xlsx` · 챗봇·앱 URL · 기능 추가 커밋 링크 · 21:00 `plan_draft__T{조}-{번호}.docx`(비공개 폼) | `d6_crisis_pack.xlsx` |
+| [6일차](day6/index.md) · 10/21(수) | `d6_crisis_pack.xlsx` · 위기 카드 · 양식(SOP · ROI · 기획서) | 팀: 저장소 `tradefin-kit-T{조}` **`v1.0` 릴리스** / 개인: `d6_plan__T{조}-{번호}.docx` · `d6_roi__T{조}-{번호}.xlsx` · 사후 진단(비공개 폼) | – |
+
+- **제출 파일 이름 규칙**: `{파일}__T{조}-{번호}.{확장자}` — 밑줄 두 개, 대문자 T, 번호는 두 자리(예: 2조 7번 → `d2_end_features__T2-07.csv`).
+- 각 일차의 받을 파일은 그날 페이지의 **파일 받기** 표에 있고, 공개 시각 전에는 '공개 예정'으로 보입니다 → [공개 시각](course.md#release).
+
+### 시작 파일의 주요 열 {#checkpoint-columns}
+
+| 파일 | 행 | 주요 열 |
+|---|---|---|
+| `d2_start.xlsx` | 300 + 연습용 150 | 시트 `buyer_features_raw`(150개사 × 기준일 2개: `buyer_id` · `ref_date` · 결제방식 · 누적 거래 횟수 · 평균 결제 소요 일수 · 연체·분쟁 지표 · 미결 잔액 · 재무비율 4종 · `pay_score` · `late_30d`) · `fx_at_ref`(기준일 환율) · `invoices_raw`(🟣) · `dirty_list` · `map_ccy` · `map_country` · `dictionary` + 🟢 연습용 `buyers` |
+| `d2_news.csv` | 300 이하 | `news_id` · `buyer_id` · `date` · `lang` · `headline` · `body_short` · `source_type`(합성 · 과정 제작) |
+| `d2_end_features.csv` | 300 | 정제한 특성 + 결측 표시(`is_missing_*`) + 뉴스 지표(`news_sent_0_10_30d` · `news_risk_30d` · `news_cnt_30d` · `no_news_flag`) + 환율 변화 + 표준화 열 + `late_30d` |
+| `d3_start_features.csv` · `d3_start_scoring.csv` | 300 · 150 | 2일차 특성(강사본) + `sample_weight`(불균형 보정) · `split_suggested`(시간 분할 제안) / 예측 대상은 기준일 2026-09-30, 레이블 없음 |
+| `d3_end_scored.csv` | 150 | `buyer_id` · `ref_date` · `pd_30d`(30일 이내 연체 확률) · `grade`(S/A/B/C) · `threshold_used` · `model_version` |
+| `d4_start_scored.csv` | 150 | 3일차 점수(연체 확률 · 등급 · 상위 사유) + 한도 계산 열(필요 · 보험 · 현행 한도, PD · LGD 가정, 전략·신용사건 표시) |
+| `d4_end_limits.xlsx` | – | 시트 한도안 · 포트폴리오 · 시나리오 결과 · 조기 경보 · 리포트 입력 |
+| `d5_start.csv` | 300 이하 · 29열 | 2026-09-30 미결 인보이스: `invoice_id` · `buyer_id` · 금액 · 결제기일 · `dpd` · 독촉 단계 · 사고통지 기한 · `grade` · `pd_30d` · 한도 · 경보 표시(메일 주소는 가상) |
+| `d6_crisis_pack.xlsx` | – | 시트 `cards`(카드별 영향 바이어·시나리오) · `buyer_changes`(결제조건·단가·PD 배수·송금 지연 변경) 등 |
+
+열의 정확한 이름 · 뜻 · 단위는 **데이터 사전**(`data_dictionary.xlsx`)의 `columns` 시트에 있습니다. 데이터 사전은 그날 공개되는 열까지 함께 늘어납니다.
+
+## 1일차 파일 {#files}
 
 --8<-- "docs/_snippets/day1/files_all_root.md"
 
-- 매일 아침 09:00에 전날 실습의 **강사 정답 파일(체크포인트)**이 올라옵니다. 어제를 놓쳐도 그 파일로 오늘 합류합니다.
+- 매일 아침 08:30에 전날 실습의 **강사 정답 파일(체크포인트)**이 올라옵니다. 어제를 놓쳐도 그 파일로 오늘 합류합니다. 2–6일차 파일은 각 일차 페이지의 **파일 받기** 표에 있습니다.
 - 모든 컬럼의 뜻·단위는 **데이터 사전**(`data_dictionary.xlsx`)의 `columns` 시트에 있습니다.
 
 ## 바이어 스냅샷 `d1_buyers_raw` 핵심 컬럼 {#buyers}
 
-153행 · 23열 · 시트 `buyers`(안내는 `readme` 시트). ★는 Lab2에서 직접 쓰는 컬럼입니다.
+153행 · 23열 · 시트 `buyers`(안내는 `readme` 시트). ★는 1일차 Step 4–7에서 직접 쓰는 컬럼입니다.
 
 !!! warning "원천 입력 오류가 섞여 있습니다"
-    실무 대장처럼 담당자가 입력한 그대로의 데이터입니다. **무엇이 이상한지는 Lab2에서 직접 찾습니다** — 오늘은 진단만, 정제는 Day2입니다.
+    실무 대장처럼 담당자가 입력한 그대로의 데이터입니다. **무엇이 이상한지는 1일차 Step 4에서 직접 찾습니다** — 오늘은 진단만, 정제는 2일차입니다.
 
 | 컬럼 | 한글명 | 뜻 | 단위 |
 |---|---|---|---|
@@ -39,7 +71,7 @@
 | `industry` | 업종 | `oem_manufacturer`(완제품 제조사) · `distributor`(유통·대리점) · `retail`(소매) · `epc_contractor`(EPC·설치 시공) · `utility`(유틸리티) · `public_agency`(공공기관) | – |
 | `segment` | 고객 구분 | private(민간) / public(공공) | – |
 | `buyer_type` | 공공 유형 | PRIVATE / UN(UN 계열 기구) / MDB(다자개발은행 재원 사업) / EM_GOV(신흥국 정부) / DM_GOV(선진국 정부) | – |
-| `payment_terms_raw` ★ | 결제조건(원천 표기) | 담당자가 입력한 결제조건 그대로. Lab2에서 [코드 7종](#codes)으로 바꾼다 | – |
+| `payment_terms_raw` ★ | 결제조건(원천 표기) | 담당자가 입력한 결제조건 그대로. Step 5에서 [코드 7종](#codes)으로 바꾼다 | – |
 | `ar_balance` | 매출채권 잔액 | 기준일 미결제 잔액(청구 통화 기준) | 통화 |
 | `ar_currency` | 잔액 통화(원천 표기) | 청구 통화 | – |
 | `max_dpd_days` ★ | 연체일수(최악) | 기준일에 남은 미결 인보이스 중 결제기일을 가장 오래 넘긴 날수(0 = 연체 없음) | 일 |
@@ -55,7 +87,7 @@
 | `dso_fy2025` | 매출채권회전일(DSO) | 매출채권 ÷ 매출 × 365 | 일 |
 | `op_margin_fy2025` | 영업이익률 | 영업이익 ÷ 매출(소수: 0.08 = 8%) | 비율 |
 
-Lab2에서 새로 만드는 열 4개: `payment_method`(코드 7종) · `dpd_num`(숫자로 바꾼 연체일) · `aging_bucket`(연체 구간) · `is_overdue`(연체 1 / 아님 0) — [Lab2 새 열 만들기](day1/lab2.md#new-columns).
+1일차 Step 5에서 새로 만드는 열 4개: `payment_method`(코드 7종) · `dpd_num`(숫자로 바꾼 연체일) · `aging_bucket`(연체 구간) · `is_overdue`(연체 1 / 아님 0) — [실습 B 새 열 만들기](day1/lab-b.md#new-columns).
 
 ## 결제방식 코드 7종 {#codes}
 
@@ -99,7 +131,7 @@ Lab2에서 새로 만드는 열 4개: `payment_method`(코드 7종) · `dpd_num`
 
 ## SEC 추출 비율표 `real_buyers_ratios` {#ratios}
 
-Lab1 보고서 발췌 4개사의 재무 원값과 4대 비율을 미국 SEC의 XBRL 공시 데이터(companyfacts API)에서 뽑은 표입니다(9행: 발췌와 같은 기간 + 비교 기간).
+1일차 Step 3에서 쓰는 보고서 발췌 4개사의 재무 원값과 4대 비율을 미국 SEC의 XBRL 공시 데이터(companyfacts API)에서 뽑은 표입니다(9행: 발췌와 같은 기간 + 비교 기간).
 
 | 컬럼 | 뜻 |
 |---|---|

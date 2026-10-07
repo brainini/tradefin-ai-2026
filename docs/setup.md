@@ -4,13 +4,16 @@
 
 - [ ] Google 계정을 만들었다 (필수)
 - [ ] Claude 계정을 만들었다 (필수)
-- [ ] (선택) ChatGPT 계정 · (Challenge) GitHub 계정을 만들었다
+- [ ] **GitHub 계정을 만들고 이메일 인증까지 끝냈다 (필수 — 2일차에 전원 첫 커밋)**
+- [ ] (선택) ChatGPT 계정을 만들었다
 - [ ] 접속 테스트 사이트가 모두 열린다
 - [ ] 쓰는 AI 서비스의 "학습에 사용" 설정을 껐다
 - [ ] 내 엑셀에서 XLOOKUP이 되는지 확인했다
-- [ ] (선택) Orange를 설치했다
+- [ ] Orange를 설치했다 (2·3일차 전원 사용 — 1일차는 선택)
 - [ ] 회사 노트북에서 막히는 것이 없는지 확인했다
-- [ ] 데이터 위생 5원칙을 읽었다
+- [ ] 데이터 위생 5원칙과 저장소·앱 규칙을 읽었다
+
+Streamlit · Dify · n8n은 **미리 가입하지 않아도 됩니다** — 4·5일차에 함께 가입합니다([언제 가입하나](#account-timeline)).
 
 ## 1. 계정 만들기 {#accounts}
 
@@ -21,7 +24,20 @@
 | Google | **필수** | [accounts.google.com](https://accounts.google.com/signup) | Gemini·Colab·제출 폼·미닛카드에 씁니다. **개인 계정**을 권합니다 — 회사 Google Workspace 계정은 Colab·Gemini가 막혀 있을 수 있습니다. Colab의 AI 기능은 만 18세 이상 계정만 됩니다 |
 | Claude | **필수** | [claude.ai](https://claude.ai) | 가입할 때 휴대폰 **문자(SMS) 인증**이 필요합니다. 인터넷 전화·가상번호·유선전화 번호는 안 되고, 한 번호로 최대 3개 계정까지 만들 수 있습니다 |
 | ChatGPT | 선택 | [chatgpt.com](https://chatgpt.com) | 무료 계정은 파일 업로드가 **하루 3개**라 오늘 실습량에 부족합니다. Basic은 Claude·Gemini로 하고, ChatGPT는 강사 공용 프로젝트(초대 링크는 당일 안내) 또는 유료 개인 계정이 있을 때 씁니다 |
-| GitHub | Challenge | [github.com](https://github.com/signup) | Day1에는 없어도 됩니다(노트북은 파일로 받아 Colab에 올립니다). Day2 'Git 첫걸음'부터 쓰니 미리 만들고 **이메일 인증**까지 끝내 두면 좋습니다 |
+| GitHub | **필수** | [github.com](https://github.com/signup) | **2일차 8교시에 전원이** 이 과정 저장소로 개인 저장소를 만들고 첫 커밋을 합니다(웹 화면만 사용). 5일차에는 같은 계정으로 Streamlit 앱을 배포하고 팀 저장소를 만듭니다. 가입 → **이메일 인증**까지 집에서 끝내 오세요. 사용자 이름(아이디)은 공개되므로 회사명은 넣지 않기를 권합니다 → [6. GitHub](#github) |
+| Streamlit Community Cloud | **필수**(5일차) | [share.streamlit.io](https://share.streamlit.io) | 따로 가입하지 않고 **GitHub 계정으로 로그인**(Continue with GitHub)하면 됩니다. 5일차 6교시에 함께 합니다 → [8. 5일차 도구](#day5-tools) |
+| Dify Cloud | **필수**(5일차) | [cloud.dify.ai](https://cloud.dify.ai) | 무료 Sandbox. **4일차 저녁 또는 5일차 09:00**에 가입합니다 |
+| n8n Cloud | 5일차 🔵 Standard | [n8n.io](https://n8n.io) | 14일 무료 체험 — **미리 가입하지 마세요.** 5일차 09:00에 가입해야 6일차까지 쓸 수 있습니다 |
+
+### 언제 가입하나 — 날짜별 계정 달력 {#account-timeline}
+
+| 언제 | 무엇 | 왜 그때 |
+|---|---|---|
+| **개강 전(집에서)** | Google · Claude · **GitHub(이메일 인증까지)** · (선택) ChatGPT | 강의장에서 여럿이 한꺼번에 가입하면 추가 인증을 요구할 수 있습니다 |
+| 4일차(10/19) 저녁 또는 5일차 09:00 | Dify Cloud | 무료 Sandbox의 메시지 크레딧은 한 번만 주어집니다 — 가입만 하고 미리 써 보지 않습니다 |
+| 5일차(10/20) 09:00 가입 카드 시간 | n8n Cloud 14일 체험(🔵) | 10/20에 가입하면 11/3까지 쓸 수 있어 6일차 해커톤까지 이어집니다. 미리 가입하면 그 전에 끝날 수 있습니다 |
+| 5일차 6교시 | Streamlit Community Cloud | GitHub로 로그인만 하면 됩니다(미리 해 두어도 됩니다) |
+| 5일차 09:00 | LiteLLM 개인 키(종이 QR 카드) | 가입 없음. 10/22 만료 → [과정 소개 → 키 카드](course.md#llm-key) |
 
 !!! tip "AI 서비스는 '기본 모델 / 추론 모델'로만 부릅니다"
     모델 이름과 메뉴 위치는 자주 바뀝니다(개강일 10/14에도 ChatGPT에서 모델 하나가 퇴역합니다).
@@ -34,16 +50,20 @@
 
 | 주소 | 무엇에 쓰나 | 이렇게 확인 | 막히면 |
 |---|---|---|---|
-| claude.ai | Lab1–3 기본 AI | 로그인 → 새 채팅 → 입력창의 클립(＋) 아이콘이 보이는지 | Gemini로 |
-| gemini.google.com | Lab1–3 기본 AI | 로그인 → 입력창의 ＋ → 파일 업로드 메뉴가 보이는지 | Claude로 |
+| claude.ai | 1일차 실습 A·B 기본 AI | 로그인 → 새 채팅 → 입력창의 클립(＋) 아이콘이 보이는지 | Gemini로 |
+| gemini.google.com | 1일차 실습 A·B 기본 AI | 로그인 → 입력창의 ＋ → 파일 업로드 메뉴가 보이는지 | Claude로 |
 | chatgpt.com | (선택) ChatGPT | 로그인 → 새 채팅 | Claude·Gemini로 |
 | colab.research.google.com | 🟣 Challenge 노트북 | 새 노트북 → 첫 칸에 `1+1` 입력 → ▶ 실행 → `2`가 나오는지 | Basic으로 진행 |
 | [brainini.github.io/tradefin-ai-2026](https://brainini.github.io/tradefin-ai-2026/) | 이 사이트·파일 받기 | Day1 → 파일 받기 → 템플릿을 내려받아 열리는지 | 강사가 USB·오픈채팅으로 배포 |
 | docs.google.com (Google Forms) | 산출물 제출·미닛카드 | 제출 폼 링크가 열리는지 | 종이 미닛카드, 오픈채팅으로 파일 제출 |
 | slido.com | 참여 퀴즈·질문 | 코드 입력 화면이 열리는지 | 손들기 |
-| www.sec.gov · data.sec.gov | 🟣 Lab1 Challenge(SEC API) | 브라우저로 www.sec.gov가 열리는지 | 강사 추출본 `real_buyers_ratios.csv` 사용 |
-| github.com · raw.githubusercontent.com | 🟣 (선택) · Day2부터 전원 | 페이지가 열리는지 | — |
-| orangedatamining.com | (선택) Orange 설치 | 다운로드 페이지가 열리는지 | 강의장 USB(포터블) |
+| www.sec.gov · data.sec.gov | 🟣 1일차 Step 2–3 Challenge(SEC API) | 브라우저로 www.sec.gov가 열리는지 | 강사 추출본 `real_buyers_ratios.csv` 사용 |
+| github.com · raw.githubusercontent.com | **2일차 첫 커밋(전원)** · 5일차 배포·팀 저장소 | 로그인 → 오른쪽 위 내 아이콘이 보이는지 | 짝과 한 화면으로, 강사 시연 화면 따라 하기 |
+| orangedatamining.com | Orange 설치(2·3일차 전원) | 다운로드 페이지가 열리는지 | 강의장 USB(포터블) |
+| share.streamlit.io | 5일차 대시보드 배포 | 첫 화면이 열리는지 | 강사 앱 URL로 진행 |
+| cloud.dify.ai | 5일차 규정 챗봇(RAG) | 로그인 화면이 열리는지 | 강사 공용 챗봇으로 합류 |
+| notebook.google | 5일차 Gemini Notebook(기준선) | Google 계정으로 열리는지 | 짝의 화면으로 함께 |
+| n8n.io · app.n8n.cloud | 5일차 🔵 독촉 워크플로 | 로그인 화면이 열리는지 | 강사 화면 시연 |
 
 ## 3. AI 학습 설정 끄기 {#ai-training}
 
@@ -82,23 +102,24 @@
 
 ## 4. 엑셀 버전과 XLOOKUP {#excel}
 
-Lab2에서 결제조건 표기를 코드로 바꿀 때 **XLOOKUP** 함수를 씁니다.
+1일차 Step 5에서 결제조건 표기를 코드로 바꿀 때 **XLOOKUP** 함수를 씁니다.
 XLOOKUP은 Microsoft 365, Excel 2021·2024, 웹용 Excel에 있고, **Excel 2019·2016 이하에는 없습니다.**
 
 1. 엑셀에서 **새 통합 문서**를 엽니다.
 2. A1 셀을 클릭하고 `=XLOOKUP(1,{1},{"OK"})` 를 입력한 뒤 ++enter++ 를 누릅니다.
 3. **OK**가 나오면 준비 끝입니다.
-4. **#NAME?**이 나오면 XLOOKUP이 없는 버전입니다. 걱정하지 마세요 — Lab2에 [같은 일을 하는 대안 수식(INDEX·MATCH / VLOOKUP)](day1/lab2.md#xlookup-alt)이 있습니다.
+4. **#NAME?**이 나오면 XLOOKUP이 없는 버전입니다. 걱정하지 마세요 — 실습 B에 [같은 일을 하는 대안 수식(INDEX·MATCH / VLOOKUP)](day1/lab-b.md#xlookup-alt)이 있습니다.
 
 - 내 엑셀 버전 보는 곳: **파일** → **계정** → **Excel 정보**
 - 엑셀이 아예 없다면 **웹용 Excel**(무료 Microsoft 계정으로 office.com에서 실행)을 씁니다. Google Sheets도 피벗과 XLOOKUP은 있지만 메뉴와 수식 표기가 이 안내와 달라 권하지 않습니다.
 - 엑셀의 **데이터 분석**(Analyze Data) 기능은 한국어 질문을 지원하지 않습니다. 오늘은 피벗 테이블을 직접 만듭니다.
 - CSV 파일이 깨져 보이면 [FAQ의 CSV 한글 깨짐](faq.md#q-csv)을 보세요. 과정 CSV는 UTF-8(BOM 포함)이라 보통 바로 열립니다.
 
-## 5. Orange 설치 (선택) {#orange}
+## 5. Orange 설치 (2·3일차 전원) {#orange}
 
-Orange는 마우스로 위젯을 이어 붙여 데이터를 보는 무료 노코드 도구입니다. Day1에는 Lab2 Standard의 선택 시각화에만 쓰고,
-뒤의 머신러닝 실습(Day3)에서 다시 씁니다.
+Orange는 마우스로 위젯을 이어 붙여 데이터를 보는 무료 노코드 도구입니다. 1일차에는 Step 5 Standard의 선택 시각화에만 쓰지만,
+**2일차(결측치 대체·병합)와 3일차(연체 예측 모델)에는 전원이 씁니다** — 개강 전에 설치해 두세요.
+3일차에 쓰는 애드온(Explain 등)이 미리 들어 있는 포터블판은 강의장 USB로도 나눠 드립니다.
 
 1. [orangedatamining.com/download](https://orangedatamining.com/download/)에 접속합니다.
 2. **Windows**: Orange 3.40.0 **설치 파일(.exe)**을 받아 실행합니다. 관리자 권한 없이 설치됩니다.
@@ -108,7 +129,50 @@ Orange는 마우스로 위젯을 이어 붙여 데이터를 보는 무료 노코
 
 회사 노트북에서 둘 다 막히면 강의장 USB의 포터블판을 쓰거나, Orange 없이 엑셀 차트로 진행해도 됩니다.
 
-## 6. 회사 노트북 점검 {#company-laptop}
+## 6. GitHub — 2일차 첫 커밋 준비 {#github}
+
+2일차 8교시에 **전원이** 웹 화면만으로 다음을 합니다(명령어·설치 없음). 자세한 순서는 [기초 F2](foundations/f2.md#practice)에 있습니다.
+
+1. 과정 저장소 [`brainini/tradefin-ai-2026`](https://github.com/brainini/tradefin-ai-2026) → **Use this template** → **Create a new repository**
+2. 이름 `tradefin-my-T{조}-{번호}`(예: `tradefin-my-T2-07`) · **Public** → 만들기
+3. `workbench/day2/` 폴더에 오늘 만든 규칙 · 프롬프트 · 데이터 사전 · 결과 CSV를 올리고 커밋(메시지에 '무엇'과 '왜')
+4. 규칙 한 줄을 고쳐 두 번째 커밋 → History · diff 확인 → 이전 버전 열어 보기
+
+미리 확인할 것:
+
+- [ ] github.com에 로그인된다(비밀번호 · 이메일 인증 완료)
+- [ ] 2단계 인증(2FA) 설정 안내가 나오면 그대로 따라 설정했다(휴대폰 인증 앱 또는 패스키)
+- [ ] 회사 노트북에서 github.com이 열린다 — 막히면 개인 노트북이나 짝의 화면으로 합니다(회사 규정을 어기며 우회하지 않습니다)
+
+- 저장소는 **공개(Public)가 기본**이라 **가상 데이터만** 올립니다. 비공개로 하고 싶다면 비공개로 만들고 강사 계정을 협업자로 추가합니다. 어느 쪽이든 자사 자료는 올리지 않습니다 → [저장소·앱 규칙](#repo-hygiene).
+- 🟣 Challenge는 터미널(git clone · commit · push)로 해도 됩니다.
+
+## 7. Colab — 🟣 Challenge와 3일차 {#colab}
+
+Colab은 구글 서버의 컴퓨터를 잠시 빌려 노트북(코드 · 결과 · 설명이 함께 있는 문서)을 실행하는 무료 서비스입니다.
+
+| 확인할 것 | 내용 |
+|---|---|
+| 계정 | **개인 Google 계정**으로 [colab.research.google.com](https://colab.research.google.com) — 회사 Workspace 계정은 막혀 있을 수 있습니다 |
+| 쓰는 곳 | 1–5일차 🟣 Challenge 노트북, 3일차 🔵 "GitHub에 사본 저장"(기초 F3) |
+| 여는 법 | 실습 페이지의 **Open in Colab** 배지를 누르거나, 노트북 파일을 받아 **파일 → 노트북 업로드** |
+| 런타임 | 강사가 안내한 런타임 버전을 씁니다(노트북 첫 셀이 버전을 출력합니다). `pip install -U`(업그레이드)는 하지 않습니다 |
+| 세션 | 무료 세션은 최대 12시간이고, 오래 쉬거나 끊기면 올린 파일과 계산 결과가 사라집니다 → 노트북은 Drive 또는 GitHub에 사본 저장 |
+| AI 기능 | 만 18세 이상 · 지원 지역 계정에서만 보입니다. 프롬프트·코드·출력을 사람 검토자가 볼 수 있고 최대 18개월 보관되므로 **실데이터를 넣지 않습니다** |
+
+## 8. 5일차 도구 — Streamlit · Dify · n8n · LiteLLM 키 {#day5-tools}
+
+5일차 09:00–09:10에 **가입 카드**(Google → GitHub → Dify → n8n)를 보며 함께 가입합니다. 한도는 2026-10-06 기준이며 10/11에 다시 확인해 바뀌면 고칩니다.
+
+| 도구 | 가입 | 알아 둘 것 |
+|---|---|---|
+| **Streamlit Community Cloud** | GitHub로 로그인(Continue with GitHub) | 과정 저장소를 fork해 내 대시보드를 배포합니다. 12시간 접속이 없으면 잠들고(깨우기 버튼 → 1–2분), 비공개 앱은 계정당 1개라 **공개 앱 + 합성 데이터**로 만듭니다 → [배포 순서](course.md#streamlit) |
+| **Dify Cloud**(무료 Sandbox) | 4일차 저녁 또는 5일차 09:00 | 메시지 크레딧이 한 번만 주어집니다. 5일차 실습 전에 강사가 안내하는 모델 설정(LiteLLM)을 먼저 등록해 크레딧이 바닥나지 않게 합니다. 검색 개수(TopK) 설정은 Rerank를 켜야 적용됩니다 |
+| **n8n Cloud**(14일 체험, 🔵) | **5일차 09:00**(미리 가입 금지) | 체험이 끝나면 워크스페이스가 지워지므로 만든 워크플로는 JSON으로 내려받아 둡니다. Gmail '승인 요청' 메일은 바이어가 아니라 **승인자(나)**에게 갑니다 |
+| **Gemini Notebook** | Google 계정 | 5일차 Step 1 기준선. 사용량 한도가 있어 짝과 한 노트북을 같이 씁니다 |
+| **LiteLLM 개인 키** | 가입 없음 — 5일차 09:00 종이 QR 카드 | 10/22 만료. 키는 Streamlit Secrets · Dify · n8n 자격증명 칸에만 넣습니다 → [키 카드 규칙](course.md#llm-key) |
+
+## 9. 회사 노트북 점검 {#company-laptop}
 
 | 확인할 것 | 막히면 |
 |---|---|
@@ -116,8 +180,9 @@ Orange는 마우스로 위젯을 이어 붙여 데이터를 보는 무료 노코
 | 프로그램 설치(Orange)·USB 사용 | Orange 포터블 → 안 되면 엑셀만으로 진행 |
 | 매크로·외부 파일 차단(엑셀 '제한된 보기' 노란 띠) | 내려받은 파일을 연 뒤 **편집 사용**을 누릅니다(과정 파일에는 매크로가 없습니다) |
 | 회사 규정상 외부 AI에 회사 자료 업로드 금지 | 실습은 가상 데이터만 씁니다. 내 프로젝트는 **구조만 옮기기** — 컬럼 이름·행 수만 같은 가상 데이터로 연습합니다 |
+| github.com · share.streamlit.io · colab 차단 | 개인 노트북 또는 짝의 화면으로 진행하고, 결과 파일은 강사 체크포인트로 합류합니다 |
 
-## 7. 데이터 위생 5원칙 — 'AI 대화창은 외부 채널이다' {#hygiene}
+## 10. 데이터 위생 5원칙 — 'AI 대화창은 외부 채널이다' {#hygiene}
 
 AI 대화창에 무언가를 붙여넣는 순간 그 데이터는 회사 밖으로 나간 것입니다. 외부로 이메일을 보내는 것과 같습니다.
 
@@ -133,6 +198,23 @@ AI 대화창에 무언가를 붙여넣는 순간 그 데이터는 회사 밖으�
 
 !!! warning "회사 보안 규정이 우선입니다"
     회사에 보안 규정이 있다면 그것이 이 다섯 원칙보다 먼저입니다.
+
+### 저장소 · 앱 · 폼에 올릴 때 — 2일차부터 {#repo-hygiene}
+
+2일차부터는 결과를 **공개 저장소와 공개 앱**에 올립니다. 대화창보다 더 넓게 공개되는 곳입니다.
+
+| 어디에 | 올려도 되는 것 | 올리면 안 되는 것 |
+|---|---|---|
+| 개인 저장소 `tradefin-my-…` · 개인 fork (공개) | 과정의 가상(합성) 데이터, 내가 쓴 규칙 · 프롬프트 · 데이터 사전 · 결과 파일 | 회사 실데이터(**익명화본 포함**) · 회사 문서 · API 키 · 비밀번호 · `secrets.toml` · `.env` · 이름 · 이메일 · 계좌 |
+| 팀 저장소 `tradefin-kit-T{조}` (공개) | 가상 한빛정밀 데이터로 만든 솔루션 킷 | 위와 같음 + 개인 도입 기획서 · ROI 시트 |
+| Streamlit 공개 앱 | 합성 데이터 | 실데이터 |
+| 제출 폼(비공개) | 개인 도입 기획서 · ROI 시트 · 사후 진단 | 익명화하지 않은 자사 자료 · 담당자 연락처 |
+
+- **이름 규칙**: 저장소 · 파일 · 커밋 메시지에 실명 · 회사명 · 고객사명을 쓰지 않습니다(예: `tradefin-my-T2-07`).
+- **`.gitignore`는 웹 업로드를 막지 못합니다.** 템플릿에 `secrets.toml` · `.env` · `private/` 폴더를 막는 설정이 들어 있지만, GitHub 웹 화면의 **Upload files**는 고르는 대로 다 올립니다. 올리기 전에 파일 이름과 내용을 한 번 더 봅니다.
+- **한 번 커밋한 내용은 지워도 이력(History)에 남습니다.** 실수로 올렸다면 파일만 지우고 끝내지 말고 바로 강사에게 알립니다. 키였다면 키부터 교체합니다.
+- **키는 Secrets 칸에만**: API 키는 Streamlit Secrets · Dify · n8n 자격증명 칸에만 넣습니다. 노출되면 즉시 알리고 교체합니다.
+- **메일은 DRY RUN**: 실습의 독촉·통지 메일은 초안과 승인 기록까지만 만들고 실제로 보내지 않습니다.
 
 ### 내 회사 데이터를 쓰고 싶다면 — 익명화 체크리스트 {#byod}
 

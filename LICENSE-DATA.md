@@ -35,7 +35,7 @@
 
 ## 3. 앞으로 넣을 외부 공개 데이터
 
-UCI 파산 데이터(대만·폴란드)·ECOS·OECD·GDELT 같은 외부 데이터 캐시는 아직 이 저장소에 없습니다([`data/external/ATTRIBUTION.md`](data/external/ATTRIBUTION.md): "받을 때 이 표에 한 줄씩 추가한다"). 넣을 때는 원본의 라이선스(예: UCI 두 데이터는 CC BY 4.0, 출처 표기 필수)·DOI·조회일을 `ATTRIBUTION.md`와 [`NOTICE.md`](NOTICE.md)에 함께 적고, **원본의 조건이 이 파일보다 우선**합니다.
+UCI 대만 파산 데이터는 `data/external/uci_taiwan_bankruptcy.csv`로 들어 있습니다(CC BY 4.0, [`NOTICE.md`](NOTICE.md)). UCI 폴란드·ECOS·OECD·GDELT 같은 나머지 외부 데이터 캐시는 아직 이 저장소에 없습니다([`data/external/ATTRIBUTION.md`](data/external/ATTRIBUTION.md): "받을 때 이 표에 한 줄씩 추가한다"). 넣을 때는 원본의 라이선스(예: UCI 두 데이터는 CC BY 4.0, 출처 표기 필수)·DOI·조회일을 `ATTRIBUTION.md`와 [`NOTICE.md`](NOTICE.md)에 함께 적고, **원본의 조건이 이 파일보다 우선**합니다.
 
 ## 4. 이 저장소에 없는 것
 

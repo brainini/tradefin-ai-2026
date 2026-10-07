@@ -35,3 +35,7 @@ UCI 파산 데이터(대만·폴란드)·ECOS·GDELT·K-SURE 자료 등은 아�
 
 - (가상) 한빛정밀(주), Halden Industrial Supplies Ltd., 합성 데이터의 바이어와 Halden 보고서에 나오는 회사·은행·감사법인·보험사는 모두 교육용 가상 이름이며 실존 기업과 무관합니다.
 - 위에 적은 회사·기관 이름과 상표는 출처를 밝히려고 쓴 것이며 각 소유자의 것입니다. 이 과정은 그 회사·기관과 관계가 없고 보증을 받지 않았습니다.
+
+## UCI Machine Learning Repository — Taiwanese Bankruptcy Prediction
+
+`data/external/uci_taiwan_bankruptcy.csv` — Liang, D., Lu, C.-C., Tsai, C.-F., & Shih, G.-A. (2016). Taiwanese Bankruptcy Prediction [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5004D — CC BY 4.0. 열 이름 앞 공백만 제거했고 값은 원본 그대로다(2026-10-07 조회).

@@ -2,7 +2,10 @@
 # 처음 한 번: 저장소 Settings → Pages → Build and deployment → Source = "GitHub Actions"
 # 그다음부터는 main에 push하거나 Actions 탭에서 "Run workflow"를 누르면 배포된다.
 # 주의: 정답 파일(instructor/…/answers, data/raw/)은 사이트에 들어가지 않는다 — tools/sync_site_assets.py가
-#       허용 목록(수강생용 Day1 파일)만 docs/downloads/로 복사한다.
+#       일차별 허용 목록(수강생용 Day1–6 파일 중 공개·커밋된 것)만 docs/downloads/로 복사한다.
+# 템플릿 사본(Day2 개인 저장소 "Use this template", Day5 fork)에서는 이 워크플로가 돌지 않는다 —
+#       두 잡 모두 `if: github.repository == 'brainini/tradefin-ai-2026'`로 막았다(사본마다 Pages 실패 메일이 가지 않게).
+#       저장소를 다른 조직·이름으로 옮기면 이 두 줄과 mkdocs.yml의 site_url·repo_url을 함께 바꾼다.
 name: site
 
 on:
@@ -14,7 +17,13 @@ on:
       - "requirements-docs.txt"
       - "labs/**"
       - "data/day1/**"
+      - "data/checkpoints/**"
+      - "data/external/**"
       - "data/data_dictionary.xlsx"
+      - "rag/**"
+      - "agents/**"
+      - "templates/**"
+      - "app/sample_data/**"
       - "tools/sync_site_assets.py"
       - "tools/mkdocs_hooks.py"
       - ".github/workflows/pages.yml"
@@ -36,6 +45,7 @@ env:
 # 과정(10/14–10/21) 중 같은 push의 빌드 환경이 달라질 수 있다. 과정이 끝난 뒤 ubuntu-latest로 되돌려도 된다.
 jobs:
   build:
+    if: github.repository == 'brainini/tradefin-ai-2026'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -56,6 +66,7 @@ jobs:
           path: site
 
   deploy:
+    if: github.repository == 'brainini/tradefin-ai-2026'
     needs: build
     runs-on: ubuntu-24.04
     environment:

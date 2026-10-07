@@ -10,7 +10,7 @@
 # 배포: .github/workflows/pages.yml (main에 push하면 GitHub Pages로 배포)
 
 site_name: 생성형 AI 기반 무역 금융 리스크 최적화 과정
-site_description: (가상) 한빛정밀(주) 데이터로 AI로 읽고, 검증하고, 문제를 정의하는 6일 실습 과정의 수강생 사이트
+site_description: (가상) 한빛정밀(주) 데이터 하나로 교수계획서의 파이프라인 6단계를 따라가는 6일 실습 과정의 수강생 사이트 — 강의 요약과 실습 가이드
 site_author: 한태구
 # 배포 주소(GitHub Pages): brainini/tradefin-ai-2026 — 다른 조직·이름으로 옮기면 아래 세 줄을 함께 바꾼다(CHECKLIST_D-1 §2-2).
 #   site_url이 비어 있으면 404 페이지의 링크·스타일이 저장소 하위 주소(/tradefin-ai-2026/)에서 깨진다.
@@ -116,6 +116,12 @@ exclude_docs: |
   _snippets/
   assets/day1/
 
+# 메뉴에 없지만 빌드하는 페이지 — 옛 주소(v2 Lab1–3)로 들어온 사람을 실습 A·B로 안내하는 한 줄짜리 페이지
+not_in_nav: |
+  day1/lab1.md
+  day1/lab2.md
+  day1/lab3.md
+
 validation:
   omitted_files: warn
   absolute_links: warn
@@ -123,16 +129,59 @@ validation:
   anchors: warn
 
 nav:
+  # v3 사이트 맵(20_강의계획안_v3 §5.2). 일차 페이지 = 개요(index) · 이론 요약(theory) · 실습 A(4–5교시) · 실습 B(6–7교시).
+  # 1일차 v2 Lab1–3 페이지는 실습 A·B로 합쳤다 — day1/lab1–3.md는 옛 주소용 안내 한 줄만 남기고 메뉴에서 뺐다(위 not_in_nav).
   - 홈: index.md
+  - 과정 소개: course.md
   - 사전 준비: setup.md
-  - "Day1 · 10/14(수) 탐색":
+  - "1일차 · 10/14(수)":
       - day1/index.md
-      - "Lab1 보고서 읽기·검증": day1/lab1.md
-      - "Lab2 바이어 데이터 EDA": day1/lab2.md
-      - "Lab3 현안 → 내 AX 프로젝트": day1/lab3.md
+      - "이론 요약": day1/theory.md
+      - "실습 A (4–5교시)": day1/lab-a.md
+      - "실습 B (6–7교시)": day1/lab-b.md
+  - "2일차 · 10/15(목)":
+      - day2/index.md
+      - "이론 요약": day2/theory.md
+      - "실습 A (4–5교시)": day2/lab-a.md
+      - "실습 B (6–7교시)": day2/lab-b.md
+  - "3일차 · 10/16(금)":
+      - day3/index.md
+      - "이론 요약": day3/theory.md
+      - "실습 A (4–5교시)": day3/lab-a.md
+      - "실습 B (6–7교시)": day3/lab-b.md
+  - "4일차 · 10/19(월)":
+      - day4/index.md
+      - "이론 요약": day4/theory.md
+      - "실습 A (4–5교시)": day4/lab-a.md
+      - "실습 B (6–7교시)": day4/lab-b.md
+  - "5일차 · 10/20(화)":
+      - day5/index.md
+      - "이론 요약": day5/theory.md
+      - "실습 A (4–5교시)": day5/lab-a.md
+      - "실습 B (6–7교시)": day5/lab-b.md
+  - "6일차 · 10/21(수) 해커톤":
+      - day6/index.md
+      - "위기 카드": day6/cards.md
+      - "솔루션 킷": day6/kit.md
+      - "심사 기준": day6/judging.md
+      - "제출": day6/submit.md
+  - 기초 지식:
+      - foundations/index.md
+      - "F1 내 데이터는 어디로 가나": foundations/f1.md
+      - "F2 웹·API, 그리고 첫 커밋": foundations/f2.md
+      - "F3 같은 입력이면 같은 결과": foundations/f3.md
+      - "F4 프로그램은 언제 도는가": foundations/f4.md
+      - "F5 내 PC의 앱을 모두의 앱으로": foundations/f5.md
+      - "F6 솔루션 킷 = 저장소 하나": foundations/f6.md
+  - "Standard 트랙: 내 업무 데이터로": ax-project.md
   - 프롬프트 라이브러리:
-      - "Day1 프롬프트 (P1-1~P1-8)": prompts/day1.md
-  - 내 AX 프로젝트: ax-project.md
+      - "1일차 (P1-1~P1-8)": prompts/day1.md
+      - "2일차 (P2-1~P2-4)": prompts/day2.md
+      - "3일차 (P3-0~P3-3)": prompts/day3.md
+      - "4일차 (P4-1~P4-3)": prompts/day4.md
+      - "5일차 (P5-1~P5-7)": prompts/day5.md
+      - "6일차 (P6-1~P6-7)": prompts/day6.md
+  - 용어집: glossary.md
   - 데이터: data.md
   - FAQ·트러블슈팅: faq.md
-  - 레퍼런스: references.md
+  - 참고문헌: references.md

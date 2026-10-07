@@ -16,18 +16,19 @@
 | 과정 사이트 | [https://brainini.github.io/tradefin-ai-2026/](https://brainini.github.io/tradefin-ai-2026/) (GitHub Pages) |
 | 문의 | 과정 오픈채팅 |
 
-| Day | 날짜 | 주제 | 오늘의 파일 |
-|---|---|---|---|
-| 1 | 10/14(수) | ① 탐색 — 해외 기업 보고서 AI 분석·검증, 바이어 데이터 EDA, 내 AX 프로젝트 정의 | [Day1 페이지 → 파일 받기](docs/day1/index.md) |
-| 2 | 10/15(목) | ② 구조화 — 데이터 정제, 뉴스 감성 점수화 | 그날 아침 공개 |
-| 3 | 10/16(금) | ③ 판단 보조 — 30일 연체 예측·임계값·설명 | 그날 아침 공개 |
-| 4 | 10/19(월) | ④ 결정·보고 — 한도 최적화·충격 시나리오·리포트 | 그날 아침 공개 |
-| 5 | 10/20(화) | ⑤ 자동화 — 규정 RAG·독촉 승인 워크플로·대시보드 | 그날 아침 공개 |
-| 6 | 10/21(수) | ⑥ 도입·측정 — 위기 대응 스트레스 테스트, 도입 기획서 | 그날 아침 공개 |
+| 일차 | 날짜 | 주제(교수계획서 원문) | 파이프라인 단계 | 오늘의 파일 |
+|---|---|---|---|---|
+| 1 | 10/14(수) | 무역 금융 AI 트렌드 및 글로벌 바이어 데이터 탐색 | 원시 데이터 확보 및 탐색적 데이터 분석(EDA) | [1일차 페이지 → 파일 받기](docs/day1/index.md) |
+| 2 | 10/15(목) | 금융/재무 데이터 전처리 및 리스크 평가지표 변수화 | 정형·비정형 융합 특성 공학(Feature Engineering) | 그날 08:30 공개 |
+| 3 | 10/16(금) | AI 기반 대금 결제 연체 및 바이어 부도 리스크 예측 | 머신러닝 모델링 및 평가지표 검증 | 그날 08:30 공개 |
+| 4 | 10/19(월) | 수출채권 회수 전략 최적화 및 조기 경보 시뮬레이션 | 예측 기반 의사결정 최적화 및 시뮬레이션 | 그날 08:30 공개 |
+| 5 | 10/20(화) | AI 금융 에이전트 및 채권 관리 종합 제어 대시보드 구축 | 엔드투엔드(End-to-End) 솔루션 패키징 및 배포 | 그날 08:30 공개 |
+| 6 | 10/21(수) | 실전 적응력 고도화 및 자사 솔루션 도입 기획(해커톤) | [최종 산출물] AI 기반 무역 금융 리스크 관리 통합 파이프라인 솔루션 킷 | 그날 09:00 공개 |
 
 ## 3분 시작 — 과정 사이트 쓰는 법
 
-GitHub 계정은 필요 없습니다. 사이트에서 읽고, 파일을 받고, 프롬프트를 복사합니다.
+1일차에는 사이트만 있으면 됩니다 — 로그인 없이 읽고, 파일을 받고, 프롬프트를 복사합니다.
+**GitHub 계정은 전원 필요합니다.** 2일차 8교시에 이 저장소를 템플릿으로 개인 저장소를 만들어 첫 커밋을 하고(`workbench/`), 5일차에는 fork해 Streamlit 앱을 배포하고 팀 저장소를 만듭니다. 개강 전에 가입과 이메일 인증을 끝내 주세요 → [사전 준비](docs/setup.md).
 
 1. [과정 사이트](https://brainini.github.io/tradefin-ai-2026/)를 엽니다(주소는 첫날 화면과 오픈채팅으로도 안내합니다).
 2. 홈에서 **오늘(Day1) 실습 열기**를 누르고, Day1 페이지의 **파일 받기**에서 `day1_files.zip`을 받습니다.
@@ -39,20 +40,22 @@ GitHub 계정은 필요 없습니다. 사이트에서 읽고, 파일을 받고, 
 
 못 끝낸 실습이 있어도 괜찮습니다. 다음 날 아침 전날 실습의 **체크포인트 파일**이 올라오고, 그 파일로 바로 합류합니다.
 
-바로가기: [사이트 홈 원고](docs/index.md) · [사전 준비](docs/setup.md) · [Day1](docs/day1/index.md) · [Lab1](docs/day1/lab1.md) · [Lab2](docs/day1/lab2.md) · [Lab3](docs/day1/lab3.md) · [프롬프트 원문](labs/day1/prompts.md) · [데이터 설명](docs/data.md) · [FAQ](docs/faq.md)
+바로가기: [사이트 홈 원고](docs/index.md) · [과정 소개](docs/course.md) · [사전 준비](docs/setup.md) · [1일차](docs/day1/index.md) · [이론 요약](docs/day1/theory.md) · [실습 A(Step 1–4)](docs/day1/lab-a.md) · [실습 B(Step 5–8)](docs/day1/lab-b.md) · [프롬프트 원문](labs/day1/prompts.md) · [데이터 설명](docs/data.md) · [FAQ](docs/faq.md)
 
 ## 저장소 지도
 
 | 경로 | 무엇 |
 |---|---|
 | `docs/` | 과정 사이트 원고(MkDocs Material). 사이트에서 보는 것이 가장 편합니다 |
+| `workbench/` | **개인 작업 폴더** — 2일차에 이 저장소를 템플릿으로 만든 개인 저장소에서 `day2`–`day5` 결과(규칙 · 프롬프트 · 데이터 사전 · 결과 파일)를 커밋하는 곳. 쓰는 법은 `workbench/README.md` |
+| `kit_template/` | 6일차 **팀 솔루션 킷 템플릿**의 원본(README 5항목 · data · app · sop · roi · docs · 이슈·PR 양식) — 강사가 `brainini/tradefin-kit-template`으로 공개합니다 |
 | `labs/day1/` | 프롬프트 원문 `prompts.md` · 실습 템플릿 `d1_end_eda_template.xlsx` · AX 캔버스 · Challenge 노트북 |
 | `data/day1/` | Day1 배포 파일 — 바이어 스냅샷 · 인보이스 원장(🟣) · 해외 기업 보고서 발췌(`reports/`) · SEC 비율표 |
 | `data/data_dictionary.xlsx` | 데이터 사전(컬럼 · 코드 · 결제조건 코드표 · 파일 목록) |
 | `data/checkpoints/` | 날짜별 체크포인트 — 그날 공개된 파일만 있습니다 |
 | `data/external/` | FRED 환율 원본 캐시와 출처 표기(`ATTRIBUTION.md`) |
 | `tools/` | 사이트 동기화·빌드 훅, 외부 데이터 수집, 노트북 빌더, 차트용 글꼴 |
-| `mkdocs.yml` · `.github/workflows/pages.yml` | 사이트 설정과 자동 배포 |
+| `mkdocs.yml` · `.github/workflows/pages.yml` | 사이트 설정과 자동 배포(이 저장소에서만 돈다 — 템플릿 사본·fork에서는 건너뜀) |
 | `LICENSE` · `LICENSE-DATA.md` · `NOTICE.md` | 라이선스 전문(코드 MIT · 데이터·문서 CC BY 4.0)과 제3자 자료 출처 표기 |
 
 ## 데이터 위생
@@ -92,7 +95,7 @@ OFFLINE=true mkdocs build -d site_offline     # USB·file:// 배포판(검색까
 
 - **배포**: GitHub 저장소 **Settings → Pages → Build and deployment → Source**를 **GitHub Actions**로 한 번 정하면, `main`에 push할 때마다 `.github/workflows/pages.yml`이 파일 복사 → strict 빌드 → 배포를 합니다. Actions 탭의 **Run workflow**로 직접 돌려도 됩니다.
 - `docs/downloads/`, `site/`, `site_offline/`은 빌드할 때마다 새로 만드는 결과물이라 커밋하지 않습니다(`.gitignore`).
-- `tools/sync_site_assets.py`는 허용 목록에 있는 수강생 파일만 복사합니다. 정답·원천 경로가 섞이면 멈춥니다.
+- `tools/sync_site_assets.py`는 일차별 허용 목록에 있는 수강생 파일만 복사합니다. 정답·원천 경로가 섞이면 멈추고, 2일차부터는 git에 커밋된(= 공개된) 파일만 사이트에 넣습니다. `--strict`는 1일차 파일이 다 있는지, `--require-day N`은 N일차 시작 파일까지 확인합니다.
 
 ### 데이터
 
@@ -115,7 +118,7 @@ OFFLINE=true mkdocs build -d site_offline     # USB·file:// 배포판(검색까
 
 ## 공개 범위 — 이 저장소에 없는 것
 
-공개 저장소에는 **그날까지 공개된 수강생 파일**만 둡니다. 아래는 `.gitignore`로 막혀 있습니다.
+공개 저장소에는 **수강생 파일**만 둡니다. 실습 양식 · 노트북 · 프롬프트 · 사이트 페이지는 정답이 들어 있지 않아 미리 올라올 수 있고, **데이터 체크포인트 · 정답 · 위기 카드처럼 시각이 정해진 파일은 그 시각에 맞춰** 올립니다. 아래는 `.gitignore`로 막혀 있습니다.
 
 | 무엇 | 왜 | 언제 공개 |
 |---|---|---|

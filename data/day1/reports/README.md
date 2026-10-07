@@ -1,37 +1,37 @@
-# Day1 실습 자료 — AI로 해외 기업 보고서 읽고 검증하기
+# 1일차 실습 자료 — AI로 해외 기업 보고서 읽고 검증하기
 
-Day1(10/14) 4교시 Lab1에서 AI에 올려 읽는 **해외 바이어 보고서 발췌**와, AI가 계산한 비율을 대조할 **SEC 추출 비율표**다.
+1일차(10/14) 블록 A(4–5교시) Step 2–3에서 AI에 올려 읽는 **해외 바이어 보고서 발췌**와, AI가 계산한 비율을 대조할 **SEC 추출 비율표**다.
 핵심 습관은 하나다: **AI가 준 문장은 원문에서 Ctrl+F로 찾고, AI가 준 숫자는 1차 출처 숫자와 맞춰 본다.**
 
 ## 1. 파일 목록
 
-| 파일 | 무엇인가 | 출처 | 언제 쓰나(과정 사이트 Day1 → Lab1) |
+| 파일 | 무엇인가 | 출처 | 언제 쓰나(과정 사이트 1일차 → 실습 A) |
 |---|---|---|---|
-| `irobot.md` | iRobot 10-K FY2024 발췌: 대출 약정 면제, 계속기업 의문, 위탁생산 의존, 유동성, 감사보고서, 고객·공급사 집중, 재무표 | SEC EDGAR(2025-03-12 접수) | 🟢 Lab1 4단계(P1-1 → P1-2 → SEC 수치 대조) |
-| `plug_power.md` | Plug Power 3개 공시 발췌: PART A 10-Q 2023년 3분기(경고), PART B 10-K FY2023(경고 해소 문구), PART C 10-K FY2024(문구 없음) + 맨 끝 '이후 경과' | SEC EDGAR | 🔵 Lab1 Standard(P1-1 → P1-1b → P1-7) — **오탐 반례** |
+| `irobot.md` | iRobot 10-K FY2024 발췌: 대출 약정 면제, 계속기업 의문, 위탁생산 의존, 유동성, 감사보고서, 고객·공급사 집중, 재무표 | SEC EDGAR(2025-03-12 접수) | 🟢 Step 3 ④(P1-2 → SEC 수치 대조, P1-1은 시간이 되면) |
+| `plug_power.md` | Plug Power 3개 공시 발췌: PART A 10-Q 2023년 3분기(경고), PART B 10-K FY2023(경고 해소 문구), PART C 10-K FY2024(문구 없음) + 맨 끝 '이후 경과' | SEC EDGAR | 🔵 Step 2 Standard(P1-1 → P1-1b) · Step 3 Standard(P1-7) — **오탐 반례** |
 | `wolfspeed.md` | Wolfspeed 10-Q(2025-03-30 분기) 발췌: 계속기업 의문, 약 65억 달러 부채, 최소 현금 약정, 분기·9개월 손익 | SEC EDGAR(2025-05-09 접수) | 확장(P1-1·P1-2) |
 | `big_lots.md` | Big Lots 10-Q(2024-05-04 분기) 발췌: 최소 가용한도 약정 위반 가능성, 14.6% 차입 금리, 공급사 금융 중단 + 직전 10-K의 해외 직접 조달 비중 | SEC EDGAR(2024-06-13 접수) | 확장(P1-1·P1-2) |
-| `halden_fictional_annual_report.md` | **가상** 영국 유통 바이어 연차보고서 발췌(재무표 2개년 포함). 위험 신호와 안심 요소를 강사가 미리 심어 둔 문서 | 강사 창작(가상) | 🟢 Lab1 1–3단계(P1-1 → Ctrl+F → P1-2) · 정답 공개 뒤 'AI 채점 실험'(아래 3절) |
+| `halden_fictional_annual_report.md` | **가상** 영국 유통 바이어 연차보고서 발췌(재무표 2개년 포함). 위험 신호와 안심 요소를 강사가 미리 심어 둔 문서 | 강사 창작(가상) | 🟢 Step 2(P1-1 → Ctrl+F) · Step 3(P1-2) · 14:20 정답 공개 뒤 'AI 채점 실험'(아래 3절) |
 | `gorman_note.md` | D&B 샘플 보고서 "Gorman Manufacturing"(가상 기업, 13쪽) **링크와 읽기 안내만** | D&B 샘플(링크) | 확장(P1-2) |
-| `../real_buyers_ratios.csv` (`.xlsx`) | 위 4개사의 SEC XBRL companyfacts 원값과 4대 비율(9행: 발췌와 같은 기간 + 비교 기간) | SEC companyfacts API | 🟢 Lab1 4단계 대조 |
+| `../real_buyers_ratios.csv` (`.xlsx`) | 위 4개사의 SEC XBRL companyfacts 원값과 4대 비율(9행: 발췌와 같은 기간 + 비교 기간) | SEC companyfacts API | 🟢 Step 3 ④ 대조 |
 
-> 옛 기획 문서(03 Part2 §1.3)에 적힌 경로 `data/reports/excerpts/*.md`는 이 폴더 `data/day1/reports/`를 가리킨다. 클릭 순서는 과정 사이트 Day1 → Lab1 페이지가 정본이다.
+> 옛 기획 문서(03 Part2 §1.3)에 적힌 경로 `data/reports/excerpts/*.md`는 이 폴더 `data/day1/reports/`를 가리킨다. 클릭 순서는 과정 사이트 1일차 → 실습 A 페이지(Step 2–3)가 정본이다.
 
-## 2. 실습 흐름 (Lab1, 슬라이드 D1-37)
+## 2. 실습 흐름 (실습 A Step 2–3, 슬라이드 #52)
 
 1. 파일을 내려받아 바탕화면 `D1` 폴더에 둔다. 발췌 파일은 메모장이나 브라우저로 열린다.
 2. **🟢 Halden(가상)**: AI 새 채팅 → `halden_fictional_annual_report.md` 업로드 → P1-1(`{회사명}`=Halden Industrial Supplies Ltd., `{문서}`=Annual Report FY2026(2025-07-01~2026-06-30)). AI 표의 '원문 인용' 2개를 원문에서 Ctrl+F로 찾는다.
-3. **🟢 비율**: 같은 채팅에서 P1-2(`{기간}`=FY2026(2026-06-30 기준), `{비교기간}`=FY2025) → 강사가 공개하는 정답 범위와 비교한다.
-4. **🟢 iRobot(실제 공시)**: 새 채팅 → `irobot.md` 업로드 → P1-1(`{회사명}`=iRobot Corporation, `{문서}`=Form 10-K FY2024) → P1-2 → `real_buyers_ratios.csv`의 iRobot 행과 대조(차이율 1% 초과면 원인을 적는다).
+3. **🟢 비율**: 같은 채팅에서 P1-2(`{기간}`=FY2026(2026-06-30 기준), `{비교기간}`=FY2025) → 14:20에 강사가 공개하는 기준값과 비교한다.
+4. **🟢 iRobot(실제 공시)**: 새 채팅 → `irobot.md` 업로드 → (시간이 되면 P1-1) → P1-2(`{회사명}`=iRobot Corporation, `{문서}`=Form 10-K FY2024) → `real_buyers_ratios.csv`의 iRobot 행과 대조(차이율 1% 초과면 원인을 적는다).
 5. **🔵 Plug Power(오탐 반례)**: 새 채팅 → `plug_power.md` 업로드 → P1-1(`{문서}`=PART A — Form 10-Q 2023년 3분기) → 같은 채팅에서 P1-1b(`{문서1}`=PART A → `{문서2}`=PART B — Form 10-K FY2023; 한 번 더: PART B → PART C) → AI 주장을 P1-7로 판정.
    - 파일 맨 끝 '이후 경과'는 P1-1b까지 끝낸 뒤 읽는다.
 6. **확장**: Wolfspeed·Big Lots 발췌로 P1-1·P1-2(10-Q는 분기 기간 일수 주의), Gorman PDF(링크)로 P1-2.
 
 ## 3. Halden(가상 보고서) 쓰는 법 — 'AI 채점 실험'
 
-1. Lab1 1–3단계에서 Halden으로 P1-1·P1-2를 돌린 결과(템플릿 `01_보고서신호`·`02_비율검증`)를 그대로 쓴다.
+1. Step 2–3에서 Halden으로 P1-1·P1-2를 돌린 결과(템플릿 `01_보고서신호`·`02_비율검증`)를 그대로 쓴다.
 2. 강사가 정답 목록(심어 둔 위험 신호와 안심 요소)을 공개하면, AI가 **놓친 신호**와 **위험이 아닌데 위험으로 표시한 것**을 센다.
-3. 놓친 비율(재현율)과 헛짚은 비율(정밀도)은 Day3 모델 평가 지표와 같은 생각이다.
+3. 놓친 비율(재현율)과 헛짚은 비율(정밀도)은 3일차 모델 평가 지표와 같은 생각이다.
 
 ## 4. 검증 요령
 
