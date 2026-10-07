@@ -99,3 +99,8 @@ sec_cache/
 
 # 수강생용 슬라이드 PDF(D18): 당일 18:00에 `git add -f handouts/dayN_slides.pdf`로 공개
 handouts/
+
+# K-SURE 약관 본문·발췌는 재배포 금지 — 저장소에 넣지 않는다(D36). 공식 링크는 rag/corpus/README.md
+rag/corpus/*ksure*
+rag/corpus/*약관*
+*ksure_terms*

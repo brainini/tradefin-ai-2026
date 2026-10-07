@@ -186,6 +186,32 @@ def write_xlsx(sheets: dict[str, pd.DataFrame], path: str | Path,
     return path
 
 
+README_INDEX_MARKER = "## 0. 색인"
+
+
+def keep_readme_index(path: str | Path, new_text: str, marker: str = README_INDEX_MARKER) -> str:
+    """정답 README(instructor/dayN/answers/README.md)를 다시 쓸 때 강사 키트가 손으로 넣은 '## 0. 색인' 절을 보존한다.
+
+    기존 파일에 marker로 시작하는 2단계 제목이 있으면 그 절(다음 '## ' 제목 앞까지)을 new_text의
+    첫 '## ' 제목 바로 앞(= 제목·머리말 블록 다음)에 끼워 넣은 본문을 돌려준다. 파일이 없거나 절이 없으면,
+    또는 new_text에 이미 같은 절이 있으면 new_text를 그대로 돌려준다. 호출 쪽은 돌려받은 본문을 쓴다."""
+    p = Path(path)
+    if marker in new_text or not p.exists():
+        return new_text
+    old_lines = p.read_text(encoding="utf-8").splitlines(keepends=True)
+    start = next((i for i, line in enumerate(old_lines) if line.startswith(marker)), None)
+    if start is None:
+        return new_text
+    end = next((i for i in range(start + 1, len(old_lines)) if old_lines[i].startswith("## ")), len(old_lines))
+    section = "".join(old_lines[start:end]).rstrip("\n") + "\n\n"
+    new_lines = new_text.splitlines(keepends=True)
+    ins = next((i for i, line in enumerate(new_lines) if line.startswith("## ")), len(new_lines))
+    head = "".join(new_lines[:ins])
+    if head and not head.endswith("\n\n"):
+        head = head.rstrip("\n") + "\n\n"
+    return head + section + "".join(new_lines[ins:])
+
+
 def write_json(obj, path: str | Path) -> Path:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
