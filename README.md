@@ -1,7 +1,8 @@
 # tradefin-ai-2026 — 생성형 AI 기반 무역 금융 리스크 최적화 과정 실습 저장소
 
-수출·구매 실무자를 위한 6일 실습 과정의 **과정 사이트 원고, 실습 파일, (가상) 한빛정밀(주) 합성 데이터**를 담은 저장소입니다.
-무역금융 판단은 수강생 여러분이 하고, 이 저장소는 AI로 읽고·검증하고·정리하는 방법을 손으로 익히도록 돕습니다.
+6일 동안 **AI로 일하는 법**을 손으로 익히는 실습 과정의 **과정 사이트 원고, 실습 파일, (가상) 한빛정밀(주) 합성 데이터**를 담은 저장소입니다.
+무역 금융은 그 방법을 연습하는 주제입니다. 도구는 **ChatGPT · Claude · Claude Code**(VS Code 확장)와 **Git · GitHub**입니다.
+무역금융 판단은 수강생 여러분이 하고, 이 저장소는 AI로 읽고 · 검증하고 · 정리하고 · 서비스로 만드는 방법을 손으로 익히도록 돕습니다.
 
 > (가상) 한빛정밀(주)과 Halden은 교육용 가상 회사이며 실존 기업과 무관합니다.
 > 이 저장소의 어떤 자료도 투자·여신 판단 자료가 아닙니다.
@@ -16,53 +17,53 @@
 | 과정 사이트 | [https://brainini.github.io/tradefin-ai-2026/](https://brainini.github.io/tradefin-ai-2026/) (GitHub Pages) |
 | 문의 | 과정 오픈채팅 |
 
-| 일차 | 날짜 | 주제(교수계획서 원문) | 파이프라인 단계 | 오늘의 파일 |
+매일 오전에는 AI 개념과 방법론을 **시연**으로 보고, 오후에는 그 시연을 작게 · 조금 다르게 **내 저장소에서 직접** 해 봅니다. 결과는 파일과 커밋(PR)으로 남깁니다.
+
+| 일차 | 날짜 | 주제 | AI로 일하는 법 | 오늘의 파일 |
 |---|---|---|---|---|
-| 1 | 10/14(수) | 무역 금융 AI 트렌드 및 글로벌 바이어 데이터 탐색 | 원시 데이터 확보 및 탐색적 데이터 분석(EDA) | [1일차 페이지 → 파일 받기](docs/day1/index.md) |
-| 2 | 10/15(목) | 금융/재무 데이터 전처리 및 리스크 평가지표 변수화 | 정형·비정형 융합 특성 공학(Feature Engineering) | 그날 08:30 공개 |
-| 3 | 10/16(금) | AI 기반 대금 결제 연체 및 바이어 부도 리스크 예측 | 머신러닝 모델링 및 평가지표 검증 | 그날 08:30 공개 |
-| 4 | 10/19(월) | 수출채권 회수 전략 최적화 및 조기 경보 시뮬레이션 | 예측 기반 의사결정 최적화 및 시뮬레이션 | 그날 08:30 공개 |
-| 5 | 10/20(화) | AI 금융 에이전트 및 채권 관리 종합 제어 대시보드 구축 | 엔드투엔드(End-to-End) 솔루션 패키징 및 배포 | 그날 08:30 공개 |
-| 6 | 10/21(수) | 실전 적응력 고도화 및 자사 솔루션 도입 기획(해커톤) | [최종 산출물] AI 기반 무역 금융 리스크 관리 통합 파이프라인 솔루션 킷 | 그날 09:00 공개 |
+| 1 | 10/14(수) | 무역 금융 AI 트렌드 및 글로벌 바이어 데이터 탐색 | 원리 · 도구 · 환경 · 데이터 탐색 | 내 저장소의 `data/day1/` ([1일차 페이지](docs/day1/index.md)) |
+| 2 | 10/15(목) | 금융/재무 데이터 전처리 및 리스크 평가지표 변수화 | 협업(브랜치 · PR · worktree) · 정제 · 특성 · SQL · 텍스트 점수화 | 그날 08:30 공개 |
+| 3 | 10/16(금) | AI 기반 대금 결제 연체 및 바이어 부도 리스크 예측 | 확률 · 검증 · 비용 임계값 · 설명 · 재현 | 그날 08:30 공개 |
+| 4 | 10/19(월) | 수출채권 회수 전략 최적화 및 조기 경보 시뮬레이션 | 최적화 · 시뮬레이션 · 경보 자동화 · 보고서 파이프라인 | 그날 08:30 공개 |
+| 5 | 10/20(화) | AI 금융 에이전트 및 채권 관리 종합 제어 대시보드 구축 | 웹 · API · 실시간 연동 · DB · RAG · 에이전트 | 그날 08:30 공개 |
+| 6 | 10/21(수) | 실전 적응력 고도화 및 자사 솔루션 도입 기획(해커톤) | 도입 기획 · 솔루션 킷(Git/GitHub) · 거버넌스 · ROI | 그날 09:28 공개 |
 
-## 3분 시작 — 과정 사이트 쓰는 법
+## 시작하기 — 1일차 오후에 모두 같은 출발점에서
 
-1일차에는 사이트만 있으면 됩니다 — 로그인 없이 읽고, 파일을 받고, 프롬프트를 복사합니다.
-**GitHub 계정은 전원 필요합니다.** 2일차 8교시에 이 저장소를 템플릿으로 개인 저장소를 만들어 첫 커밋을 하고(`workbench/`), 5일차에는 fork해 Streamlit 앱을 배포하고 팀 저장소를 만듭니다. 개강 전에 가입과 이메일 인증을 끝내 주세요 → [사전 준비](docs/setup.md).
+1일차 오후(실습 A-1)에 전원이 이 저장소를 **템플릿**으로 **내 공개 저장소**를 만들고 첫 커밋을 올립니다. 개강 전에 GitHub 가입과 이메일 인증, VS Code · Git · uv 설치, Claude Code 확장 로그인을 끝내 주세요 → [사전 준비](docs/setup.md).
 
-1. [과정 사이트](https://brainini.github.io/tradefin-ai-2026/)를 엽니다(주소는 첫날 화면과 오픈채팅으로도 안내합니다).
-2. 홈에서 **오늘(Day1) 실습 열기**를 누르고, Day1 페이지의 **파일 받기**에서 `day1_files.zip`을 받습니다.
-3. 받은 zip을 바탕화면 `D1` 폴더에 풉니다.
-4. Lab 페이지 위쪽 탭에서 트랙을 고릅니다 — 🟢 Basic(전원) · 🔵 Standard · 🟣 Challenge. 언제든 바꿔도 됩니다.
-5. 프롬프트 상자 오른쪽 위의 **복사** 버튼으로 프롬프트를 복사해 AI 채팅에 붙여 넣고, 맨 아래 `[이번 입력]` 줄의 `{중괄호}`만 바꿉니다.
-6. 결과는 템플릿 `d1_end_eda_template.xlsx` 하나에 쌓고, `d1_end_eda__T조-번호.xlsx`(예: `d1_end_eda__T2-07.xlsx`)로 저장해 제출합니다.
-7. 🟣 Challenge는 `d1_challenge.ipynb`를 받아 Colab 메뉴 **파일 → 노트북 업로드**로 엽니다.
+1. GitHub에 로그인한 뒤 이 저장소 첫 화면의 **Use this template → Create a new repository**를 누릅니다. Owner는 내 계정, 이름은 `tradefin-my-T{조}-{번호}`(예: `tradefin-my-T1-01`), 공개 범위는 **Public**입니다.
+2. VS Code에서 **Git: Clone**으로 내 저장소를 받고, 폴더를 열어 '작성자 신뢰'를 누른 뒤 터미널에서 `uv sync` → `uv run python scripts/hello.py`로 환경을 확인합니다.
+3. Claude Code 패널의 입력창 아래 **모드 표시**를 확인해 **Manual**(또는 Plan)로 바꾸고, 이미 들어 있는 `CLAUDE.md`에 내 업무 규칙을 더해 첫 커밋 · push 합니다.
+4. 그날의 실습은 과정 사이트의 일차 페이지(실습 A · B)를 따릅니다. 오늘 쓸 파일은 내 저장소에 이미 있고, 둘째 날부터는 **아침 첫 명령** `uv run python tools/get_day_files.py N`(N = 일차)으로 그날 파일을 받습니다.
 
-못 끝낸 실습이 있어도 괜찮습니다. 다음 날 아침 전날 실습의 **체크포인트 파일**이 올라오고, 그 파일로 바로 합류합니다.
+저장소를 만들 수 없거나 Claude Code를 쓸 수 없으면 과정 사이트의 채팅 경로(claude.ai · ChatGPT)와 `Codespaces`가 대신 길입니다. 못 끝낸 실습이 있어도 괜찮습니다 — 다음 날 아침 시작 파일로 바로 합류합니다.
 
-바로가기: [사이트 홈 원고](docs/index.md) · [과정 소개](docs/course.md) · [사전 준비](docs/setup.md) · [1일차](docs/day1/index.md) · [이론 요약](docs/day1/theory.md) · [실습 A(Step 1–4)](docs/day1/lab-a.md) · [실습 B(Step 5–8)](docs/day1/lab-b.md) · [프롬프트 원문](labs/day1/prompts.md) · [데이터 설명](docs/data.md) · [FAQ](docs/faq.md)
+바로가기: [사이트 홈 원고](docs/index.md) · [과정 소개](docs/course.md) · [사전 준비](docs/setup.md) · [1일차](docs/day1/index.md) · [이론 요약](docs/day1/theory.md) · [실습 A](docs/day1/lab-a.md) · [실습 B](docs/day1/lab-b.md) · [프롬프트 원문](labs/day1/prompts.md) · [데이터 설명](docs/data.md) · [FAQ](docs/faq.md)
 
 ## 저장소 지도
 
 | 경로 | 무엇 |
 |---|---|
-| `docs/` | 과정 사이트 원고(MkDocs Material). 사이트에서 보는 것이 가장 편합니다 |
-| `workbench/` | **개인 작업 폴더** — 2일차에 이 저장소를 템플릿으로 만든 개인 저장소에서 `day2`–`day5` 결과(규칙 · 프롬프트 · 데이터 사전 · 결과 파일)를 커밋하는 곳. 쓰는 법은 `workbench/README.md` |
+| `CLAUDE.md` | Claude Code가 매번 먼저 읽는 규칙 파일 — 폴더 구조와 일하는 방식이 적혀 있고, 내 업무 규칙을 더해 씁니다 |
+| `pyproject.toml` · `uv.lock` · `.python-version` | 수강생 실습 환경(uv 프로젝트, Python 3.13) — `uv sync` 한 줄로 모두 같은 환경 |
+| `.vscode/` · `.devcontainer/` | VS Code 권장 확장 · 설정 / 설치가 막힌 PC를 위한 Codespaces 설정 |
+| `scripts/` | 계산 · 정리 코드를 남기는 곳(`hello.py`로 환경 확인) |
+| `workbench/` | **개인 작업 폴더** — 1일차 오후에 이 저장소를 템플릿으로 만든 개인 저장소에서 날마다 결과(규칙 · 프롬프트 · 데이터 사전 · 결과 파일 · 노트북)를 커밋하는 곳. 쓰는 법은 `workbench/README.md` |
+| `labs/dayN/` | 일차별 실습 양식 · 프롬프트 원문(`prompts.md`) · 예제 스크립트와 테스트 |
+| `data/` | `day1/` 1일차 배포 파일(바이어 스냅샷 · 인보이스 원장 · 해외 기업 보고서 발췌 `reports/` · SEC 비율표) · `checkpoints/` 날짜별 체크포인트(그날 공개된 파일만) · `external/` FRED 환율 원본 캐시와 출처 표기(`ATTRIBUTION.md`) · `data_dictionary.xlsx` 데이터 사전 |
+| `app/` · `rag/` | 5일차 Streamlit 상황판 원본 · 규정 챗봇 자료(규정 PDF · 질문 목록 · 평가 시트) |
 | `kit_template/` | 6일차 **팀 솔루션 킷 템플릿**의 원본(README 5항목 · data · app · sop · roi · docs · 이슈·PR 양식) — 강사가 `brainini/tradefin-kit-template`으로 공개합니다 |
-| `labs/day1/` | 프롬프트 원문 `prompts.md` · 실습 템플릿 `d1_end_eda_template.xlsx` · AX 캔버스 · Challenge 노트북 |
-| `data/day1/` | Day1 배포 파일 — 바이어 스냅샷 · 인보이스 원장(🟣) · 해외 기업 보고서 발췌(`reports/`) · SEC 비율표 |
-| `data/data_dictionary.xlsx` | 데이터 사전(컬럼 · 코드 · 결제조건 코드표 · 파일 목록) |
-| `data/checkpoints/` | 날짜별 체크포인트 — 그날 공개된 파일만 있습니다 |
-| `data/external/` | FRED 환율 원본 캐시와 출처 표기(`ATTRIBUTION.md`) |
-| `tools/` | 사이트 동기화·빌드 훅, 외부 데이터 수집, 노트북 빌더, 차트용 글꼴 |
-| `mkdocs.yml` · `.github/workflows/pages.yml` | 사이트 설정과 자동 배포(이 저장소에서만 돈다 — 템플릿 사본·fork에서는 건너뜀) |
+| `agents/` | 강사용 LLM 관문 설정(선택) — 수강생은 쓰지 않습니다 |
+| `tools/` | 그날 파일 받기(`get_day_files.py`) · 사이트 동기화·빌드 훅 · 외부 데이터 수집 · 차트용 글꼴 |
+| `docs/` · `mkdocs.yml` · `.github/workflows/pages.yml` | 과정 사이트 원고(MkDocs Material)와 설정, 자동 배포(이 저장소에서만 돈다 — 템플릿 사본·fork에서는 건너뜀). 사이트에서 보는 것이 가장 편합니다 |
 | `LICENSE` · `LICENSE-DATA.md` · `NOTICE.md` | 라이선스 전문(코드 MIT · 데이터·문서 CC BY 4.0)과 제3자 자료 출처 표기 |
 
 ## 데이터 위생
 
 - 이 저장소의 실습 데이터는 전부 **합성 데이터**이거나 **공개 공시**입니다.
-- 회사 실데이터, 고객사 실명, 담당자 이름·이메일·계좌, API 키는 이 저장소에도, 포크에도 올리지 않습니다.
-- **AI 대화창은 외부 채널입니다.** 내 데이터를 쓰려면 먼저 [데이터 위생 5원칙과 익명화 체크리스트](docs/setup.md)를 확인하세요. 회사 보안 규정이 있으면 그것이 우선입니다.
+- 회사 실데이터(익명화본도), 고객사 실명, 담당자 이름·이메일·계좌, API 키는 이 저장소에도, 내 저장소에도, 포크에도 올리지 않습니다.
+- **AI 대화창은 외부 채널입니다.** AI 서비스의 '모델 개선(학습)' 설정은 끄고 시작합니다. 자세한 규칙은 [데이터 위생 5원칙과 익명화 체크리스트](docs/setup.md#hygiene)에 있습니다. 회사 보안 규정이 있으면 그것이 우선입니다.
 
 ## 라이선스와 출처
 
@@ -108,13 +109,12 @@ OFFLINE=true mkdocs build -d site_offline     # USB·file:// 배포판(검색까
     python tools/generate_data.py           # 2) 원천 세계 → data/raw/
     python tools/build_checkpoints.py       # 3) Day별 배포 파일 · 체크포인트 · 데이터 사전
     python tools/validate_data.py           # 4) 검사(실패하면 종료코드 1)
-    python tools/make_day1_charts.py        # 5) Day1 실습 가이드 차트
-    python tools/build_day1_template.py     # 6) Day1 엑셀 템플릿 · AX 캔버스
     ```
+
+    3일차 모델 · 4일차 한도 · 5일차 원장 · 6일차 해커톤 팩 같은 일차별 생성기는 `tools/README.md`의 순서를 따릅니다.
 
 - **과정 중에는 이 순서를 이 저장소만으로 돌릴 수 없습니다.** 모든 단계가 생성기 설정(`tools/config.yaml`)을 읽는데, 이 설정과 일부 생성기, 원천(`data/raw/`)에는 실습의 정답(숨은 등급·심어 둔 결함·시나리오)이 들어 있어 **과정이 끝난 뒤(2026-10-21 이후)** 올립니다. 그 전에 쓸 데이터는 `data/day1/`·`data/checkpoints/`·`data/external/`에 이미 만들어져 있습니다.
 - SEC 보고서 발췌와 비율표는 강사가 SEC에서 추출해 만들었습니다. 원문 링크는 각 발췌 파일 머리와 [데이터 페이지](docs/data.md)에 있습니다. SEC 자료를 직접 받을 때는 User-Agent에 **본인 영문 이름과 이메일**을 적고, 초당 10회 미만으로 요청합니다.
-- Challenge 노트북은 `tools/build_day1_notebook.py`로 다시 만듭니다(`--org <GitHub 조직 이름>`으로 Colab 배지와 데이터 주소를 채웁니다). 실행 검사(`--execute`)는 SEC에 접속하므로 `--user-agent "영문 이름 이메일"`을 함께 넘깁니다 — 기본값이 없습니다.
 
 ## 공개 범위 — 이 저장소에 없는 것
 
@@ -123,9 +123,10 @@ OFFLINE=true mkdocs build -d site_offline     # USB·file:// 배포판(검색까
 | 무엇 | 왜 | 언제 공개 |
 |---|---|---|
 | 강사 정답지 · 정답 워크북 · 결함 기록 · 강사 운영 자료 | 실습 정답 | 공개하지 않습니다 |
-| 다음 날 체크포인트(`data/checkpoints/d2_start.xlsx` 등) | 전날 실습의 정답본 | 그날 아침(09:00 전) |
+| 다음 날 체크포인트(`data/checkpoints/d2_start.xlsx` 등) | 전날 실습의 정답본 | 그날 아침 08:30 |
 | 원천 `data/raw/` · 생성기 설정과 일부 생성기 · `tools/news_pool/` | 숨은 정답 컬럼 · 결함 계획 · 점수 | 과정이 끝난 뒤 |
 | Day1 정답 차트(`docs/assets/day1/`) | 정제한 결과 수치 | 과정이 끝난 뒤 |
+| 슬라이드 PDF(`handouts/dayN_slides.pdf`, 발표자 노트 제외) | 수업 중에 시각을 정해 공개하는 내용(기준값 · 위기 카드 등)이 들어 있다 | 그날 18:00 |
 | 사이트 빌드 결과(`site/`, `docs/downloads/`) | 배포 때마다 새로 만든다 | 커밋하지 않습니다 |
 
 오류를 발견하면 과정 오픈채팅으로 알려 주세요. 과정 중 수정 사항은 사이트 위쪽 공지로 안내합니다.

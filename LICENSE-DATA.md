@@ -4,7 +4,7 @@
 
 | 무엇 | 라이선스 | 어디에 적혀 있나 |
 |---|---|---|
-| 코드 — `tools/`의 스크립트, `labs/`의 노트북(`d1_challenge.ipynb`), 실습 템플릿 안의 엑셀 수식, 사이트 설정·워크플로(`mkdocs.yml`, `docs/stylesheets/`, `.github/`) | **MIT** | [`LICENSE`](LICENSE) |
+| 코드 — `tools/`의 스크립트, `labs/`의 노트북, 실습 템플릿 안의 엑셀 수식, 사이트 설정·워크플로(`mkdocs.yml`, `docs/stylesheets/`, `.github/`) | **MIT** | [`LICENSE`](LICENSE) |
 | 과정이 만든 데이터·문서 — 아래 1절 | **CC BY 4.0** | 이 파일 |
 | 제3자 자료 — 아래 2절 | 각 원본의 조건 | 이 파일 2절 · [`NOTICE.md`](NOTICE.md) |
 
@@ -15,7 +15,7 @@
 - **(가상) 한빛정밀(주) 합성 데이터** — `data/day1/`의 바이어 스냅샷(`d1_buyers_raw`)·인보이스 원장(`d1_invoices`), `data/checkpoints/`의 체크포인트 파일, 데이터 사전 `data/data_dictionary.xlsx`
 - **Halden 가상 연차보고서** — `data/day1/reports/halden_fictional_annual_report.md`, 같은 폴더의 안내문(`README.md`·`gorman_note.md`)
 - **SEC 공시 발췌 파일에서 편집자가 쓴 부분** — 파일 머리의 회사 개요 표, `[E1]` 같은 절 번호, 한국어 소제목·요약(영어 원문 인용은 2절)
-- **과정 사이트 원고와 실습 자료** — `docs/`의 글·표·그림, `labs/day1/prompts.md`(프롬프트 원문), `labs/day1/ax_canvas_template.md`, 실습 템플릿 `labs/day1/d1_end_eda_template.xlsx`(안의 수식은 코드로 보아 MIT)
+- **과정 사이트 원고와 실습 자료** — `docs/`의 글·표·그림, `labs/day1/prompts.md`(프롬프트 원문), `labs/day1/issue_definition_template.md`(현안 정의서 양식)
 
 라이선스 전문: <https://creativecommons.org/licenses/by/4.0/legalcode.ko> · 요약: <https://creativecommons.org/licenses/by/4.0/deed.ko>
 

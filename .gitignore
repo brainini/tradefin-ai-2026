@@ -40,19 +40,31 @@ tools/news_pool/
 # Day2 워밍업 10건(공개 전 d2_news.csv의 행이 들어 있다) — Day2 08:30에 `git add -f labs/day2/news_warmup_10.txt`
 labs/day2/news_warmup_10.txt
 # Day4 체크포인트·정답 생성기(신용사건·전략 바이어 판정, PuLP 참고해·정답 워크북을 만든다) — 코드 공개는 과정 종료 뒤
-# (공개 저장소에 두는 Day4 파일: labs/day4/d4_limit_model.xlsx 빈 틀 · labs/day4/d4_challenge.ipynb · tools/build_day4_notebook.py)
+# (공개 저장소에 두는 Day4 파일: labs/day4/의 설계 1쪽 · 속성 테스트 · 스트레스 참고 스크립트 · 경보 규칙 · 워크플로 예시 · 보고서 양식 · 메일 예제 · 프롬프트 — 아래 14:45 · 15:00 파일만 시각 공개)
 tools/checkpoints_day4.py
 tools/solve_day4_lp.py
 tools/build_day4_workbook.py
 tools/validate_day4.py
+# Day4 기대값 테스트 2개(목적함수 · 잠재가격 · EL · 절감액 정답이 든다) — 10/19 14:45에 이름을 하나씩 `git add -f`
+labs/day4/tests/test_limits_expected.py
+labs/day4/tests/test_stress_expected.py
+# Day4 실습 B 15:00 공개분 — 경보 테스트(기대 건수) · 참고 엔진 · 렌더 · 숫자 대조 참고 스크립트 — 10/19 15:00에 이름을 하나씩 `git add -f`
+# (입력 JSON data/checkpoints/d4_report_input.json과 버그 카드 d4_params_bug.csv는 위 data/checkpoints/d[2-6]_* 줄이 막는다)
+labs/day4/tests/test_ews_props.py
+labs/day4/ews_example.py
+labs/day4/make_report.py
+labs/day4/check_numbers.py
 # Day3 정답 모델·학습 코드(Day4 08:30 이후 공개 — train_day3_model.py 문서 주석의 '.gitignore 2절'을 여기서 반영)와 Day2·3 정답 생성기
 models/
 tools/checkpoints_day23.py
 tools/train_day3_model.py
-# Day5 Sheets 원장 양식(d5_start 값이 들어 있다 — Day5 08:30에 `git add -f labs/day5/TF_AR_Ledger_template.xlsx`)과
+# Day3 SHAP 표본(B118 · B005 · B085의 pd_30d · 등급 · 사유 — 강사 모델 값이라 Day3 전에는 공개하지 않는다) — Day3 08:30에 `git add -f labs/day3/shap_sample_3buyers.csv`
+labs/day3/shap_sample_3buyers.csv
+# Day3 품질 게이트(8교시 시연 6의 수강생판: README · d3-check.yml · check_scored.py) — 17:40에 파일을 하나씩 `git add -f`
+labs/day3/quality_gate/
 # Day5 정답 생성기·검사(신용사건·사기 신호 판정, 충돌 조항 정답표) — 코드 공개는 과정 종료 뒤
-# (공개 저장소에 두는 Day5 파일: rag/ · agents/ · app/ · labs/day5/d5_rag_eval.ipynb · tools/build_day5_agents.py · tools/build_day5_notebook.py)
-labs/day5/TF_AR_Ledger_template.xlsx
+# (공개 저장소에 두는 Day5 파일: rag/(규정 PDF · 골든셋 · 질문 목록 · 평가 시트) · app/ · agents/litellm · labs/day5/(프롬프트 · 요구사항 카드 · 톤 표) · workbench/day5/ 양식 3개.
+#  그날 시각에 여는 파일은 data/checkpoints/d5_start.csv 하나뿐이고 위 data/checkpoints/d[2-6]_* 줄이 막는다)
 tools/build_day5.py
 tools/validate_day5.py
 
@@ -87,6 +99,9 @@ __pycache__/
 *.pyc
 .venv/
 .ipynb_checkpoints/
+# 로컬 SQLite 파일(5일차 승인 기록 DB receivables.db 등) — 실행할 때마다 생기는 산출물이라 커밋하지 않는다
+*.db
+*.sqlite3
 # 과정 사이트(MkDocs) 빌드 산출물 — 배포는 GitHub Actions가 새로 만든다(USB용 오프라인판 site_offline/ 포함)
 site/
 site_offline/

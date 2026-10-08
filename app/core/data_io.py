@@ -29,7 +29,7 @@ FX_DAILY = CK / "fx_krw_daily.csv"              # 최근 300 관측일 원화 �
 INVOICE_HISTORY = [CK / "d1_invoices.csv", DATA / "day1" / "d1_invoices.csv"]  # 바이어별 과거 금액(단위 의심 판정)
 D4_START = CK / "d4_start_scored.csv"           # (있으면) Day4 시작 파일 — 인수한도·월평균 매출
 SCENARIOS = [CK / "d4_scenarios.csv", CK / "scenarios.csv"]   # (있으면) Day4 시나리오 — 없으면 내장 기본값
-PARAMS = CK / "d4_params.csv"                   # (있으면) Day4 파라미터(G03 P1~P23 + 회사 가정) — 없으면 내장 기본값
+PARAMS = CK / "d4_params.csv"                   # (있으면) Day4 파라미터(공개 금리 + 회사 가정) — 없으면 내장 기본값
 
 ASOF_DEFAULT = date(2026, 9, 30)
 

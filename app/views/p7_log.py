@@ -1,4 +1,4 @@
-"""⑦ 로그 — 감사로그(03 Part1 §7.7 21필드)와 LLM 사용량. Community Cloud 저장소는 휘발성이라 세션이 끝나기 전에 CSV로 내려받는다."""
+"""⑦ 로그 — 감사로그(21필드)와 LLM 사용량. Community Cloud 저장소는 휘발성이라 세션이 끝나기 전에 CSV로 내려받는다."""
 import datetime as dt
 
 import pandas as pd
@@ -30,4 +30,4 @@ m2.metric("토큰(입력/출력)", f"{int(u['tokens_in'].sum()):,} / {int(u['tok
 m3.metric("추정 비용", f"${u['cost_usd'].sum():.4f}")
 if len(u):
     st.dataframe(u, hide_index=True)
-st.caption("추정 비용 = 별칭별 단가(1M 토큰당, core/llm.py PRICES) × 토큰 — 실제 청구는 LiteLLM 프록시·공급자 콘솔 기준. 가상 키 한도: 일 $3.")
+st.caption("추정 비용 = 별칭별 단가(1M 토큰당, core/llm.py PRICES) × 토큰 — 실제 청구는 공급자 콘솔 기준. 키 없이 쓰는 모의 모드에서는 0입니다.")

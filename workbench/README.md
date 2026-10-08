@@ -1,7 +1,7 @@
 # workbench — 내 작업 기록 폴더
 
 과정 템플릿으로 만든 **내 저장소**에서, 날마다 만든 규칙 · 프롬프트 · 결과 파일을 커밋해 두는 곳입니다.
-'언제 · 무엇을 · 왜' 바꿨는지가 커밋 이력으로 남습니다. 과정 저장소의 이 폴더는 빈 틀이고, 2일차 서랍에만 시작 파일 3개가 들어 있습니다.
+'언제 · 무엇을 · 왜' 바꿨는지가 커밋 이력으로 남습니다. 과정 저장소의 이 폴더는 빈 틀이고, 2일차 서랍에만 시작 양식이 들어 있습니다(`rules/정제규칙.md` · `rules/수집점검.md` · `prompts/news_score_v1.md` · `data/데이터사전.md` · `schemas/news_score.schema.json`).
 
 ## 구조
 
@@ -13,6 +13,7 @@ workbench/
     data/              그날 받은 파일의 작업 사본 · 데이터 사전
     outputs/           그날 결과 파일(CSV · 엑셀 · 보고서 · 차트)  ← 'outputs 폴더'는 이곳
   day1/notebooks/      1일차 EDA 노트북 (차트 PNG는 day1/outputs/charts/)
+  day2/tests/          2일차부터 쓰는 검증 테스트(pytest) — `uv run pytest -q`가 이 폴더의 테스트를 돌립니다
 ```
 
 - `.gitkeep`은 빈 서랍이 GitHub 화면에 보이게 하는 빈 파일입니다. 그대로 두어도 됩니다.
@@ -47,4 +48,4 @@ workbench/
 | 파일 고치기 | 파일을 열고 연필 아이콘(**Edit this file**) → 고치기 → **Commit changes** |
 | 바뀐 이력 보기 | 파일 화면의 **History** → 커밋을 누르면 diff(빨강 = 지운 줄, 초록 = 더한 줄) |
 
-버튼 이름은 GitHub가 바꿀 수 있습니다. 자세한 순서는 과정 사이트의 [기초 F2 · 첫 커밋](https://brainini.github.io/tradefin-ai-2026/foundations/f2.html#first-commit)에 있습니다.
+버튼 이름은 GitHub가 바꿀 수 있습니다. 자세한 순서는 과정 사이트 [2일차 실습 A의 채팅 경로](https://brainini.github.io/tradefin-ai-2026/day2/lab-a.html#chat-path)에 있습니다(이슈 → 브랜치 → 업로드 → PR).

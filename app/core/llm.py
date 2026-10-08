@@ -1,7 +1,7 @@
 """LiteLLM 프록시(OpenAI 호환 /chat/completions) 호출 — requests만 쓴다(SDK 버전에 묶이지 않게).
 
 Secrets(.streamlit/secrets.toml 또는 Community Cloud Secrets)의 [llm] 칸이 비었거나 자리표시면 None → 모의(템플릿) 모드.
-429·5xx·시간 초과면 fallback_models 순서로 다시 시도하고, 전부 실패하면 호출한 쪽이 템플릿 초안으로 바꾼다(03 Part1 §7.8).
+429·5xx·시간 초과면 fallback_models 순서로 다시 시도하고, 전부 실패하면 호출한 쪽이 템플릿 초안으로 바꾼다.
 """
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 
 import requests
 
-# 1M 토큰당 USD(입력, 출력) — 03 Part1 §8.3 별칭 표. 실제 단가는 프록시 설정·공급자 콘솔에서 D-3에 다시 확인 [교육용 추정]
+# 1M 토큰당 USD(입력, 출력). 실제 단가는 프록시 설정·공급자 콘솔에서 D-3에 다시 확인 [교육용 추정]
 PRICES = {"fast-default": (0.10, 0.50), "fast-backup": (0.25, 1.50), "quality": (1.00, 5.00)}
 
 

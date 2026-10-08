@@ -140,7 +140,7 @@ def normalize_ccy(v) -> str | None:
 
 
 def stage_of(dpd) -> float:
-    """독촉 단계(03 Part1 §4.9): 0 = D-3(−3 ≤ dpd < 0) · 1 = D+7(7–14) · 2 = D+15(15–29) · 3 = D+30(≥ 30) · 그 외 빈칸."""
+    """독촉 단계: 0 = D-3(−3 ≤ dpd < 0) · 1 = D+7(7–14) · 2 = D+15(15–29) · 3 = D+30(≥ 30) · 그 외 빈칸."""
     if dpd is None or (isinstance(dpd, float) and np.isnan(dpd)) or pd.isna(dpd):
         return np.nan
     d = int(dpd)

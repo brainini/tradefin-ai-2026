@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Day5 Challenge 노트북 `labs/day5/d5_rag_eval.ipynb` — 골든셋으로 RAG 검색 정확도를 코드로 잰다(출력 없는 수강생용).
+(v3 — 5일차 v4에서는 쓰지 않는다. 돌리면 labs/day5/d5_rag_eval.ipynb가 되살아난다. 사본: instructor/day5/lab_v3_archive/)
 
 사용(저장소 루트):
     python tools/build_day5_notebook.py                 # 생성 + 규칙 점검

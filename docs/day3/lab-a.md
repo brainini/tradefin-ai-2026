@@ -1,313 +1,309 @@
-# 실습 A · 4–5교시 — 30일 이내 연체 확률 예측 모델(Orange)
+# 실습 A · 4–5교시 — 내 첫 연체 예측 모델
 
-!!! abstract "한눈에 보기 — 블록 A (Step 1–4)"
+!!! abstract "한눈에 보기 — 실습 A"
     | 항목 | 내용 |
     |---|---|
-    | 목표 | 코딩 없이 30일 연체 확률 모델을 학습하고, **정확도 대신 놓친 연체(FN)와 비용**으로 평가해 **임계값 t**를 정한다 |
-    | 시간 | **13:00–14:50** (휴식 13:50–14:00) · 4–5교시 |
-    | Step | 1 실행 · 분할 · 2 학습셋만 늘리기 · 3 학습 · 평가(FN 목록) · 4 비용으로 임계값 |
-    | 입력 | `d3_start_features.csv`(300행 = 150개사 × 기준일 2개, 라벨 `late_30d`) · `d3_orange_model.ows` |
-    | 도구 | Orange 3.40(포터블 + Explain · Timeseries 애드온) · 엑셀 · (🔵) AI 대화창 |
-    | 산출물 | `d3_work__T조-번호.xlsx`의 `01_평가` · `02_임계값` |
-    | 프롬프트 | 🔵 [P3-2](../prompts/day3.md#p3-2) |
+    | 목표 | 300행 특성표로 **기준선(로지스틱)과 LightGBM**을 학습하고, **누수를 직접 확인**하고, 내 회사 비용비로 **임계값을 정해** 커밋한다 |
+    | 시간 | **13:00–14:50**(110분) · 쉬는 시간 13:50–14:00 |
+    | 오전 시연을 이렇게 따라 한다 | 시연 3(누수 탐정과 모델 리그전)을 **300행 · 모델 2개 · 이미 나뉜 `split_suggested`**로 **간소화**한다. 시연 4(비용으로 움직이는 임계값 엑셀)는 엑셀 대신 **Markdown 표**로 바꾸고, 비용비는 각자 고르게 **변형**한다(3:1 · 5:1 · 10:1) |
+    | 입력 | `data/checkpoints/d3_start_features.csv`(300행 × 53열, 연체 16건) · `workbench/day3/rules/d3_rules.md`(오늘의 데이터 규칙) |
+    | 도구 | VS Code · **Claude Code**(Plan → 계획 승인 후 수동 승인) · Git · GitHub |
+    | 산출물 | `d3_data_card.md` · `d3_train.py` · `d3_eval.md` · `d3_test_pred.csv` · `model_v1.txt` · `d3_threshold.md` / **커밋 2개 이상 + push** |
+    | 프롬프트 | [A0](../prompts/day3.md#a0) · [A1](../prompts/day3.md#a1) · [A2](../prompts/day3.md#a2) · [A3](../prompts/day3.md#a3) · [A4](../prompts/day3.md#a4) · [A5](../prompts/day3.md#a5) |
 
-!!! quote "교수계획서 원문 — 블록 A"
-    o (4~5교시 / 2H) 노코딩 머신러닝 AI 도구를 활용하여 과거 거래 패턴 데이터 기반 바이어의 30일 이내 대금 연체 가능성 확률 예측 모델 구현 실습
+이 실습의 목표는 AI가 코드를 잘 짜는지 보는 것이 아닙니다. **무엇을 정답으로 볼지 · 어디서 나눌지 · 얼마나 아픈지(비용)를 내가 정하고**, AI가 쓴 모델의 숫자를 **내가 의심해 보는 것**입니다. 강사가 돌아다니며 한 분씩 2–3분 확인합니다. 막히면 손을 들거나 노트북 위에 빨간 표시(스티커)를 올리세요.
 
-!!! tip "계획서의 'LightGBM'은 오늘 Orange에서 xgboost로 합니다"
-    Orange에는 LightGBM 위젯이 없어 Gradient Boosting 위젯의 **xgboost** 방식(같은 GBDT 계열)으로 대신합니다. SMOTE 대신 **학습셋 복제 오버샘플**을 씁니다. 원형은 🟣 Colab `d3_challenge.ipynb`에 있습니다.
-    오늘 시험셋에는 연체가 몇 건뿐이라 지표가 조마다 흔들립니다 — **숫자보다 절차**를 맞춥니다.
+## 슬라이드의 단계 {#slide-steps}
 
-## 시간 {#time}
+슬라이드 두 장(실습 A-1 · A-2)과 같은 순서입니다. 아래 ①–⑨가 이 단계를 풀어 쓴 것입니다.
 
-| 시각 | Step | 하는 일 |
-|---|---|---|
-| 13:00–13:07 | 실습 브리핑 | 3.4–3.6 계획서 원문(#34–36) |
-| 13:07–13:15 | [Step 1](#step1) | 강사 시연(워크플로 열기 · File 재지정, 5분) → 역할 지정 → Data Sampler 70/30(층화 · 재현) → `d3_work` 만들기 |
-| 13:15–13:30 | [Step 2](#step2) | 학습셋의 연체 행만 복제해 늘리기 → 누수 퀴즈 |
-| 13:30–13:50 | [Step 3](#step3) | xgboost 학습 → Test on test data → Confusion Matrix의 FN 목록 |
-| 13:50–14:00 | 휴식 | |
-| 14:00–14:05 | [Step 3](#step3) 마무리 | `01_평가` 정리 · 손계산 |
-| 14:05–14:42 | [Step 4](#step4) | ROC Analysis 비용 5:1 → Calibration Plot(Sigmoid 보정) → 보정 척도의 t |
-| 14:42–14:50 | **기대값 공개** · 점검 | 강사 화면 · [완료 기준](#checkpoint) 체크 · 저장 |
+!!! abstract "실습 A-1 · 데이터 카드와 첫 모델 (13:00–13:50)"
+    1. 오늘 파일 받기 → 브랜치 `d3-model` → Claude Code에 `@d3_rules.md`(오늘의 데이터 규칙)부터 읽히기
+    2. **Plan 모드**로 데이터 카드 → `outputs/d3_data_card.md` — 행 · 열 수, 기준일별 연체 건수, 쓰면 안 되는 열과 이유
+    3. `split_suggested`로 나눠 로지스틱 · LightGBM 학습 → `d3_eval.md`(AUC · PR-AUC · Brier)
+    4. 누수 실험: `sample_weight`를 넣으면? → AUC 비교 후 `diff`로 원상복구 확인
+    5. 커밋 — 메시지 두 줄(무엇 / 왜)
 
-!!! tip "13:30 손 점검"
-    13:30에 Concatenate 위젯까지 연결됐나요? 늦었다면 Step 2는 워크플로에 이미 연결된 그대로 두고 Step 3으로 넘어갑니다. 누수 퀴즈만 `01_평가`에 답합니다.
+    산출: `d3_data_card.md` · `d3_eval.md` · `d3_train.py` · 커밋 1개
+
+!!! abstract "실습 A-2 · 비용 기준 임계값 (14:00–14:50)"
+    1. t = 0.05~0.50 비용표(5 × FN + FP) → `d3_threshold.md` — 최소 비용 t와 이론값 1/6을 비교한다
+    2. 놓친 연체(FN) 바이어 목록과 주요 특성 3개 → 공통점 2줄
+    3. 내 회사 비용비(3:1 또는 10:1)로 다시 → 무엇이 바뀌나 1줄
+    4. 표준: 패널 시간 분할로 같은 실험 · 도전 ①: class weight · SMOTE 비교 · 도전 ②: 부트스트랩 AUC 구간 · worktree 병렬
+    5. 14:45 기대 범위 확인 → 커밋 · push
+
+    산출: `d3_threshold.md` · 커밋 2개 이상
+
+## 시간표와 점검 시각 {#time}
+
+| 시각 | 단계 | 하는 일 | 점검 |
+|---|---|---|---|
+| 13:00–13:10 | [① 준비](#a-prep) | 파일 받기 · 브랜치 `d3-model` · 모드 확인 · A0 규칙 읽히기 | 브랜치 `d3-model` · 파일 4개 열림 |
+| 13:10–13:20 | [② 데이터 카드](#a-card) | Plan 모드 → A1 → 계획 읽기 → 승인(`2`) → `d3_data_card.md` | **13:20 점검** — 300행 · 연체 16 · 메타 열 2개 |
+| 13:20–13:40 | [③ 첫 모델](#a-model) | A2 → 학습 · 평가 → `d3_eval.md` | **13:40 점검** — 시험셋 88행 · 연체 4 |
+| 13:40–13:50 | [④ 누수 실험 · ⑤ 커밋](#a-leak) | A3 → AUC 비교 → diff → 첫 커밋 | **13:50** 커밋 1개 |
+| 13:50–14:00 | 쉬는 시간 | | |
+| 14:00–14:20 | [⑥ 비용표](#a-cost) | A4 → `d3_threshold.md` | **14:20** 임계값표 |
+| 14:20–14:30 | [⑦ 놓친 바이어 · 내 비용비](#a-fn) | FN 공통점 2줄 → 비용비 3:1 또는 10:1로 다시 | 변화 1줄 |
+| 14:30–14:45 | [⑧ 트랙 확장](#a-tracks) | 표준 · 도전(빨리 끝난 분) | – |
+| 14:45–14:50 | [⑨ 기대 범위 · 커밋 2 · push](#a-commit) | 기대 범위 표 확인 → 커밋 · push | **14:50** 커밋 2개 이상 · push |
+
+!!! tip "늦었다면"
+    13:20에 아직 ① 중이어도 괜찮습니다. 막히면 10분 안에 손을 들고, 14:00까지 첫 모델을 못 만들었으면 [채팅 경로](#chat-path)로 바꿉니다. 실습 B는 A의 `model_v1.txt` · `d3_test_pred.csv`를 쓰니, 14:45까지는 **모델과 시험셋 예측**이 있어야 합니다.
 
 ## 입력 파일 {#files}
 
---8<-- "docs/_snippets/day3/files_lab-a.md"
+`uv run python tools/get_day_files.py 3`이 받아 줍니다(아래 ①). **10/16(금) 08:30**에 공개됩니다.
 
-한 번에 받으려면 [3일차 → 파일 받기](index.md#files)의 `day3_files.zip`을 받아 바탕화면 `D3` 폴더로 풉니다. 🟣 노트북은 `d3_challenge.ipynb` 하나입니다.
+| 파일 | 위치 | 쓰는 곳 |
+|---|---|---|
+| 학습용 특성(300행) | `data/checkpoints/d3_start_features.csv` — 바이어 150곳 × 기준일 2개(2026-02-28 · 08-31) × 53열. 정답은 `late_30d`(연체 16건), `split_suggested`가 학습 212행 · 시험 88행(연체 4)을 바이어 단위로 나눠 둠 | ②–⑦ |
+| 패널(표준 트랙) | `data/checkpoints/d3_features_panel.csv` — 바이어 × 월 4,017행(2024-01~2026-08, 연체 215건) | ⑧ |
+| 데이터 사전 | `data/data_dictionary.xlsx` — `columns` 시트에서 모르는 열의 뜻 · 단위를 찾는다 | 모르는 열 |
+| 오늘의 데이터 규칙 | `workbench/day3/rules/d3_rules.md` — 빼는 열 · 분할 · 시드 · 결과 위치 | ① |
 
-??? note "워크플로 한 장 — `d3_orange_model.ows`의 위젯 체인"
+받은 파일은 `workbench/day3/data/`에 **작업 사본**도 만들어집니다. `data/`의 원본은 읽기만 하고, 고쳐 쓸 것은 사본이나 새 파일로 합니다. 저장소 없이 채팅 경로로 가는 분은 [3일차 → 파일 받기](index.md#files)에서 받습니다.
+
+!!! warning "`sample_weight`는 특성이 아닙니다"
+    불균형을 보정하려고 **정답으로 계산해 넣은 가중치**입니다 — 연체 행은 9.375, 정상 행은 0.528. 특성으로 넣으면 누수입니다. 오늘의 함정이고, ④에서 일부러 한 번만 넣어 봅니다.
+
+---
+
+## ① 준비 (13:00–13:10) {#a-prep}
+
+1. VS Code에서 **내 저장소**를 열고(폴더 **'신뢰'**), 편집기 오른쪽 위의 Claude 아이콘으로 **Claude Code 패널**을 엽니다. 로그인된 상태이고 입력창 아래 모드 표시가 **Manual 또는 Plan**인지 봅니다(Auto로 시작했다면 바꿉니다 — 시작 모드는 PC마다 다릅니다).
+2. 터미널을 열고(++ctrl+grave++) 어제 PR을 머지했다면 내 PC를 `main`으로 맞춥니다.
+
     ```text
-    [File] d3_start_features.csv  (late_30d: target · buyer_id · ref_date · split_suggested · sample_weight: meta)
-      └─> [Data Sampler ①] 70% · Stratify ✔ · Replicable ✔
-            ├─ Data Sample(학습 70%) ─┬────────────────────────────────────────┐
-            │                        └─> [Select Rows] late_30d is 1           │
-            │                               └─> [Data Sampler ②] 고정 개수 · 복원 추출 ─> [Concatenate] = 학습셋(오버샘플)
-            └─ Remaining Data(시험 30% — 늘리지 않는다)
-    [Gradient Boosting](xgboost) · [Logistic Regression](기준선)
-      └─> [Test and Score] Test on test data · Target class 1
-            ├─> [Confusion Matrix] → [Data Table](선택한 칸의 바이어)
-            ├─> [ROC Analysis] FP 비용 1 · FN 비용 5
-            └─> [Calibration Plot] Calibration curve + Sigmoid → 보정 모델  또는  지표 그래프의 세로선 = t → 임계값 모델 (하나만 출력) → (블록 B) [Predictions]
-    [Gradient Boosting] ─> [Explain Model] · [Explain Prediction]   (블록 B Step 7)
-    [File ②] d3_start_scoring.csv ─> [Predictions] ─> [Save Data]    (블록 B Step 5)
+    git switch main
+    git pull
     ```
 
-    워크플로 파일이 열리지 않으면 강사가 화면으로 보여 주는 이 체인을 위젯 하나씩 따라 이어도 됩니다.
+3. 오늘 파일을 받습니다. 처음 쓰는 PC이면 `uv sync`를 먼저 한 번 합니다.
+
+    ```text
+    uv run python tools/get_day_files.py 3
+    ```
+
+    `[받음] data/checkpoints/d3_start_features.csv  (사본 만듦)`처럼 파일마다 한 줄씩 나오면 됩니다. 08:30 전이면 "공개 전"이라고 알려 줍니다 — 시각이 지난 뒤 같은 명령을 다시 실행합니다. 안 되면 [3일차 → 파일 받기](index.md#files)에서 직접 받습니다.
+4. **브랜치 `d3-model`**을 만듭니다. 일 하나에 갈래 하나입니다.
+
+    ```text
+    git switch -c d3-model
+    ```
+
+    VS Code **왼쪽 아래 상태 표시줄의 브랜치 이름**을 눌러 `+ Create new branch…`로 만들어도 됩니다.
+5. Claude Code에 **오늘의 규칙**을 읽힙니다(프롬프트 **A0**).
+
+    ??? example "프롬프트 A0 — 펼쳐서 복사"
+        --8<-- "labs/day3/prompts.md:a0"
+
+**13:10 점검** — 상태 표시줄에 `d3-model`이 보이고, 파일 네 개(`d3_start_features.csv` · `d3_features_panel.csv` · `d3_start_scoring.csv` · `fx_forecast_inputs.csv`)가 열리는지 봅니다. A0의 요약에 **빼는 열 다섯 개 · 시드 42**가 들어 있으면 준비가 끝났습니다.
 
 ---
 
-## Step 1 실행 · 분할 {#step1}
+## ② 데이터 카드 — Plan 모드로 (13:10–13:20) {#a-card}
 
-**13:07–13:15 (8분, 강사 시연 포함)** · 완성 워크플로를 열고 역할을 맞춘 뒤, 시험셋을 먼저 떼어 둔다
+AI가 데이터를 쓰기 전에 **먼저 읽고 표로 말하게** 합니다. 열의 뜻과 누수 후보를 AI가 초안으로 쓰고, **사람이 확인**하는 단계입니다.
 
-=== "🟢 Basic"
+1. 입력창 아래 모드 표시기를 눌러 **Plan**으로 바꿉니다(파일을 고치지 못하는 읽기 전용 모드입니다).
+2. 프롬프트 **A1**을 보냅니다.
 
-    **① 작업 파일 만들기**
+    ??? example "프롬프트 A1 — 펼쳐서 복사"
+        --8<-- "labs/day3/prompts.md:a1"
 
-    1. 엑셀에서 **새 통합 문서**를 엽니다. 아래 시트 탭을 4개로 늘리고(**＋**), 탭을 더블클릭해 이름을 `01_평가` · `02_임계값` · `03_등급` · `04_환율`로 바꿉니다.
-    2. **파일** → **다른 이름으로 저장** → `D3` 폴더 → `d3_work__T조-번호`(예: `d3_work__T2-07`) → **Excel 통합 문서** → **저장**.
+3. 계획이 열리면 **금지 열 표**를 읽습니다. 오전 시연 3의 계획과 같은 모양입니다 — 열을 '식별자 · 정답이나 보조 열 · 미래 정보 · 같은 정보 중복'으로 나눈 표입니다.
 
-    **② 워크플로 열기 → File 다시 지정**
+    <figure markdown="span">
+      ![Plan 모드 계획의 특성 제외 표(구분 · 열 · 이유)와 아래 데이터 사전의 sample_weight 정의 줄](../assets/screens/d3-plan-exclude-table.png){ width="760" loading=lazy }
+      <figcaption>시연 3의 계획에 나온 '특성 제외 표'와 데이터 사전의 sample_weight 정의(빨간 상자) — 오늘 데이터 카드의 표도 이런 모양입니다. 시연에서 쓴 패널 파일 기준이라 열 목록은 조금 다릅니다</figcaption>
+    </figure>
 
-    3. Orange를 실행합니다. 처음이면 **Options** → **Add-ons**에서 **Explain**과 **Timeseries**가 체크돼 있는지 봅니다(없으면 체크 → **OK** → Orange 다시 시작, [사전 준비 5번](../setup.md#orange)).
-    4. **File** 메뉴 → **Open** → `D3` 폴더의 `d3_orange_model.ows`를 엽니다.
-    5. 캔버스 왼쪽의 **File** 위젯을 더블클릭 → 폴더 아이콘 → `D3/d3_start_features.csv`를 고릅니다. 파일 경로가 PC마다 달라서 한 번은 다시 지정해야 합니다.
+4. 계획 승인 창이 뜨면 **`2 Yes, and manually approve edits`**를 고릅니다. 계획대로 실행하되 **파일을 쓰거나 명령을 돌릴 때마다 한 번씩 확인**합니다. 맨 위 `use auto mode`는 고르지 않습니다.
+5. 허락 창이 뜨면 **무엇을 · 어디에**(`workbench/day3/outputs/d3_data_card.md` 새 파일)를 읽고 `1 Yes`합니다.
 
-    **③ 역할 확인 — 정답과 식별자는 특성이 아니다**
+**13:20 점검** — 데이터 카드를 엽니다(++ctrl+shift+v++로 미리보기). 다음이 보여야 합니다.
 
-    6. File 창 아래 열 표에서 **Role**을 확인하고, 다르면 고칩니다.
-
-        | 열 | Role | 왜 |
-        |---|---|---|
-        | `late_30d` | **target** | 맞힐 정답(정상 0 / 연체 1) |
-        | `buyer_id` · `ref_date` | **meta** | 식별자 · 날짜 |
-        | `sample_weight` · `split_suggested` | **meta** | 보조 열 — `sample_weight`는 정답에서 만든 가중치라 특성으로 넣으면 **누수** |
-        | `fx_krw_close` · `usd_krw_close` | **skip** | 기준일 환율 수준 — 같은 날 모든 바이어가 같은 값이라 '날짜 표시'일 뿐 |
-
-    7. **Apply**를 누릅니다. 캔버스의 위젯 위 진행 막대가 사라질 때까지 기다립니다(전체가 다시 계산됩니다).
-
-    **④ Data Sampler ① — 70/30 층화 · 재현**
-
-    8. **Data Sampler** ①을 더블클릭해 설정을 확인합니다: **Fixed proportion of data** `70%` · **Stratify sample** ✔(연체 비율을 학습 · 시험에 똑같이) · **Replicable (deterministic) sampling** ✔(오늘의 시드).
-    9. **Remaining Data**(시험셋 30%) 출력에 이어진 **Data Table**을 엽니다(없으면 Data Sampler 오른쪽 가장자리를 끌어 Data Table을 놓고, 연결선에서 **Remaining Data**를 고릅니다). `late_30d` 열 머리를 눌러 정렬하고 **1의 개수**를 셉니다.
-    10. `01_평가` 시트 맨 위에 적습니다: 학습 행 수 · 시험 행 수 · **시험셋 연체 수**. 시험셋 연체가 몇 건뿐이라는 것을 기억해 둡니다 — 오늘 지표가 흔들리는 이유입니다.
-
-=== "🔵 Standard"
-
-    **바이어 단위로 나누기 — `split_suggested`**
-
-    같은 바이어의 2월 · 8월 행이 학습과 시험에 갈려 들어가면 시험이 쉬워집니다(이미 본 바이어). `split_suggested`는 바이어 단위로 70/30을 미리 나눠 둔 열입니다.
-
-    1. File 뒤에 **Select Rows**를 두 개 놓습니다: 하나는 `split_suggested` **is** `train`, 하나는 `split_suggested` **is** `test`.
-    2. train 쪽을 Step 2의 Select Rows · Concatenate에, test 쪽을 Test and Score의 **Test Data**에 연결해 같은 체인을 하나 더 만듭니다(위젯은 ++ctrl+c++ · ++ctrl+v++ 로 복제).
-    3. 무작위 70/30과 바이어 단위 분할의 시험 행 수 · 연체 수를 `01_평가`에 나란히 적습니다. Step 3에서 두 결과의 AUC를 비교합니다.
-
-=== "🟣 Challenge"
-
-    **Colab `d3_challenge.ipynb` A절 — 두 가지 분할**
-
-    1. Colab에서 **파일** → **노트북 업로드** → `d3_challenge.ipynb`. 첫 칸(버전 출력)을 실행해 런타임 버전과 lightgbm · shap · imbalanced-learn · scikit-learn · prophet 버전을 메모합니다.
-    2. `d3_start_features.csv`를 올리고 A절의 분할 칸을 실행합니다: `train_test_split(…, stratify=y, random_state=42)`(무작위) vs 바이어 단위 분할(같은 `buyer_id`는 한쪽에만).
-    3. 특성 목록에서 `buyer_id` · `ref_date` · `sample_weight` · `split_suggested`가 빠졌는지 코드로 확인합니다.
+- **300행 · 연체 16** · 기준일 2개(2월 말 3건 · 8월 말 13건)
+- 메타 열 **`sample_weight` · `split_suggested`**가 '쓰면 안 되는 열'에 있고 이유가 적혀 있다
+- 숫자는 AI의 암산이 아니라 **코드로 계산한 값**이다. 모르는 항목은 '데이터 확인 필요'로 적혀 있다
 
 ---
 
-## Step 2 학습셋만 늘리기 — 불균형 보정 {#step2}
+## ③ 첫 모델 — 로지스틱과 LightGBM (13:20–13:40) {#a-model}
 
-**13:15–13:30 (15분)** · 학습셋의 연체 행만 복제해 늘리고, 왜 '나눈 뒤'에만 해야 하는지 이해한다
+1. 프롬프트 **A2**를 보냅니다. 허락 창의 명령(`uv run python workbench/day3/outputs/d3_train.py` 같은 것)은 **읽고** `1 Yes`합니다.
 
-=== "🟢 Basic"
+    ??? example "프롬프트 A2 — 펼쳐서 복사"
+        --8<-- "labs/day3/prompts.md:a2"
 
-    **① 연결 확인 — 워크플로에 이미 있습니다**
+2. 결과 파일이 생겼는지 봅니다.
+    - `workbench/day3/outputs/d3_train.py` — 학습 코드
+    - `d3_eval.md` — 두 모델의 시험셋 ROC-AUC · PR-AUC · Brier + 임계값 0.5 혼동행렬
+    - `d3_test_pred.csv` — 시험 88행의 예측(`buyer_id` · `ref_date` · `late_30d` · `pd_30d`) — **실습 B-1의 단조성 점검**이 씁니다
+    - `model_v1.txt` — 학습한 LightGBM — **실습 B-1에서 150곳 점수**를 낼 때 씁니다
+3. 코드를 훑어봅니다. **특성에 `sample_weight` · `split_suggested` · `buyer_id` · `ref_date`가 없는지**, 시험셋으로 학습하지 않았는지(`split_suggested == "test"`는 평가에만) 봅니다.
 
-    1. Data Sampler ①의 **Data Sample**(학습 70%) 출력 → **Select Rows**를 더블클릭: 조건이 `late_30d` **is** `1`인지 봅니다. 학습셋의 연체 행만 남깁니다.
-    2. Select Rows → **Data Sampler** ②를 더블클릭: **Fixed sample size**의 개수 = **학습셋 연체 수 × 2** · **Sample with replacement** ✔(복원 추출 = 복제) · **Replicable** ✔. 학습셋 연체 수는 Select Rows 출력의 Data Table 행 수로 봅니다.
-    3. **Concatenate**: 원래 학습셋(Data Sample) + 복제한 연체 행(Data Sampler ②)을 합칩니다. 연체가 원래의 **3배**가 됩니다 [교육용 가정].
-    4. Concatenate 출력의 Data Table 행 수가 '학습 행 수 + 연체 수 × 2'인지 확인해 `01_평가`에 적습니다.
+**13:40 점검**
 
-    **② 시험셋은 건드리지 않는다**
-
-    5. **Remaining Data**(시험셋)는 어떤 위젯을 거쳐서도 Concatenate에 들어가지 않는지 연결선을 따라가 봅니다. 시험셋은 현실 비율 그대로 평가에만 씁니다.
-
-    **③ 누수 퀴즈 — `01_평가`에 한 줄**
-
-    6. **"Data Sampler ②(복제)를 Data Sampler ①(분할) 앞에 두면 무엇이 부풀까?"** — 이유까지 한 줄로 적습니다. 순회 때 강사가 묻습니다. 힌트: [이론 3.3.2](theory.md#m332)의 '올바른 순서' 그림.
-
-=== "🔵 Standard"
-
-    **class weight와 비교 — 'Balance class distribution'**
-
-    1. Data Sampler ①의 **Data Sample**(오버샘플 **전** 원래 학습셋)을 **Random Forest**와 **Logistic Regression**에 각각 잇고, 두 위젯에서 **Balance class distribution** ✔(class weight)를 켭니다.
-    2. 두 번째 **Test and Score**를 놓고 Data = 원래 학습셋, Test Data = Remaining Data, Learner = 두 모델 → **Test on test data** · Target class 1.
-    3. Step 3의 '오버샘플 + xgboost'와 AUC · Recall을 `01_평가`에 나란히 적고, **"보정이 순서(AUC)를 바꾸나, 확률의 크기만 바꾸나"**를 한 줄로 씁니다.
-    4. 언더샘플링(정상 행을 덜어 내기)을 했다면 무엇이 버려지는지 짝과 1분 토론합니다.
-
-=== "🟣 Challenge"
-
-    **SMOTE는 학습 폴드에만 — imblearn Pipeline**
-
-    1. A절의 SMOTE 칸: `Pipeline([("smote", SMOTE(k_neighbors=3, random_state=42)), ("clf", LGBMClassifier(...))])` — `imblearn.pipeline`의 Pipeline이어야 fit 때 학습 폴드에만 적용됩니다.
-    2. 기준 모델(SMOTE 없음)과 SMOTE · class weight 판의 ROC-AUC · PR-AUC · 평균 예측 확률을 표로 비교합니다. SMOTE가 성능을 '반드시' 올리지는 않는다는 것을 숫자로 확인합니다.
-    3. 일부러 분할 **전에** SMOTE를 적용한 판을 하나 만들어 AUC가 얼마나 부풀는지 보고, 그 칸에 `# 누수 시연 — 실무에서 쓰지 않음` 주석을 답니다.
+- 시험셋이 **88행 · 연체 4건**
+- ROC-AUC가 **0.80–1.00** — 모델 · 특성 선택에 따라 사람마다 다른 것이 정상입니다(로지스틱은 대개 0.80–0.90, LightGBM은 0.93–0.97). 시험 연체가 4건뿐이라 **한 건에 크게 흔들립니다**(오전 시연 1의 표본 흔들림 그대로입니다). 0.99 이상으로 붙어 있으면 누수부터 의심합니다.
+- LightGBM 설정(`num_leaves=7` · `min_child_samples=10` …)이 코드에 **프롬프트에서 준 값 그대로** 들어갔는지 봅니다 — 오전 슬라이드의 학습 코드 장에서 본 '학습 전에 사람이 정하는 설정값'에서 `min_child_samples`만 30 → 10으로 바꾼 것입니다.
 
 ---
 
-## Step 3 학습 · 평가 — FN 목록 {#step3}
+## ④ 누수 실험 — sample_weight를 넣으면 (13:40–13:45) {#a-leak}
 
-**13:30–13:50 · 14:00–14:05 (25분)** · xgboost로 학습하고, 시험셋으로만 평가하고, '우리가 놓친 돈'을 바이어 목록으로 뽑는다
+1. 프롬프트 **A3**을 보냅니다.
 
-=== "🟢 Basic"
+    ??? example "프롬프트 A3 — 펼쳐서 복사"
+        --8<-- "labs/day3/prompts.md:a3"
 
-    **① 모델 설정 확인 — 바꾸지 않는다**
+2. 결과를 읽습니다. `sample_weight`를 넣으면 로지스틱도 LightGBM도 **AUC가 1.00으로 뜹니다.** 이 열 하나가 정답을 알려 주기 때문입니다 — 오전의 'AUC 1.0 연체 모델'과 같은 장면을 내 손으로 만든 것입니다.
+3. 실험이 끝나면 코드가 **원래대로 돌아왔는지** 봅니다. 프롬프트가 실험 전에 `git add`로 `d3_train.py`를 스테이징해 두라고 했습니다 — 스테이징한 모습이 '원래 모습'의 기준입니다. 터미널에서:
 
-    1. **Gradient Boosting** 위젯을 더블클릭 → **Method**: **Extreme Gradient Boosting (xgboost)** · Number of trees `100` · Learning rate `0.1` · Limit depth `3` · **Replicable training** ✔ [교육용 가정]. 오늘은 이 값을 바꾸지 않습니다(작은 시험셋에 맞춰 튜닝하면 그 시험셋에 과적합).
-        - xgboost가 회색(설치 안 됨)이면 [흔한 오류 3](#troubleshooting).
-    2. **Logistic Regression**(기준선)도 같은 Test and Score에 연결돼 있는지 봅니다 — 새 모델은 단순한 기준선을 이겨야 씁니다.
+    ```text
+    git diff
+    ```
 
-    **② Test and Score — 시험셋으로만**
+    **아무것도 나오지 않으면** 코드가 원래대로입니다. `sample_weight`를 더한 줄이 보이면 아직 되돌리지 않은 것입니다 — "d3_train.py를 스테이징한 모습으로 되돌려 줘"라고 시킵니다. (`git diff`는 '스테이징한 뒤 바뀐 줄'만 보여 줍니다 — 어제 배운 작업 폴더 · 스테이징 영역의 차이입니다.)
 
-    3. **Test and Score**를 더블클릭: 왼쪽 **Test on test data**가 선택돼 있는지, 위쪽 **Target class**가 `1`인지 확인합니다. 입력은 Data = 학습셋(Concatenate) · Test Data = Remaining Data입니다.
-    4. 표에서 두 모델의 **AUC · CA(정확도) · F1 · Precision · Recall**을 `01_평가`에 옮겨 적습니다.
-    5. AUC가 0.99 이상으로 '너무 좋거나' 아래 ③의 FN이 이상하면, Step 1의 역할(특히 `sample_weight` · `buyer_id`)부터 다시 봅니다.
-
-    **③ Confusion Matrix — '우리가 놓친 돈'**
-
-    6. **Confusion Matrix**를 더블클릭 → 왼쪽 Learners에서 **Gradient Boosting** → Show: **Number of instances**.
-    7. **실제 1 · 예측 0** 칸(놓친 연체 = FN)을 클릭합니다. 연결된 **Data Table**에 그 바이어들이 나옵니다.
-    8. Data Table의 `buyer_id` 열을 끌어 선택해 복사하고 `01_평가`에 붙인 뒤 제목을 `FN — 정상이라 보고 선적했다가 연체된 바이어`라고 씁니다. 0곳이면 '0'이라고 적습니다.
-
-    **④ 손계산 (14:00–14:05)**
-
-    9. Confusion Matrix의 4칸(TP · FN · FP · TN)을 `01_평가`에 옮기고, 직접 계산합니다.
-
-        | 칸 | 수식(셀 주소는 내 시트에 맞게) |
-        |---|---|
-        | 정밀도 | `=TP/(TP+FP)` |
-        | 재현율 | `=TP/(TP+FN)` |
-        | 비용 | `=5*FN+1*FP` [교육용 가정] |
-
-    10. 손계산 정밀도 · 재현율이 Test and Score와 같은지 봅니다. ++ctrl+s++.
-
-=== "🔵 Standard"
-
-    **팀장용 3문단(P3-2) · 벤치마크**
-
-    1. Test and Score · Confusion Matrix · ROC Analysis 화면을 캡처합니다(++win+shift+s++). **데이터 파일은 올리지 않고 캡처만** AI 새 채팅에 붙입니다.
-    2. **P3-2**를 붙여 보냅니다. 화면에 없는 숫자가 답에 나오면 지웁니다.
-
-        ??? example "P3-2 평가 화면 → 팀장용 3문단 — 펼쳐서 복사"
-            [프롬프트 라이브러리에서 P3-2 보기](../prompts/day3.md#p3-2)
-
-            --8<-- "labs/day3/prompts.md:p3-2"
-
-    3. (UCI 대만 데이터가 공개된 경우) 새 File로 `uci_taiwan_bankruptcy.csv`를 열고 target = `Bankrupt?`, 값이 모두 같은 열(`Net Income Flag`)은 **Select Columns**로 뺀 뒤 같은 체인을 돌립니다. 부도가 드문 다른 데이터에서 AUC와 Recall이 어떻게 달라지는지 한 줄로 적습니다. 열 이름 앞에 공백이 있을 수 있습니다.
-    4. Step 1 🔵의 바이어 단위 분할 체인 결과(AUC)를 무작위 분할과 비교해 한 줄로 씁니다.
-
-=== "🟣 Challenge"
-
-    **패널 시간 분할 LightGBM**
-
-    1. B절: `d3_features_panel.csv`(바이어 × 월, 4,017행)를 `split_suggested`의 train(과거) / test(최근) 기준으로 나눕니다 — 미래 행으로 과거를 맞히지 않는 **시간 분할**입니다.
-    2. `LGBMClassifier(n_estimators=200, learning_rate=0.05, num_leaves=15, random_state=42)`로 학습하고 ROC-AUC · PR-AUC와 임계값 0.5의 혼동행렬을 출력합니다.
-    3. 300행 Orange 결과와 숫자가 다른 이유(데이터 크기 · 분할 방식 · 모델)를 주석 3줄로 씁니다.
+!!! info "LightGBM의 AUC가 안 오른다면"
+    열이 빠진 것이 아닐 수 있습니다. 학습셋의 연체가 **12건**뿐인데 LightGBM의 기본 설정은 '잎 하나에 최소 20행'이라 그 12건을 따로 떼어 낼 수 없습니다. A2 프롬프트가 `min_child_samples`를 슬라이드의 30에서 10으로 낮추라고 한 이유입니다 — 20이나 30으로 다시 돌려 보면 `sample_weight`를 넣어도 AUC가 그대로입니다. 로지스틱은 설정과 상관없이 바로 오릅니다. 작은 표에서는 **모델 설정이 누수를 가리기도 합니다.**
 
 ---
 
-## Step 4 비용으로 임계값 정하기 {#step4}
+## ⑤ 커밋 (13:45–13:50) {#a-commit1}
 
-**14:05–14:42 (37분) + 기대값 공개 14:42** · FN:FP = 5:1 비용으로 기준선을 정하고, 확률을 보정한다
+**커밋 메시지는 두 줄**입니다 — 첫 줄 `3일차: 무엇을 했다`, 한 줄 비우고 `왜: 이유`.
 
-=== "🟢 Basic"
+```text
+3일차: 데이터 카드와 첫 모델 추가
 
-    **① ROC Analysis — 비용 5:1의 최적점**
+왜: 300행 기준선과 LightGBM을 비교하고 sample_weight 누수를 직접 확인하려고
+```
 
-    1. **ROC Analysis**를 더블클릭 → **Target** `1` → **Show performance line** ✔ → **FP Cost** `1` · **FN Cost** `5`.
-    2. 성능선(직선)이 곡선에 닿는 점이 비용이 가장 작은 지점입니다. 그 점의 **TPR(재현율) · FPR(헛경보 비율)**을 `02_임계값`에 적습니다.
-    3. FN Cost를 `1`로 바꿔 점이 어디로 움직이는지 봅니다(캡처) → 다시 `5`로 돌립니다. 놓친 연체를 비싸게 볼수록 점이 오른쪽 위(더 많이 잡고 헛경보도 늘어남)로 갑니다.
+1. 소스 제어(++ctrl+shift+g++)에서 `workbench/day3/`의 **outputs 파일**을 골라(`+`) 메시지 칸에 위 두 줄을 쓰고 **Commit**을 누릅니다. 받은 데이터 사본(`workbench/day3/data/`)은 올리지 않아도 됩니다.
+2. 허락 창이 뜨면 명령을 읽습니다 — Claude Code에게 시켰다면 **메시지가 두 줄인지**, 어느 브랜치(`d3-model`)인지 봅니다.
 
-    **② 이론값 — 비용 기준 임계값**
-
-    4. 확률이 잘 보정돼 있다면 비용이 가장 작은 기준선은 **t = FP 비용 ÷ (FP 비용 + FN 비용) = 1 ÷ (1 + 5) ≈ 0.17**입니다. `02_임계값`에 식과 함께 적습니다.
-    5. 오버샘플링으로 학습한 모델은 연체 확률을 부풀려 냅니다 — 그래서 다음 ③의 **보정**이 먼저입니다.
-
-    **③ Calibration Plot — 보정 모델을 내보내고, 지표 그래프는 '감'만 잡는다**
-
-    6. **Calibration Plot**을 더블클릭 → **Target** `1` → **Metrics**는 **Calibration curve**로 두고 **Output model calibration**에서 **Sigmoid calibration**을 고릅니다(이 선택은 Calibration curve 그래프에서만 보입니다). 곡선이 대각선에 가까울수록 '0.2라고 한 바이어 중 약 20%가 실제 연체'에 가깝습니다.
-    7. 그래프 종류(**Metrics**)를 성능 지표(**Sensitivity and specificity** — 민감도 · 특이도 대 임계값)로 바꾸고, 그래프 위의 **세로 임계값 선**을 끌어 보며 선을 옮길 때 민감도(놓친 연체 FN)와 특이도(헛경보 FP)가 어느 쪽으로 움직이는지, 비용이 작은 구간이 얼마나 넓은지 '감'을 잡습니다(캡처 1장). **이 그래프의 가로축은 보정 전 모델의 확률**이라, 여기서 읽은 선의 위치를 t로 적지 않습니다 — 보정한 확률과 척도가 다릅니다.
-    8. t는 **보정된 확률과 같은 척도**에서 정합니다. 기본은 ②의 이론값 **t = 1 ÷ (1 + 5) ≈ 0.17**을 `02_임계값`에 적는 것이고(보정이 잘 됐다면 비용 최소점과 같습니다), 시간이 있으면 🔵의 비용표(보정 모델의 시험셋 확률 `d3_test_pred.xlsx`로 t = 0.10 … 0.50의 FN · FP · 비용)를 만들어 비용이 가장 작은 구간에 0.17이 들어 있는지 확인합니다. 옆 칸에 근거 한 줄을 씁니다(예: `FN:FP = 5:1 → 이론 1/6 · 시험셋 비용표의 최소 구간 안`). 이 t가 그대로 Step 6 등급 매칭의 t입니다.
-    9. **Metrics를 Calibration curve로 되돌려 둡니다.** Calibration Plot의 **출력 모델**은 **둘 중 하나**입니다(Orange 3.40) — **Metrics**가 **Calibration curve**이면 **보정(Sigmoid) 모델**, 지표 그래프에서 세로선을 끌어 둔 상태면 **보정하지 않은 원래 모델 + 임계값**이 나갑니다. 둘을 합친 모델은 없고, Predictions의 확률은 **마지막에 본 그래프**를 따릅니다. 이 과정은 보정한 확률을 쓰고 Step 6의 등급 매칭(`d3_grade_banding.xlsx`의 `pd_30d`와 이름 `t`)도 같은 척도여야 하므로, 되돌려 둔 상태로 넘깁니다. 그 출력 모델이 블록 B의 **Predictions**에 연결돼 있는지 봅니다(워크플로에 연결됨). ++ctrl+s++ 로 `d3_work`를 저장하고, Orange도 **File** → **Save As**로 `D3/d3_orange_model.ows`에 저장합니다(내 설정이 담긴 판 — 8교시 커밋).
-
-    !!! success "기대값 공개 14:42–14:50 — 강사 화면으로만"
-        1. 강사가 시험셋 크기에 따른 지표의 흔들림 범위, FN 목록 개수의 범위, t의 위치를 화면에 띄웁니다.
-        2. 내 숫자가 범위 밖이면 원인을 `02_임계값`에 한 줄 적습니다 — 대개 **Target class가 0** · 교차검증 모드 · 역할 지정(누수) · 보정 안 함 중 하나입니다.
-        3. 정답 파일은 나눠 주지 않습니다. 18:00에 강사 정답본이 공개됩니다.
-
-=== "🔵 Standard"
-
-    **임계값 게임 — t를 옮기면 비용이 어떻게 바뀌나**
-
-    1. 시험셋에 보정 모델의 확률을 붙입니다: **Predictions** 위젯을 하나 더 놓고 Data = **Remaining Data**, Predictors = Calibration Plot의 출력 모델 → **Save Data** → `D3/d3_test_pred.xlsx`.
-    2. 엑셀로 열어 표로 만들고(++ctrl+t++), 연체 확률 열(이름 끝에 `(1)`)과 실제 `late_30d` 열을 확인합니다.
-    3. `02_임계값`에 표를 만듭니다: t = `0.10` · `0.17` · `0.25` · `0.35` · `0.50`마다
-
-        | 칸 | 수식(표 이름 `tp`, 확률 열 `p1`로 바꾼 경우) |
-        |---|---|
-        | FN | `=COUNTIFS(tp[p1],"<"&t,tp[late_30d],1)` |
-        | FP | `=COUNTIFS(tp[p1],">="&t,tp[late_30d],0)` |
-        | 비용 | `=5*FN+FP` |
-
-    4. 비용이 가장 작은 t 구간과, 0.17 근처에서 비용이 얼마나 평평한지 한 줄로 씁니다. 이 표의 확률은 보정 모델의 것이므로 여기서 고른 t가 그대로 Step 6 등급 매칭의 t입니다(`d3_grade_banding.xlsx` `기준` 시트 B3, 이름 `t`).
-    5. **자사 비용비**: 내 회사에서 '놓친 연체 1건'과 '괜히 막은 바이어 1건'의 손해 비율을 추정해(예: 3:1 · 10:1) t를 다시 계산하고, **근거 한 줄**(마진 · 부보 여부 · 바이어 대체 가능성)을 적습니다.
-
-=== "🟣 Challenge"
-
-    **TunedThresholdClassifierCV — 비용 함수로 t 찾기**
-
-    1. 비용 함수: `def neg_cost(y, p): tn, fp, fn, tp = confusion_matrix(y, p, labels=[0, 1]).ravel(); return -(5*fn + 1*fp)`.
-    2. `TunedThresholdClassifierCV(pipe, scoring=make_scorer(neg_cost), cv=5, random_state=42).fit(X_train, y_train)` → `.best_threshold_`.
-    3. `CalibratedClassifierCV(…, method="sigmoid", cv=5)`로 보정한 모델의 t와 Orange의 t를 비교하고, 다르다면 이유(보정 여부 · 데이터 · 분할)를 주석으로 씁니다.
+**13:50 점검** — 커밋이 **1개** 있고, 메시지에 `왜:` 줄이 있는지 봅니다. 10분 쉽니다.
 
 ---
 
-## 블록 A 완료 기준 {#checkpoint}
+## ⑥ 비용으로 정하는 임계값 (14:00–14:20) {#a-cost}
 
-14:42에 슬라이드를 다시 띄우고 함께 체크합니다. 다 못 끝내도 괜찮습니다 — 워크플로가 이미 연결돼 있어 블록 B는 그대로 이어집니다.
+오전 시연 4의 엑셀을 **Markdown 표**로 줄인 단계입니다. 모델이 낸 확률을 **어디서 자를지**는 모델이 아니라 **비용**이 정합니다.
 
-- [ ] **Step 1** — 역할 지정(target · meta · skip) · `01_평가`에 학습 · 시험 행 수와 시험셋 연체 수
-- [ ] **Step 2** — 복제 오버샘플이 **학습셋에만** 연결 · 누수 퀴즈 답 한 줄
-- [ ] **Step 3** — Test on test data · Target 1 지표(두 모델) · FN 바이어 목록 · 손계산(정밀도 · 재현율 · 비용)
-- [ ] **Step 4** — ROC 5:1 최적점(TPR · FPR) · t와 근거 한 줄 · 보정 모델이 Predictions에 연결
-- [ ] **저장** — `d3_work__T조-번호.xlsx` · Orange `d3_orange_model.ows`
+1. 모드는 Edit automatically(또는 Manual 그대로)로 두고 프롬프트 **A4**를 보냅니다.
 
-## 흔한 오류와 해결 {#troubleshooting}
+    ??? example "프롬프트 A4 — 펼쳐서 복사"
+        --8<-- "labs/day3/prompts.md:a4"
 
-| # | 증상 | 원인 | 해결 |
-|---|---|---|---|
-| 1 | ROC Analysis · Calibration Plot에서 임계값 모델이 안 나온다 | Test and Score가 교차검증(Cross validation) 모드 | **Test on test data**를 고르고 Test Data 입력(Remaining Data)이 연결됐는지 확인 |
-| 2 | AUC가 0.99 이상으로 비현실적으로 높다 | 분할 전에 복제했거나, `sample_weight` · `buyer_id`가 특성 | 체인 순서(분할 → 학습셋만 복제) · File의 Role을 다시 확인 |
-| 3 | Gradient Boosting의 Method 목록에서 xgboost가 회색 | xgboost 라이브러리가 없다 | 강사가 준 포터블 Orange를 쓰거나, 임시로 scikit-learn 방식을 고르고 `01_평가`에 적어 둡니다 |
-| 4 | 지표가 이상하게 좋거나 나쁘다 | **Target class가 0** | Test and Score · ROC Analysis · Calibration Plot 모두 Target = `1` |
-| 5 | Confusion Matrix의 FN 칸을 눌러도 Data Table이 비어 있다 | Learner가 다르거나 Data Table이 연결되지 않았다 | 왼쪽 Learners에서 Gradient Boosting · 연결선의 출력이 **Selected Data**인지 확인 |
-| 6 | File을 다시 지정했더니 역할이 모두 feature로 돌아갔다 | 파일 위치가 바뀌면 설정이 초기화될 수 있다 | [Step 1 ③](#step1)의 표대로 다시 지정 → **Apply** |
-| 7 | 내 AUC가 옆 사람과 다르다 | 시험셋 연체가 몇 건뿐이라 행 하나에도 크게 움직인다 | 정상입니다. Replicable이 켜져 있는지만 확인하고, 숫자보다 절차를 맞춥니다 |
-| 8 | 확률이 전반적으로 높게 나온다 | 오버샘플로 부풀려진 확률을 그대로 썼다(또는 Calibration Plot을 지표 그래프에 둔 채 넘겼다) | Calibration Plot(Sigmoid)의 출력 모델을 쓴다 — **Metrics**를 **Calibration curve**로 되돌린 뒤 Predictions를 다시 확인 |
-| 9 | 세로 임계값 선이 안 잡힌다 | 그래프 종류가 보정 곡선이다 | 성능 지표 그래프로 바꾼 뒤 선을 끈다 · 확대 · 축소를 원래대로 |
-| 10 | 워크플로를 열자 경고(!)가 여러 개 | File 경로가 비어 있어 아래 위젯이 계산을 못 했다 | Step 1 ②의 File 재지정 후 기다리면 사라집니다 |
+2. `d3_threshold.md`를 엽니다. 임계값 `0.05 … 0.50` 열 줄에 TP · FN · FP · TN · 재현율 · 정밀도 · 비용이 있고, **비용 = 5 × FN + FP**입니다. 한 줄을 손으로 계산해 봅니다(예: t = 0.5 줄의 FN과 FP로).
+3. **최소 비용 t**를 찾아 이론값 **1 ÷ (1 + 5) ≈ 0.17**과 견줍니다.
 
-더 많은 증상은 [FAQ·트러블슈팅](../faq.md)에 있습니다.
+!!! note "최소 비용 t가 이론값과 다르게 나와도 정상입니다"
+    시험셋 연체가 4건뿐이라 비용이 **계단처럼** 움직입니다 — 한 칸이 연체 1건이라 표의 몇 줄이 같은 값일 수 있고, 최소 비용 t는 이 설정이면 0.10–0.25 근처가 나오는 사람이 많지만 시드 · 특성 · 설정에 따라 0.05나 0.30 이상이 나오기도 합니다. 이론값 0.17과의 차이를 **한 줄로 적는 것**이 오늘의 연습입니다. 실무에서는 시험셋이 아니라 **학습 기간의 월별 검증**에서 비용이 가장 낮은 지점을 고릅니다.
 
-## 다 했으면 (확장) {#extend}
-
-1. **기준선이 이겼나?** Logistic Regression과 Gradient Boosting의 AUC · Recall · 비용을 한 줄로 비교합니다. 기준선이 비슷하면, 설명하기 쉬운 쪽을 고를 이유가 됩니다.
-2. **P3-2 팀장 설명**(🔵 탭)을 Basic도 해 봅니다 — 화면에 없는 숫자가 끼어들지 않는지 확인하는 연습입니다.
-3. **FN 바이어 들여다보기**: FN 목록의 바이어 한 곳을 골라 `d3_start_features.csv`에서 연체 잔액 · 최장 미결 연체일 · 뉴스 위험을 보고, 모델이 왜 놓쳤을지 한 줄로 추측해 둡니다(블록 B Step 7의 SHAP과 비교).
-4. **Replicable을 끄면?** Data Sampler ①의 Replicable을 잠깐 끄고 두 번 실행해 AUC가 바뀌는지 본 뒤 다시 켭니다 — 8교시 [기초 F3](../foundations/f3.md)의 '같은 입력이면 같은 결과'.
+**14:20 점검** — `d3_threshold.md`에 열 줄 표 + 최소 비용 t + 이론값과의 차이 한 줄이 있는지 봅니다.
 
 ---
 
-다음 → [실습 B · 6–7교시 — S/A/B/C 등급 매칭 · SHAP 해석서 · 환율 위험 구간](lab-b.md)
+## ⑦ 놓친 바이어와 내 비용비 (14:20–14:30) {#a-fn}
+
+1. **놓친 연체(FN) 바이어**의 `buyer_id`와 주요 특성 3개를 표로 봅니다(A4의 둘째 문장이 이미 시켰습니다). 나란히 놓고 **공통점 2줄**을 `d3_threshold.md`에 씁니다 — 오전 '한계' 장의 내용(연체 중인 바이어가 아니라 새로 연체가 시작되는 바이어를 늦게 본다)과 맞는지 생각해 봅니다.
+2. **내 회사의 비용비**를 정합니다. 놓친 연체 1건이 헛경보 몇 건만큼 아픕니까? **3:1이면 t = 0.25, 10:1이면 t ≈ 0.09**입니다. 근거는 숫자 대신 **한 줄**로 씁니다(예: "우리 팀은 신규 선적을 보류하는 비용보다 미수금 손실이 훨씬 크다").
+3. 같은 표를 내 비용비로 다시 만듭니다.
+
+    ??? example "프롬프트 A4 — 내 비용비로 다시 · 펼쳐서 복사"
+        --8<-- "labs/day3/prompts.md:a4-cost"
+
+4. **무엇이 바뀌었는지 1줄**을 씁니다 — 경보 수 · 놓친 연체 수가 5:1일 때와 어떻게 다릅니까?
+
+---
+
+## ⑧ 트랙 확장 — 빨리 끝난 분 (14:30–14:45) {#a-tracks}
+
+기본 트랙(①–⑦)을 끝낸 분만 이어 갑니다. 하나만 골라도 됩니다. 프롬프트는 [A5](../prompts/day3.md#a5)입니다.
+
+| 트랙 | 하는 일 | 확인 |
+|---|---|---|
+| **표준** | 패널 4,017행으로 **시간 분할** 같은 실험(학습 ≤ 2025-12-31, 시험 2026-01~08) → 300행 결과와 나란히 표 | LightGBM ROC-AUC **0.97–0.98**(시험 1,084행 · 연체 61건 — 300행보다 안정) |
+| **도전 ①** | class weight · SMOTE(학습셋만) 비교 — 평균 확률이 부푸는지 | `imbalanced-learn`을 `uv add`하겠다고 Claude Code가 알려 주면 읽고 승인. 막히면 class weight만 |
+| **도전 ②** | 부트스트랩으로 AUC 95% 구간 · **worktree** 두 번째 작업대에서 Claude Code 병렬 | 시험 연체 4건이면 구간이 매우 넓다 |
+
+worktree는 VS Code **소스 제어 › … › Worktrees › Create Worktree**(브랜치 `d3-smote`)로 만들고 새 창에서 Claude Code를 하나 더 엽니다(터미널에서는 `git worktree add ../tf-d3-smote -b d3-smote`). 새 폴더에는 `.venv`와 받은 파일이 없으니 `uv sync`와 `uv run python tools/get_day_files.py 3`부터 합니다.
+
+---
+
+## ⑨ 기대 범위 · 커밋 · push (14:45–14:50) {#a-commit}
+
+14:45에 강사가 **'이 숫자 근처면 맞게 가고 있다'** 표를 띄웁니다. 범위 밖이면 숫자를 고치기 전에 오른쪽 칸부터 확인합니다.
+
+| 확인할 것 | 기대 범위 | 아니면 |
+|---|---|---|
+| 데이터 카드 | 300행 · 연체 16 · 기준일 2개 | 파일과 인코딩 확인 |
+| 시험셋(`split_suggested`) | **88행 · 연체 4** | 분할 열 확인 |
+| AUC(300행) | **0.80–1.00**, 모델 · 특성마다 흔들림 | 0.99 이상 고정이면 누수 점검 |
+| `sample_weight`를 넣으면 | **AUC 1.00** | 안 오르면 열이 빠졌는지 — LightGBM이면 `min_child_samples=10`이 들어갔는지도(④의 안내) |
+| 패널 시간 분할 | LightGBM **0.97–0.98** | 분할 날짜 확인 |
+| 비용 최소 t(5:1) | **0.1–0.25**(이론 0.17) — 계단이라 밖(0.05 · 0.30 이상)으로 나오기도 한다 | 비용식 `5 × FN + FP` |
+
+범위 밖이면 먼저 [어디서 갈렸나](../prompts/day3.md#mismatch)를 AI에게 묻습니다.
+
+그다음 **두 번째 커밋**을 합니다.
+
+```text
+3일차: 비용 기준 임계값 표와 내 비용비 추가
+
+왜: 놓친 연체 1건을 헛경보 몇 건으로 볼지에 따라 경보 선이 달라지는 것을 기록하려고
+```
+
+**push**합니다 — 소스 제어의 **Publish Branch**(또는 `git push -u origin d3-model`). 허락 창에서 **push 대상이 `d3-model`**인지 읽고 승인합니다.
+
+**14:50 점검** — 커밋이 **2개 이상**이고 `d3-model`이 GitHub에 올라갔으면 실습 A 완료입니다. 실습 B가 이 브랜치에서 이어집니다.
+
+### 실습 A 완료 기준 {#checkpoint}
+
+- [ ] `workbench/day3/outputs/`에 `d3_data_card.md` · `d3_train.py` · `d3_eval.md` · `d3_test_pred.csv` · `model_v1.txt` · `d3_threshold.md`가 있다
+- [ ] 시험셋이 88행(연체 4)이고, 특성에 `sample_weight` · `split_suggested`가 들어가지 않았다
+- [ ] `sample_weight` 누수 실험의 AUC를 봤고 코드를 원래대로 돌렸다(`git diff`)
+- [ ] 최소 비용 t와 이론값 0.17의 차이 1줄, 내 비용비로 다시 한 결과 1줄이 `d3_threshold.md`에 있다
+- [ ] 커밋 2개 이상 · `d3-model` push · 커밋 메시지에 `왜:` 줄이 있다
+
+---
+
+## 채팅 경로 — Claude Code를 못 쓸 때 {#chat-path}
+
+Claude Code 계정이 없거나(무료 플랜은 쓸 수 없습니다) 확장이 로그인되지 않으면 **ChatGPT 또는 Claude 웹**에 CSV를 올려 **같은 문장**으로 합니다. 오늘 파일은 합성 데이터라 올려도 됩니다. 프롬프트는 [A1–A4](../prompts/day3.md#chat-path)와 같고 경로 · 저장 줄만 바꿉니다.
+
+1. 웹 채팅에 `d3_start_features.csv`를 **첨부**하고 A1(데이터 카드) → A2(첫 모델) → A3(누수 실험) → A4(비용표)를 차례로 보냅니다. `@파일` 표기와 `workbench/…` 경로는 지웁니다. ChatGPT는 **데이터 분석** 기능이, Claude는 **코드 실행** 기능이 켜져 있어야 계산합니다. ChatGPT 무료는 하루 업로드가 3개라 `d3_start_features.csv` · `d3_start_scoring.csv` · `fx_forecast_inputs.csv`만 올립니다.
+2. 대화 환경에 LightGBM이 없다는 답이 오면 **"scikit-learn의 HistGradientBoostingClassifier(min_samples_leaf=5, max_iter=200, learning_rate=0.05)로 바꿔 줘"**라고 한 줄 덧붙입니다(같은 그래디언트 부스팅 계열 — 기본값 `min_samples_leaf=20`이면 작은 표에서 `sample_weight` 누수가 보이지 않습니다).
+3. **결과를 내려받아** 내 PC에서 같은 이름으로 `workbench/day3/outputs/`에 둡니다. 답에 나온 표는 Markdown으로 받아 `d3_eval.md` · `d3_threshold.md`로 저장합니다. 모델 파일(`model_v1.txt`)과 시험 예측(`d3_test_pred.csv`)도 받아 두면 실습 B-1에서 씁니다 — 못 받으면 B-1 채팅 경로가 '학습 + 점수'를 한 번에 합니다.
+4. **GitHub 웹에서 올립니다.**
+    1. 내 저장소 화면의 브랜치 선택(`main ▾`)에 `d3-model`을 입력하고 **Create branch**를 누릅니다.
+    2. `workbench/day3/outputs/` 폴더로 들어가 **Add file → Upload files**로 결과 파일을 끌어다 놓고, 커밋 메시지 첫 줄과 설명 칸(`왜:`)을 쓴 뒤 **Commit directly to the `d3-model` branch**를 고르고 **Commit changes**.
+
+!!! warning "GitHub 웹의 Upload files는 .gitignore를 보지 않습니다"
+    고른 파일을 그대로 올립니다. 올리기 전에 파일 이름과 내용을 한 번 봅니다 — 회사 실데이터 · 키 · 실명은 올리지 않습니다.
+
+---
+
+## 막힐 때 {#troubleshooting}
+
+| 증상 | 이렇게 해 보세요 |
+|---|---|
+| `get_day_files.py`가 "공개 전"이라고 한다 | 08:30 이후 같은 명령을 다시 실행합니다. 계속 안 되면 [3일차 → 파일 받기](index.md#files) |
+| `workbench/day3/rules/d3_rules.md`가 없다 | `uv run python tools/get_day_files.py 3`을 다시 실행합니다(없는 파일을 받아 줍니다). 그래도 없으면 강사에게 |
+| 계획 승인 창에서 `use auto mode`를 눌러 파일 변경이 묻지 않고 진행됐다 | 괜찮습니다. 다음부터 `2 Yes, and manually approve edits`를 고르거나 모드를 Manual로 바꿉니다. 만들어진 파일은 소스 제어의 diff로 읽어 봅니다 |
+| 시험셋이 88행이 아니다 | `split_suggested`의 `train` / `test`를 그대로 썼는지 봅니다. 무작위 분할을 만들었다면 "분할은 `split_suggested` 그대로"라고 다시 지시합니다 |
+| AUC가 0.99 이상으로 붙어 있다 | 누수입니다. 특성에 `sample_weight` · `buyer_id`가 있는지 봅니다 — [어디서 갈렸나](../prompts/day3.md#mismatch) 프롬프트 |
+| `sample_weight`를 넣었는데 LightGBM AUC가 안 오른다 | 열이 빠졌거나, `min_child_samples`가 기본값(20)이라 연체 12건을 못 떼어 내서입니다. A2 프롬프트의 설정(10)이 코드에 들어갔는지 보고, 아니면 10으로 낮춥니다. 로지스틱은 바로 오릅니다 |
+| `import lightgbm` 오류 · 패키지가 없다 | 저장소 맨 위에서 `uv sync`. 패키지를 더할 때는 Claude Code가 `uv add 이름`을 하겠다고 먼저 알려 주면 읽고 승인합니다 |
+| LightGBM에서 `eval_set` 관련 경고 · 오류 | 4.7부터 검증 세트 인자가 바뀌는 중입니다. 오류 메시지 전문을 그대로 AI에게 다시 주고 판을 고정하게 합니다 |
+| 그래프의 한글이 □로 나온다 | `CLAUDE.md`의 글꼴 `tools/fonts/NanumGothic-Regular.ttf`를 쓰라고 다시 지시합니다 |
+| 최소 비용 t가 0.05 · 0.35처럼 이상하다 | 시험 연체가 4건이라 계단입니다. 비용식이 `5 × FN + FP`인지만 확인하고, 이론값과의 차이를 1줄로 씁니다 |
+| 숫자를 AI가 '암산'한 것 같다 | "숫자는 코드로 계산한 값만 쓰고 모르면 '데이터 확인 필요'라고 써"를 다시 지시하고, 계산한 코드를 보여 달라고 합니다 |
+| 허락 창이 계속 뜬다 | 읽고 `1 Yes`를 누릅니다. 모르는 명령이면 `No` 하고 "이 명령이 뭐 하는 거야?"라고 묻습니다. `2 … for this project`는 쓰지 않습니다 |
+| push가 거부된다 · 로그인을 묻는다 | VS Code 왼쪽 아래 **계정 아이콘**에서 GitHub에 로그인합니다. `GH007 … private email` 오류면 `git config --global user.email`을 noreply 주소로 바꾸고 다시 커밋합니다 |

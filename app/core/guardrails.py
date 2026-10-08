@@ -1,8 +1,8 @@
-"""독촉 초안 가드레일(03 Part1 §7.6 · 03 Part2 §5.10) — 하나라도 실패하면 [승인] 버튼을 막는다.
+"""독촉 초안 가드레일 — 하나라도 실패하면 [승인] 버튼을 막는다.
 
 ① 금지 표현(영·한): 진행하지 않은 법적 절차·국가기관 오인·위협 표현(채권추심법 제9·11조 취지) + 계좌 정보 변경 문구(사기 예방)
 ② 필수 요소(단계별) ③ 길이 ≤ 180단어 ④ 수신자 화이트리스트 ⑤ 발송 시간창(수신지 현지 08:00–21:00)
-n8n 가드레일 Code 노드(agents/n8n/code/guardrail.js)와 같은 규칙이다.
+시연 5의 에이전트도 같은 검사를 쓴다.
 """
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import re
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-# n8n IF 노드에 붙여 넣는 정규식과 같은 목록(단어 경계로 courtesy·issue 오탐 방지)
+# 금지 표현 정규식(단어 경계로 courtesy·issue 오탐 방지)
 BLOCK_EN = re.compile(r"(?i)(legal action|legal proceedings|\bcourt\b|\blawsuit\b|\bsue\b|\bsuing\b|attorney|lawyer|police|"
                       r"criminal|prosecut|\bseiz|garnish|blacklist|credit bureau|report you to|arrest|interpol)")
 BLOCK_KO = re.compile(r"(법원|경찰|검찰|형사|고소|소송|압류|체포|신용불량|블랙리스트|법적 조치)")

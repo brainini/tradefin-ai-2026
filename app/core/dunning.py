@@ -1,6 +1,6 @@
 """⑤ 독촉메일 — 단계 판정(톤 사다리) · 사실값 · 프롬프트 · 모의(템플릿) 초안.
 
-단계(03 Part1 §7.6 · 03 Part2 §5.10 합집합): DM3(D-3) · D7 · D15 · D30 · PRE(사람이 이관을 결정한 건)
+단계: DM3(D-3) · D7 · D15 · D30 · PRE(사람이 이관을 결정한 건)
 - C등급은 한 단계 앞당긴다(D+7~14 → D15) [교육용 가정]
 - 제외: 신용장(은행 채널) · 선수금 · 파산·사기 신호(사람 처리) · D+45 이후(최고장·추심 위임은 사람이 작성) · 이미 보낸 단계
 """
@@ -214,7 +214,7 @@ def generate(row, stage: str, asof, templates: dict, llm_cfg: LLM.LLMConfig | No
 
 
 def queue(ledger: pd.DataFrame, asof) -> pd.DataFrame:
-    """원장 전체의 독촉 판정표(앱 ⑤ 목록 · 강사 기대값 · n8n 대조용)."""
+    """원장 전체의 독촉 판정표(앱 ⑤ 목록 · 강사 기대값 대조용)."""
     rows = []
     for _, r in ledger.iterrows():
         d = route(r, asof)

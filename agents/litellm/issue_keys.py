@@ -20,8 +20,8 @@ FAST = ["fast-default", "fast-backup"]
 ALL = FAST + ["quality"]
 PLAN = ([(f"L{i:02d}", FAST, 3, 30, "10d", "learner") for i in range(1, 21)]
         + [(f"L{i:02d}", FAST, 3, 30, "10d", "spare") for i in (21, 22)]
-        + [("INSTR", ALL, 20, 60, "30d", "instructor"), ("SHARED1", ALL, 10, 60, "10d", "n8n·dify"),
-           ("SHARED2", ALL, 10, 60, "10d", "n8n·dify")])
+        + [("INSTR", ALL, 20, 60, "30d", "instructor"), ("SHARED1", ALL, 10, 60, "10d", "공용"),
+           ("SHARED2", ALL, 10, 60, "10d", "공용")])
 TEST = [(f"T{i:02d}", FAST, 1, 30, "3d", "test") for i in (1, 2, 3)]
 
 

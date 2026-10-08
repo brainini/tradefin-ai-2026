@@ -1,7 +1,7 @@
 """③ 한도·시나리오 — 규칙 기반 한도(가상 규정 제13조) · (선택) LP 재배정 · 4단계 충격 기대손실(EL).
 
 입력: ② 점수표 · 바이어 특성(d3_start_scoring) · (있으면) Day4 d4_start_scored.csv(인수한도·월평균 매출·현행 한도)
-      · d4_params.csv(파라미터) · d4_scenarios.csv(시나리오) — 없으면 앱 내장 기본값(03 Part2 §4.5·§4.7)
+      · d4_params.csv(파라미터) · d4_scenarios.csv(시나리오) — 없으면 앱 내장 기본값
 출력: st.session_state['limits'] — 한도 변경은 사람이 승인한다(가상 규정 제6조 전결권, 제15조③ 감액 30% 이상)
 """
 import copy
@@ -31,7 +31,7 @@ d4 = ui.load_features(str(IO.D4_START))
 base, psrc = LM.load_params(IO.PARAMS)
 p = copy.deepcopy(base)
 with st.sidebar.expander("③ 파라미터(바꿔 보기)", expanded=False):
-    st.caption(f"기본값 출처: {psrc}")
+    st.caption(f"기본값: {psrc}")
     p["tsofr3m"] = st.slider("Term SOFR 3M", 0.0, 0.10, float(base["tsofr3m"]), 0.0005, format="%.4f")
     for g in LM.GR:
         p["pd"][g] = st.slider(f"PD {g}(연)", 0.0, 0.30, float(base["pd"][g]), 0.001, format="%.3f")
@@ -57,7 +57,7 @@ m1.metric("현행 한도 합계", ui.money(pd.to_numeric(r["current_limit_usd"],
 m2.metric("제안 한도 합계", ui.money(r["proposed_limit"].sum()))
 m3.metric("감액 30%↑(사람 승인)", int(r["approval_level"].str.startswith("사람 승인").sum()))
 m4.metric("미부보 EL / 예산", f"{pe['usage_pct']:.0f}%", delta="초과" if not pe["ok"] else "예산 안", delta_color="inverse" if not pe["ok"] else "off")
-st.caption(f"입력 출처: {b.attrs.get('source', '')} · 파라미터: {psrc}")
+st.caption(f"입력: {b.attrs.get('source', '')} · 파라미터: {psrc}")
 if summary:
     st.info(f"LP: {summary['status']} · 목적값 {summary.get('objective') or 0:,.0f} · 총허용익스포저 {ui.money(summary['total_cap'])} · "
             f"걸린 제약 {summary.get('binding', [])} · 그림자 가격 {summary.get('shadow_prices', {})}")

@@ -19,7 +19,7 @@
       "sha256": "48a46be63729d05d4ac90c6308d9e9796fae9f87b3c8687a9a333320540687c1"
     },
     "checkpoints/d2_start.xlsx": {
-      "sha256": "3c3ba3c5d93caeb3ecbc1110c6f4647a5c0740d72105a8a6d86ec8b535fe3e23"
+      "sha256": "1031dc5dc3785b04b29fbae492ac14cbba1f56ff6ef9a4c5150ecc9ffc154fa9"
     },
     "checkpoints/d3_end_scored.csv": {
       "sha256": "ef235663e3fe6baa0b11c029fd50ff19b299e535b31d86a7897aa4fca7df5ca9"
@@ -208,7 +208,7 @@
         "builder": "tools/build_day6_pack.py"
       },
       "labs/day6/roi_kpi_template.xlsx": {
-        "sha256": "c7f1aea8c8032c395a3b2ddcf284af11d12715f8d7d0fe5bf7204089502ef7bc",
+        "sha256": "893e99b7c1d67e6567fb6eff7f4a4d6aac2dc9eaf9270edbdeb65642dc1650ff",
         "builder": "tools/build_day6_pack.py"
       }
     },

@@ -127,60 +127,61 @@ class Day:
         return it.when or self.release
 
 
-# ---------------------------------------------------------------- 1일차 (v3: 실습 A = 블록 A Step 1–4 · 실습 B = 블록 B Step 5–8)
-# 구역 키는 2–5일차와 같은 lab-a / lab-b(DAY1_SPEC_v3 부록 B). 옛 Lab1–3 구역 표(files_lab1–3.md)는 다음 실행 때 지워진다.
+# ---------------------------------------------------------------- 1일차 (v4: 실습 A = A-1 작업 환경 · A-2 보고서 읽기 / 실습 B = B-1 진단 · B-2 EDA)
+# 구역 키는 2–5일차와 같은 lab-a / lab-b. 옛 Lab1–3 구역 표(files_lab1–3.md)는 다음 실행 때 지워진다.
+# '트랙' 칸은 v4에서 필수 / 선택 / 참고로 쓴다(필수 = 실습 A · B 본 과정, 선택 = 다 했으면, 참고 = 읽을거리).
 # 보고서 폴더(data/day1/reports/*.md)는 폴더째 허용한다. 알려진 파일은 아래 설명을 쓰고,
 # 새로 생긴 .md는 기본 설명으로 표에 들어간다.
 REPORT_INFO = {
     "halden_fictional_annual_report.md": (
         "Halden(가상) 연차보고서 발췌",
-        "가상 영국 유통 바이어의 연차보고서(FY2026). Step 2–3에서 AI에 올린다",
+        "가상 영국 유통 바이어의 연차보고서(FY2026). 실습 A-2에서 Claude Code로 읽고 ChatGPT 또는 Claude 웹으로 교차 확인한다",
         ("lab-a",),
-        "🟢",
+        "필수",
     ),
     "irobot.md": (
         "iRobot 10-K FY2024 발췌",
-        "실제 SEC 공시 발췌(영어 원문 그대로). Step 3 ④에서 같은 계산을 반복한다",
+        "실제 SEC 공시 발췌(영어 원문 그대로). 다 했으면 같은 방식으로 한 번 더 하고 비율표와 대조한다",
         ("lab-a",),
-        "🟢",
-    ),
-    "plug_power.md": (
-        "Plug Power 공시 3건 발췌",
-        "PART A 10-Q 2023년 3분기 · PART B 10-K FY2023 · PART C 10-K FY2024. Step 2 Standard",
-        ("lab-a",),
-        "🔵",
+        "선택",
     ),
     "wolfspeed.md": (
         "Wolfspeed 10-Q 발췌",
-        "2025-03-30 분기 보고서 발췌. 다 했으면(확장)",
+        "2025-03-30 분기 보고서 발췌. 분기라 기간 일수(91일)에 주의 — 다 했으면",
         ("lab-a",),
-        "확장",
+        "선택",
     ),
     "big_lots.md": (
         "Big Lots 10-Q 발췌",
-        "2024-05-04 분기 보고서 발췌. 다 했으면(확장)",
+        "2024-05-04 분기 보고서 발췌. 더 해 보고 싶을 때",
         ("lab-a",),
-        "확장",
+        "선택",
+    ),
+    "plug_power.md": (
+        "Plug Power 공시 3건 발췌",
+        "PART A 10-Q 2023년 3분기 · PART B 10-K FY2023 · PART C 10-K FY2024. 경고 문구가 부도로 이어지지 않은 오탐 반례 — 더 해 보고 싶을 때",
+        ("lab-a",),
+        "선택",
     ),
     "gorman_note.md": (
         "D&B 샘플(Gorman) 안내",
-        "D&B 샘플 신용보고서 링크와 읽기 안내만 있다(PDF는 링크에서 직접 받는다). 확장",
+        "D&B 샘플 신용보고서 링크와 읽기 안내만 있다(PDF는 링크에서 직접 받는다). 더 해 보고 싶을 때",
         ("lab-a",),
-        "확장",
+        "선택",
     ),
     "README.md": (
         "보고서 폴더 안내",
-        "파일 목록·인용 찾는 요령·단위 주의·이용 조건",
+        "파일 목록 · 인용 찾는 요령 · 단위 주의 · 이용 조건",
         ("lab-a",),
-        "🟢",
+        "참고",
     ),
 }
 REPORT_ORDER = [
     "halden_fictional_annual_report.md",
     "irobot.md",
-    "plug_power.md",
     "wolfspeed.md",
     "big_lots.md",
+    "plug_power.md",
     "gorman_note.md",
     "README.md",
 ]
@@ -188,15 +189,12 @@ REPORT_ORDER = [
 
 def build_day1() -> list[Item]:
     items = [
-        Item("labs/day1/d1_end_eda_template.xlsx", "d1_end_eda_template.xlsx", "실습 템플릿",
-             "시트 00_코드표 ~ 07_내AX프로젝트. 오늘 결과를 모두 여기에 모아 제출한다(05_변수정의서 포함)",
-             ("lab-a", "lab-b"), "🟢"),
         Item("data/day1/d1_encoding_test.csv", "d1_encoding_test.csv", "깨진 CSV 연습 파일",
-             "한글 열 이름·바이어명이 든 8행 가상 표. UTF-8(BOM 없음)이라 더블클릭하면 한글이 깨진다 → Step 1 ④에서 UTF-8로 다시 연다",
-             ("lab-a",), "🟢"),
+             "한글 열 이름·바이어명이 든 8행 가상 표. UTF-8(BOM 없음)이라 엑셀에서 더블클릭하면 한글이 깨진다 → 실습 A-1 ①에서 UTF-8로 다시 연다",
+             ("lab-a",), "필수"),
         Item("data/day1/d1_encoding_test_utf8bom.csv", "d1_encoding_test_utf8bom.csv", "깨진 CSV 연습 파일(비교용)",
              "같은 내용을 UTF-8(BOM 포함)로 저장한 짝 파일. 더블클릭해도 바로 열린다 — 정상 화면과 비교할 때만 쓴다",
-             ("lab-a",), "🟢"),
+             ("lab-a",), "참고"),
     ]
     report_dir = REPO / "data" / "day1" / "reports"
     names = list(REPORT_ORDER)
@@ -204,190 +202,236 @@ def build_day1() -> list[Item]:
         names += sorted(p.name for p in report_dir.glob("*.md") if p.name not in REPORT_INFO)
     for name in names:
         title, desc, labs, track = REPORT_INFO.get(
-            name, (name, "Day1 보고서 발췌(추가 자료)", ("lab-a",), "확장")
+            name, (name, "1일차 보고서 발췌(추가 자료)", ("lab-a",), "선택")
         )
         items.append(Item(f"data/day1/reports/{name}", f"reports/{name}", title, desc, labs, track))
     items += [
         Item("data/day1/real_buyers_ratios.csv", "real_buyers_ratios.csv", "SEC 추출 비율표(CSV)",
-             "SEC companyfacts API에서 뽑은 4개사 원값과 4대 비율(9행). Step 3 ④에서 AI 숫자를 대조한다",
-             ("lab-a",), "🟢"),
+             "SEC companyfacts API에서 뽑은 4개사 원값과 4대 비율(9행). 다 했으면 iRobot 행으로 AI 숫자를 대조한다",
+             ("lab-a",), "선택"),
         Item("data/day1/real_buyers_ratios.xlsx", "real_buyers_ratios.xlsx", "SEC 추출 비율표(엑셀)",
-             "같은 내용 + 열 설명(dictionary)·출처(source) 시트", ("lab-a",), "🟢"),
+             "같은 내용 + 열 설명(dictionary)·원천(source) 시트", ("lab-a",), "선택"),
         Item("data/day1/d1_buyers_raw.xlsx", "d1_buyers_raw.xlsx", "바이어 스냅샷(엑셀)",
-             "(가상) 한빛정밀 해외 바이어 현황 153행 · 시트 buyers · 기준일 2026-09-30 · 원천 입력 오류 포함. Step 4(AI 진단) → Step 5(피벗)",
-             ("lab-a", "lab-b"), "🟢"),
+             "(가상) 한빛정밀 해외 바이어 현황 153행 · 시트 buyers · 기준일 2026-09-30 · 원천 입력 오류 포함. 실습 B에서 진단 → 코드표 → 변수 정의서 → EDA 노트북 → 손 검산",
+             ("lab-b",), "필수"),
         Item("data/day1/d1_buyers_raw.csv", "d1_buyers_raw.csv", "바이어 스냅샷(CSV)",
-             "같은 내용 CSV(UTF-8 BOM). 엑셀 파일이 안 올라가는 AI 도구와 Colab(Challenge B-8)에서 쓴다",
-             ("lab-a", "lab-b"), "🟢"),
+             "같은 내용 CSV(UTF-8 BOM). 엑셀 파일이 올라가지 않는 AI 도구에서 쓴다", ("lab-b",), "선택"),
         Item("data/data_dictionary.xlsx", "data_dictionary.xlsx", "데이터 사전",
              "컬럼 뜻·단위(columns), 코드표(codes), 결제조건 표기 → 코드(payment_terms_map)",
-             ("lab-a", "data"), "🟢"),
-        Item("labs/day1/ax_canvas_template.md", "ax_canvas_template.md", "AX 캔버스 양식",
-             "AX 캔버스 7칸 + 과업 선정 3기준(Step 8 · 8교시). 메모장·워드에 붙여 써도 된다",
-             ("lab-b",), "🟢"),
-        Item("labs/day1/d1_challenge.ipynb", "d1_challenge.ipynb", "Challenge 노트북",
-             "Colab용. A: SEC API로 비율 계산(Step 2–3) · B: 인보이스 원장 분석(DPD·코호트·롤레이트·DSO, Step 4–6)",
-             ("lab-a", "lab-b"), "🟣"),
+             ("lab-b",), "참고"),
+        Item("labs/day1/issue_definition_template.md", "issue_definition_template.md", "현안 정의서 양식",
+             "실습 B-2 ⑥에서 프롬프트 B5가 읽는 양식 — 결제방식별 근거 숫자 표 · 내 업무라면(직접 쓰기)",
+             ("lab-b",), "필수"),
         Item("data/day1/d1_invoices.xlsx", "d1_invoices.xlsx", "인보이스 원장(엑셀)",
-             "인보이스 5,033건(36개월) · 시트 invoices. Challenge B", ("lab-a", "lab-b"), "🟣"),
+             "인보이스 5,033건(36개월) · 시트 invoices. 오전 시연 3의 입력 — 실습 B 다 했으면", ("lab-b",), "선택"),
         Item("data/day1/d1_invoices.csv", "d1_invoices.csv", "인보이스 원장(CSV)",
-             "같은 내용 CSV(UTF-8 BOM). Colab에 올릴 때 쓴다", ("lab-a", "lab-b"), "🟣"),
+             "같은 내용 CSV(UTF-8 BOM). AI 채팅에 올릴 때 쓴다", ("lab-b",), "선택"),
     ]
     return items
 
 
-# ---------------------------------------------------------------- 2–6일차 (20_강의계획안_v3 §3.2–3.5 '파일', §4.13)
+# ---------------------------------------------------------------- 2–6일차 (일차별 '파일' 허용 목록)
 def build_day2() -> list[Item]:
+    # v4: 실습 A = 바이어 표 정제 파이프라인 / 실습 B = 뉴스 위험지수와 융합 특성표 + 8교시 합치기.
+    # '트랙' 칸은 1일차와 같이 필수 / 선택 / 참고로 쓴다. Orange 워크플로 · Colab 노트북은 v4에서 쓰지 않아 뺐다(instructor/day2/lab_v3_archive/).
     return [
         Item("data/checkpoints/d2_start.xlsx", "d2_start.xlsx", "2일차 시작 파일",
-             "1일차 강사 정답본에서 이어지는 파일. 시트 buyers · buyer_features_raw · fx_at_ref · invoices_raw(🟣) · "
-             "dirty_list · map_ccy · map_country · dictionary",
-             ("lab-a", "lab-b"), "🟢"),
+             "가상 바이어 150곳의 기준일(2026-08-31) 표 — 일부러 지저분하다. 실습 A는 시트 buyers만 쓴다. 나머지 시트: "
+             "buyer_features_raw · fx_at_ref(기준일 환율) · invoices_raw(더 하기) · dictionary(열 설명) · dirty_list · map_ccy · map_country",
+             ("lab-a", "lab-b"), "필수"),
         Item("data/checkpoints/fx_krw_daily.csv", "fx_krw_daily.csv", "원화 환율(일별)",
-             "최근 영업일 원화 환율. 기준일 이전 영업일(as-of) 환율로 USD 환산할 때 쓴다(엔화는 100엔 단위 → ÷100)",
-             ("lab-a",), "🟢"),
+             "일별 원화 환율(미국 연준 H.10 · FRED). 환율 30일 변화와 as-of 환산을 직접 확인할 때 쓴다(엔화는 100엔 단위 → ÷100)",
+             ("lab-a",), "참고"),
         Item("labs/day2/rules_template.md", "rules_template.md", "정제 규칙 양식",
-             "정제규칙.md 틀 — 0 메타 · 1–8 규칙마다 '규칙 / 왜' 두 줄 · 9 변경 기록. 사이트 Step 2의 복사 상자와 같다. 메모장에 붙여 정제규칙.md로 저장한다",
-             ("lab-a",), "🟢"),
+             "정제규칙.md 틀 — 칸마다 '규칙 / 왜' 두 줄 + 9 변경 기록. 내 저장소의 workbench/day2/rules/정제규칙.md와 같다. 채팅 경로에서 메모장에 붙여 쓴다",
+             ("lab-a",), "참고"),
         Item("data/checkpoints/d2_news.csv", "d2_news.csv", "바이어 뉴스",
-             "바이어별 짧은 뉴스 문장(합성 300행). 블록 B 위험지수(0–10) 점수화 입력",
-             ("lab-b",), "🟢"),
+             "바이어별 짧은 뉴스(합성 300건, 한국어 · 영어 · 기타). 실습 B에서 앞 100행을 0–10 점수로 바꾼다",
+             ("lab-b",), "필수"),
         Item("labs/day2/news_warmup_10.txt", "news_warmup_10.txt", "워밍업 뉴스 10건",
-             "Step 6 워밍업용 텍스트(한국어 4 · 영어 6, 점수 없음). P2-2 맨 아래에 그대로 붙여 넣는다(탭 구분)",
-             ("lab-b",), "🟢"),
-        Item("data/checkpoints/d2_news_answer.csv", "d2_news_answer.csv", "뉴스 점수 골든셋",
-             "Step 7 일치도(MAE · ±2 이내 비율) 계산용 기준 점수. 정한 시각에 공개한다",
-             ("lab-b",), "🟢", phase="answer", when="10/15(목) 15:35"),
-        Item("labs/day2/d2_orange_preprocess.ows", "d2_orange_preprocess.ows", "Orange 전처리 워크플로",
-             "막혔을 때 비교용 완성본: File(d2_step1.xlsx · features) → Column Statistics · Impute(재무비율 4종 = 내 중앙값, "
-             "1-NN 비교) · Continuize · Preprocess(보기만) · Save Data · (선택) 뉴스 Group by · Merge. Orange 3.40 File → Open",
-             ("lab-a", "lab-b"), "🟢"),
+             "채팅 경로에서 50행을 붙이기 전에 형식을 시험하는 10건(한국어 4 · 영어 6, 점수 없음)",
+             ("lab-b",), "선택"),
+        Item("data/checkpoints/d2_news_answer.csv", "d2_news_answer.csv", "뉴스 정답 20건(골든셋)",
+             "실습 B 4단계에서 AI 점수를 재는 기준 점수(MAE · ±2 이내 비율 · 라벨 일치율). 정한 시각에 공개한다",
+             ("lab-b",), "필수", phase="answer", when="10/15(목) 15:35"),
         Item("labs/day2/byod_anonymize_template.xlsx", "byod_anonymize_template.xlsx", "BYOD 익명화 템플릿",
              "자사 엑셀을 쓰기 전 점검표(규칙 7 + 마지막 확인 4) · 가상 예시 변환 수식. 원본은 내 PC에서만, 익명화본도 "
-             "저장소에는 올리지 않는다(AI에는 익명화본만 · 학습 설정 끔)",
-             ("lab-a",), "🔵", alts=("templates/byod_anonymize_template.xlsx",)),
-        Item("labs/day2/d2_challenge.ipynb", "d2_challenge.ipynb", "Challenge 노트북",
-             "Colab: 통화·금액 · 기준일 환율(merge_asof) · 결측 대체(중앙값 vs KNN) · 파이프라인 안 스케일링 · 특성 공학 · "
-             "LLM 없는 사전 기준선 뉴스 점수와 골든셋 일치도",
-             ("lab-a", "lab-b"), "🟣"),
+             "저장소에는 올리지 않는다(AI에는 익명화본만 · 학습 설정 끔) — 다 했으면",
+             ("lab-a",), "선택", alts=("templates/byod_anonymize_template.xlsx",)),
     ]
 
 
 def build_day3() -> list[Item]:
+    # v4: 실습 A = 내 첫 연체 예측 모델(300행 · 데이터 카드 · 누수 실험 · 비용 임계값) / 실습 B = 150곳 점수 · 엑셀 등급 · SHAP 메모 · 환율 구간 · 16:45 저장 · PR.
+    # '트랙' 칸은 1 · 2일차와 같이 필수 / 선택 / 참고로 쓴다. Orange 워크플로 · Colab 노트북 · UCI 벤치마크는 v4에서 쓰지 않아 뺐다(instructor/day3/lab_v3_archive/).
     return [
         Item("data/checkpoints/d3_start_features.csv", "d3_start_features.csv", "학습용 특성(300행)",
-             "150개사 × 기준일 2개, 레이블 late_30d(정상 0 / 연체 1). Orange File 위젯: buyer_id = meta, late_30d = target",
-             ("lab-a",), "🟢"),
+             "150개사 × 기준일 2개(2026-02-28 · 08-31)의 53열 표. 정답 late_30d(정상 0 / 연체 1, 연체 16건) · split_suggested(학습 212행 · 시험 88행) · "
+             "sample_weight(정답으로 계산한 가중치 — 특성으로 쓰면 누수)",
+             ("lab-a",), "필수"),
         Item("data/checkpoints/d3_start_scoring.csv", "d3_start_scoring.csv", "예측 대상(150행)",
-             "같은 특성, 기준일 2026-09-30, 레이블 없음. Predictions 위젯 입력 → 바이어별 연체 확률",
-             ("lab-a", "lab-b"), "🟢"),
+             "같은 특성, 기준일 2026-09-30, 정답(late_30d) 없음 — 실습 B에서 점수와 등급을 붙일 대상",
+             ("lab-b",), "필수"),
         Item("data/checkpoints/d3_features_panel.csv", "d3_features_panel.csv", "바이어 × 월 패널",
-             "같은 특성의 월별 패널(4,017행, 2024-01~2026-08). 🔵 시간 분할 비교 · 🟣 SMOTE 실습",
-             ("lab-a",), "🔵"),
-        Item("labs/day3/d3_orange_model.ows", "d3_orange_model.ows", "Orange 모델 워크플로",
-             "완성 워크플로: 70/30 층화 분할 · 학습셋 복제 오버샘플 · Gradient Boosting(xgboost) · Test and Score · Confusion Matrix · "
-             "ROC(FP 1 : FN 5) · Calibration Plot · Predictions · Save Data · Explain Model/Prediction. CSV와 같은 D3 폴더에서 File → Open",
-             ("lab-a", "lab-b"), "🟢"),
+             "같은 특성의 월별 패널(4,017행, 2024-01~2026-08, 연체 215건). 표준 트랙의 시간 분할 비교 · 오전 시연 1의 입력",
+             ("lab-a",), "선택"),
         Item("labs/day3/d3_grade_banding.xlsx", "d3_grade_banding.xlsx", "등급 매칭 시트",
-             "pred 시트에 buyer_id · 확률을 붙이고 이름 t(빈칸)에 내 임계값 → IFS 등급 · 경계 · 분포 · 단조성(시험셋) · 6열 CSV 시트",
-             ("lab-b",), "🟢"),
-        Item("labs/day3/d3_shap_report_template.docx", "d3_shap_report_template.docx", "SHAP 해석서 양식",
-             "P3-1 출력 5칸(결론 · 위험↑ 3 · 위험↓ 2 · 확인할 것 3 · 한계 3) + 캡처 2칸 — A4 1장",
-             ("lab-b",), "🟢", alts=("labs/day3/d3_shap_report_template.md",)),
+             "실습 B-1: pred 시트에 점수를 붙이고 이름 t(빈칸)에 내 임계값 → 직접 쓰는 IFS 등급(C부터) · 경계 · 분포 · 단조성(시험셋) 시트",
+             ("lab-b",), "필수"),
         Item("labs/day3/fx_forecast_inputs.csv", "fx_forecast_inputs.csv", "환율 예측 입력",
-             "원/달러 일별 종가(FRED DEXKOUS, 2023-09~2026-09)와 학습(train)·확인(valid) 구간 표시. Step 8 환율 위험 구간",
-             ("lab-b",), "🟢"),
-        Item("data/external/uci_taiwan_bankruptcy.csv", "uci_taiwan_bankruptcy.csv", "UCI 대만 기업 부도 데이터",
-             "외부 공개 벤치마크(CC BY 4.0, 출처 표기). 🔵 부도가 드문 데이터에서 지표 비교",
-             ("lab-a",), "🔵"),
+             "원/달러 일별 종가 767행(FRED DEXKOUS, 2023-09~2026-09)과 학습(train)·확인(valid) 구간 표시. 실습 B-2의 환율 위험 구간",
+             ("lab-b",), "필수"),
+        Item("labs/day3/d3_shap_report_template.docx", "d3_shap_report_template.docx", "근거 메모 양식",
+             "실습 B-2: 메모 프롬프트(B4)의 출력 5칸(결론 · 위험↑ 3 · 위험↓ 2 · 확인할 것 3 · 한계 3) + 그림 2칸 — A4 1장. Markdown판도 있다",
+             ("lab-b",), "선택", alts=("labs/day3/d3_shap_report_template.md",)),
+        Item("labs/day3/shap_sample_3buyers.csv", "shap_sample_3buyers.csv", "SHAP 표본 3곳(채팅 경로용)",
+             "B118 · B005 · B085의 pd_30d · 등급 · 위험을 올린 상위 3 · 낮춘 상위 2(강사 모델 값). 내 PC에서 SHAP을 못 돌릴 때 근거 메모(B4)를 쓰는 재료",
+             ("lab-b",), "선택"),
         Item("data/external/fred_dexkous.csv", "fred_dexkous.csv", "FRED 원/달러 원본",
-             "미국 연준 FRED DEXKOUS 원본 시계열(퍼블릭 도메인, 출처 표기 요청). 🟣 Prophet 입력",
-             ("lab-b",), "🟣"),
-        # D6(DECISIONS_v3): Challenge 노트북은 labs/day3/d3_challenge.ipynb 하나(LightGBM · SMOTE · SHAP + Prophet 섹션).
-        Item("labs/day3/d3_challenge.ipynb", "d3_challenge.ipynb", "Challenge 노트북",
-             "Colab: LightGBM · SMOTE(학습셋만) · SHAP + Prophet 환율 예측 구간. '런타임 다시 시작 후 모두 실행'으로 재현을 확인한다",
-             ("lab-a", "lab-b"), "🟣"),
+             "미국 연준 FRED DEXKOUS 원본 시계열(퍼블릭 도메인, 출처 표기 요청). 오전 시연 2에서 인터넷이 막혔을 때의 대체 입력",
+             ("lab-b",), "참고"),
     ]
 
 
 def build_day4() -> list[Item]:
-    # D13(DECISIONS_v3): 디스크의 실제 파일명이 정본 — d4_challenge.ipynb · d4_params.csv(P1–P40) · d4_scenarios.csv · d4_open_inv.csv ·
-    # 빈 틀 labs/day4/d4_limit_model.xlsx + 채운 판 data/checkpoints/d4_limit_model.xlsx. 옛 후보 이름(alts)은 쓰지 않는다.
-    # d4_risk_report_template.docx/.md · fraud_signals.md는 2026-10-07 제작(tools/build_day4_templates.py, DAY4_SPEC §4 입력).
-    return [
-        Item("data/checkpoints/d4_start_scored.csv", "d4_start_scored.csv", "4일차 시작 파일(150행)",
-             "3일차 점수(연체 확률·등급·상위 사유)에 한도 계산 열을 더한 파일. 워크북 02_Buyers 시트에 붙여 넣는다",
-             ("lab-a", "lab-b"), "🟢"),
-        Item("labs/day4/d4_limit_model.xlsx", "d4_limit_model.xlsx", "한도 산정 워크북(빈 틀)",
-             "시트 00–16: 할인율·NPV · 한도 LP(해 찾기) · 시나리오·몬테카를로 · 충당금 · 조기 경보 · 리포트 입력. "
-             "02_Buyers는 빈 틀 — d4_start_scored.csv를 붙여 넣는다. 색 규칙: 파랑 공시값 · 노랑 가정 · 회색 수식",
-             ("lab-a", "lab-b"), "🟢"),
-        Item("data/checkpoints/d4_params.csv", "d4_params.csv", "파라미터 표",
-             "금리·요율·정책 파라미터 P1–P40(65행, 값은 소수: 0.04 = 4%) — 워크북 01_Params와 같은 값 · 상태(확인/계산/가정) · 출처",
-             ("lab-a",), "🟢"),
-        Item("data/checkpoints/d4_scenarios.csv", "d4_scenarios.csv", "거시 쇼크 시나리오 S0–S4",
-             "기준 S0 + 경미·중간·심각·극단 S1–S4 + 2026년 실제 원/달러 경로(참고 행). 11_Scenario 입력, PD 배수는 [교육용 가정]",
-             ("lab-a",), "🟢"),
-        Item("data/checkpoints/d4_open_inv.csv", "d4_open_inv.csv", "미결 인보이스(조기 경보용)",
-             "기준일 미결 인보이스(선수금 제외, 300행). 13_EarlyWarning 입력과 같은 열",
-             ("lab-b",), "🟢"),
-        Item("data/checkpoints/d4_limit_model.xlsx", "catchup/d4_limit_model.xlsx", "워크북 합류용(채운 판)",
-             "02_Buyers 등을 미리 채운 같은 워크북 — 붙여넣기가 막혔을 때만 쓴다(받은 뒤 이름이 같으니 폴더를 나눠 둔다)",
-             ("lab-a",), "🟢"),
-        Item("labs/day4/d4_risk_report_template.docx", "d4_risk_report_template.docx", "신용 리스크 리포트 양식",
-             "경영진 보고용 요약 리포트 틀. 숫자는 워크북에서, 해석은 P4-1 초안을 사람이 고친다",
-             ("lab-b",), "🟢"),
-        Item("labs/day4/d4_risk_report_template.md", "d4_risk_report_template.md", "신용 리스크 리포트 양식(텍스트판)",
-             "워드 양식과 같은 내용의 마크다운판 — 워드가 없거나 구글 문서에 붙여 쓸 때. 설계도 6칸 · 본문 소제목 8개 · 레드팀 지적 · 12항목",
-             ("lab-b",), "🟢"),
-        Item("labs/day4/fraud_signals.md", "fraud_signals.md", "사기 신호 목록",
-             "조기 경보의 사기 경보에 쓰는 무역 사기 신호 정리",
-             ("lab-b",), "🟢"),
-        Item("labs/day4/d4_challenge.ipynb", "d4_challenge.ipynb", "Challenge 노트북",
-             "Colab: PuLP · linprog로 한도 LP 교차검증, 제약 바꿔 보기, 몬테카를로",
-             ("lab-a",), "🟣"),
+    # v4: 실습 A = 한도 최적화(PuLP · 속성 테스트 · 실험 카드 · 스트레스) / 실습 B = 경보 엔진 · GitHub Actions · 독자 카드 · 레드팀 + 8교시 엑셀 안의 AI.
+    # '트랙' 칸은 1–3일차와 같이 필수 / 선택 / 참고로 쓴다. 엑셀 해 찾기 중심 워크북 빈 틀 · Colab 노트북 · v3 리포트 양식은 v4에서 쓰지 않아 뺐다(instructor/day4/lab_v3_archive/).
+    # 14:45에 올라오는 기대값 테스트 2개(labs/day4/tests/test_*_expected.py)는 경로에 'expected'가 들어 있어 이 표에 넣을 수 없다(guard) —
+    # `uv run python tools/get_day_files.py 4`가 받고, 사이트 4일차 첫 쪽이 안내한다.
+    at_1500 = "10/19(월) 15:00"
+    mails = [
+        ("01_remittance_B050.eml", "메일 예제 ① 입금 통지(정상)", "미결 5건을 한 번에 갚는다는 입금 안내 — 신호가 없는 정상 메일. 점수표로 판독하는 연습의 기준선"),
+        ("02_new_account_B087.eml", "메일 예제 ② 새 계좌 송금 통보", "'새 계좌로 오늘 보낸다' — 새 계좌 · 제3국 명의 · 회신 주소 · 급박한 표현이 겹친 의심 메일"),
+        ("03_big_order_B030.eml", "메일 예제 ③ 유사 도메인 대량 주문", "보낸 주소의 철자가 한 글자 다른 사칭 메일 — 큰 주문 · 보험 안심 · 제3국 선적 · 메신저 협의"),
+        ("04_terms_B005.eml", "메일 예제 ④ 결제기간 연장 요청", "결제기간 연장 · 분할 요청 — 사기가 아니라 확인이 필요한 메일(결제조건 변경)"),
+        ("05_surrender_bl_B119.eml", "메일 예제 ⑤ 입금 전 서류 인도 요구", "입금 확인 전에 surrender B/L을 풀어 달라는 메일 — 실습 B 더 하기의 기본 메일"),
     ]
+    items = [
+        Item("data/checkpoints/d4_start_scored.csv", "d4_start_scored.csv", "4일차 시작 파일(150행)",
+             "3일차 기준 등급 파일(연체 확률 · 등급 · 상위 사유)에 한도 계산 열(필요한도 재료 · 보험한도 · 현행 한도 · PD · LGD 가정 · 전략 · 신용사건 표시)을 더한 파일. 모두 같은 파일로 시작한다",
+             ("lab-a", "lab-b"), "필수"),
+        Item("data/checkpoints/d4_params.csv", "d4_params.csv", "정책 숫자 표(65행)",
+             "금리 · 요율 · 총액 비율 · EL 예산 · 국가 캡 · 등급별 PD 같은 정책 숫자. `excel_name` 열로 찾는다(값은 소수: 0.04 = 4%) — 코드에 숫자를 직접 쓰지 않는다",
+             ("lab-a",), "필수"),
+        Item("data/checkpoints/d4_scenarios.csv", "d4_scenarios.csv", "거시 쇼크 시나리오 S0–S4",
+             "기준 S0 + 경미 · 중간 · 심각 · 극단(S1–S4)과 2026년 실제 원/달러 경로(참고 행). 스트레스 시뮬레이터의 입력이고 PD 배수 · LGD는 [교육용 가정]",
+             ("lab-a",), "필수"),
+        Item("data/checkpoints/d4_open_inv.csv", "d4_open_inv.csv", "미결 인보이스(300건)",
+             "기준일 2026-09-30의 미결 인보이스(선수금 제외). 선적 보류 판정과 경보 엔진의 입력",
+             ("lab-a", "lab-b"), "필수"),
+        Item("labs/day4/MODEL_SPEC.md", "MODEL_SPEC.md", "한도 모델 설계 1쪽",
+             "바이어별 여신 한도 LP — 미리 계산할 것 · 결정변수 · 목적 · 제약 4종 · 출력 시트. 실습 A 시작 프롬프트가 읽는 파일",
+             ("lab-a",), "필수"),
+        Item("labs/day4/tests/conftest.py", "tests/conftest.py", "테스트 공통 옵션",
+             "테스트가 쓰는 경로 옵션(--params · --result · --rules · --engine · --stress). 실험 카드 · 버그 카드의 결과를 같은 테스트로 볼 때 쓴다",
+             ("lab-a", "lab-b"), "필수"),
+        Item("labs/day4/tests/test_limits_props.py", "tests/test_limits_props.py", "한도 엔진 속성 테스트 8개",
+             "어떤 답이든 지킬 규칙(상태 · 상하한 · 총액 · EL 예산 · 국가 캡 · B등급 비중 · 보류 0 · 두 솔버 일치)을 검사한다",
+             ("lab-a",), "필수"),
+        Item("labs/day4/tests/test_stress_props.py", "tests/test_stress_props.py", "스트레스 속성 테스트",
+             "기대손실 순서 · 시뮬레이션 평균 ±3% · 꼬리 순서 · 상관이 꼬리를 키우는지를 검사한다",
+             ("lab-a",), "필수"),
+        Item("labs/day4/stress_mc.py", "stress_mc.py", "스트레스 시뮬레이터(참고)",
+             "시나리오 S0–S4의 공식 기대손실과 몬테카를로(평균 · P95 · P99 · ES99) · 상관 0 대 0.2 · 손실 분포 그림 · 한도 재배정 절감액. 내 시나리오 U1을 더해 다시 돌린다",
+             ("lab-a",), "필수"),
+        Item("labs/day4/experiment_cards.md", "experiment_cards.md", "실험 카드 9장",
+             "정책 손잡이 하나를 바꾸고 먼저 예측한 뒤 돌려 확인하는 카드 — 하는 법 · 기록 모양 · 카드별 힌트와 가정",
+             ("lab-a",), "필수"),
+        Item("data/checkpoints/d4_limit_model.xlsx", "d4_limit_model.xlsx", "한도 워크북(채운 판, 시트 17개)",
+             "수식 · 해 찾기 모델이 든 워크북 — 실험 카드 ⑥ ⑨(8주 유동성 갭)와 8교시 시연 6(엑셀 안의 AI)에서 쓴다. 엑셀이 없으면 건너뛴다",
+             ("lab-a",), "선택"),
+        Item("data/checkpoints/d4_params_bug.csv", "d4_params_bug.csv", "버그 카드(정책 숫자 표)",
+             "정책 숫자 표에서 한 칸이 틀린 판. 엔진을 이 파일로 돌린 결과에 같은 테스트를 걸어 무엇이 잡고 무엇이 못 잡는지 본다",
+             ("lab-a",), "선택"),
+        Item("labs/day4/alert_rules.yml", "alert_rules.yml", "경보 규칙 파일",
+             "연체 단계(D-3 · D+7 · D+15 · D+30) · 규칙 7개(경계값 · 등급 · 권고 문장) + 내 규칙 아이디어 3개(주석). 내 저장소에서는 workbench/day4/rules/로 복사해 규칙을 하나 더한다",
+             ("lab-b",), "필수"),
+        Item("labs/day4/report_template.docx", "report_template.docx", "경영진 보고서 Word 템플릿",
+             "docxtpl 자리표시자가 든 2쪽 양식 — 요약 3줄 · 포트폴리오 · 주의 바이어 5곳 · 한도 재배정 · 시나리오 · 경보 · 결정 요청 표 · 가정과 한계",
+             ("lab-b",), "필수"),
+        Item("labs/day4/report_schema.json", "report_schema.json", "해석 문장의 칸 이름(JSON 스키마)",
+             "AI가 낼 narrative.json의 형식 — summary · sections · actions · assumptions · number_trace. 형식 오류를 스키마가 잡는다",
+             ("lab-b",), "필수"),
+        Item("labs/day4/audience_cards.md", "audience_cards.md", "독자 카드 3종",
+             "경영진 Word 2쪽 · 영업팀 바이어별 조치표 · 대표 보고 메일 5줄 — 같은 숫자를 읽는 사람에 맞춰 바꾸는 법",
+             ("lab-b",), "필수"),
+        Item("labs/day4/review_checklist.md", "review_checklist.md", "보고서 검토 체크리스트 12항목",
+             "숫자 대조 · 가정 표시 · 권고 문장 · 개인정보 · 레드팀 처리 · 초안 표시 — 서명하기 전에 하나씩",
+             ("lab-b",), "필수"),
+        Item("labs/day4/ews_workflow_example.yml", "ews_workflow_example.yml", "경보 워크플로 예시",
+             "수동 실행 버튼만 있는 GitHub Actions 워크플로(예약은 주석). 채팅 경로 · 막혔을 때 .github/workflows/d4-ews.yml로 복사해 쓴다",
+             ("lab-b",), "선택"),
+        Item("labs/day4/post_issue_example.py", "post_issue_example.py", "자동 이슈 스크립트 예시",
+             "경보 결과를 이슈로 올린다 — 같은 제목의 열린 이슈가 있으면 댓글로 갱신(멱등). 내 PC에서는 --dry-run으로 본문만 본다",
+             ("lab-b",), "선택"),
+        Item("labs/day4/fraud_signals.md", "fraud_signals.md", "사기 신호 점수표(13가지)",
+             "의심 메일을 읽는 기준 — 신호 · 점수 · 상태(멈춤 · 확인 · 기록) · 콜백 3원칙. 더 하기와 오전 시연 3에서 쓴다",
+             ("lab-b",), "선택"),
+        Item("labs/day4/mail/buyer_contacts.csv", "mail/buyer_contacts.csv", "바이어 연락처(가상)",
+             "메일 예제 5통의 바이어 등록 도메인과 등록 전화번호(가상) — 콜백은 메일에 적힌 번호가 아니라 이 표의 번호로 한다",
+             ("lab-b",), "선택"),
+    ]
+    items += [Item(f"labs/day4/mail/{name}", f"mail/{name}", title, desc, ("lab-b",), "선택") for name, title, desc in mails]
+    items += [
+        Item("labs/day4/tests/test_ews_props.py", "tests/test_ews_props.py", "경보 엔진 속성 테스트",
+             "경계값 · 면제 · 멱등 · 일관 · 권고 문장 · 과정 원장의 기대 건수를 검사한다. 엔진이 지켜야 할 모양이 첫머리에 적혀 있다",
+             ("lab-b",), "필수", phase="answer", when=at_1500),
+        Item("data/checkpoints/d4_report_input.json", "d4_report_input.json", "보고서 지표 JSON",
+             "오늘 시연 1 · 2 · 4의 결과를 모은 지표(숫자와 근거 위치). 해석 프롬프트(B2)에 붙여 넣고, 렌더 스크립트가 읽는다",
+             ("lab-b",), "필수", phase="answer", when=at_1500),
+        Item("labs/day4/make_report.py", "make_report.py", "보고서 렌더(참고 스크립트)",
+             "지표 JSON + narrative.json → Word. 채우기 전에 핵심 숫자를 원본에서 다시 계산해 맞는지 보고 다르면 멈춘다(`uv add docxtpl` 필요)",
+             ("lab-b",), "필수", phase="answer", when=at_1500),
+        Item("labs/day4/check_numbers.py", "check_numbers.py", "숫자 대조(참고 스크립트)",
+             "문장 속 숫자를 정규식으로 뽑아 지표 JSON과 대조한다 — 쉼표 · 반올림 · 단위를 정규화하고 불일치가 1건이라도 있으면 멈춘다",
+             ("lab-b",), "필수", phase="answer", when=at_1500),
+        Item("labs/day4/ews_example.py", "ews_example.py", "경보 엔진(참고 · 대체 경로용)",
+             "내 Claude Code가 scripts/ews.py를 못 만들었을 때 쓰는 참고 엔진. 같은 규칙 · 같은 입력이면 같은 결과",
+             ("lab-b",), "선택", phase="answer", when=at_1500),
+    ]
+    return items
 
 
 def build_day5() -> list[Item]:
-    # D13: 디스크의 실제 경로·이름이 정본 — rag/corpus/*(README · hanbit_credit_policy.md) · rag/goldset_20.csv · rag/eval_sheet_template.xlsx ·
-    # agents/dify|n8n/* · d5_start.csv(29열 = 03P1 §4.9의 27열 + 미결 잔액 2열) · d5_rag_eval.ipynb.
-    # 받는 폴더도 디스크와 같은 구조(rag/corpus · rag/ · agents/dify · agents/n8n)로 둔다 — rag/corpus/README.md의 상대 링크(../goldset_20.csv)가 그대로 열린다.
-    # 도입 기획서 양식은 6일차 제작분(labs/day6/ax_proposal_template.md)을 5일차 저녁 초안에도 쓴다(옛 이름 templates/proposal_template.docx는 쓰지 않는다).
+    # v4: 실습 A = 규정 RAG 챗봇과 검색 평가(채팅 프로젝트 → 조 단위 청킹 → BM25 → F1@K → 개선 실험, Claude Code) /
+    # 실습 B = 환율 타일(요구사항 카드) · 톤 표 워크플로 · 배포 · 승인 기록 SQLite + 8교시 팀 저장소.
+    # '트랙' 칸은 1–4일차와 같이 필수 / 선택 / 참고로 쓴다. Dify · n8n · Sheets 원장 · Colab 노트북은 v4에서 쓰지 않아 뺐다(instructor/day5/lab_v3_archive/).
+    # 08:30에 새로 올라오는 것은 d5_start.csv 하나이고, 나머지는 템플릿에 이미 들어 있다(없으면 get_day_files.py 5가 같은 경로로 받는다).
+    # 골든셋 정답 칸이 든 goldset_20.csv는 평가 코드가 읽는 파일이다 — 채팅 프로젝트에는 올리지 않는다(질문만 든 goldset_questions.csv를 쓴다).
     return [
         Item("data/checkpoints/d5_start.csv", "d5_start.csv", "5일차 시작 파일(미결 인보이스)",
-             "2026-09-30 기준 미결 인보이스(300행 이하) · 29열(등급·한도·독촉 단계·통지 기한·미결 잔액 포함). 대시보드 업로드 · n8n 원장 공용(메일 주소는 가상)",
-             ("lab-b",), "🟢"),
-        Item("rag/corpus/README.md", "rag/corpus/README.md", "RAG 문서 안내·공식 링크",
-             "무엇을 어디서 받나: K-SURE 약관·법령은 공식 사이트 링크에서 각자 받는다(재배포 금지) + 조항 단위로 자르는 법",
-             ("lab-a",), "🟢"),
-        Item("rag/corpus/hanbit_credit_policy.md", "rag/corpus/hanbit_credit_policy.md", "(가상) 한빛정밀 여신관리규정",
-             "가상 사내 규정(12장 35조 + 별표 4개, 조·항 구조의 텍스트판). Gemini Notebook · Dify 지식베이스에 올린다",
-             ("lab-a",), "🟢"),
-        Item("rag/goldset_20.csv", "rag/goldset_20.csv", "골든셋 20문항",
-             "질문 · 기대 답 · 근거 조항 · 유형(기권 문항 포함). 짝과 10문항씩 나눠 기록한다",
-             ("lab-a",), "🟢"),
-        Item("rag/eval_sheet_template.xlsx", "rag/eval_sheet_template.xlsx", "검색 평가 시트",
-             "골든셋으로 검색 품질(P@K·R@K·F1@K, K = 1·3·5 → Top-K 선택 · 보조 Hit@3·MRR)과 답 품질(정답·인용·기권)을 기록·계산한다. Google Sheets로 가져가 쓴다",
-             ("lab-a",), "🟢"),
-        Item("agents/dify/hanbit_policy_rag_v1.yml", "agents/dify/hanbit_policy_rag_v1.yml", "Dify 앱 DSL",
-             "막혔을 때 가져오기(Import DSL)로 같은 규정 챗봇을 바로 만든다",
-             ("lab-a",), "🟢"),
+             "2026-09-30 기준 미결 인보이스(300행 이하) · 29열(등급 · 한도 · 독촉 단계 · 통지 기한 · 미결 잔액 포함). 앱 ⓪ 통합 상황판 · 환율 타일의 입력(메일 주소는 가상)",
+             ("lab-b",), "필수"),
+        Item("rag/corpus/hanbit_credit_policy.pdf", "rag/corpus/hanbit_credit_policy.pdf", "(가상) 한빛정밀 여신관리규정 PDF",
+             "가상 사내 규정(11쪽 · 35조 + 부칙 + 별표 4개). 채팅 프로젝트에 올리고(실습 A2) Claude Code가 조 단위로 자른다(A3)",
+             ("lab-a",), "필수"),
+        Item("rag/goldset_20.csv", "rag/goldset_20.csv", "골든셋 20문항(평가 코드용)",
+             "질문 · 기대 답 · 근거 조항 · 유형(기권 문항 포함). 정답 칸이 있어 평가 코드(eval.py)만 읽는다 — 채팅 프로젝트에는 올리지 않는다",
+             ("lab-a",), "필수"),
+        Item("rag/goldset_questions.csv", "rag/goldset_questions.csv", "골든셋 질문 목록(채팅 경로)",
+             "골든셋의 질문 두 열(q_id · question) 20줄 — 정답 칸이 없다. 채팅 경로에서 대화창에 붙인다",
+             ("lab-a",), "선택"),
+        Item("rag/eval_sheet_template.xlsx", "rag/eval_sheet_template.xlsx", "검색 평가 시트(채팅 경로)",
+             "채팅으로 받은 조항 ID 상위 5개(r1–r5)를 붙이면 규정 정답 10문항의 P@K · R@K · F1@K(K = 1 · 3 · 5) · Hit@3 · MRR · Top-K가 계산된다. 실험 전후 두 탭",
+             ("lab-a",), "선택"),
+        Item("rag/corpus/hanbit_credit_policy.md", "rag/corpus/hanbit_credit_policy.md", "(가상) 여신관리규정 텍스트판",
+             "같은 규정의 Markdown 판 — PDF에서 글자가 잘 안 뽑힐 때의 대체 입력(조 머리 `## 제N조`)",
+             ("lab-a",), "선택"),
+        Item("rag/corpus/README.md", "rag/corpus/README.md", "RAG 문서 안내 · 공식 링크",
+             "무엇을 어디서 받나: 수출보험 약관 · 법령은 공식 사이트 링크에서 각자 받는다(재배포 금지) + 조항 ID 규칙 · 조 단위로 자르는 법",
+             ("lab-a",), "참고"),
+        Item("labs/day5/spec_fx_tile.md", "spec_fx_tile.md", "요구사항 카드 — 환율 타일",
+             "'원화 환산(오늘 환율)' 타일의 목적 · 화면 · 완료 기준(Given · When · Then) · 데이터와 계산 · 하지 않을 것. 내 사본에 Then 한 줄을 더한다(실습 B2)",
+             ("lab-b",), "필수"),
+        Item("labs/day5/tone_matrix.csv", "tone_matrix.csv", "독촉 톤 표(연체 단계 × 등급 → 템플릿)",
+             "기본값은 지금 앱의 규칙 그대로. 내 사본의 한 칸 이상을 고쳐 라우팅이 표를 읽게 만든다(실습 B4)",
+             ("lab-b",), "필수"),
         Item("app/sample_data/upload_sample.csv", "upload_sample.csv", "대시보드 업로드 연습 파일",
-             "앱 업로드 → 자동 전처리 화면을 시험해 보는 작은 샘플(입력 오류 포함, 100행 + 중복 1행, 가상 데이터)",
-             ("lab-b",), "🟢"),
-        Item("labs/day5/TF_AR_Ledger_template.xlsx", "TF_AR_Ledger_template.xlsx", "독촉 원장 양식",
-             "n8n 워크플로·앱이 읽는 미결 인보이스 원장(시트 AR_Ledger 34열 = d5_start 29열 + 작업 5열 · Config · Audit_Log). Google Sheets로 가져가 쓴다",
-             ("lab-b",), "🔵"),
-        Item("agents/n8n/dunning_workflow_v1.json", "agents/n8n/dunning_workflow_v1.json", "n8n 독촉 워크플로",
-             "가져오기용. 승인 메일(승인자 = 본인) → Gmail 초안 → Audit_Log. 실제 발송 없음(DRY RUN)",
-             ("lab-b",), "🔵"),
+             "앱 ① 업로드 → 자동 전처리 화면을 시험해 보는 작은 샘플(입력 오류 포함, 100행 + 중복 1행, 가상 데이터)",
+             ("lab-b",), "선택"),
         Item("labs/day6/ax_proposal_template.md", "ax_proposal_template.md", "AI 도입 기획서 양식(11장)",
-             "오늘 21:00까지 1–6장 초안 plan_draft__T{조}-{번호}.docx(비공개 폼) → 6일차에 7–11장. Word·Google Docs로 옮겨 .docx로 낸다",
-             ("lab-b",), "🟢"),
-        Item("labs/day5/d5_rag_eval.ipynb", "d5_rag_eval.ipynb", "Challenge 노트북",
-             "Colab: 골든셋으로 P@K·R@K·F1@K·Hit@3·MRR을 코드로 평가(조 단위 vs 고정 길이 청킹, TF-IDF vs BM25)",
-             ("lab-a",), "🟣"),
+             "오늘 21:00까지 1–6장 초안을 plan_draft__T{조}-{번호}.docx로(비공개 폼) → 6일차에 7–11장. Word · Google Docs로 옮겨 .docx로 낸다",
+             ("lab-b",), "필수"),
     ]
 
 
@@ -411,65 +455,65 @@ def build_day6() -> list[Item]:
     cards = [
         Item(_card_src(i), f"cards/card{i}.md", f"위기 카드 {mark}",
              "주카드 원문(종이 카드와 같다). 강사가 배정한 카드를 09:28에 연다",
-             ("cards",), "🟢")
+             ("cards",), "필수")
         for i, mark in enumerate(["①", "②", "③", "④", "⑤"], start=1)
     ]
     teams = [
         Item(f"data/checkpoints/d6_teams/team_{t:02d}.xlsx", f"teams/team_{t:02d}.xlsx", f"팀 {t} 데이터 팩",
              f"팀 {t}의 데이터 팩 — 배정 카드의 변경분 · 대상 바이어 지금 값 · 미결 인보이스 · 기한 행 · 질문 5개. 카드 배정(08:30) 뒤 우리 팀 번호의 파일만 받는다",
-             ("cards",), "🟢")
+             ("cards",), "필수")
         for t in range(1, 6)
     ]
     pack_csv = {  # 시트별 CSV(UTF-8 BOM) — d6_crisis_pack.xlsx의 같은 이름 시트
         "cards": "카드 5종 + 변형 V1 요약(대상 바이어 · 시나리오 · 바뀌는 값 · 기대 산출 · 최소 완료 기준)",
         "injects": "공통 인젝트 2장의 시각과 쓰는 파일(내용은 투입 시각에 카드로 공개)",
         "buyer_changes": "바이어 단위 변경 — 카드 × 바이어 1행(빈칸 = 그대로). 역할 ①(데이터)이 한 줄씩 반영한다",
-        "invoice_changes": "인보이스 단위 변경(해당 카드의 인보이스 결제기일 재설정). 13_EarlyWarning에 붙여 넣기 전에 바꾼다",
-        "scenarios": "카드별 시나리오 값 — 고른 행을 11_Scenario에 값으로 붙여 넣는다",
+        "invoice_changes": "인보이스 단위 변경(해당 카드의 인보이스 결제기일 재설정). 역할 ①이 미결 인보이스 파일에 반영한다",
+        "scenarios": "카드별 시나리오 값(PD 배수 · LGD · 원/달러 · 금리) — 역할 ③이 기대손실(EL) 표의 카드 시나리오 열에 쓴다",
         "new_buyer": "해당 카드의 신규 바이어 속성(3개월 전 · 지금)",
-        "new_buyer_features": "신규 바이어 특성 2행 — 앱 ② 업로드용(d3_start_scoring.csv와 같은 열)",
+        "new_buyer_features": "신규 바이어 특성 2행(d3_start_scoring.csv와 같은 열) — 카드 ⑤의 점수화 입력",
         "limit_realloc": "D6-C4 한도 재배정 표 — 현행 한도 · 4일차 한도 + 팀이 채울 빈칸",
         "budget": "연간 채권관리 · 대외자문 예산 표(가상) — ROI 템플릿 입력",
         "templates": "양식 파일 위치 목록(labs/day6/)",
     }
     csvs = [
         Item(f"data/checkpoints/d6_crisis_pack_{k}.csv", f"csv/d6_crisis_pack_{k}.csv", f"위기 데이터 팩 — {k} 시트(CSV)",
-             f"{k} 시트와 같은 내용(UTF-8 BOM) — {d}. Colab · 앱 업로드 · 코딩 에이전트용",
-             ("cards",), "🟣")
+             f"{k} 시트와 같은 내용(UTF-8 BOM) — {d}. 스크립트(Claude Code)나 채팅 AI에 올리기 편한 형식",
+             ("cards",), "선택")
         for k, d in pack_csv.items()
     ]
     return [
         Item("labs/day6/hackathon_rules.md", "hackathon_rules.md", "해커톤 규칙 한 장",
-             "규칙 6가지 · 하루 흐름 · 사람이 결정하는 것 4종 · 하지 말 것 · 인젝트가 오면 · 막히면(감점 없음) · 1:1 코칭·발표. 팀마다 A4 2장 인쇄", ("hack",), "🟢", when=eve),
+             "규칙 6가지 · 하루 흐름 · 사람이 결정하는 것 4종 · 하지 말 것 · 인젝트가 오면 · 막히면(감점 없음) · 1:1 코칭·발표. 팀마다 A4 2장 인쇄", ("hack",), "필수", when=eve),
         Item("labs/day6/role_cards.md", "role_cards.md", "역할 카드 5종",
-             "데이터 · 모델·등급 · 한도·시나리오·ROI · 규정·RAG·거버넌스 · SOP·커뮤니케이션·발표 + 저장소 관리자 — 넘기는 것 · 완료 체크. 09:25 역할 이슈에 쓴다", ("hack",), "🟢", when=eve),
+             "데이터 · 모델·등급 · 한도·시나리오·ROI · 규정·RAG·거버넌스 · SOP·커뮤니케이션·발표 + 저장소 관리자 — 넘기는 것 · 완료 체크 · 역할별 Claude Code 시작 프롬프트 안내. 역할 이슈 5개에 쓴다", ("hack",), "필수", when=eve),
         Item("labs/day6/judging_rubric.xlsx", "judging_rubric.xlsx", "심사 루브릭(엑셀)",
-             "기준 6개 × 1–4점 앵커 · 산식 · 시상(점수 칸 없는 공개본)", ("hack",), "🟢", when=eve),
+             "기준 6개 × 1–4점 앵커 · 산식 · 시상(점수 칸 없는 공개본)", ("hack",), "필수", when=eve),
         Item("labs/day6/judging_rubric.md", "judging_rubric.md", "심사 루브릭(텍스트)",
-             "엑셀판과 같은 앵커 문구를 마크다운으로 — 브라우저·AI에서 바로 읽는다", ("hack",), "🟢", when=eve),
+             "엑셀판과 같은 앵커 문구를 마크다운으로 — 브라우저·AI에서 바로 읽는다", ("hack",), "필수", when=eve),
         Item("labs/day6/standup_board.md", "standup_board.md", "CP2 스탠드업 양식",
-             "끝낸 것 · 막힌 것 · 오후 첫 작업", ("hack",), "🟢", when=eve),
+             "끝낸 것 · 막힌 것 · 오후 첫 작업", ("hack",), "필수", when=eve),
         Item("labs/day6/presentation_template.md", "presentation_template.md", "7분 데모 대본 틀",
-             "위기 요약 → 라이브 데모 → SOP → ROI·KPI → 솔루션 킷 → 첫 30일 + 예상 질문", ("hack", "kit"), "🟢", when=eve),
+             "위기 요약 → 라이브 데모(파이프라인 한 바퀴) → SOP → ROI·KPI → 솔루션 킷 → 첫 30일 + 예상 질문", ("hack", "kit"), "필수", when=eve),
         Item("labs/day6/kit_checklist.md", "kit_checklist.md", "솔루션 킷 체크리스트",
-             "README 5항목 · 폴더 6개 · 보안 점검(3검색 0건) · v1.0 릴리스 절차 · GitHub이 막힐 때 · 제3자 재현 테스트", ("kit",), "🟢", when=eve),
+             "README 5항목 · 폴더 6개 · 보안 점검(3검색) · v1.0 릴리스 절차 · GitHub이 막힐 때 · 제3자 재현 테스트(새 폴더에서 uv sync부터)", ("kit",), "필수", when=eve),
         Item("labs/day6/sop_template.md", "sop_template.md", "SOP 양식",
-             "0–10장 + 부록: 발동 조건 · RACI · T+0/24h/72h/1주 조치 · 종료 조건(팀 저장소 sop/SOP_template.md와 같다)", ("kit",), "🟢", when=eve),
+             "0–10장 + 부록: 발동 조건 · RACI · T+0/24h/72h/1주 조치 · 종료 조건(팀 저장소 sop/SOP_template.md와 같다)", ("kit",), "필수", when=eve),
         Item("labs/day6/roi_kpi_template.xlsx", "roi_kpi_template.xlsx", "ROI·KPI 템플릿",
-             "팀 ROI 3안(보수·기준·낙관) · 도구비 S0–S3 · BCR · ROI · 회수기간 · 개인 '나만의 KPI'", ("kit",), "🟢", when=eve),
+             "팀 ROI 3안(보수·기준·낙관) · 도구비 S0–S3 · BCR · ROI · 회수기간 · 개인 '나만의 KPI'", ("kit",), "필수", when=eve),
         Item("labs/day6/ax_proposal_template.md", "ax_proposal_template.md", "AI 도입 기획서 양식(11장)",
-             "개인 제출: 7–11장을 채워 17:50 마감(비공개 폼, 저장소에 올리지 않는다). Word·Google Docs로 옮겨 .docx로 낸다", ("kit",), "🟢", when=eve),
+             "개인 제출: 7–11장을 채워 17:50 마감(비공개 폼, 저장소에 올리지 않는다). Word·Google Docs로 옮겨 .docx로 낸다", ("kit",), "필수", when=eve),
         Item("data/checkpoints/d6_crisis_pack.xlsx", "d6_crisis_pack.xlsx", "위기 데이터 팩",
              "카드별 트리거 데이터(시트 cards · injects · buyer_changes · invoice_changes · scenarios · new_buyer · limit_realloc · budget · templates). "
              "역할 ①(데이터)이 받아 바이어 데이터에 반영한다",
-             ("cards",), "🟢"),
+             ("cards",), "필수"),
         *teams,
         Item("data/checkpoints/d6_card5_stage2.xlsx", "d6_card5_stage2.xlsx", "카드 ⑤ 2단계 데이터",
              "11:15 카드 ⑤ 팀에 2단계 카드와 함께 공개한다(다른 팀은 쓰지 않는다)",
-             ("cards",), "🟢", phase="answer", when="10/21(수) 11:15"),
+             ("cards",), "필수", phase="answer", when="10/21(수) 11:15"),
         Item(_card_src(5, "stage2"), "cards/card5_stage2.md", "위기 카드 ⑤ 2단계 카드",
              "11:15 카드 ⑤ 팀에 종이 카드와 같은 내용으로 공개한다(다른 팀은 쓰지 않는다)",
-             ("cards",), "🟢", phase="answer", when="10/21(수) 11:15"),
+             ("cards",), "필수", phase="answer", when="10/21(수) 11:15"),
         *cards,
         *csvs,
     ]
@@ -485,7 +529,7 @@ def handout(n: int) -> Item:
     .gitignore 대상이라 당일 18:00에 `git add -f handouts/dayN_slides.pdf`로 공개한다(그 전에는 '공개 예정')."""
     return Item(f"handouts/day{n}_slides.pdf", f"day{n}_slides.pdf", "강의 슬라이드(PDF)",
                 "그날 강의 슬라이드의 수강생판 — 발표자 노트 제외, 외부 기관 화면 캡처는 자리 표시(강의장에서만 보여 준다). 당일 18:00 공개",
-                ("hack",) if n == 6 else ("lab-a", "lab-b"), "🟢", phase="answer", when=f"{HANDOUT_DATES[n]} 18:00")
+                ("hack",) if n == 6 else ("lab-a", "lab-b"), "참고", phase="answer", when=f"{HANDOUT_DATES[n]} 18:00")
 
 
 def build_days() -> list[Day]:

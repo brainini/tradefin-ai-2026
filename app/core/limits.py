@@ -1,10 +1,10 @@
 """③ 한도·시나리오 — 규칙 기반 한도(가상 규정 제13조) + (선택) 선형계획(LP) 재배정 + 4단계 충격 기대손실.
 
-규칙(가상 규정 제13조·G01 §2.5.1): 한도 = min(필요한도, 등급 상한, 인수한도 + 자기부담 허용액)
+규칙(가상 규정 제13조): 한도 = min(필요한도, 등급 상한, 인수한도 + 자기부담 허용액)
   필요한도 = 월평균 매출 × (결제기간 + 15) ÷ 30 · 자기부담 = 자기자본 × s(등급)
   상한 0: 신용장·선수금 거래, 선적 보류(결제기일 + 30일 초과 미결), 파산 인지, C등급
-LP(03 Part2 §4.5 10_LimitLP와 같은 식): max Σ coef·L  s.t. 총허용익스포저 · 미부보 EL 예산 · 국가 한도 · B등급 비중
-기본 파라미터 = 03 Part2 §4.5 01_Params(G03 P1~P23 + 회사 가정값). 모두 화면에서 바꿀 수 있다.
+LP(4일차 한도 모델과 같은 식): max Σ coef·L  s.t. 총허용익스포저 · 미부보 EL 예산 · 국가 한도 · B등급 비중
+기본 파라미터 = 4일차 파라미터(d4_params.csv)와 같은 값(공개 금리 + 회사 가정값). 모두 화면에서 바꿀 수 있다.
 """
 from __future__ import annotations
 
@@ -17,16 +17,16 @@ GR = ["S", "A", "B", "C"]
 NO_LIMIT_METHODS = ("LC_SIGHT", "LC_USANCE", "TT_ADV")
 
 DEFAULT_PARAMS = {
-    "tsofr3m": 0.04047,                                          # Term SOFR 3M(2026-09-23) [G03 P3]
-    "spread": {"S": 0.010, "A": 0.015, "B": 0.020, "C": 0.025},  # [가정 G03 P19]
-    "prem": {"S": 0.0030, "A": 0.0040, "B": 0.0050, "C": 0.0100},  # 90일 1건 보험료율 [가정 G03 P20]
-    "pd": {"S": 0.005, "A": 0.015, "B": 0.040, "C": 0.100},      # 연 PD [가정 G03 P21]
-    "lgd": 0.60,                                                  # 무보험 LGD [가정 G03 P22]
-    "cov": 0.95,                                                  # 보상비율 [규정 G03 P18]
+    "tsofr3m": 0.04047,                                          # Term SOFR 3M(2026-09-23)
+    "spread": {"S": 0.010, "A": 0.015, "B": 0.020, "C": 0.025},  # [가정]
+    "prem": {"S": 0.0030, "A": 0.0040, "B": 0.0050, "C": 0.0100},  # 90일 1건 보험료율 [가정]
+    "pd": {"S": 0.005, "A": 0.015, "B": 0.040, "C": 0.100},      # 연 PD [가정]
+    "lgd": 0.60,                                                  # 무보험 LGD [가정]
+    "cov": 0.95,                                                  # 보상비율 [규정]
     "equity": 10_000_000,                                         # 자기자본 USD [교육용 가정]
     "alpha": 0.03,                                                # 미부보 EL 예산 = 자기자본 × α [가정 G01]
     "s": {"S": 0.05, "A": 0.03, "B": 0.01, "C": 0.0},            # 자기부담 비율 [가정 G01]
-    "grace": 15,                                                  # 필요한도 유예일 [가정 G01 방식⑤]
+    "grace": 15,                                                  # 필요한도 유예일 [가정]
     "cap": {"S": None, "A": 200_000, "B": 100_000, "C": 0},      # 등급 상한(S = 필요한도) [가정, 규정 별표2]
     "util": 0.70, "gm": 0.25, "strat_min": 0.50, "share_cap_b": 0.30, "total_cap_ratio": 0.70,
     "ctry_cap": {"0-2": 0.20, "3": 0.12, "4-5": 0.06, "6-7": 0.03},   # 총허용익스포저 대비 [교육용 가정]
@@ -43,7 +43,7 @@ DEFAULT_SCENARIOS = pd.DataFrame([
 
 
 def load_scenarios(path=None) -> pd.DataFrame:
-    """Day4 시나리오 파일(d4_scenarios.csv · scenarios.csv)이 있으면 그것을, 없으면 내장 기본값(03 Part2 §4.7).
+    """Day4 시나리오 파일(d4_scenarios.csv · scenarios.csv)이 있으면 그것을, 없으면 내장 기본값.
     LGD: lgd_scenario(절대값) → lgd → lgd_adj(0.3 초과면 절대값, 이하면 기본 LGD + 값). 참고 행(row_type = reference)은 뺀다."""
     if path is None or not Path(path).exists():
         return DEFAULT_SCENARIOS.copy()
@@ -81,7 +81,7 @@ def load_params(path=None) -> tuple[dict, str]:
     import copy
     p = copy.deepcopy(DEFAULT_PARAMS)
     if path is None or not Path(path).exists():
-        return p, "앱 내장 기본값(03 Part2 §4.5 01_Params)"
+        return p, "앱 내장 기본값"
     try:
         d = pd.read_csv(path, encoding="utf-8-sig")
     except Exception:
@@ -254,7 +254,7 @@ def lp_limits(b: pd.DataFrame, p: dict | None = None) -> tuple[pd.DataFrame, dic
 
 def scenario_el(b: pd.DataFrame, p: dict | None = None, scenarios: pd.DataFrame | None = None,
                 exposure_col: str = "open_ar_usd") -> pd.DataFrame:
-    """시나리오별 기대손실(EL)·원화 가치·금융비용(03 Part2 §4.7 시트 식).
+    """시나리오별 기대손실(EL)·원화 가치·금융비용(4일차 시나리오 표와 같은 식).
     EL_s = Σ AR × min(1, PD_g × 배수) × LGD_s × (1 − cov_i) · 원화 = Σ AR × 원/달러 · 금융비용 = Σ AR × (TSOFR3M + bp + spread_g) × terms/360"""
     p = {**DEFAULT_PARAMS, **(p or {})}
     sc = DEFAULT_SCENARIOS if scenarios is None else scenarios

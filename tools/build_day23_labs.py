@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-"""Day2·Day3 실습 양식 4종을 만들고 검사한다(Orange 워크플로·Challenge 노트북은 각각 build_day2/3_orange.py · build_day2/3_notebook.py).
+"""Day2·Day3 실습 양식 4종을 만들고 검사한다(v4 — Orange 워크플로·Challenge 노트북은 쓰지 않는다. 옛 생성기 build_day2/3_orange.py · build_day2/3_notebook.py는 v3용).
 
 만드는 파일(수강생용 = 공개 저장소, 정답 없음)
-  labs/day2/news_warmup_10.txt          Step 6 워밍업 뉴스 10건(한 4 · 영 6) — d2_news.csv 앞쪽 행 그대로, 점수 없음(DAY2_SPEC §0.8 #16)
+  labs/day2/news_warmup_10.txt          실습 B 워밍업 뉴스 10건(한 4 · 영 6) — d2_news.csv 앞쪽 행 그대로, 점수 없음(채팅 경로 형식 시험용)
   labs/day2/byod_anonymize_template.xlsx 자사 엑셀 익명화 점검표 + 가상 예시 변환 수식(R08 §2.11 · 사이트 setup.md#byod)
-  labs/day3/d3_grade_banding.xlsx       등급 매칭 시트: pred(붙여넣기 칸 + IFS 수식) · 이름 t(빈칸) · 기준·분포 · 단조성 · 6열 CSV
-  labs/day3/d3_shap_report_template.md / .docx  SHAP 해석서 1장 — P3-1 출력 5칸 + 캡처 2칸(같은 내용 두 형식)
+  labs/day3/d3_grade_banding.xlsx       등급 매칭 시트(실습 B-1): pred(붙여넣기 칸 — grade 열은 비워 두고 IFS를 직접 쓴다) · 이름 t(빈칸) · 기준·분포 · 단조성
+  labs/day3/d3_shap_report_template.md / .docx  근거 메모 1장(실습 B-2) — 메모 프롬프트(B4) 출력 5칸 + 그림 2칸(같은 내용 두 형식)
 강사용(저장소 밖 ../instructor/day3/answers/)
   d3_grade_banding_filled.xlsx — 강사 정답 모델(d3_end_scored.csv)의 pd_30d + models/grade_cutoffs.json의 t + 검증 예측
-  (d3_oot_predictions.csv)으로 채운 판. --check가 pycel로 다시 계산해 정답표(d3_cutoffs.csv)의 등급 수 · 검증 연체율과 대조한다.
+  (d3_oot_predictions.csv)으로 채운 판(grade 열 IFS 포함). --check가 pycel로 다시 계산해 정답표(d3_cutoffs.csv)의 등급 수 · 검증 연체율과 대조한다.
 
 사용(저장소 루트):
   python tools/build_day23_labs.py           # 생성 + 검사
@@ -40,9 +40,8 @@ SHAP_MD = LAB3 / "d3_shap_report_template.md"
 SHAP_DOCX = LAB3 / "d3_shap_report_template.docx"
 
 PRED_ROWS = 150          # 예측 대상 바이어 수(d3_start_scoring.csv)
-MONO_ROWS = 1200         # 단조성 시트 붙여넣기 칸(시험셋 90행 · 강사 검증 1,084행)
+MONO_ROWS = 1200         # 단조성 시트 붙여넣기 칸(수강생 시험셋 88행 · 강사 검증 1,084행)
 REF_DATE = (2026, 9, 30)
-MODEL_VERSION = "orange_xgb_sigmoid"   # 사이트 lab-b Step 6 ②
 
 FONT = "맑은 고딕"
 BLUE, YELLOW, GRAY, RED = "DDEBF7", "FFF2CC", "EDEDED", "C00000"
@@ -60,13 +59,13 @@ def build_warmup() -> Path:
     for c in cols:
         assert not pick[c].str.contains("\t|\n", regex=True).any(), f"{c}에 탭·줄바꿈"
     lines = [
-        "2일차 블록 B Step 6 워밍업 — 뉴스 10건(한국어 4 · 영어 6)",
+        "2일차 실습 B 워밍업 — 뉴스 10건(한국어 4 · 영어 6)",
         "",
-        "- 과정 제작 합성 뉴스입니다(가상 바이어 · d2_news.csv 앞쪽 행과 같은 문장). 점수는 들어 있지 않습니다 — P2-2로 직접 매깁니다.",
-        "- 쓰는 법: 아래 '복사 시작'과 '복사 끝' 사이(머리글 + 10행)를 복사해 P2-2 맨 아래 {50행 붙여넣기} 자리에 붙여 보냅니다(탭 구분).",
-        "- 척도는 계획서와 같은 0–10(0–5 부정·위험, 6–10 긍정·중립)이고, 점수 경계는 P2-2의 [척도 앵커]를 따릅니다.",
-        "- 이 10건은 배치 1(앞 50행)에 다시 들어 있습니다 — 같은 뉴스의 점수가 워밍업 때와 같은지 봅니다(일관성).",
-        "- 출처 표기: 과정 제작 합성 뉴스 · CC BY 4.0. 회사 실명·실데이터가 아닙니다.",
+        "- 과정 제작 합성 뉴스입니다(가상 바이어 · d2_news.csv 앞쪽 행과 같은 문장). 점수는 들어 있지 않습니다.",
+        "- 언제 쓰나: **웹 채팅 경로**에서 50행을 붙여 넣기 전에 먼저 10건으로 형식을 시험할 때. 채팅창에 workbench/day2/prompts/news_score_v1.md의 내용을 붙이고, 이 파일의 '복사 시작'과 '복사 끝' 사이(머리글 + 10행)를 아래에 붙여 보냅니다(탭 구분). Claude Code로 하는 기본 경로에서는 쓰지 않아도 됩니다.",
+        "- 이 10건은 앞 50행에 다시 들어 있습니다 — 같은 뉴스의 점수가 워밍업 때와 같은지 보면 일관성을 확인할 수 있습니다.",
+        "- 척도는 0–10(0–5 부정·위험, 6–10 긍정·중립)이고, 점수 경계는 news_score_v1.md의 [척도]를 따릅니다.",
+        "- 과정 제작 합성 뉴스 · CC BY 4.0. 회사 실명·실데이터가 아닙니다.",
         "",
         "===== 복사 시작 =====",
         "\t".join(cols),
@@ -136,7 +135,7 @@ BYOD_FINAL = [
     "파일 안에서 회사 이름 · 이메일 도메인을 검색(Ctrl+F)해 0건이다",
     "한 행만 보고 어느 회사인지 알 수 없다(국가 + 업종 + 금액 조합으로도)",
     "회사 보안 규정 · NDA(비밀유지계약)에 어긋나지 않는다",
-    "쓰려는 AI 서비스의 학습 설정을 껐다(무료 소비자 AI · Colab AI에는 원본을 넣지 않는다)",
+    "쓰려는 AI 서비스의 학습 설정을 껐다(무료 소비자 AI에는 원본을 넣지 않는다)",
 ]
 BYOD_EXAMPLE = [  # 가상 예시 8행 — 실명·실계좌 아님(example 도메인 · 0으로 채운 계좌)
     ("(가상) Alpha Trading GmbH", "kim@alpha.example", "DEU", "INV-2025-0383", (2025, 3, 2), 123400, "partial payment, rest next month", "XX00 0000 0000 0001"),
@@ -170,9 +169,9 @@ def build_byod() -> Path:
     wb = Workbook()
     ws0 = wb.active
     ws0.title = "00_사용법"
-    _text_sheet(ws0, "자사 엑셀 익명화(BYOD) 점검표 — 2일차 Standard · 6일차 기획서", [
+    _text_sheet(ws0, "자사 엑셀 익명화(BYOD) 점검표 — 2일차 다 했으면 · 6일차 기획서", [
         "■ 원칙 — 구조만 내 것, 값은 비식별",
-        "원본은 내 PC의 엑셀 · Orange에서만 연다. 익명화본도 GitHub(개인 저장소 · fork)에는 올리지 않는다. AI에는 익명화본만, 학습 설정을 끈 뒤에 넣는다.",
+        "원본은 내 PC의 엑셀에서만 연다. 익명화본도 GitHub(개인 저장소 · fork)에는 올리지 않는다. AI에는 익명화본만, 학습 설정을 끈 뒤에 넣는다.",
         "■ 순서",
         "① 01_규칙표의 7행마다 '내 파일의 열 이름'을 적고, 처리했으면 '처리함'을 예로 바꾼다(해당 열이 없으면 '해당 없음').",
         "② 03_대응표_private 시트처럼 코드 · 날짜 이동 · 권역 · 비밀 계수 k를 만든다 → 이 시트는 별도 파일(예: byod_key_private.xlsx)로 옮겨 내 PC에만 둔다.",
@@ -292,6 +291,8 @@ def build_byod() -> Path:
 
 # ---------------------------------------------------------------- 3) 등급 매칭 시트
 def build_banding(path: Path, filled: dict | None = None) -> Path:
+    """v4 실습 B-1 등급 매칭 시트. 수강생판은 pred의 grade 열을 비워 두고(IFS를 직접 쓰고 채우기 핸들로 끈다),
+    강사판(filled)은 grade 열에 IFS까지 넣고 값도 채운다."""
 
     from openpyxl import Workbook
     from openpyxl.formatting.rule import CellIsRule
@@ -302,32 +303,34 @@ def build_banding(path: Path, filled: dict | None = None) -> Path:
     wb = Workbook()
     ws0 = wb.active
     ws0.title = "00_사용법"
-    _text_sheet(ws0, "3일차 Step 6 — S/A/B/C 등급 매칭 시트", [
+    _text_sheet(ws0, "3일차 실습 B-1 — S/A/B/C 등급 매칭 시트", [
         "■ 규칙(C부터 검사) — C: pd_30d ≥ t · B: ≥ t/2 · A: ≥ t/4 · 나머지 S",
-        "t = 블록 A Step 4에서 비용 5:1로 정한 임계값(Calibration Plot 세로선). 등급은 회사 내부 관리 등급이며 K-SURE 공식 등급이 아니다.",
+        "t = 실습 A-2에서 정한 임계값(비용 5:1이면 이론값 1 ÷ 6 ≈ 0.17). 등급은 회사 내부 관리 등급이며 무역보험의 공식 등급이 아니다.",
         "■ 순서",
         "① 기준 시트의 노란 칸(이름 t)에 내 t를 넣는다 — 경계값 t/4 · t/2 · t가 저절로 계산된다.",
-        "② d3_predictions.xlsx에서 buyer_id 열을 pred 시트 A열에, 연체 확률 열(이름 끝이 '(1)')을 C열 pd_30d에 '값 붙여넣기' 한다(2행부터, 150행).",
-        "③ grade · ref_date · threshold_used · model_version · approval 열은 수식이 미리 들어 있다 — 정렬 · 필터 · 조건부 서식(C 빨강 · B 주황)은 직접 해 본다.",
-        "   grade가 #NAME?이면(IFS가 없는 엑셀 2016 이하) D2에 =IF(C2>=t,\"C\",IF(C2>=t/2,\"B\",IF(C2>=t/4,\"A\",\"S\"))) 를 넣고 아래로 채운다(뜻이 같다).",
-        "④ 기준 시트의 등급 분포를 d3_work의 03_등급에 옮긴다.",
-        "⑤ 단조성: 시험셋 확률(d3_test_pred.xlsx)의 buyer_id · 확률 · late_30d를 단조성 시트 A–C열에 붙인다 → 등급별 실제 연체율이 S < B < C 순서인지 본다(A는 행이 적어 흔들릴 수 있다).",
-        "⑥ csv_6열 시트를 연 채 파일 → 다른 이름으로 저장 → CSV UTF-8(쉼표로 분리) → d3_end_scored__T조-번호.csv (첫 줄 buyer_id,ref_date,pd_30d,grade,threshold_used,model_version · 151줄).",
+        "② d3_scores.csv(buyer_id · ref_date · pd_30d, 150행)를 열어 데이터 3열을 복사해 pred 시트 A2부터 '값 붙여넣기' 한다(머리글은 이미 있다).",
+        "③ pred 시트 D2에 IFS 수식을 쓰고 채우기 핸들(칸 오른쪽 아래의 작은 사각형)을 두 번 클릭하거나 150행까지 끌어 내린다:",
+        '   =IFS(C2>=t,"C",C2>=t/2,"B",C2>=t/4,"A",TRUE,"S")   — 가장 위험한 C부터 검사한다(순서를 바꿔 A를 먼저 검사하면 B · C 행까지 A가 된다).',
+        '   IFS가 없는 엑셀(2016 이하)이면 =IF(C2>=t,"C",IF(C2>=t/2,"B",IF(C2>=t/4,"A","S"))) 를 쓴다(뜻이 같다). 모두 같은 등급이면 이름 t가 비었거나 칸 이름이 다른지 본다.',
+        "④ 조건부 서식: grade 열을 선택 → 홈 › 조건부 서식 › 셀 강조 규칙 › 같음 → C는 빨강, B는 주황(글자도 함께). 피벗 테이블로 등급별 바이어 수를 센다(기준 시트의 분포 표와 같아야 한다).",
+        "⑤ 단조성: 실습 A의 d3_test_pred.csv(buyer_id · ref_date · late_30d · pd_30d, 88행) 데이터 4열을 단조성 시트 A2부터 붙인다 → 등급별 실제 연체율이 S < A < B < C 쪽으로 오르는지 본다.",
+        "   시험셋 연체가 4건뿐이라 A · B는 행이 0~몇 개뿐이다 — 연체율이 0% 또는 100%로 뛰는 것은 표본 탓이니 건수와 함께 읽고, S와 C를 먼저 비교한다.",
+        "⑥ pred 시트(buyer_id · ref_date · pd_30d · grade)를 파일 › 다른 이름으로 저장 › CSV UTF-8(쉼표로 분리)로 workbench/day3/outputs/d3_grade_excel.csv에 저장한다. 최종 d3_end_scored.csv(6열)는 Claude Code가 같은 규칙으로 만들고 이 파일과 견준다.",
         "■ 등급 → 결제조건 [교육용 가정]",
-        "S · A: O/A 유지 · B: 결제기간 단축 · 부보 검토 · C: 선수금 · L/C만(신규 O/A 금지), 조건 변경은 사람이 승인(approval 열).",
+        "S · A: O/A 유지 · B: 결제기간 단축 · 부보 검토 · C: 선수금 · L/C만(신규 O/A 금지), 조건 변경은 사람이 승인한다.",
         "■ 주의",
-        "예측 대상 150곳은 학습 파일에 있던 바이어라 확률이 낙관적일 수 있다 — 모델 성능은 블록 A Test and Score(시험셋) 숫자로만 말한다.",
+        "예측 대상 150곳은 정답이 없다 — 모델 성능은 실습 A의 시험셋(88행) 숫자로만 말한다. 이 시트의 등급 분포는 '일을 매기는 방법'이지 성능이 아니다.",
     ])
     # ---- 기준
     wt = wb.create_sheet("기준")
     wt["A1"] = "임계값 t와 등급 경계"
     wt["A1"].font = Font(name=FONT, bold=True, size=13)
-    wt["A3"] = "t (블록 A Step 4)"
+    wt["A3"] = "t (실습 A-2)"
     wt["A3"].font = Font(name=FONT, bold=True)
     wt["B3"] = filled["t"] if filled else None
     wt["B3"].fill = _fill(YELLOW)
     wt["B3"].number_format = "0.0000"
-    wt["C3"] = "← 노란 칸에 내 t(예: Calibration Plot에서 읽은 값)를 넣는다"
+    wt["C3"] = "← 노란 칸에 내 t(예: 0.17)를 넣는다"
     wb.defined_names["t"] = DefinedName("t", attr_text="'기준'!$B$3")
     _head(wt, 5, ["등급", "조건", "경계값", "뜻", "결제조건 [교육용 가정]"])
     rows = [("C", "pd_30d ≥ t", '=IF(t="","",t)', "30일 내 연체 예상", "선수금 · L/C만(신규 O/A 금지)"),
@@ -349,79 +352,61 @@ def build_banding(path: Path, filled: dict | None = None) -> Path:
     wt["B16"] = "=SUM(B12:B15)"
     for col, wdt in zip("ABCDE", (16, 20, 12, 18, 34)):
         wt.column_dimensions[col].width = wdt
-    # ---- pred
+    # ---- pred : A buyer_id · B ref_date · C pd_30d 는 d3_scores.csv 그대로(붙여넣기), D grade 는 수강생이 IFS를 쓴다
     wp = wb.create_sheet("pred", 1)
-    head = ["buyer_id", "ref_date", "pd_30d", "grade", "threshold_used", "model_version", "approval"]
+    head = ["buyer_id", "ref_date", "pd_30d", "grade"]
     _head(wp, 1, head)
-    mv = filled["model_version"] if filled else MODEL_VERSION
     for k in range(PRED_ROWS):
         r = k + 2
         if filled:
             wp.cell(row=r, column=1, value=filled["pred"][k][0])
+            wp.cell(row=r, column=2, value=f"{REF_DATE[0]}-{REF_DATE[1]:02d}-{REF_DATE[2]:02d}")
             wp.cell(row=r, column=3, value=filled["pred"][k][1])
+            wp.cell(row=r, column=4, value=(f'=IF(OR(C{r}="",t=""),"",_xlfn.IFS(C{r}>=t,"C",C{r}>=t/2,"B",'
+                                            f'C{r}>=t/4,"A",TRUE,"S"))'))
         else:
-            wp.cell(row=r, column=1).fill = _fill(YELLOW)
-            wp.cell(row=r, column=3).fill = _fill(YELLOW)
-        c = wp.cell(row=r, column=2, value=f'=IF(A{r}="","",DATE({REF_DATE[0]},{REF_DATE[1]},{REF_DATE[2]}))')
-        c.number_format = "yyyy-mm-dd"
+            for col in (1, 2, 3):
+                wp.cell(row=r, column=col).fill = _fill(YELLOW)
         wp.cell(row=r, column=3).number_format = "0.0000"
-        wp.cell(row=r, column=4, value=(f'=IF(OR(C{r}="",t=""),"",_xlfn.IFS(C{r}>=t,"C",C{r}>=t/2,"B",'
-                                        f'C{r}>=t/4,"A",TRUE,"S"))'))
-        c = wp.cell(row=r, column=5, value=f'=IF(OR(A{r}="",t=""),"",t)')
-        c.number_format = "0.0000"
-        wp.cell(row=r, column=6, value=f'=IF(A{r}="","","{mv}")')
-        wp.cell(row=r, column=7, value=f'=IF(D{r}="C","승인 필요","")')
-    tab = Table(displayName="pred", ref=f"A1:G{PRED_ROWS + 1}")
+    tab = Table(displayName="pred", ref=f"A1:D{PRED_ROWS + 1}")
     tab.tableStyleInfo = TableStyleInfo(name="TableStyleLight9", showRowStripes=True)
     wp.add_table(tab)
     wp.freeze_panes = "A2"
-    for col, wdt in zip("ABCDEFG", (12, 12, 10, 8, 15, 20, 11)):
+    for col, wdt in zip("ABCD", (12, 12, 10, 8)):
         wp.column_dimensions[col].width = wdt
     if filled:   # 강사판은 보기 좋게 서식까지
         wp.conditional_formatting.add(f"D2:D{PRED_ROWS + 1}", CellIsRule(operator="equal", formula=['"C"'], fill=_fill("F4B6B6")))
         wp.conditional_formatting.add(f"D2:D{PRED_ROWS + 1}", CellIsRule(operator="equal", formula=['"B"'], fill=_fill("F8CBAD")))
-    # ---- 단조성
+    # ---- 단조성 : A buyer_id · B ref_date · C late_30d · D pd_30d 는 d3_test_pred.csv 그대로, E grade 는 미리 들어 있다
     wm = wb.create_sheet("단조성")
-    _head(wm, 1, ["buyer_id", "pd_30d", "late_30d", "grade"])
+    _head(wm, 1, ["buyer_id", "ref_date", "late_30d", "pd_30d", "grade"])
     mono = filled["mono"] if filled else []
     for k in range(MONO_ROWS):
         r = k + 2
         if k < len(mono):
             wm.cell(row=r, column=1, value=mono[k][0])
             wm.cell(row=r, column=2, value=mono[k][1])
-            wm.cell(row=r, column=3, value=mono[k][2])
-        wm.cell(row=r, column=4, value=(f'=IF(OR(B{r}="",t=""),"",_xlfn.IFS(B{r}>=t,"C",B{r}>=t/2,"B",'
-                                        f'B{r}>=t/4,"A",TRUE,"S"))'))
-    _head(wm, 1, ["등급", "행 수", "연체 수", "실제 연체율"], col0=6)
+            wm.cell(row=r, column=3, value=mono[k][3])
+            wm.cell(row=r, column=4, value=mono[k][2])
+        wm.cell(row=r, column=5, value=(f'=IF(OR(D{r}="",t=""),"",_xlfn.IFS(D{r}>=t,"C",D{r}>=t/2,"B",'
+                                        f'D{r}>=t/4,"A",TRUE,"S"))'))
+    _head(wm, 1, ["등급", "행 수", "연체 수", "실제 연체율"], col0=7)
     last = MONO_ROWS + 1
     for i, g in enumerate("SABC", start=2):
-        wm.cell(row=i, column=6, value=g)
-        wm.cell(row=i, column=7, value=f'=COUNTIF($D$2:$D${last},"{g}")')
-        wm.cell(row=i, column=8, value=f'=COUNTIFS($D$2:$D${last},"{g}",$C$2:$C${last},1)')
-        c = wm.cell(row=i, column=9, value=f'=IF(G{i}=0,"",H{i}/G{i})')
+        wm.cell(row=i, column=7, value=g)
+        wm.cell(row=i, column=8, value=f'=COUNTIF($E$2:$E${last},"{g}")')
+        wm.cell(row=i, column=9, value=f'=COUNTIFS($E$2:$E${last},"{g}",$C$2:$C${last},1)')
+        c = wm.cell(row=i, column=10, value=f'=IF(H{i}=0,"",I{i}/H{i})')
         c.number_format = "0.0%"
-    wm["F7"] = "단조성"
-    wm["F7"].font = Font(name=FONT, bold=True)
-    wm["G7"] = ('=IF(OR(G2=0,G5=0),"",IF(AND(I2<=I5,OR(G4=0,AND(I2<=I4,I4<=I5))),'
+    wm["G7"] = "단조성"
+    wm["G7"].font = Font(name=FONT, bold=True)
+    wm["H7"] = ('=IF(OR(H2=0,H5=0),"",IF(AND(J2<=J5,OR(H4=0,AND(J2<=J4,J4<=J5))),'
                 '"S ≤ B ≤ C — 순서대로 오른다","순서가 뒤집혔다 — t와 수식 순서를 다시 본다"))')
-    wm["F9"] = "붙여넣기: A buyer_id · B 연체 확률(이름 끝 '(1)') · C late_30d(정답) — d3_test_pred.xlsx(시험셋)에서. A는 행이 적어 흔들릴 수 있다."
-    wm["F9"].alignment = Alignment(wrap_text=False)
-    for col, wdt in zip("ABCDEFGHI", (12, 10, 9, 8, 3, 8, 9, 9, 12)):
+    wm["G9"] = "붙여넣기: d3_test_pred.csv의 4열(buyer_id · ref_date · late_30d · pd_30d)을 A2부터. 건수가 적은 A · B는 흔들릴 수 있다 — S와 C를 먼저 본다."
+    wm["G9"].alignment = Alignment(wrap_text=False)
+    for col, wdt in zip("ABCDEFGHIJ", (12, 12, 9, 10, 8, 3, 8, 9, 9, 12)):
         wm.column_dimensions[col].width = wdt
     wm.freeze_panes = "A2"
-    # ---- csv_6열
-    wc = wb.create_sheet("csv_6열")
-    _head(wc, 1, head[:6])
-    for k in range(PRED_ROWS):
-        r = k + 2
-        for j, col in enumerate("ABCDEF", start=1):
-            c = wc.cell(row=r, column=j, value=f'=IF(pred!$A{r}="","",pred!{col}{r})')
-            if col == "B":
-                c.number_format = "yyyy-mm-dd"
-            if col in "CE":
-                c.number_format = "0.0000"
-    for col, wdt in zip("ABCDEF", (12, 12, 10, 8, 15, 20)):
-        wc.column_dimensions[col].width = wdt
     _wb_style(wb)
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
@@ -435,26 +420,27 @@ def banding_filled_inputs() -> dict:
     assert len(sc) == PRED_ROWS and len(oot) <= MONO_ROWS
     return {"t": float(cut["threshold"]), "model_version": str(cut["model_version"]),
             "pred": [(b, float(p)) for b, p in zip(sc["buyer_id"], sc["pd_30d"])],
-            "mono": [(b, float(p), int(y)) for b, p, y in zip(oot["buyer_id"], oot["pd_30d"], oot["late_30d"])]}
+            "mono": [(b, str(d), float(p), int(y)) for b, d, p, y in zip(oot["buyer_id"], oot["ref_date"], oot["pd_30d"], oot["late_30d"])]}
 
 
 # ---------------------------------------------------------------- 4) SHAP 해석서 양식
-SHAP_TITLE = "SHAP 해석서 — 바이어 1곳의 등급 이유(3일차 Step 7)"
-SHAP_INFO = [("바이어", "buyer_id:"), ("예측 pd_30d", ""), ("등급 / 임계값 t", "등급:            t:"),
-             ("모델", "예: orange_xgb_sigmoid(내 워크플로)"), ("기준값(base value)", "Explain Prediction 화면의 값"),
-             ("작성 · 사람 확인", "작성: T조-번호 · 확인:")]
+SHAP_TITLE = "근거 메모 — 바이어 1곳의 등급 이유(3일차 실습 B-2)"
+SHAP_INFO = [("바이어", "buyer_id:"), ("pd_30d / 등급 / 임계값 t", "pd_30d:        등급:        t:"),
+             ("모델", "예: day3_my_v1(내 LightGBM)"), ("전역 상위 특성", "평균 SHAP 절댓값 상위 8개의 한글 이름"),
+             ("작성 · 사람 확인", "작성:            확인:")]
 SHAP_SECTIONS = [
-    ("① 결론 1문장", "등급과 권고 하나만 — 현행 유지 / 조건 강화 / 신규 O/A 중단 검토 중 하나.", None),
-    ("② 위험을 올린 요인 Top3", "+ 기여만, 절댓값이 큰 순서. 숫자는 화면 그대로.", ("한글명", "이 바이어의 값", "기여(+)", "업무 언어 해석(1줄)", 3)),
-    ("③ 위험을 낮춘 요인 Top2", "− 기여만, 절댓값이 큰 순서.", ("한글명", "이 바이어의 값", "기여(−)", "업무 언어 해석(1줄)", 2)),
-    ("④ 사람이 확인할 것 3가지", "데이터 원천 · 최신성 · 조작 가능성 — 예: 재무제표 감사인 실존 여부, 최근 결제 이력의 원장 대조. AI 초안을 사람이 고친다.", 3),
-    ("⑤ 한계 3줄", "(a) SHAP은 모델이 어떻게 판단했는지이지 원인이 아니다 (b) 학습 데이터는 합성 데이터다 (c) 입력 재무 데이터가 조작되면 모델도 속는다.", 3),
+    ("① 결론 1문장", "현행 유지 / 조건 강화 / 신규 O/A 중단 검토 중 하나만. AI 초안을 내 말로 고친다.", None),
+    ("② 위험을 올린 요인 3", "+ 기여만, 절댓값이 큰 순서. 숫자는 기여 표 그대로(한글명 – 값 – 기여 – 업무 해석).", ("한글명", "이 바이어의 값", "기여(+)", "업무 해석(1줄)", 3)),
+    ("③ 위험을 낮춘 요인 2", "− 기여만, 절댓값이 큰 순서.", ("한글명", "이 바이어의 값", "기여(−)", "업무 해석(1줄)", 2)),
+    ("④ 사람이 확인할 것 3", "데이터 원천 · 최신성 · 조작 가능성 — 예: 재무제표 감사인 실존 여부, 최근 결제 이력의 원장 대조. AI 초안을 사람이 고친다.", 3),
+    ("⑤ 한계 3줄", "(a) SHAP은 모델이 어떻게 판단했는지이지 원인이 아니다 (b) 합성 데이터 150곳이다 (c) 신규 바이어 · 조작된 재무제표에는 모델이 늦게 반응한다.", 3),
 ]
-SHAP_CAPTURES = [("캡처 1 — 전역 설명", "Explain Model · Target class 1 · 상위 10개 특성 그림"),
-                 ("캡처 2 — 개별 설명", "Explain Prediction · 이 바이어(기준값 · 예측 · 특성별 막대)")]
+SHAP_CAPTURES = [("그림 1 — 전역 설명", "평균 |SHAP| 상위 10 막대(전역 그림 PNG)"),
+                 ("그림 2 — 개별 설명", "이 바이어의 워터폴(기준값 → 특성별 기여 → 최종 확률 PNG)")]
 SHAP_FOOT = "사람 승인 전 초안 — 등급과 권고는 여신위원회가 확정한다."
-SHAP_LEAD = ("파일 이름 d3_shap_memo__T조-번호.docx · A4 1장. P3-1 초안의 5칸을 칸별로 옮기고 ④ · ⑤는 사람이 고친다. "
-             "AI에는 숫자 · 특성 이름 · 캡처만 넣고 데이터 파일은 올리지 않는다.")
+SHAP_FOOT_KEY = "사람 승인 전 초안"
+SHAP_LEAD = ("파일 이름 d3_shap_memo.md(이 양식을 쓰면 .docx) · A4 1장. 메모 프롬프트(B4)가 준 5칸을 칸별로 옮기고 ① · ④ · ⑤는 내 말로 고친다. "
+             "오늘 파일은 합성 데이터라 AI에 올려도 되지만, 회사 실데이터는 어떤 AI 도구에도 넣지 않는다.")
 
 
 def build_shap_md() -> Path:
@@ -552,7 +538,7 @@ def build_shap_docx() -> Path:
     r.bold = True
     doc.core_properties.title = SHAP_TITLE
     doc.core_properties.author = "tradefin-ai-2026"
-    doc.core_properties.comments = "3일차 Step 7 양식 — P3-1 출력 5칸 + 캡처 2칸"
+    doc.core_properties.comments = "3일차 실습 B-2 양식 — 근거 메모 5칸 + 그림 2칸"
     doc.save(SHAP_DOCX)
     return SHAP_DOCX
 
@@ -631,8 +617,10 @@ def check() -> list[str]:
     from openpyxl import load_workbook
 
     wb = load_workbook(BANDING)
-    if wb["기준"]["B3"].value is not None or any(wb["pred"].cell(row=r, column=3).value for r in range(2, PRED_ROWS + 2)):
-        probs.append("수강생용 등급 시트에 t 또는 확률이 들어 있다")
+    if wb["기준"]["B3"].value is not None or any(wb["pred"].cell(row=r, column=c).value for r in range(2, PRED_ROWS + 2) for c in (1, 2, 3, 4)):
+        probs.append("수강생용 등급 시트에 t · 확률 · grade 수식이 들어 있다(grade 열은 수강생이 IFS를 쓴다)")
+    if wb.sheetnames != ["00_사용법", "pred", "기준", "단조성"]:
+        probs.append(f"등급 시트 시트 이름이 v4와 다르다: {wb.sheetnames}")
     if "t" not in wb.defined_names:
         probs.append("이름 t가 없다")
     if BANDING_FILLED.is_file() and (ANS3 / "d3_cutoffs.csv").is_file():
@@ -642,25 +630,25 @@ def check() -> list[str]:
         want_d = {g: int(cuts.loc[g, "count_2026_09_30"]) for g in "SABC"}
         if dist != want_d:
             probs.append(f"강사판 등급 분포 {dist} ≠ 정답 {want_d}")
-        mono = {g: (int(xf.evaluate(f"'단조성'!G{2 + i}")), xf.evaluate(f"'단조성'!I{2 + i}")) for i, g in enumerate("SABC")}
+        mono = {g: (int(xf.evaluate(f"'단조성'!H{2 + i}")), xf.evaluate(f"'단조성'!J{2 + i}")) for i, g in enumerate("SABC")}
         for g in "SABC":
             n_ok = mono[g][0] == int(cuts.loc[g, "valid_rows_2026"])
             r_ok = abs(float(mono[g][1] or 0) - float(cuts.loc[g, "valid_late_rate_2026"])) < 5e-5
             if not (n_ok and r_ok):
                 probs.append(f"강사판 단조성 {g} {mono[g]} ≠ 정답 ({cuts.loc[g, 'valid_rows_2026']}, {cuts.loc[g, 'valid_late_rate_2026']})")
-        mono_msg = xf.evaluate("'단조성'!G7")
+        mono_msg = xf.evaluate("'단조성'!H7")
         if "순서대로" not in str(mono_msg):
             probs.append(f"강사판 단조성 판정 {mono_msg}")
-        csv_first = [xf.evaluate(f"'csv_6열'!{c}2") for c in "ABCDEF"]
-        if csv_first[0] in ("", None) or csv_first[3] not in tuple("SABC"):
-            probs.append(f"csv_6열 첫 행 {csv_first}")
+        first = [xf.evaluate(f"'pred'!{c}2") for c in "ABCD"]
+        if first[0] in ("", None) or first[3] not in tuple("SABC"):
+            probs.append(f"pred 첫 행 {first}")
     else:
         print("  (건너뜀) 강사판 등급 시트 대조 — ../instructor/day3/answers 없음(강사 PC에서만)")
     return probs + _check_shap()
 
 
 def _check_shap() -> list[str]:
-    """SHAP 양식 — md · docx 칸 이름이 P3-1 출력 5칸(labs/day3/prompts.md)과 같은가."""
+    """근거 메모 양식 — md · docx 칸 이름이 메모 프롬프트 B4(labs/day3/prompts.md)의 출력 5칸과 같은가."""
     probs: list[str] = []
     md = SHAP_MD.read_text(encoding="utf-8")
     from docx import Document
@@ -668,12 +656,11 @@ def _check_shap() -> list[str]:
     heads = [p.text for p in Document(str(SHAP_DOCX)).paragraphs if p.style.name.startswith("Heading 2")]
     want_h = [s[0] for s in SHAP_SECTIONS] + [c[0] for c in SHAP_CAPTURES]
     if heads != want_h or any(f"## {h}" not in md for h in want_h):
-        probs.append(f"SHAP 양식 칸 이름 불일치: {heads}")
-    p31 = (LAB3 / "prompts.md").read_text(encoding="utf-8")
-    for key in ("① 결론 1문장", "② 위험을 올린 요인 Top3", "③ 위험을 낮춘 요인 Top2", "④ 사람이 확인할 것 3가지", "⑤ 한계 3줄",
-                SHAP_FOOT):
-        if key not in p31:
-            probs.append(f"P3-1에 없는 칸 이름: {key}")
+        probs.append(f"근거 메모 양식 칸 이름 불일치: {heads}")
+    b4 = (LAB3 / "prompts.md").read_text(encoding="utf-8")
+    for key in ("① 결론 1문장", "② 위험을 올린 요인 3", "③ 위험을 낮춘 요인 2", "④ 사람이 확인할 것 3", "⑤ 한계 3줄", SHAP_FOOT_KEY):
+        if key not in b4:
+            probs.append(f"메모 프롬프트(B4)에 없는 칸 이름: {key}")
     return probs
 
 
@@ -693,7 +680,7 @@ def main() -> int:
     if probs:
         print("검사 실패:", *probs, sep="\n  - ")
         return 1
-    print("검사 통과 — 워밍업(한 4 · 영 6 · 원문 일치) · BYOD 변환 수식 · 등급 시트(강사판 = 정답표) · SHAP 양식 5칸 + 캡처 2칸")
+    print("검사 통과 — 워밍업(한 4 · 영 6 · 원문 일치) · BYOD 변환 수식 · 등급 시트(강사판 = 정답표) · 근거 메모 양식 5칸 + 그림 2칸")
     return 0
 
 

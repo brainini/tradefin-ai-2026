@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Day5 에이전트 파일 — n8n 독촉 워크플로 JSON · Dify RAG 앱 DSL을 한 원문(app/prompts/*.md · agents/n8n/code/*.js)에서 만든다.
+(v3 — 5일차 v4에서는 쓰지 않는다. 돌리면 agents/n8n · agents/dify가 되살아난다. 사본: instructor/day5/lab_v3_archive/agents_v3/)
 
 사용(저장소 루트):
     python tools/build_day5_agents.py            # agents/n8n/dunning_workflow_v1.json · agents/dify/hanbit_policy_rag_v1.yml 생성 + 검사

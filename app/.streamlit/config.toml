@@ -4,7 +4,7 @@
 maxUploadSize = 5            # MB — 업로드는 5MB 이하(합성·익명화 데이터만)
 
 [client]
-showErrorDetails = "full"    # 빨간 오류 전문을 복사해 P5-7로 고친다(03 Part2 §5.12)
+showErrorDetails = "full"    # 빨간 오류 전문을 복사해 P5-B3로 고친다
 
 [browser]
 gatherUsageStats = false

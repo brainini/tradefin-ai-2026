@@ -51,6 +51,10 @@ USER_AGENT = "tradefin-get-day-files/1.0"
 
 CK = "data/checkpoints/"
 
+# 6일차 팀 저장소(킷 템플릿: CLAUDE.md + app/pipeline/)에서 실행하면 '킷 모드' — workbench/ 작업 사본을 만들지 않고,
+# 받은 카드 · 팀 팩을 어디에 두는지 안내한다(킷에는 workbench/ 폴더가 없다).
+KIT = (REPO / "CLAUDE.md").is_file() and (REPO / "app" / "pipeline" / "README.md").is_file()
+
 # 일차별 설정
 #   date     표시용 날짜
 #   when     아직 공개 전일 때 알려 줄 공개 시각
@@ -66,39 +70,57 @@ DAYS: dict[int, dict] = {
             "data/day1/d1_invoices.xlsx", "data/day1/d1_invoices.csv",
             "data/day1/d1_encoding_test.csv", "data/day1/real_buyers_ratios.csv",
             "data/day1/reports/halden_fictional_annual_report.md", "data/day1/reports/irobot.md",
-            "data/data_dictionary.xlsx",
+            "labs/day1/issue_definition_template.md", "data/data_dictionary.xlsx",
         ),
     },
     2: {
         "date": "10/15(목)", "when": "10/15(목) 아침 08:30", "marker": CK + "d2_",
-        "prefixes": (CK + "d2_", CK + "fx_krw_daily.csv", "labs/day2/"),
+        # workbench/day2/ · pytest.ini: 내 저장소를 1일차에 만들었어도 2일차 시작 틀(규칙 · 프롬프트 · 수집 점검 양식)이
+        # 없으면 받는다(있는 파일은 덮어쓰지 않는다)
+        "prefixes": (CK + "d2_", CK + "fx_krw_daily.csv", "labs/day2/", "workbench/day2/", "pytest.ini"),
         "known": (CK + "d2_start.xlsx", CK + "d2_news.csv", CK + "fx_krw_daily.csv",
-                  "labs/day2/news_warmup_10.txt", CK + "d2_news_answer.csv"),
+                  "labs/day2/news_warmup_10.txt", CK + "d2_news_answer.csv",
+                  "workbench/day2/prompts/news_score_v1.md", "workbench/day2/rules/수집점검.md", "pytest.ini"),
     },
     3: {
         "date": "10/16(금)", "when": "10/16(금) 아침 08:30", "marker": CK + "d3_",
-        "prefixes": (CK + "d3_", "labs/day3/", "data/external/uci_taiwan_bankruptcy.csv",
-                     "data/external/fred_dexkous.csv"),
+        # workbench/day3/: 내 저장소를 1일차에 만들었어도 오늘의 규칙 파일(rules/d3_rules.md)이 없으면 받는다(있는 파일은 덮어쓰지 않는다)
+        # labs/day3/quality_gate/ 는 17:40 이후에 올라온다 — 그때 같은 명령을 한 번 더 실행하면 받는다
+        "prefixes": (CK + "d3_", "labs/day3/", "workbench/day3/", "data/external/fred_dexkous.csv"),
         "known": (CK + "d3_start_features.csv", CK + "d3_start_scoring.csv", CK + "d3_features_panel.csv",
-                  CK + "d3_end_scored.csv"),
+                  CK + "d3_end_scored.csv", "labs/day3/shap_sample_3buyers.csv", "labs/day3/d3_grade_banding.xlsx",
+                  "labs/day3/fx_forecast_inputs.csv", "workbench/day3/rules/d3_rules.md"),
     },
     4: {
         "date": "10/19(월)", "when": "10/19(월) 아침 08:30", "marker": CK + "d4_",
+        # 08:30 d4_* 체크포인트 · 14:45 기대값 테스트 2개(labs/day4/tests/) · 15:00 실습 B 공개분(경보 테스트 · 참고 스크립트 · d4_report_input.json) ·
+        # 18:00 d4_end_limits.xlsx — 같은 명령을 다시 실행하면 새로 올라온 파일만 받는다. 테스트는 작업 사본을 만들지 않는다(work_name)
         "prefixes": (CK + "d4_", "labs/day4/"),
-        "known": (CK + "d4_start_scored.csv", CK + "d4_params.csv", CK + "d4_scenarios.csv",
-                  CK + "d4_open_inv.csv", CK + "d4_limit_model.xlsx", CK + "d4_end_limits.xlsx"),
+        "known": (CK + "d4_start_scored.csv", CK + "d4_params.csv", CK + "d4_scenarios.csv", CK + "d4_open_inv.csv",
+                  CK + "d4_limit_model.xlsx", CK + "d4_params_bug.csv", CK + "d4_report_input.json", CK + "d4_end_limits.xlsx",
+                  "labs/day4/MODEL_SPEC.md", "labs/day4/stress_mc.py", "labs/day4/alert_rules.yml", "labs/day4/experiment_cards.md",
+                  "labs/day4/tests/conftest.py", "labs/day4/tests/test_limits_props.py", "labs/day4/tests/test_stress_props.py",
+                  "labs/day4/tests/test_limits_expected.py", "labs/day4/tests/test_stress_expected.py", "labs/day4/tests/test_ews_props.py",
+                  "labs/day4/make_report.py", "labs/day4/check_numbers.py", "labs/day4/ews_example.py"),
     },
     5: {
         "date": "10/20(화)", "when": "10/20(화) 아침 08:30", "marker": CK + "d5_",
+        # 08:30 d5_start.csv. 규정 PDF · 골든셋 · 질문 목록 · 평가 시트(rag/), 요구사항 카드 · 톤 표(labs/day5/), 기록 양식(workbench/day5/)은
+        # 템플릿에 이미 들어 있다 — 내 저장소를 일찍 만들어 없는 파일이 있으면 같은 경로로 받는다(있는 파일은 덮어쓰지 않는다).
+        # labs/day5/ 의 요구사항 카드 · 톤 표는 workbench/day5/data/ 에 작업 사본으로도 놓인다(실습 B2 · B4에서 이 사본을 고친다)
         "prefixes": (CK + "d5_", CK + "d3_start_scoring.csv", CK + "d4_start_scored.csv", CK + "d4_params.csv",
-                     CK + "d4_scenarios.csv", "labs/day5/", "rag/", "agents/", "app/sample_data/", "models/"),
+                     CK + "d4_scenarios.csv", CK + "fx_krw_daily.csv", "labs/day5/", "rag/", "workbench/day5/", "app/sample_data/", "models/"),
         "known": (CK + "d5_start.csv", CK + "d3_start_scoring.csv", CK + "d4_start_scored.csv",
-                  CK + "d4_params.csv", CK + "d4_scenarios.csv", "labs/day5/TF_AR_Ledger_template.xlsx",
+                  CK + "d4_params.csv", CK + "d4_scenarios.csv", CK + "fx_krw_daily.csv",
+                  "rag/corpus/hanbit_credit_policy.pdf", "rag/corpus/hanbit_credit_policy.md", "rag/goldset_20.csv",
+                  "rag/goldset_questions.csv", "rag/eval_sheet_template.xlsx",
+                  "labs/day5/spec_fx_tile.md", "labs/day5/tone_matrix.csv",
+                  "workbench/day5/outputs/baseline.md", "workbench/day5/outputs/rag_report.md", "workbench/day5/links.md",
                   "models/day3_lgbm.pkl", "models/day3_lgbm.txt", "models/feature_list.json",
                   "models/grade_cutoffs.json", "models/metrics.json", "models/model_card.md"),
     },
     6: {
-        "date": "10/21(수)", "when": "6일차 아침부터 단계별로 — 시각은 강사가 안내합니다", "marker": CK + "d6_",
+        "date": "10/21(수)", "when": "10/21(수) 09:28 카드 · 데이터 팩 → 11:15 → 11:30 → 13:15 (시각마다 같은 명령을 다시 실행합니다)", "marker": CK + "d6_",
         "prefixes": (CK + "d6_", "labs/day6/"),
         "known": (CK + "d6_crisis_pack.xlsx", CK + "d6_card5_stage2.xlsx",
                   *(f"{CK}d6_teams/team_{t:02d}.xlsx" for t in range(1, 6))),
@@ -139,6 +161,8 @@ def work_name(rel: str) -> str | None:
     """작업 사본 이름 — data/ 와 labs/ 의 파일만 workbench/dayN/data/ 에 둔다."""
     p = rel.split("/")
     if p[0] == "labs" and len(p) >= 3:  # labs/day2/x → x
+        if p[2] == "tests":  # 테스트는 원본 자리(labs/dayN/tests/)에서 돌린다 — 사본을 만들면 pytest가 사본까지 모으고 경로가 어긋난다
+            return None
         return "/".join(p[2:])
     if p[0] == "data":  # data/day1/x · data/checkpoints/x → x,  data/파일 → 파일
         return "/".join(p[2:] if len(p) >= 3 else p[1:])
@@ -284,7 +308,7 @@ def run(day: int, args) -> int:
     # 3) 작업 사본 — workbench/dayN/data/
     wb_root = REPO / "workbench" / f"day{day}" / "data"
     copies: dict[str, str] = {}
-    for rel in have_now:
+    for rel in ([] if KIT else have_now):
         name = work_name(rel)
         if name is None:
             continue
@@ -324,6 +348,13 @@ def run(day: int, args) -> int:
         say("목록만 보았습니다 — 파일은 바꾸지 않았습니다.")
         return 0
     say("다음")
+    if KIT:  # 팀 저장소 — workbench/ 없이 킷 폴더에 둔다
+        say("  - 받은 파일은 과정 저장소와 같은 경로(data/checkpoints/ · labs/)에 들어옵니다. 이 두 폴더는 .gitignore에 있어 커밋되지 않습니다.")
+        if day == 6:
+            say("  - 우리 팀 카드(labs/day6/crisis_cards/card{번호}_*.md)는 cards/ 로, 우리 팀 팩(data/checkpoints/d6_teams/team_0{조}.xlsx)은 data/input/ 으로 복사한 뒤 커밋하세요(다른 팀 파일은 옮기지 않습니다).")
+            say("  - 공개 시각: 09:28 카드 · 데이터 팩 / 11:15 카드 ⑤ 2단계 / 11:30 인젝트 1 / 13:15 인젝트 2 — 그때마다 같은 명령을 다시 실행하면 새로 올라온 파일만 더 받습니다.")
+        say("  - 결과 파일은 out/ (프롬프트가 정한 폴더)에, 코드는 app/pipeline/ 에 둡니다.")
+        return 1 if count(results, "err") else 0
     say(f"  - 원본(data/, labs/)은 고치지 않습니다. 고쳐 쓸 파일은 작업 사본 workbench/day{day}/data/ 에서 다룹니다.")
     say(f"  - 결과 파일은 workbench/day{day}/outputs/ 에 저장합니다.")
     if day >= 2:
@@ -336,7 +367,8 @@ def not_released(day: int, cfg: dict) -> int:
     say(f"{day}일차 파일은 아직 공개 전입니다. 공개 예정: {cfg['when']}")
     say("공개 시각이 지난 뒤 같은 명령을 다시 실행하세요:")
     say(f"    uv run python tools/get_day_files.py {day}")
-    say(f"labs/day{day}/ 의 실습 양식은 이미 저장소에 있으니 미리 열어 봐도 됩니다.")
+    if not KIT:  # 팀 저장소(킷)에는 labs/ 가 없다
+        say(f"labs/day{day}/ 의 실습 양식은 이미 저장소에 있으니 미리 열어 봐도 됩니다.")
     say(f"급하면 과정 사이트의 '파일 받기' 표를 확인하세요: {SITE_URL}day{day}/index.html")
     return 0
 
