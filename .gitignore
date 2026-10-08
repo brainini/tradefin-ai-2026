@@ -104,3 +104,9 @@ handouts/
 rag/corpus/*ksure*
 rag/corpus/*약관*
 *ksure_terms*
+
+# ── 5. 수강생 작업 환경 ────────────────────────────────────────────
+# Claude Code worktree(`claude --worktree 이름`)가 브랜치마다 펼치는 작업 폴더 — 사본이라 커밋하지 않는다
+.claude/worktrees/
+# tools/get_day_files.py가 받다가 멈춘 임시 파일
+*.part

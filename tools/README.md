@@ -7,6 +7,7 @@
 ## 지금 쓸 수 있는 도구
 
 ```bash
+uv run python tools/get_day_files.py 1              # (수강생) 그날 파일 받기 — 1~6일차, --list · --force · --offline
 pip install -r requirements-docs.txt              # 사이트 빌드용(MkDocs)
 python tools/sync_site_assets.py                  # 수강생 파일 → docs/downloads/ 복사 + '파일 받기' 표 조각
 mkdocs build --strict -d site                     # 사이트 빌드(tools/mkdocs_hooks.py가 훅으로 붙는다)
@@ -36,6 +37,7 @@ python -m pytest app/tests -q                     # 앱 모의 모드 끝까지(
 |---|---|---|
 | `sync_site_assets.py` | 일차별 허용 목록(1–6일차)에 있는 수강생 파일만 `docs/downloads/dayN/`으로 복사하고 '파일 받기' 표 조각(`docs/_snippets/dayN/`)과 `dayN_files.zip`을 만든다. 정답·원천·다른 날 체크포인트가 섞이면 멈추고, 2일차부터는 git에 커밋된(= 공개된) 파일만 넣는다(아직 없는 날은 '공개 예정'). `--strict`·`--check`는 1일차 파일 전부를, `--require-day N`은 N일차 시작 파일까지 확인한다. `--preview`는 강사 PC 미리 보기 전용 | 된다 |
 | `mkdocs_hooks.py` | MkDocs 훅 — 내려받기용 `.md`를 페이지로 바꾸지 않고 그대로 복사, 프롬프트 제목(`## P1-4 …`)의 앵커를 `#p1-4`로 고정 | 된다(`mkdocs.yml`이 부른다) |
+| `get_day_files.py` | **수강생이 매일 아침 실행하는 '그날 파일 받기'**. 내 저장소에 없는 그날 파일을 과정 저장소(공개)에서 같은 경로로 내려받고, `data/`·`labs/`의 파일은 `workbench/dayN/data/`에 작업 사본을 만든다. 이미 있는 파일은 덮어쓰지 않고(`--force`만), 아직 공개 전이면 '공개 전'이라고 알린다. 표준 라이브러리만 쓰고(`uv run tools/get_day_files.py N`으로도 실행), 파일 목록은 과정 저장소 공개 목록(GitHub)에서 읽는다 | 된다(1일차) |
 | `build_day1_notebook.py` | Challenge 노트북 `labs/day1/d1_challenge.ipynb`(출력 없는 수강생용)을 만들고 규칙을 점검한다. `--execute`는 사본을 임시 폴더에서 위→아래로 실행해 SEC 값과 대조한다. **`--user-agent`는 기본값이 없다** — SEC 규칙대로 본인 영문 이름과 이메일을 넘긴다(없거나 예시 주소면 실행 검사를 시작하지 않는다) | 생성·점검은 된다. 실행 검사의 일부 대조 항목(정답 차트 표·원천·강사 정답)은 그 파일이 있을 때만 한다 |
 | `build_day2_notebook.py` | Day2 Challenge 노트북 `labs/day2/d2_challenge.ipynb`(출력 없는 수강생용: 통화·환율 `merge_asof` · 결측 대체 중앙값 vs KNN · 파이프라인 안 스케일링 · 정본 특성 · LLM 없는 사전 기준선 뉴스 점수와 골든셋 일치도). `--execute`는 임시 폴더에서 실행해 🟢 기대값 · 정본 특성표와 대조하고 실행본을 강사 폴더(저장소 밖)에 저장 | 생성·점검은 된다. 실행 검사는 Day2 파일과 강사 기대값이 있어야 한다 |
 | `build_day3_notebook.py` | Day3 Challenge 노트북 `labs/day3/d3_challenge.ipynb` 하나(D6: LightGBM · class weight/SMOTE 변형 · ROC/PR · 비용 5:1 임계값 · SHAP · t/4 · t/2 · t 등급 · Prophet). `--execute`는 실행해 강사 정답(`_summary.json` · `d3_variants.csv` 등)과 대조 | 생성·점검은 된다. 실행 검사는 Day3 파일과 강사 정답이 있어야 한다 |
