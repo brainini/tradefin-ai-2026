@@ -1552,8 +1552,8 @@
    "order": 3500,
    "open_at": "2026-10-19T09:00:00Z",
    "path": "data/checkpoints/d4_end_limits.xlsx",
-   "size": 42139,
-   "sha256": "252ef780e0a2991a4bbd1020b14d2e75672cd5bde0425adbaf2a1213b2c5d903",
+   "size": 42121,
+   "sha256": "595cb4298b90961d1b6ac805ef6ddc2a4a619584a13b1bc13c783f414d46909e",
    "src_note": "promoted"
   },
   {
