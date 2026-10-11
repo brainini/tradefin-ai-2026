@@ -44,7 +44,9 @@
    "practices": {
     "hack": "해커톤 안내",
     "cards": "위기 카드",
-    "kit": "솔루션 킷"
+    "kit": "솔루션 킷",
+    "lab-a": "실습 A",
+    "lab-b": "실습 B"
    }
   },
   "after": {
@@ -115,7 +117,7 @@
     "lab-a"
    ],
    "label": "깨진 CSV 연습 파일",
-   "desc": "한글 열 이름·바이어명이 든 8행 가상 표. UTF-8(BOM 없음)이라 엑셀에서 더블클릭하면 한글이 깨진다 → 실습 A-1 ①에서 UTF-8로 다시 연다",
+   "desc": "한글 열 이름·바이어명이 든 8행 가상 표. UTF-8(BOM 없음)이라 엑셀에서 더블클릭하면 한글이 깨진다 → 실습 A-1 · 01에서 BOM 판과 견줘 이유를 말해 본다",
    "dest": "d1_encoding_test.csv",
    "site": true,
    "zip": true,
@@ -283,8 +285,8 @@
    "zip": true,
    "order": 1000,
    "path": "data/day1/real_buyers_ratios.csv",
-   "size": 10582,
-   "sha256": "2189c88c01fbcc44ab884419f2ab1bf716fabc5fc7cf139da539113b7c9eb6e8"
+   "size": 10576,
+   "sha256": "3f86f1daa6149cb8da943cebcc8f6aceb949a9b8fe3063ca677ccab75772df4a"
   },
   {
    "day": 1,
@@ -313,7 +315,7 @@
     "lab-b"
    ],
    "label": "바이어 스냅샷(엑셀)",
-   "desc": "(가상) 한빛정밀 해외 바이어 현황 153행 · 시트 buyers · 기준일 2026-09-30 · 원천 입력 오류 포함. 실습 B에서 진단 → 코드표 → 변수 정의서 → EDA 노트북 → 손 검산",
+   "desc": "(가상) 한빛정밀 해외 바이어 현황 153행 · 시트 buyers · 기준일 2026-09-30 · 원천 입력 오류 포함. 실습 B에서 진단 → 코드표 → 변수 정의서 → EDA 노트북 → 완성본과 대조",
    "dest": "d1_buyers_raw.xlsx",
    "site": true,
    "zip": true,
@@ -355,8 +357,26 @@
    "zip": true,
    "order": 1400,
    "path": "data/data_dictionary.xlsx",
-   "size": 29621,
-   "sha256": "884f1317f0a700d8b830cb197d8abb4ed7591b51838eeddd585ecbaf43f94889"
+   "size": 29534,
+   "sha256": "28f2f8eac4cafae80a6f229b23c01d6d5fdff2afc511ca9017ae2e4ab108dd9b"
+  },
+  {
+   "day": 1,
+   "where": "main",
+   "role": "baseline",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "손 검산 완성본(엑셀)",
+   "desc": "원천을 한 칸도 고치지 않고 결제방식별로 센 피벗과 같은 표 · 막대 차트. 셀을 누르면 수식이 보인다 — 실습 B-2 · 02에서 노트북 숫자와 대조한다(정답이 아니라 기준선)",
+   "dest": "d1_pivot_check.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 1500,
+   "path": "labs/day1/d1_pivot_check.xlsx",
+   "size": 38878,
+   "sha256": "99328504008b5146317c3d638bb183f906ddcd77e427e35f35983e27e575dcf2"
   },
   {
    "day": 1,
@@ -367,14 +387,14 @@
     "lab-b"
    ],
    "label": "현안 정의서 양식",
-   "desc": "실습 B-2 ⑥에서 프롬프트 B5가 읽는 양식 — 결제방식별 근거 숫자 표 · 내 업무라면(직접 쓰기)",
+   "desc": "실습 B-2 · 03에서 프롬프트 B5가 읽는 양식 — 결제방식별 근거 숫자 표 · 내 업무라면(직접 쓰기)",
    "dest": "issue_definition_template.md",
    "site": true,
    "zip": true,
-   "order": 1500,
+   "order": 1600,
    "path": "labs/day1/issue_definition_template.md",
-   "size": 2415,
-   "sha256": "2fc85b28d7ba9f5b17b9b3437f1c492bcb93f8bd183e48c253bf5d7fe3769e8d"
+   "size": 2487,
+   "sha256": "516928ce9067256b6790040bac9f126a996c0c585712f0b8189613c1965e0bbb"
   },
   {
    "day": 1,
@@ -389,10 +409,10 @@
    "dest": "d1_invoices.xlsx",
    "site": true,
    "zip": true,
-   "order": 1600,
+   "order": 1700,
    "path": "data/day1/d1_invoices.xlsx",
-   "size": 499259,
-   "sha256": "1b80a415b333f0d152b1c1bd842d18066d2f48787d7aedfe1ee8024d41b823ba"
+   "size": 499229,
+   "sha256": "eb08e771a90623b9e53964e28634a50d3ad0639b5b22cbda31951ad8c718b90b"
   },
   {
    "day": 1,
@@ -407,7 +427,7 @@
    "dest": "d1_invoices.csv",
    "site": true,
    "zip": true,
-   "order": 1700,
+   "order": 1800,
    "path": "data/day1/d1_invoices.csv",
    "size": 694034,
    "sha256": "d130abd7cbd1cf29d9fb9f8f15abf972e3e4802c78298f6221cd37ea08e84112"
@@ -426,7 +446,7 @@
    "dest": "day1_slides.pdf",
    "site": true,
    "zip": false,
-   "order": 1800,
+   "order": 1900,
    "path": "handouts/day1_slides.pdf",
    "size": 10413220,
    "sha256": "f10273f3c9c3fe35021157bd1e63100a5a982943335184cba6cb2118eaa318a9"
@@ -441,7 +461,7 @@
     "lab-b"
    ],
    "label": "2일차 시작 파일",
-   "desc": "가상 바이어 150곳의 기준일(2026-08-31) 표 — 일부러 지저분하다. 실습 A는 시트 buyers만 쓴다. 나머지 시트: buyer_features_raw · fx_at_ref(기준일 환율) · invoices_raw(더 하기) · dictionary(열 설명) · dirty_list · map_ccy · map_country",
+   "desc": "가상 바이어 150곳의 기준일(2026-08-31) 표 — 일부러 지저분하다. 실습 A는 시트 buyers만 쓴다. 나머지 시트: buyer_features_raw(실습 B 05) · fx_at_ref(기준일 환율) · invoices_raw(더 해 보기) · dictionary(열 설명) · map_ccy · map_country",
    "dest": "d2_start.xlsx",
    "site": true,
    "zip": true,
@@ -453,6 +473,26 @@
   },
   {
    "day": 2,
+   "where": "files",
+   "role": "baseline",
+   "badge": "완성본",
+   "practices": [
+    "lab-a",
+    "lab-b"
+   ],
+   "label": "엑셀 검산본",
+   "desc": "확인표 여섯 줄 · B001 손계산 · 30일 창 기사 수를 엑셀 수식으로 다시 계산한 완성본(노란 칸 = 수식). AI가 만든 CSV와 나란히 놓고 견준다 — 실습 A 05 · 실습 B 06",
+   "dest": "d2_excel_check.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 200,
+   "open_at": "2026-10-14T23:30:00Z",
+   "path": "labs/day2/d2_excel_check.xlsx",
+   "size": 61080,
+   "sha256": "82c7cef24b7a9ac3253f400dc30c8c0b29848293c209f413863d9a3f6f9af83a"
+  },
+  {
+   "day": 2,
    "where": "main",
    "role": "start",
    "badge": "참고",
@@ -460,11 +500,11 @@
     "lab-a"
    ],
    "label": "원화 환율(일별)",
-   "desc": "일별 원화 환율(미국 연준 H.10 · FRED). 환율 30일 변화와 as-of 환산을 직접 확인할 때 쓴다(엔화는 100엔 단위 → ÷100)",
+   "desc": "일별 원화 환율(미국 연준 H.10 · FRED). 규칙 7칸의 환율 30일 변화와 as-of 환산을 직접 확인할 때 쓴다(엔화는 100엔 단위 → ÷100)",
    "dest": "fx_krw_daily.csv",
    "site": true,
    "zip": true,
-   "order": 200,
+   "order": 300,
    "path": "data/checkpoints/fx_krw_daily.csv",
    "size": 29328,
    "sha256": "d0960323829ffc999b81e1e7bad3932a36dfd1f80bb0f1face588c38ae34ede7"
@@ -478,11 +518,11 @@
     "lab-a"
    ],
    "label": "정제 규칙 양식",
-   "desc": "정제규칙.md 틀 — 칸마다 '규칙 / 왜' 두 줄 + 9 변경 기록. 내 저장소의 workbench/day2/rules/정제규칙.md와 같다. 채팅 경로에서 메모장에 붙여 쓴다",
+   "desc": "정제규칙.md 틀 — 칸마다 '규칙 / 왜' 두 줄 + 9 변경 기록. 내 저장소의 workbench/day2/rules/정제규칙.md와 같다. 채팅 경로에서 첨부해 채운다",
    "dest": "rules_template.md",
    "site": true,
    "zip": true,
-   "order": 300,
+   "order": 400,
    "path": "labs/day2/rules_template.md",
    "size": 1265,
    "sha256": "4bccb0a2821726126adbcbbc88120e9b1c1e53190c51058102b5a129ea795b60"
@@ -496,14 +536,104 @@
     "lab-b"
    ],
    "label": "바이어 뉴스",
-   "desc": "바이어별 짧은 뉴스(합성 300건, 한국어 · 영어 · 기타). 실습 B에서 앞 100행을 0–10 점수로 바꾼다",
+   "desc": "바이어별 짧은 뉴스(합성 300건, 한국어 · 영어 · 기타). 실습 B 03에서 앞 100행을 0–10 점수로 바꾼다",
    "dest": "d2_news.csv",
    "site": true,
    "zip": true,
-   "order": 400,
+   "order": 500,
    "path": "data/checkpoints/d2_news.csv",
    "size": 50784,
    "sha256": "48a46be63729d05d4ac90c6308d9e9796fae9f87b3c8687a9a333320540687c1"
+  },
+  {
+   "day": 2,
+   "where": "main",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "뉴스 채점 규칙 v1",
+   "desc": "관점 · 척도 0–10 · 규칙 6 · 출력 키 7 — 프롬프트 B2가 읽는 규칙 파일. 내 저장소의 workbench/day2/prompts/에 이미 있다(채팅 경로는 받아서 첨부)",
+   "dest": "news_score_v1.md",
+   "site": true,
+   "zip": true,
+   "order": 600,
+   "path": "workbench/day2/prompts/news_score_v1.md",
+   "size": 2583,
+   "sha256": "72631e9369dfd17d7d3631e3a62822b4926ec1e51ccf2bb7db0b43beee6b66d6"
+  },
+  {
+   "day": 2,
+   "where": "main",
+   "role": "tool",
+   "badge": "참고",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "수집 점검 양식",
+   "desc": "목적 · API 유무 · robots.txt · 약관 조항 · 남길 항목 5칸 + 결론 3택 — 실습 B 02. 내 저장소의 workbench/day2/rules/에 이미 있다",
+   "dest": "수집점검.md",
+   "site": true,
+   "zip": true,
+   "order": 700,
+   "path": "workbench/day2/rules/수집점검.md",
+   "size": 1465,
+   "sha256": "73cf9622c2dfacee6078ba249af844fc899ee0f6cc51ffe7addba496360dc9a9"
+  },
+  {
+   "day": 2,
+   "where": "main",
+   "role": "tool",
+   "badge": "참고",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "데이터 사전 양식",
+   "desc": "열 · 뜻 · 계산 · 창 · 시점 점검 표 — 실습 B 05에서 새 열 7개를 더한다. 내 저장소의 workbench/day2/data/에 이미 있다",
+   "dest": "데이터사전.md",
+   "site": true,
+   "zip": true,
+   "order": 800,
+   "path": "workbench/day2/data/데이터사전.md",
+   "size": 1419,
+   "sha256": "407c82882d29e89c7c0514f3101610167f21a54af555ca686fdf7300d4641fe0"
+  },
+  {
+   "day": 2,
+   "where": "files",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "뉴스 1–50행(채팅 경로)",
+   "desc": "웹 채팅에 첨부해 채점하는 앞 50행 — news_id · buyer_id · date · lang · headline · body_short. 붙여 넣기 대신 첨부",
+   "dest": "news_rows_001-050.csv",
+   "site": true,
+   "zip": true,
+   "order": 900,
+   "path": "labs/day2/news_rows_001-050.csv",
+   "size": 8006,
+   "sha256": "a298c7645a0a94d5fe8b1aa58a85472bfaff4c25b55efd3f4f66e71a344c7f1a"
+  },
+  {
+   "day": 2,
+   "where": "files",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "뉴스 51–100행(채팅 경로)",
+   "desc": "웹 채팅에 첨부해 채점하는 다음 50행(열은 같다)",
+   "dest": "news_rows_051-100.csv",
+   "site": true,
+   "zip": true,
+   "order": 1000,
+   "path": "labs/day2/news_rows_051-100.csv",
+   "size": 7548,
+   "sha256": "cf649351c9232da29e8d776ac8b9ff547727b1ddb155c0159681d4fa70105023"
   },
   {
    "day": 2,
@@ -514,11 +644,11 @@
     "lab-b"
    ],
    "label": "워밍업 뉴스 10건",
-   "desc": "채팅 경로에서 50행을 붙이기 전에 형식을 시험하는 10건(한국어 4 · 영어 6, 점수 없음)",
+   "desc": "채팅 경로에서 50행을 보내기 전에 형식을 시험하는 10건(한국어 4 · 영어 6, 점수 없음)",
    "dest": "news_warmup_10.txt",
    "site": true,
    "zip": true,
-   "order": 500,
+   "order": 1100,
    "path": "labs/day2/news_warmup_10.txt",
    "size": 2549,
    "sha256": "b63b981010d9d10d54ed2890c9ac63ee625dcc4ffacd2d569adc14d0c318710c"
@@ -532,11 +662,11 @@
     "lab-b"
    ],
    "label": "뉴스 정답 20건(골든셋)",
-   "desc": "실습 B 4단계에서 AI 점수를 재는 기준 점수(MAE · ±2 이내 비율 · 라벨 일치율). 정한 시각에 공개한다",
+   "desc": "실습 B 04에서 내 AI 점수를 재는 사람 정답 20건(MAE · ±2 이내 비율 · 라벨 일치율). 채점(03)을 끝낸 뒤 d2-news 창에서 받는다",
    "dest": "d2_news_answer.csv",
    "site": true,
    "zip": true,
-   "order": 600,
+   "order": 1200,
    "open_at": "2026-10-15T06:35:00Z",
    "path": "data/checkpoints/d2_news_answer.csv",
    "size": 2604,
@@ -549,17 +679,105 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-a"
+    "lab-b"
    ],
-   "label": "BYOD 익명화 템플릿",
-   "desc": "자사 엑셀을 쓰기 전 점검표(규칙 7 + 마지막 확인 4) · 가상 예시 변환 수식. 원본은 내 PC에서만, 익명화본도 저장소에는 올리지 않는다(AI에는 익명화본만 · 학습 설정 끔) — 다 했으면",
+   "label": "뉴스 점수 스키마",
+   "desc": "JSONL 한 줄의 모양(키 · 타입 · 허용값) — 더 해 보기(API 구조화 출력)에서 쓴다",
+   "dest": "news_score.schema.json",
+   "site": true,
+   "zip": true,
+   "order": 1300,
+   "path": "workbench/day2/schemas/news_score.schema.json",
+   "size": 673,
+   "sha256": "404f9fdf415393f0ff592315c6887481f01ecbce3ecf1c518aaf74e5de8b37fc"
+  },
+  {
+   "day": 2,
+   "where": "files",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "가상 신용평가 코멘트 ①",
+   "desc": "한국어 · 등급 한 단계 하향 · 전망 부정적 · 2026-09-29(기준일 뒤라 특성표에는 넣지 않는다) — 더 해 보기 ③",
+   "dest": "credit_notes/CN01_B053_ko.txt",
+   "site": true,
+   "zip": true,
+   "order": 1400,
+   "path": "labs/day2/credit_notes/CN01_B053_ko.txt",
+   "size": 812,
+   "sha256": "4cb768ed53f51ac0bd4230656dd7e0616224b9368f7c7ee52f23d34def6fa2e8"
+  },
+  {
+   "day": 2,
+   "where": "files",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "가상 신용평가 코멘트 ②",
+   "desc": "영어 · Rating Watch Negative · 2026-09-30 — 더 해 보기 ③",
+   "dest": "credit_notes/CN02_B040_en.txt",
+   "site": true,
+   "zip": true,
+   "order": 1500,
+   "path": "labs/day2/credit_notes/CN02_B040_en.txt",
+   "size": 734,
+   "sha256": "cab47affcaddbc5e9a8012cd29207655772f41bc6e5a561d52647a2173bc7ba7"
+  },
+  {
+   "day": 2,
+   "where": "files",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "코멘트 채점 덧붙임 규칙",
+   "desc": "news_score_v1.md 뒤에 붙여 rating_action(등급 조치) · outlook(전망) 두 키를 더하는 규칙 — 더 해 보기 ③",
+   "dest": "credit_notes/credit_note_v1.md",
+   "site": true,
+   "zip": true,
+   "order": 1600,
+   "path": "labs/day2/credit_notes/credit_note_v1.md",
+   "size": 863,
+   "sha256": "a0af100de9f2f660302b3367b1750cdff218c02befec85e1cdfa29d8459e57ae"
+  },
+  {
+   "day": 2,
+   "where": "files",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "코멘트 점수 스키마",
+   "desc": "뉴스 키 7개 + rating_action · outlook — 더 해 보기 ③",
+   "dest": "credit_notes/credit_note_score.schema.json",
+   "site": true,
+   "zip": true,
+   "order": 1700,
+   "path": "labs/day2/credit_notes/credit_note_score.schema.json",
+   "size": 757,
+   "sha256": "83b9ee3880f7af522331b7935bb969550b1f043912e13b01ddb68ec52efe564f"
+  },
+  {
+   "day": 2,
+   "where": "main",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [],
+   "label": "익명화 점검표(내 업무 숫자용)",
+   "desc": "내 업무 숫자를 내 PC의 private/ 폴더에서만 다뤄 보기 전 점검표(규칙 7 + 마지막 확인 4) · 가상 예시 변환 수식. 회사 데이터는 익명화본이라도 과정의 AI 도구 · 저장소에 올리지 않는다(사전 준비 → 익명화 체크리스트)",
    "dest": "byod_anonymize_template.xlsx",
    "site": true,
    "zip": true,
-   "order": 700,
+   "order": 1800,
    "path": "labs/day2/byod_anonymize_template.xlsx",
-   "size": 13430,
-   "sha256": "4b8f1ca51de4101c6258040c8641c89fb57a8dbd2cb0094ae1d1243b7bf68945"
+   "size": 13506,
+   "sha256": "d13c27a6ab89a272fd69a1868dea64623fa33e4fbab08a58c2369e5d854e9b5c"
   },
   {
    "day": 2,
@@ -575,7 +793,7 @@
    "dest": "day2_slides.pdf",
    "site": true,
    "zip": false,
-   "order": 800,
+   "order": 1900,
    "path": "handouts/day2_slides.pdf",
    "size": 11445461,
    "sha256": "6a9c4bfa0656b60817ca90a5047938686b8b75e1e11931bfe5e90cfe6b53c577"
@@ -639,21 +857,59 @@
   },
   {
    "day": 3,
-   "where": "main",
-   "role": "tool",
-   "badge": "필수",
+   "where": "files",
+   "role": "baseline",
+   "badge": "완성본",
    "practices": [
     "lab-b"
    ],
-   "label": "등급 매칭 시트",
-   "desc": "실습 B-1: pred 시트에 점수를 붙이고 이름 t(빈칸)에 내 임계값 → 직접 쓰는 IFS 등급(C부터) · 경계 · 분포 · 단조성(시험셋) 시트",
-   "dest": "d3_grade_banding.xlsx",
+   "label": "등급 매칭 완성본(엑셀)",
+   "desc": "엑셀 손작업 대신 열어 읽는 완성본 — 같은 프롬프트(A2 설정)로 한 번 돌린 150곳 점수 · t 0.17 · IFS 등급(C부터) · 조건부 서식 · 등급 분포 · 단조성. 수식과 계산값이 함께 들어 있고 첫 시트에 만든 방법",
+   "dest": "d3_grade_banding_example.xlsx",
    "site": true,
    "zip": true,
    "order": 400,
+   "open_at": "2026-10-15T23:30:00Z",
+   "path": "labs/day3/d3_grade_banding_example.xlsx",
+   "size": 39853,
+   "sha256": "d4264570d5eb2485d3c0b94d6d16f992f8cb30374a98a7b7f716646be3e70abf"
+  },
+  {
+   "day": 3,
+   "where": "files",
+   "role": "baseline",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "완성본 등급 표(CSV)",
+   "desc": "완성본 pred 시트의 값 4열(buyer_id · ref_date · pd_30d · grade) 150행 — AI 대조(B1c · B2)의 짝, 엑셀이 없거나 채팅 경로일 때",
+   "dest": "d3_grade_example.csv",
+   "site": true,
+   "zip": true,
+   "order": 500,
+   "open_at": "2026-10-15T23:30:00Z",
+   "path": "labs/day3/d3_grade_example.csv",
+   "size": 3784,
+   "sha256": "5c2ae7568589996c5e31b3b1349445da3b55ee6c8ebec28dc6aef6244c6a6b4d"
+  },
+  {
+   "day": 3,
+   "where": "main",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "등급 매칭 빈 양식",
+   "desc": "인쇄본 B-1 02–04를 엑셀로 직접 해 보고 싶을 때(수업 뒤) — pred 시트에 점수 붙여넣기 · 이름 t(빈칸) · IFS(C부터) · 분포 · 단조성 시트. 수업에서는 완성본을 연다",
+   "dest": "d3_grade_banding.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 600,
    "path": "labs/day3/d3_grade_banding.xlsx",
-   "size": 33504,
-   "sha256": "ba783eb9fc8e3a19023309853c011f0980ddd35fd5b22e8b11183e5cda953639"
+   "size": 33533,
+   "sha256": "c9a4330ce70fbb10056f9888df9caaa7d1c605e6c92506ee534bedc86acd153e"
   },
   {
    "day": 3,
@@ -668,7 +924,7 @@
    "dest": "fx_forecast_inputs.csv",
    "site": true,
    "zip": true,
-   "order": 500,
+   "order": 700,
    "path": "labs/day3/fx_forecast_inputs.csv",
    "size": 74340,
    "sha256": "657b274c80b8fb2af329a36cd3dfaf8bb61bd6d8a0b4b02a1ddbdef7e360b653"
@@ -686,7 +942,7 @@
    "dest": "d3_shap_report_template.docx",
    "site": true,
    "zip": true,
-   "order": 600,
+   "order": 800,
    "path": "labs/day3/d3_shap_report_template.docx",
    "size": 38355,
    "sha256": "7e66c1caa4decc35972f229c19ce5466e320b9b7d65088f9a3e7be4fd8229bdc"
@@ -704,7 +960,7 @@
    "dest": "shap_sample_3buyers.csv",
    "site": true,
    "zip": true,
-   "order": 700,
+   "order": 900,
    "open_at": "2026-10-15T23:30:00Z",
    "path": "labs/day3/shap_sample_3buyers.csv",
    "size": 1083,
@@ -719,11 +975,11 @@
     "lab-b"
    ],
    "label": "FRED 원/달러 원본",
-   "desc": "미국 연준 FRED DEXKOUS 원본 시계열(퍼블릭 도메인, 출처 표기 요청). 오전 시연 2에서 인터넷이 막혔을 때의 대체 입력",
+   "desc": "미국 연준 FRED DEXKOUS 원본 시계열(퍼블릭 도메인 · 인용 요청 — 저장소의 data/external/ATTRIBUTION.md). 오전 시연 2에서 인터넷이 막혔을 때의 대체 입력",
    "dest": "fred_dexkous.csv",
    "site": true,
    "zip": true,
-   "order": 800,
+   "order": 1000,
    "path": "data/external/fred_dexkous.csv",
    "size": 15006,
    "sha256": "a820e7716ca084a0e5ff7d54f91d28e7d0dbd7082142a31e41457e2c56559bc5"
@@ -742,7 +998,7 @@
    "dest": "day3_slides.pdf",
    "site": true,
    "zip": false,
-   "order": 900,
+   "order": 1100,
    "path": "handouts/day3_slides.pdf",
    "size": 10886039,
    "sha256": "d72e1d9710885b7b9cadd95020c141e9e88345ab2a4a43ea60020e375dd41fba"
@@ -760,7 +1016,7 @@
    "dest": "d3_end_scored.csv",
    "site": true,
    "zip": true,
-   "order": 1000,
+   "order": 1200,
    "open_at": "2026-10-16T09:00:00Z",
    "path": "data/checkpoints/d3_end_scored.csv",
    "size": 35084,
@@ -777,7 +1033,7 @@
    "dest": "README.md",
    "site": false,
    "zip": true,
-   "order": 1100,
+   "order": 1300,
    "path": "labs/day3/quality_gate/README.md",
    "size": 4236,
    "sha256": "6fef2e4f6e8595027f1a900206d839af25c4a4150a0e24d55c7da09a66b2af30"
@@ -793,7 +1049,7 @@
    "dest": "check_scored.py",
    "site": false,
    "zip": true,
-   "order": 1101,
+   "order": 1301,
    "path": "labs/day3/quality_gate/check_scored.py",
    "size": 7432,
    "sha256": "0aa691c8f70df5fd7d040372477b5eab0e810dd50e27d6e72a54a57a1f14a238"
@@ -809,7 +1065,7 @@
    "dest": "d3-check.yml",
    "site": false,
    "zip": true,
-   "order": 1102,
+   "order": 1302,
    "path": "labs/day3/quality_gate/d3-check.yml",
    "size": 1262,
    "sha256": "81d3e39fdde169730832be266a209ac1ec92ab2089a8be6436cbeb8b5c51a31b"
@@ -825,7 +1081,7 @@
    "dest": "demo/README.md",
    "site": false,
    "zip": true,
-   "order": 1103,
+   "order": 1303,
    "path": "labs/day3/quality_gate/demo/README.md",
    "size": 4649,
    "sha256": "0213ea82184bff6a3195247b6ff40fad596b21ceb574c5290c60e0728da016f2"
@@ -841,7 +1097,7 @@
    "dest": "demo/params.yaml",
    "site": false,
    "zip": true,
-   "order": 1104,
+   "order": 1304,
    "path": "labs/day3/quality_gate/demo/params.yaml",
    "size": 769,
    "sha256": "eb19559e4ce1184c4f76bac8e76a17b4ee8af1be0a12e4afcc58f07d4c3d7931"
@@ -857,7 +1113,7 @@
    "dest": "demo/scripts/make_synthetic_panel.py",
    "site": false,
    "zip": true,
-   "order": 1105,
+   "order": 1305,
    "path": "labs/day3/quality_gate/demo/scripts/make_synthetic_panel.py",
    "size": 8154,
    "sha256": "fa4f3f6156ec41960c1f699dfb6c1a4a1bf54422b510afe6d9288cb0fe623adc"
@@ -873,7 +1129,7 @@
    "dest": "demo/src/compare.py",
    "site": false,
    "zip": true,
-   "order": 1106,
+   "order": 1306,
    "path": "labs/day3/quality_gate/demo/src/compare.py",
    "size": 4374,
    "sha256": "f1cadf9284d7a8196029123e980f73abbb617a532df4ed54f0895f474c7c7525"
@@ -889,7 +1145,7 @@
    "dest": "demo/src/train.py",
    "site": false,
    "zip": true,
-   "order": 1107,
+   "order": 1307,
    "path": "labs/day3/quality_gate/demo/src/train.py",
    "size": 3715,
    "sha256": "454dddf54cb9a68f45718b7043a7122a867f4467c83be93eb950f2d1a7010364"
@@ -905,7 +1161,7 @@
    "dest": "demo/train.yml",
    "site": false,
    "zip": true,
-   "order": 1108,
+   "order": 1308,
    "path": "labs/day3/quality_gate/demo/train.yml",
    "size": 1322,
    "sha256": "3dee4f33c13813d7bdc7a4776ab00d5993e78334e07b5e9e317425c0c38e0dd0"
@@ -1073,8 +1329,8 @@
    "zip": true,
    "order": 900,
    "path": "labs/day4/stress_mc.py",
-   "size": 8217,
-   "sha256": "1145ed0789778820e02952f7b2b36230e5f0e08a5568774d0d46c42c9f20f5f2"
+   "size": 9094,
+   "sha256": "7dde564c1319a3e3b873f30b3dabd0995cf4f8a01d0033845110e237b599b6e8"
   },
   {
    "day": 4,
@@ -1091,27 +1347,27 @@
    "zip": true,
    "order": 1000,
    "path": "labs/day4/experiment_cards.md",
-   "size": 8033,
-   "sha256": "75b1ad0b9c9fbcd56d673e68f8af410a8bb0db5ce742fb9b5b9557c1723eb28e"
+   "size": 9825,
+   "sha256": "4b823229c4d023c2d929d7bc5fae6e166766a9a4ba827bc8af755361279c53a3"
   },
   {
    "day": 4,
    "where": "files",
-   "role": "start",
-   "badge": "선택",
+   "role": "baseline",
+   "badge": "완성본",
    "practices": [
     "lab-a"
    ],
-   "label": "한도 워크북(채운 판, 시트 17개)",
-   "desc": "수식 · 해 찾기 모델이 든 워크북 — 실험 카드 ⑥ ⑨(8주 유동성 갭)와 8교시 시연 6(엑셀 안의 AI)에서 쓴다. 엑셀이 없으면 건너뛴다",
+   "label": "엑셀판 같은 모델(완성본 · 시트 17개)",
+   "desc": "실습 A와 같은 한도 LP · 할인율 · 시나리오 · 8주 유동성 갭을 엑셀 수식과 해 찾기 모델로 만든 워크북. 엑셀을 손으로 만들지 않고 내 엔진의 잠재가격(16_Compare)과 카드 ⑥ 확인값(07_Solver)을 견준다 — 8교시 시연 6에서도 쓴다",
    "dest": "d4_limit_model.xlsx",
    "site": true,
    "zip": true,
    "order": 1100,
    "open_at": "2026-10-18T23:30:00Z",
    "path": "data/checkpoints/d4_limit_model.xlsx",
-   "size": 359692,
-   "sha256": "e087e0d23e691c42e783a5bbbf7b30d92b4558da113cd3b35d75ccd4fd4220c1"
+   "size": 359581,
+   "sha256": "a4156fbf8ad141a6908b80e03b834aafbb61c3a7d38fb1a0818bb73f4f7802fa"
   },
   {
    "day": 4,
@@ -1140,14 +1396,14 @@
     "lab-b"
    ],
    "label": "경보 규칙 파일",
-   "desc": "연체 단계(D-3 · D+7 · D+15 · D+30) · 규칙 7개(경계값 · 등급 · 권고 문장) + 내 규칙 아이디어 3개(주석). 내 저장소에서는 workbench/day4/rules/로 복사해 규칙을 하나 더한다",
+   "desc": "기준일(asof 2026-09-30) · 연체 단계(D-3 · D+7 · D+15 · D+30) · 규칙 7개(경계값 · 등급 · 권고 문장) + 내 규칙 아이디어 3개(주석). 내 저장소에서는 workbench/day4/rules/로 복사해 규칙을 하나 더한다",
    "dest": "alert_rules.yml",
    "site": true,
    "zip": true,
    "order": 1300,
    "path": "labs/day4/alert_rules.yml",
-   "size": 3958,
-   "sha256": "21c3c8146e2aebe0831b64ed1a4acc3e7f9a5a5f8b5bd4e04c9a6cc09c060d63"
+   "size": 4168,
+   "sha256": "3ea7c20cdba5904ebdf30853b20ee33b12ec324a62265e503b51ba3c0601d149"
   },
   {
    "day": 4,
@@ -1200,8 +1456,8 @@
    "zip": true,
    "order": 1600,
    "path": "labs/day4/audience_cards.md",
-   "size": 3769,
-   "sha256": "7af09f1ac5ed0b9a321319bed598723a137f3459e1a34c3d5b0aa4794997876f"
+   "size": 4380,
+   "sha256": "e9e43a1e4004021f7cfefda32aee2b7f853ee4df52188ce8937adf54b9971188"
   },
   {
    "day": 4,
@@ -1236,8 +1492,8 @@
    "zip": true,
    "order": 1800,
    "path": "labs/day4/ews_workflow_example.yml",
-   "size": 1952,
-   "sha256": "14c9c1a139d72c4bd514b99199623aa53736bf29d01630c07207415470b69ec6"
+   "size": 2539,
+   "sha256": "8c4f12ab62712f598ebebcd59fca0c8ee170ad1db0eea15e504e3736d9f75e8f"
   },
   {
    "day": 4,
@@ -1254,8 +1510,8 @@
    "zip": true,
    "order": 1900,
    "path": "labs/day4/post_issue_example.py",
-   "size": 9168,
-   "sha256": "806f45950189bd7f50813ae59372e06ce423a2e4ec998e55dba144c44c431a5e"
+   "size": 9431,
+   "sha256": "48df2adc58dcd64e66e6eb22fd956d10b05ee2563beeacb8ffe486961d298310"
   },
   {
    "day": 4,
@@ -1399,8 +1655,8 @@
    "order": 2700,
    "open_at": "2026-10-19T06:00:00Z",
    "path": "labs/day4/tests/test_ews_props.py",
-   "size": 14704,
-   "sha256": "b9e59e056153b0e0e6033c307728fd618f05dd7be44c5524ad576ca75a721b7e"
+   "size": 14717,
+   "sha256": "4c170ab5482925d7cff341bd7ab0860c49651fe0f0ba12214c33dcf02d0d5e33"
   },
   {
    "day": 4,
@@ -1411,7 +1667,7 @@
     "lab-b"
    ],
    "label": "보고서 지표 JSON",
-   "desc": "오늘 시연 1 · 2 · 4의 결과를 모은 지표(숫자와 근거 위치). 해석 프롬프트(B2)에 붙여 넣고, 렌더 스크립트가 읽는다",
+   "desc": "오전 시연 1 · 2 · 4의 결과 파일에서 코드가 모은 숫자(사람도 AI도 옮겨 적지 않았다) · 단위와 기준일(basis) · 승인 주체(approvers). 해석 프롬프트(B2-CC · B2)가 읽고 렌더 스크립트가 표를 채운다",
    "dest": "d4_report_input.json",
    "site": true,
    "zip": true,
@@ -1437,8 +1693,8 @@
    "order": 2900,
    "open_at": "2026-10-19T06:00:00Z",
    "path": "labs/day4/make_report.py",
-   "size": 13844,
-   "sha256": "dac9efe715251afec99ba87a3196b83e28ac7cea618e99724f41d1ce14b37331"
+   "size": 14120,
+   "sha256": "1b8080555db17935ef96d82044db99555484e1e4024b65781e625943bceb3dc7"
   },
   {
    "day": 4,
@@ -1456,8 +1712,8 @@
    "order": 3000,
    "open_at": "2026-10-19T06:00:00Z",
    "path": "labs/day4/check_numbers.py",
-   "size": 14543,
-   "sha256": "1411fa18df63c888c39eb144f9b4cc6ea87b0941db988d5bf4ba35f415dd6f7f"
+   "size": 14820,
+   "sha256": "84fc98b30e9f77ebf8675b6ce9ae1c5b70b907dbbff149671892ee56bdc4b12a"
   },
   {
    "day": 4,
@@ -1475,8 +1731,8 @@
    "order": 3100,
    "open_at": "2026-10-19T06:00:00Z",
    "path": "labs/day4/ews_example.py",
-   "size": 13464,
-   "sha256": "9b6fa5b10df0efb201e7b2d3447d524b3e42f92a0f31a68a9987f95af6cbaab6"
+   "size": 13741,
+   "sha256": "7144f1e2333f8bcab4037027d67dda8103b5b3aeb4a1e2f3991426c62980214a"
   },
   {
    "day": 4,
@@ -1513,8 +1769,8 @@
    "order": 3300,
    "open_at": "2026-10-19T05:45:00Z",
    "path": "labs/day4/tests/test_limits_expected.py",
-   "size": 2667,
-   "sha256": "dcfffe0663702e374112ef5f5ca25773b277d47f11ef678308e0757781991b06"
+   "size": 2685,
+   "sha256": "621d90ebefa468d0c69d64f45d6d90554a056cbc5585e16139b58cbecd83f986"
   },
   {
    "day": 4,
@@ -1532,8 +1788,27 @@
    "order": 3400,
    "open_at": "2026-10-19T05:45:00Z",
    "path": "labs/day4/tests/test_stress_expected.py",
-   "size": 3050,
-   "sha256": "5dc3e2e756533e3b206a97c06e53b9ba6c70fdbf1340bae0c5bc795c84170ed1"
+   "size": 3067,
+   "sha256": "87b2b0179949a0c950556541534a2423bae01587edf0c78629d9234c7559e54b"
+  },
+  {
+   "day": 4,
+   "where": "files",
+   "role": "baseline",
+   "badge": "비교 기준",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "실험 카드 ⑥ ⑧ ⑨ 확인표(비교 기준)",
+   "desc": "8주 유동성 갭 최소비용 매각 · 회수 시간 배분(8 · 6시간) · 조기결제 할인율 고르기를 카드의 가정 그대로 푼 결과(값만 · 시트 4개). 내 Claude Code 모델을 먼저 푼 뒤 견준다",
+   "dest": "d4_cards_check.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 3500,
+   "open_at": "2026-10-19T05:15:00Z",
+   "path": "labs/day4/d4_cards_check.xlsx",
+   "size": 13755,
+   "sha256": "dbe21353ed3016906113d3a6f86c8662b09987b47c5129180a5beef5afe1e245"
   },
   {
    "day": 4,
@@ -1549,11 +1824,11 @@
    "dest": "d4_end_limits.xlsx",
    "site": true,
    "zip": true,
-   "order": 3500,
+   "order": 3600,
    "open_at": "2026-10-19T09:00:00Z",
    "path": "data/checkpoints/d4_end_limits.xlsx",
-   "size": 42121,
-   "sha256": "595cb4298b90961d1b6ac805ef6ddc2a4a619584a13b1bc13c783f414d46909e",
+   "size": 42184,
+   "sha256": "fbe4d3eeed13645b256852938bc3ce12becf77fc84d1b29ffd4d7628166aca59",
    "src_note": "promoted"
   },
   {
@@ -1723,6 +1998,132 @@
    "day": 5,
    "where": "main",
    "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "기준선 양식(A2)",
+   "desc": "기준선 5문항(Q07 · Q15 · Q16 · Q19 + 자유 1) — 답 한 줄 · 인용한 조항 · 0/1을 적는 표. 저장소에서는 workbench/day5/outputs/에 있다",
+   "dest": "baseline.md",
+   "site": true,
+   "zip": true,
+   "order": 1000,
+   "path": "workbench/day5/outputs/baseline.md",
+   "size": 1639,
+   "sha256": "1333ad028533d27dea207e706c60a04d84cca5d281bebb6c6d610cd7db7a6eac"
+  },
+  {
+   "day": 5,
+   "where": "main",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "평가 리포트 양식(A6 · A7)",
+   "desc": "기준선 합계 · F1@K 표 · 고른 K와 이유 · 놓친 문항 2개 · 개선 실험 전후 한 줄을 채우는 1쪽 양식",
+   "dest": "rag_report.md",
+   "site": true,
+   "zip": true,
+   "order": 1100,
+   "path": "workbench/day5/outputs/rag_report.md",
+   "size": 1249,
+   "sha256": "ecd0901eac8e7ad0ca8e2d036db093020d5feed29f432e9e6c3e3c4515bf7e54"
+  },
+  {
+   "day": 5,
+   "where": "main",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "오늘의 링크 양식(B8)",
+   "desc": "앱 주소 · PR 링크 3개 · 점검 4줄(키 0 · 발송 0 · 배포 로그 · 같은 화면)을 적는 양식",
+   "dest": "links.md",
+   "site": true,
+   "zip": true,
+   "order": 1200,
+   "path": "workbench/day5/links.md",
+   "size": 841,
+   "sha256": "d9afd0c16d4f0735b3097a7a7d25deae9b7abc33866de19bfeeb73ec1c592ff4"
+  },
+  {
+   "day": 5,
+   "where": "files",
+   "role": "baseline",
+   "badge": "완성본",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "기준선 채점 카드(A2)",
+   "desc": "정해진 4문항의 1점이 되는 답 · 인용할 조항 · 규정 원문 + 다섯째 질문 후보 3개. 5문항을 다 물은 뒤 열고, 채팅 프로젝트에는 올리지 않는다",
+   "dest": "a2_baseline_check.md",
+   "site": true,
+   "zip": true,
+   "order": 1300,
+   "path": "labs/day5/a2_baseline_check.md",
+   "size": 7711,
+   "sha256": "05a0a949748124c0fdcd0d978a6f382c2df9798ac73ec92b94959729de38ccab"
+  },
+  {
+   "day": 5,
+   "where": "files",
+   "role": "baseline",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "환율 타일 검산표(B3)",
+   "desc": "기준일 2026-09-30 원화 총액(통화별 건수 · 잔액 · 환율 · 원화)과 ±2% 경고선 · 저장된 환율로 계산한 값 — 내 타일의 숫자와 견준다",
+   "dest": "b3_fx_check.md",
+   "site": true,
+   "zip": true,
+   "order": 1400,
+   "path": "labs/day5/b3_fx_check.md",
+   "size": 3925,
+   "sha256": "65d4eb2bd4bca2d57918737e53dcb8ffe4535f8645d1ad883e8de6e3568ef31b"
+  },
+  {
+   "day": 5,
+   "where": "files",
+   "role": "baseline",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "톤 표 칸 영향표(B4)",
+   "desc": "톤 표의 칸마다 9/30 대상 수와, 템플릿을 바꾸면 바뀌는 인보이스 · 초안 대상 수 — Claude Code의 보고와 견준다",
+   "dest": "b4_tone_impact.md",
+   "site": true,
+   "zip": true,
+   "order": 1500,
+   "open_at": "2026-10-19T23:30:00Z",
+   "path": "labs/day5/b4_tone_impact.md",
+   "size": 8144,
+   "sha256": "eddba7a7d08c662efdbc8c4cad71e153839fb74130ccd0c5ada4be082617cad3"
+  },
+  {
+   "day": 5,
+   "where": "files",
+   "role": "start",
+   "badge": "참고",
+   "practices": [],
+   "label": "3일차 시작 파일(직전 기준일 특성)",
+   "desc": "3일차 학습용 특성표 — 5일차 앱이 직전 기준일(2026-08-31) 값으로 등급 변화(② · ④)를 비교할 때 읽는다",
+   "dest": "d3_start_features.csv",
+   "site": false,
+   "zip": true,
+   "order": 1600,
+   "open_at": "2026-10-15T23:30:00Z",
+   "path": "data/checkpoints/d3_start_features.csv",
+   "size": 76320,
+   "sha256": "0e38135d91034824f72fe3d27099b15132ed44f08f85d85e9b9001f00e827ebf"
+  },
+  {
+   "day": 5,
+   "where": "main",
+   "role": "tool",
    "badge": "선택",
    "practices": [
     "lab-b"
@@ -1732,7 +2133,7 @@
    "dest": "upload_sample.csv",
    "site": true,
    "zip": true,
-   "order": 1000,
+   "order": 1700,
    "path": "app/sample_data/upload_sample.csv",
    "size": 9679,
    "sha256": "7dd1800e653fb1ebc910c28bfa5f70a5b4708cf2f9a614af6af12eaf6f448eed"
@@ -1750,10 +2151,10 @@
    "dest": "ax_proposal_template.md",
    "site": true,
    "zip": true,
-   "order": 1100,
+   "order": 1800,
    "path": "labs/day6/ax_proposal_template.md",
-   "size": 8175,
-   "sha256": "b6d101b18e0b9a590c290710555590293b013912dba868d9313d34ff62c47dd7"
+   "size": 8409,
+   "sha256": "69d3fbe7f63ecbaf9e0a3fa6cd6b1e0611ab782beed2cf569175bf0536ad10a2"
   },
   {
    "day": 5,
@@ -1769,7 +2170,7 @@
    "dest": "day5_slides.pdf",
    "site": true,
    "zip": false,
-   "order": 1200,
+   "order": 1900,
    "path": "handouts/day5_slides.pdf",
    "size": 11267708,
    "sha256": "3a8159fcf8d9aa0ac2e11106c7970396fe5cdc78854a1ca78e2b598d30a9b356"
@@ -1785,7 +2186,7 @@
    "dest": "day3_lgbm.pkl",
    "site": false,
    "zip": true,
-   "order": 1300,
+   "order": 2000,
    "open_at": "2026-10-18T23:30:00Z",
    "path": "models/day3_lgbm.pkl",
    "size": 272932,
@@ -1802,7 +2203,7 @@
    "dest": "day3_lgbm.txt",
    "site": false,
    "zip": true,
-   "order": 1301,
+   "order": 2001,
    "open_at": "2026-10-18T23:30:00Z",
    "path": "models/day3_lgbm.txt",
    "size": 270857,
@@ -1819,7 +2220,7 @@
    "dest": "feature_list.json",
    "site": false,
    "zip": true,
-   "order": 1302,
+   "order": 2002,
    "open_at": "2026-10-18T23:30:00Z",
    "path": "models/feature_list.json",
    "size": 5020,
@@ -1836,7 +2237,7 @@
    "dest": "grade_cutoffs.json",
    "site": false,
    "zip": true,
-   "order": 1303,
+   "order": 2003,
    "open_at": "2026-10-18T23:30:00Z",
    "path": "models/grade_cutoffs.json",
    "size": 709,
@@ -1853,7 +2254,7 @@
    "dest": "metrics.json",
    "site": false,
    "zip": true,
-   "order": 1304,
+   "order": 2004,
    "open_at": "2026-10-18T23:30:00Z",
    "path": "models/metrics.json",
    "size": 6439,
@@ -1870,7 +2271,7 @@
    "dest": "model_card.md",
    "site": false,
    "zip": true,
-   "order": 1305,
+   "order": 2005,
    "open_at": "2026-10-18T23:30:00Z",
    "path": "models/model_card.md",
    "size": 2427,
@@ -1882,7 +2283,8 @@
    "role": "tool",
    "badge": "필수",
    "practices": [
-    "hack"
+    "hack",
+    "lab-a"
    ],
    "label": "해커톤 규칙 한 장",
    "desc": "규칙 6가지 · 하루 흐름 · 사람이 결정하는 것 4종 · 하지 말 것 · 인젝트가 오면 · 막히면(감점 없음) · 1:1 코칭·발표. 팀마다 A4 2장 인쇄",
@@ -1900,7 +2302,8 @@
    "role": "tool",
    "badge": "필수",
    "practices": [
-    "hack"
+    "hack",
+    "lab-a"
    ],
    "label": "역할 카드 5종",
    "desc": "데이터 · 모델·등급 · 한도·시나리오·ROI · 규정·RAG·거버넌스 · SOP·커뮤니케이션·발표 + 저장소 관리자 — 넘기는 것 · 완료 체크 · 역할별 Claude Code 시작 프롬프트 안내. 역할 이슈 5개에 쓴다",
@@ -1909,8 +2312,8 @@
    "zip": true,
    "order": 200,
    "path": "labs/day6/role_cards.md",
-   "size": 7312,
-   "sha256": "8d1e0a9938f6c21f39dfbcad78b10e0257f3ad20146c1f2eff616549a8f44370"
+   "size": 7757,
+   "sha256": "f2f2c2a96f590a1bd0fd0302364cc342c2f10baf5200d2dcf8577744d6148107"
   },
   {
    "day": 6,
@@ -1954,7 +2357,8 @@
    "role": "tool",
    "badge": "필수",
    "practices": [
-    "hack"
+    "hack",
+    "lab-a"
    ],
    "label": "CP2 스탠드업 양식",
    "desc": "끝낸 것 · 막힌 것 · 오후 첫 작업",
@@ -1973,7 +2377,8 @@
    "badge": "필수",
    "practices": [
     "hack",
-    "kit"
+    "kit",
+    "lab-b"
    ],
    "label": "7분 데모 대본 틀",
    "desc": "위기 요약 → 라이브 데모(파이프라인 한 바퀴) → SOP → ROI·KPI → 솔루션 킷 → 첫 30일 + 예상 질문",
@@ -1991,7 +2396,8 @@
    "role": "tool",
    "badge": "필수",
    "practices": [
-    "kit"
+    "kit",
+    "lab-b"
    ],
    "label": "솔루션 킷 체크리스트",
    "desc": "README 5항목 · 폴더 6개 · 보안 점검(3검색) · v1.0 릴리스 절차 · GitHub이 막힐 때 · 제3자 재현 테스트(새 폴더에서 uv sync부터)",
@@ -2000,8 +2406,8 @@
    "zip": true,
    "order": 700,
    "path": "labs/day6/kit_checklist.md",
-   "size": 5008,
-   "sha256": "a155cc8119464ac75524afca74764cf02bae03ddab9f139c1fb7ba153348a069"
+   "size": 5460,
+   "sha256": "c9f846d8f8438527a9bcf12dcdb2025bc48b81153c9b234f8fcf06176c8caca1"
   },
   {
    "day": 6,
@@ -2009,7 +2415,8 @@
    "role": "tool",
    "badge": "필수",
    "practices": [
-    "kit"
+    "kit",
+    "lab-a"
    ],
    "label": "SOP 양식",
    "desc": "0–10장 + 부록: 발동 조건 · RACI · T+0/24h/72h/1주 조치 · 종료 조건(팀 저장소 sop/SOP_template.md와 같다)",
@@ -2018,8 +2425,8 @@
    "zip": true,
    "order": 800,
    "path": "labs/day6/sop_template.md",
-   "size": 5125,
-   "sha256": "723a55f34dfb99d88dcbf1ee985b64eadfe0ff563262715e83abda2fd7a81538"
+   "size": 5158,
+   "sha256": "d8dbd941e883f1f1ce9eb2896a9572986036724d76a8cbc34e54488bf292a60b"
   },
   {
    "day": 6,
@@ -2027,7 +2434,8 @@
    "role": "tool",
    "badge": "필수",
    "practices": [
-    "kit"
+    "kit",
+    "lab-b"
    ],
    "label": "ROI·KPI 템플릿",
    "desc": "팀 ROI 3안(보수·기준·낙관) · 도구비 S0–S3 · BCR · ROI · 회수기간 · 개인 '나만의 KPI'",
@@ -2045,17 +2453,18 @@
    "role": "tool",
    "badge": "필수",
    "practices": [
-    "kit"
+    "kit",
+    "lab-b"
    ],
    "label": "AI 도입 기획서 양식(11장)",
-   "desc": "개인 제출: 7–11장을 채워 17:50 마감(비공개 폼, 저장소에 올리지 않는다). Word·Google Docs로 옮겨 .docx로 낸다",
+   "desc": "개인 제출: 7–11장을 채워 17:50 마감(비공개 폼, 저장소에 올리지 않는다). 7–11장 초안과 .docx는 프롬프트 S8이 한 번에 만든다",
    "dest": "ax_proposal_template.md",
    "site": true,
    "zip": true,
    "order": 1000,
    "path": "labs/day6/ax_proposal_template.md",
-   "size": 8175,
-   "sha256": "b6d101b18e0b9a590c290710555590293b013912dba868d9313d34ff62c47dd7"
+   "size": 8409,
+   "sha256": "69d3fbe7f63ecbaf9e0a3fa6cd6b1e0611ab782beed2cf569175bf0536ad10a2"
   },
   {
    "day": 6,
@@ -2063,7 +2472,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "위기 데이터 팩",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2082,7 +2492,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "팀 1 데이터 팩",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2101,7 +2512,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "팀 2 데이터 팩",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2120,7 +2532,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "팀 3 데이터 팩",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2139,7 +2552,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "팀 4 데이터 팩",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2158,7 +2572,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "팀 5 데이터 팩",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2177,7 +2592,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "카드 ⑤ 2단계 데이터",
    "desc": "10/21(수) 11:15 자동 공개",
@@ -2196,7 +2612,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "위기 카드 ⑤ 2단계 카드",
    "desc": "10/21(수) 11:15 자동 공개",
@@ -2215,7 +2632,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "위기 카드 ①",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2234,7 +2652,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "위기 카드 ②",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2253,7 +2672,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "위기 카드 ③",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2272,7 +2692,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "위기 카드 ④",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2291,7 +2712,8 @@
    "role": "surprise",
    "badge": "필수",
    "practices": [
-    "cards"
+    "cards",
+    "lab-a"
    ],
    "label": "위기 카드 ⑤",
    "desc": "10/21(수) 09:28 자동 공개",
@@ -2512,6 +2934,285 @@
    "size": 5729546,
    "sha256": "56c617a2ae1223c2f9a82c8de5e8db4b50fcce7baa70c960d46a3c8d7b279612",
    "src_note": "promoted"
+  },
+  {
+   "day": 6,
+   "where": "main",
+   "role": "tool",
+   "badge": "참고",
+   "practices": [
+    "hack"
+   ],
+   "label": "해커톤 안내(한 문서)",
+   "desc": "오늘 낼 것 · 쓰는 도구 · 하루 흐름(Step 1–8 · 체크포인트) · 가동 8단계 · 파일 · 프롬프트 목록을 한 문서로",
+   "dest": "hackathon_brief.md",
+   "site": true,
+   "zip": true,
+   "order": 3900,
+   "path": "labs/day6/hackathon_brief.md",
+   "size": 9292,
+   "sha256": "6f3ee067056fd5b9e7f0ad08ce5d2f9baa7f21acb2d4f13d6faeda8167df39bf"
+  },
+  {
+   "day": 6,
+   "where": "main",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "hack",
+    "lab-b"
+   ],
+   "label": "동료 피드백 · 투표 양식(종이 대체)",
+   "desc": "폼이 안 열릴 때 쓰는 종이판 — 팀마다 '가장 배우고 싶은 것' 한 줄 · 동료 투표(자기 팀 제외)",
+   "dest": "peer_feedback_form.md",
+   "site": true,
+   "zip": true,
+   "order": 4000,
+   "path": "labs/day6/peer_feedback_form.md",
+   "size": 2277,
+   "sha256": "638eb238b7c19a0333e09d3557de3ed884bb5f22e3d030157b063efdde8cfda2"
+  },
+  {
+   "day": 6,
+   "where": "main",
+   "role": "tool",
+   "badge": "선택",
+   "practices": [
+    "hack",
+    "lab-b"
+   ],
+   "label": "사후 진단 문항(종이 대체)",
+   "desc": "사전 설문과 같은 7영역 × L1–L4 + 4문항 — 폼이 안 열릴 때 종이로 쓴다",
+   "dest": "post_assessment.md",
+   "site": true,
+   "zip": true,
+   "order": 4100,
+   "path": "labs/day6/post_assessment.md",
+   "size": 2334,
+   "sha256": "997f6497331e6be4a2e737737c727b407ec1f244c18a1811762433f4d541e859"
+  },
+  {
+   "day": 6,
+   "where": "files",
+   "role": "start",
+   "badge": "필수",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "4일차 입력 — 바이어 150곳",
+   "desc": "등급 · pd_30d · 한도 계산 열이 든 4일차 시작 파일 — R1 · R3의 입력(팀 저장소 data/input/에 복사)",
+   "dest": "d4_start_scored.csv",
+   "site": true,
+   "zip": true,
+   "order": 4200,
+   "open_at": "2026-10-18T23:30:00Z",
+   "path": "data/checkpoints/d4_start_scored.csv",
+   "size": 50811,
+   "sha256": "8ced73b522126c70dfe783346e390305bde079fe26082a34406ec6bf7204a01b"
+  },
+  {
+   "day": 6,
+   "where": "files",
+   "role": "start",
+   "badge": "필수",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "4일차 입력 — 정책 숫자 표",
+   "desc": "금리 · 요율 · 총액 비율 · 국가 캡 · 등급별 PD — 한도 LP(R3)의 입력",
+   "dest": "d4_params.csv",
+   "site": true,
+   "zip": true,
+   "order": 4300,
+   "path": "data/checkpoints/d4_params.csv",
+   "size": 10998,
+   "sha256": "6f6229c358d6e9450bb95c2ecbae6d97c191b193f8852e39412c2ad23022a884"
+  },
+  {
+   "day": 6,
+   "where": "files",
+   "role": "start",
+   "badge": "필수",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "4일차 입력 — 시나리오 S0–S4",
+   "desc": "기준 S0와 S1–S4(PD 배수 · LGD) — EL 표(R3)의 입력",
+   "dest": "d4_scenarios.csv",
+   "site": true,
+   "zip": true,
+   "order": 4400,
+   "path": "data/checkpoints/d4_scenarios.csv",
+   "size": 2399,
+   "sha256": "d630406890d1ae92a90400960b9d56e884f4809359df71fac4593c7e31db9ba5"
+  },
+  {
+   "day": 6,
+   "where": "files",
+   "role": "start",
+   "badge": "필수",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "4일차 입력 — 미결 인보이스 300건",
+   "desc": "기준일 2026-09-30의 미결 인보이스 — R1(카드 반영) · 경보 · 인젝트의 원장 전체",
+   "dest": "d4_open_inv.csv",
+   "site": true,
+   "zip": true,
+   "order": 4500,
+   "path": "data/checkpoints/d4_open_inv.csv",
+   "size": 24317,
+   "sha256": "5a0b37bced941445452fb60253d62355230161e9eb995012ac21807e13b691e1"
+  },
+  {
+   "day": 6,
+   "where": "files",
+   "role": "start",
+   "badge": "선택",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "4일차 한도 워크북(NPV · 보증 시트)",
+   "desc": "수락 · 거절 NPV 식(05_NPV)과 보증 타임라인(15_Bond)을 볼 때 — 엑셀이 없으면 건너뛴다",
+   "dest": "d4_limit_model.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 4600,
+   "open_at": "2026-10-18T23:30:00Z",
+   "path": "data/checkpoints/d4_limit_model.xlsx",
+   "size": 359581,
+   "sha256": "a4156fbf8ad141a6908b80e03b834aafbb61c3a7d38fb1a0818bb73f4f7802fa"
+  },
+  {
+   "day": 6,
+   "where": "main",
+   "role": "tool",
+   "badge": "참고",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "한도 모델 설계 1쪽",
+   "desc": "4일차 한도 엔진(ref/limits_lp.py)이 없을 때 R3가 이 설계로 같은 모델을 다시 만든다",
+   "dest": "MODEL_SPEC.md",
+   "site": true,
+   "zip": true,
+   "order": 4700,
+   "path": "labs/day4/MODEL_SPEC.md",
+   "size": 2142,
+   "sha256": "26e2f17547605eeb02d6f7b1ed582188111bc14a7c5d5e37e345ae193eadeb1b"
+  },
+  {
+   "day": 6,
+   "where": "main",
+   "role": "start",
+   "badge": "참고",
+   "practices": [
+    "lab-a"
+   ],
+   "label": "과정 환율(일별)",
+   "desc": "원/달러 · 원/유로 등 일별 환율(FRED H.10) — 인젝트 계산에서 같은 날짜의 값을 찾는다(팀 저장소 data/input/에 복사)",
+   "dest": "fx_krw_daily.csv",
+   "site": true,
+   "zip": true,
+   "order": 4800,
+   "path": "data/checkpoints/fx_krw_daily.csv",
+   "size": 29328,
+   "sha256": "d0960323829ffc999b81e1e7bad3932a36dfd1f80bb0f1face588c38ae34ede7"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "ROI 완성본 — 카드 ①",
+   "desc": "10/21(수) 09:28 자동 공개",
+   "dest": "roi/roi_kpi_card1.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 4900,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r1",
+   "open_at": "2026-10-21T00:28:00Z"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "ROI 완성본 — 카드 ②",
+   "desc": "10/21(수) 09:28 자동 공개",
+   "dest": "roi/roi_kpi_card2.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 5000,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r1",
+   "open_at": "2026-10-21T00:28:00Z"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "ROI 완성본 — 카드 ③",
+   "desc": "10/21(수) 09:28 자동 공개",
+   "dest": "roi/roi_kpi_card3.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 5100,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r1",
+   "open_at": "2026-10-21T00:28:00Z"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "ROI 완성본 — 카드 ④",
+   "desc": "10/21(수) 09:28 자동 공개",
+   "dest": "roi/roi_kpi_card4.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 5200,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r1",
+   "open_at": "2026-10-21T00:28:00Z"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "완성본",
+   "practices": [
+    "lab-b"
+   ],
+   "label": "ROI 완성본 — 카드 ⑤",
+   "desc": "10/21(수) 09:28 자동 공개",
+   "dest": "roi/roi_kpi_card5.xlsx",
+   "site": true,
+   "zip": true,
+   "order": 5300,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r1",
+   "open_at": "2026-10-21T00:28:00Z"
   }
  ]
 }

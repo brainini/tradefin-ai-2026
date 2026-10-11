@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""check_numbers.py(참고판 · 4일차 15:00 공개) — narrative.json 문장 속 숫자를 지표 JSON 값과 기계적으로 대조한다.
+"""check_numbers.py(참고판 · 4일차 15:00부터 받는 파일) — narrative.json 문장 속 숫자를 지표 JSON 값과 기계적으로 대조한다.
 
 문장(summary · sections · actions · assumptions)에서 숫자를 정규식으로 뽑고, number_trace 에 적힌 json_path 의 값과 비교한다.
 진짜 숫자 불일치가 1건이라도 있으면 어디가 다른지 표로 보이고 종료 코드 1로 멈춘다.
@@ -37,7 +37,8 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+# 저장소 맨 위 폴더 = pyproject.toml이 있는 가장 가까운 위 폴더 — scripts/ 로 복사하거나 작업 사본 폴더에서 돌려도 같은 곳을 읽는다
+ROOT = next((p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").exists()), Path(__file__).resolve().parents[2])
 OUT = ROOT / "workbench" / "day4" / "outputs"
 INPUT_CANDIDATES = [ROOT / "workbench" / "day4" / "data" / "d4_report_input.json",
                     ROOT / "data" / "checkpoints" / "d4_report_input.json", OUT / "report_input.json"]

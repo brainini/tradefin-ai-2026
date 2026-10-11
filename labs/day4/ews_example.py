@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""조기경보 참고 엔진(4일차 15:00 공개) - 규칙 파일(labs/day4/alert_rules.yml)대로 미결 인보이스를 점검해 경보 4종을 만든다.
+"""조기경보 참고 엔진(4일차 15:00부터 받는 파일) - 규칙 파일(labs/day4/alert_rules.yml)대로 미결 인보이스를 점검해 경보 4종을 만든다.
 
 내 Claude Code 가 scripts/ews.py 를 못 만들었을 때(또는 만든 것과 견줄 때) 쓰는 대체 경로용이다. 같은 규칙 · 같은 입력이면 같은 결과가 나온다.
     uv run python labs/day4/ews_example.py                    # 기준일 2026-09-30
@@ -26,7 +26,8 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-ROOT = Path(__file__).resolve().parents[2]
+# 저장소 맨 위 폴더 = pyproject.toml이 있는 가장 가까운 위 폴더 — scripts/ 로 복사하거나 작업 사본 폴더에서 돌려도 같은 곳을 읽는다
+ROOT = next((p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").exists()), Path(__file__).resolve().parents[2])
 KST = timezone(timedelta(hours=9))
 RECO = "권고(사람 승인 전)"
 ALERT_COLS = ["rule_id", "tier", "buyer_id", "invoice_id", "dpd", "amount_usd", "action", "stage", "asof"]

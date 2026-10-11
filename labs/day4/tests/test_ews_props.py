@@ -1,4 +1,4 @@
-"""조기경보 엔진(scripts/ews.py)의 속성 테스트 — 데이터가 바뀌어도 항상 맞아야 하는 성질만 검사한다(4일차 15:00 공개).
+"""조기경보 엔진(scripts/ews.py)의 속성 테스트 — 데이터가 바뀌어도 항상 맞아야 하는 성질만 검사한다(4일차 15:00부터 받는 파일).
 
     uv run pytest labs/day4/tests/test_ews_props.py -q
     uv run pytest labs/day4/tests/test_ews_props.py --rules workbench/day4/rules/alert_rules.yml     # 내 규칙을 더한 판으로

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""make_report.py(참고판 · 4일차 15:00 공개) — 지표 JSON(숫자) + narrative.json(해석 문장)으로 경영진 신용 리스크 리포트(.docx)를 만든다.
+"""make_report.py(참고판 · 4일차 15:00부터 받는 파일) — 지표 JSON(숫자) + narrative.json(해석 문장)으로 경영진 신용 리스크 리포트(.docx)를 만든다.
 
 표의 숫자는 narrative 가 아니라 지표 JSON 에서 코드가 직접 채운다. 문장만 narrative.json 에서 온다.
 채우기 전에 핵심 숫자를 원본에서 다시 계산해 지표 JSON 과 맞는지 보고, 다르면 멈춘다(종료 코드 1).
@@ -34,7 +34,8 @@ try:
 except ImportError:
     sys.exit("멈춤: docxtpl 이 없습니다 — 터미널에서 'uv add docxtpl' 을 실행한 뒤 다시 돌립니다.")
 
-ROOT = Path(__file__).resolve().parents[2]
+# 저장소 맨 위 폴더 = pyproject.toml이 있는 가장 가까운 위 폴더 — scripts/ 로 복사하거나 작업 사본 폴더에서 돌려도 같은 곳을 읽는다
+ROOT = next((p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").exists()), Path(__file__).resolve().parents[2])
 CK = ROOT / "data" / "checkpoints"
 OUT = ROOT / "workbench" / "day4" / "outputs"
 INPUT_CANDIDATES = [ROOT / "workbench" / "day4" / "data" / "d4_report_input.json", CK / "d4_report_input.json", OUT / "report_input.json"]
@@ -196,7 +197,7 @@ def recheck(ri: dict) -> tuple[list[dict], float]:
                      "recalc": round(proposed), "ok": abs(proposed - ri["limits"]["proposed"]) <= 150,
                      "근거": "limits_proposed.xlsx · limits 시트 L 합(오차 150달러 이내)"})
     else:
-        print("(한도안 limits_proposed.xlsx 가 없어 '제안 한도 합계' 재검산은 건너뜀 — 실습 A ②를 마치면 대조됩니다)\n")
+        print("(한도안 limits_proposed.xlsx 가 없어 '제안 한도 합계' 재검산은 건너뜀 — 실습 A 02를 마치면 대조됩니다)\n")
     return rows, float(unpaid["amount_usd"].sum())
 
 

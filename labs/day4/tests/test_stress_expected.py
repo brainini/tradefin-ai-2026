@@ -1,4 +1,4 @@
-"""스트레스 시뮬레이터의 '기대값 테스트' — 강사 정답본의 숫자와 맞는지 본다(4일차 14:45 공개).
+"""스트레스 시뮬레이터의 '기대값 테스트' — 4일차 기준 결과의 숫자와 맞는지 본다(4일차 14:45부터 받는 파일).
 
 속성 테스트(test_stress_props.py)가 '어떤 시뮬레이션이든 지킬 성질'이라면, 이쪽은 '이 데이터와 이 설계에서 나와야 하는 숫자'다.
 시나리오 S0–S4의 공식 기대손실은 계산식 하나라 정확히 같아야 하고, 몬테카를로의 P99는 난수 방식에 따라 ±3% 안팎으로 달라지니 범위로 본다.
@@ -43,7 +43,7 @@ def test_s3_p99_is_in_the_expected_band(res):
 def test_savings_from_the_proposed_limits():
     path = OUT / "limits_proposed.xlsx"
     if not path.exists():
-        pytest.skip("한도안(limits_proposed.xlsx)이 없어 건너뜀 — 실습 A ②를 먼저")
+        pytest.skip("한도안(limits_proposed.xlsx)이 없어 건너뜀 — 실습 A 02를 먼저")
     lim = pd.read_excel(path, sheet_name="limits")
     buyers = pd.read_csv(ROOT / "data" / "checkpoints" / "d4_start_scored.csv", encoding="utf-8-sig")
     credit = set(buyers.loc[~buyers["payment_method"].isin(NO_LIMIT), "buyer_id"])
