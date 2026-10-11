@@ -24,8 +24,8 @@ COLS = {
     "ksure_insured": ("K-SURE 부보 여부", "단기수출보험 부보 Y/N(L/C·선수금은 N)", "Y/N", "교육용 가정"),
     "credit_limit_usd": ("현행 사내 신용한도", "바이어별 현행 사내 신용한도(1만 달러 단위)", "USD", "계산"),
     "since_date": ("거래 시작일", "이 바이어와 거래를 시작한 날", "날짜", "합성"),
-    "payment_terms_raw": ("결제조건(원천 표기)", "담당자가 입력한 결제조건 그대로. 정본 코드 7종(codes 시트 payment_method)으로 바꿔 쓴다 — 표기별 코드는 payment_terms_map 시트", "–", "합성"),
-    "payment_method": ("결제방식", "정본 코드 7종 TT_ADV / TT_SPLIT_30_70 / OA / DA / DP / LC_SIGHT / LC_USANCE(codes 시트 payment_method)", "–", "합성"),
+    "payment_terms_raw": ("결제조건(원천 표기)", "담당자가 입력한 결제조건 그대로. 표준 코드 7종(codes 시트 payment_method)으로 바꿔 쓴다 — 표기별 코드는 payment_terms_map 시트", "–", "합성"),
+    "payment_method": ("결제방식", "표준 코드 7종 TT_ADV / TT_SPLIT_30_70 / OA / DA / DP / LC_SIGHT / LC_USANCE(codes 시트 payment_method)", "–", "합성"),
     "terms_days": ("결제기간", "선적(B/L) 후 결제기일까지 일수. 선수금·D/P·L/C 일람불 = 0", "일", "교육용 가정"),
     # ---------------- 잔액·연체(바이어 단위)
     "ar_balance": ("매출채권 잔액", "기준일 미결제 잔액(청구 통화 기준)", "통화", "계산"),
@@ -157,7 +157,7 @@ CRC_CODES = [("0~7", "OECD 국가위험분류(높을수록 위험), 2026-06-26�
              ("-", "분류 대상 아님(고소득 OECD국) — 숫자 0과 다르다", "")]
 
 # ---------------- Day2·Day3 배포 파일 — d2_news · d3_start_features · d3_start_scoring · d3_features_panel · labs/day3/fx_forecast_inputs
-# (Day2 실습에서 만드는 특성의 정본 이름·정의 — 03 Part2 §0.6·§2.6)
+# (Day2 실습에서 만드는 특성의 이름·정의)
 COLS.update({
     "news_id": ("뉴스 ID", "기사 식별자(N + 다섯 자리 번호)", "–", "합성"),
     "ref_window": ("기준일 창", "이 기사가 들어가는 30일 창의 기준일(2026-02-28 · 2026-08-31 · 2026-09-30). 창 = 기준일 30일 전 다음 날부터 기준일까지. 빈칸 = 그 밖의 날짜", "날짜", "계산"),

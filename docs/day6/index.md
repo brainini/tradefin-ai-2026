@@ -1,200 +1,272 @@
-# 6일차. 실전 적응력 고도화 및 자사 솔루션 도입 기획 (해커톤)
+---
+title: 6일차 — 실전 적응력 고도화 및 자사 솔루션 도입 기획(해커톤)
+---
 
-**10/21(수) 09:00–17:50** · 대전 · 강사 한태구 · AI로 일하는 법 — 도입 기획 · 솔루션 킷(Git/GitHub) · 거버넌스 · ROI · 위기 하나에 6일의 도구를 엮는 해커톤
+<div class="tf-hero" markdown>
+<span class="tf-eyebrow">6일차 · 10/21(수) · 09:00–17:50 · 해커톤 — 도입 기획 · 솔루션 킷 · 거버넌스 · ROI <span class="tf-daystate" data-tf-daystate="6"></span></span>
 
-!!! abstract "오늘 하루 한 줄 — 위기 카드 한 장을 1–5일차 도구로 막고, 저장소 하나와 7분으로 남긴다"
-    오늘은 강의 대신 **해커톤**입니다. 이론은 아침 30분과 10시 · 11시 · 14시 · 15시의 짧은 브리핑 네 번이 전부이고, 브리핑마다 **시연을 먼저 걸어 두고** AI가 일하는 동안 이론을 봅니다. 나머지 시간은 4인 팀의 **팀 저장소**에서 Claude Code · ChatGPT · Claude로 직접 일합니다.
-    하루가 끝나면 **다른 사람이 그대로 다시 돌릴 수 있는 팀 솔루션 킷 `v1.0`**(SOP · 보수안 ROI · 근거표 · 결정 기록)과 **각자 회사로 들고 갈 도입 기획서 · KPI · ROI**가 남습니다.
+# 실전 적응력 고도화 및 자사 솔루션 도입 기획
 
-[:material-book-open-variant: 이론 요약](theory.md){ .md-button }
-[:material-source-branch: 실습 A (09:31–13:50)](lab-a.md){ .md-button .md-button--primary }
-[:material-calculator-variant: 실습 B (14:12–17:50)](lab-b.md){ .md-button .md-button--primary }
-[:material-text-box-search: 프롬프트](../prompts/day6.md){ .md-button }
-[:material-card-text: 위기 카드](cards.md){ .md-button }
-[:material-package-variant: 솔루션 킷](kit.md){ .md-button }
-[:material-scale-balance: 심사 기준](judging.md){ .md-button }
-[:material-upload: 제출](submit.md){ .md-button }
+**위기 카드 한 장으로 6일의 도구를 한 번에 돌린다.** 오늘은 강의 대신 해커톤입니다 — 이론은 아침 30분과 10시 · 11시 · 14시 · 15시의 짧은 브리핑 네 번, 나머지는 4인 팀의 팀 저장소에서 Claude Code · ChatGPT · Claude로 직접 일합니다. 저녁에는 **다른 사람이 그대로 다시 돌릴 수 있는 팀 솔루션 킷 `v1.0`**과 **각자 회사로 들고 갈 도입 기획서**가 남습니다.
 
-## 오늘의 목표 {#goals}
+<div class="tf-buttons" markdown>
+[실습 A · 09:31](lab-a.md){ .md-button .md-button--primary }
+[실습 B · 14:12](lab-b.md){ .md-button .md-button--primary }
+[이론 요약](theory.md){ .md-button }
+[프롬프트](../prompts/day6.md){ .md-button }
+[위기 카드](cards.md){ .md-button }
+[솔루션 킷](kit.md){ .md-button }
+[심사 기준](judging.md){ .md-button }
+[제출](submit.md){ .md-button }
+[파일 받기](#files){ .md-button }
+</div>
+</div>
 
-| | 목표 | 어떻게 | 남는 것 |
-|---|---|---|---|
-| 1 | **도구를 한 흐름으로** | 위기 카드 한 장에 1–5일차 도구를 돌려 무엇이 **먼저 깨지는지** 숫자로 보입니다 | 팀 솔루션 킷 `v1.0`(15:50) |
-| 2 | **AI의 초안을 검증으로** | AI가 쓴 SOP · ROI를 근거 조항과 **다른 모델 · 사람 승인**으로 확인하고, 결론 먼저 · 라이브 화면 · 숫자와 근거로 답합니다 | 7분 데모(16:05부터) |
-| 3 | **자사 도입을 기획으로** | 기준선이 있는 KPI 3개 · **보수안부터** ROI · 30일 계획으로 우리 회사 도입안을 씁니다 | 개인 기획서 · KPI · ROI(17:50) |
+## 오늘의 목표 — 저녁에 남는 세 가지 {#goals}
 
-"계산은 코드 · 해석과 초안은 AI · 결정은 사람"이 6일 내내의 기준이고, 오늘의 심사 기준도 같습니다 — 화려함이 아니라 **근거가 있는가, 다른 사람이 다시 돌릴 수 있는가**.
+<div class="grid cards tf-cols-3" markdown>
 
-!!! info "어제까지의 재료 — 없거나 깨졌어도 괜찮습니다"
-    오늘의 재료는 1–5일차 산출물입니다(내 것 또는 **강사 정답본**). 한도 엔진(4일차 `scripts/limits_lp.py`) · 등급 · 앱 주소 · 규정 챗봇 · 개인 기획서 초안(1–6장, 5일차 21:00 제출)이 있으면 쓰고, 없으면 강사 정답본으로 합류합니다. **README 실행 방법에 어느 단계에서 합류했는지만 적으면 감점이 없습니다.**
+-   :material-numeric-1-circle-outline:{ .lg .middle } **도구를 한 흐름으로**
 
-## 시간표 {#schedule}
+    위기 카드 한 장에 1–5일차 도구를 돌려 무엇이 **먼저 깨지는지** 숫자로 보입니다.
 
-| 교시 | 시각 | 내용 | 시연 · 실습 |
-|---|---|---|---|
-| 1 | 09:00–09:31 | 오늘의 목표 · 하루 흐름 · 규칙 · 심사 기준 · **AI 도입 기획**(도입 3단계 · 멈추는 곳 · 스트레스 테스트) · 역할 = 가동 8단계 | **시연 1**(09:10 걸기 → 09:20 결과) |
-| 1 | 09:28 | **오늘 파일 공개** — 저장소 관리자가 `uv run python tools/get_day_files.py 6` | |
-| 1 | 09:26–09:31 | 역할 = 가동 8단계 → **역할 이슈 5개**(담당 · 넘기는 파일 · 대행자, 5분) | |
-| 1 | 09:31–09:50 | **위기 카드 개봉** → 카드 해석 · 변수표 · 실습 A 안내(09:44) | **[실습 A](lab-a.md) Step 1** |
-| 2 | 10:00–10:11 | 브리핑 ① **솔루션 킷** — 팀 저장소 · 이슈에서 릴리스까지 · worktree · CLAUDE.md와 권한 | **미니 시연 1** worktree(10:04) |
-| 2 | 10:11–10:50 | 설계도 · 역할 이슈 · README 골격 · 팀 규칙 3줄 | Step 2 · **CP1 10:40** |
-| 3 | 11:00–11:10 | 브리핑 ② **거버넌스와 보안** — SOP · AI 사용 규칙서 | **미니 시연 2** 권한 잠금(11:05) |
-| 3 | 11:10–12:00 | 가동 ③–⑤(데이터 · 재등급 · 한도 · EL) → PR · 11:15 일부 카드의 추가 단계 · **11:30 인젝트 I-1** | Step 3 · **CP2 11:45** 스탠드업 · `v0.5` |
-| 점심 | 12:00–13:00 | 오후 우선순위 카드를 강사가 팀마다 써 둡니다 | |
-| 4 | 13:00–13:50 | 가동 ⑥–⑧(경보 · 근거표 · SOP 초안) → 다른 모델로 검증 · **13:15 인젝트 I-2** · 13:20 1:1 코칭 시작 | Step 4 |
-| 5 | 14:00–14:12 | 브리핑 ③ **ROI와 KPI** — 기준선 · 보수안 · AI 운영비 | **시연 2**(14:00 걸기 → 14:10 결과) |
-| 5 | 14:12–14:50 | 팀 ROI 3안 · 나만의 KPI 3개 | **[실습 B](lab-b.md) Step 5** · **CP3 14:50** |
-| 6 | 15:00–15:10 | 브리핑 ④ **확산과 데모** — 사내 도입 퍼널 · 7분 데모 | **시연 3**(15:00 걸기 → 15:08 결과) |
-| 6 | 15:10–15:50 | README · 새 폴더 재현 · 보안 3검색 · 리허설 · 기획서 7–11장 | Step 6 · **CP4 15:40 → v1.0 15:50** |
-| 7 | 16:05–16:55 | **7분 데모 × 5팀**(데모 7 + 질의응답 3) · 동료 피드백 | Step 7 |
-| 8 | 16:55–17:10 | 사후 진단 · 동료 투표(17:05 마감) | |
-| 8 | 17:10–17:50 | 시상 · 팀 서면 심사표 · 6일 총정리 · 30일 실행계획 | Step 8 · **17:50 개인 제출** |
+    <small>남는 것: 팀 솔루션 킷 `v1.0`(15:50)</small>
 
-- 1:1 코칭 10분은 13:20–15:30 사이 내 시각에 있습니다(순서표는 09:00 봉투 첫 장 오른쪽 위). 브리핑 중에는 코칭이 멈춥니다. 자리를 비우는 동안 내 역할은 **대행자**가 맡습니다.
+-   :material-numeric-2-circle-outline:{ .lg .middle } **AI의 초안을 검증으로**
+
+    AI가 쓴 SOP · ROI를 근거 조항과 **다른 모델 · 사람 승인**으로 확인하고, 결론 먼저 · 숫자와 근거로 답합니다.
+
+    <small>남는 것: 7분 데모(16:05부터)</small>
+
+-   :material-numeric-3-circle-outline:{ .lg .middle } **자사 도입을 기획으로**
+
+    기준선이 있는 KPI 3개 · **보수안부터** ROI · 30일 계획으로 우리 회사 도입안을 씁니다.
+
+    <small>남는 것: 개인 기획서 · KPI · ROI(17:50)</small>
+
+</div>
+
+"계산은 코드 · 해석과 초안은 AI · 결정은 사람"이 6일 내내의 기준이고, 오늘의 심사 기준도 같습니다 — 화려함이 아니라 **근거가 있는가, 다른 사람이 다시 돌릴 수 있는가**. 어제 결과물이 없거나 깨졌어도 괜찮습니다: 강사 정답본으로 합류하고 README에 어느 단계에서 합류했는지만 적으면 감점이 없습니다.
+
+## 하루 흐름과 체크포인트 {#schedule}
+
+<div class="tf-timeline" markdown>
+
+1. <time>09:00–09:31</time> **킥오프** — 목표 · 규칙 · 심사 기준 · AI 도입 기획(도입 3단계 · 멈추는 곳 · 스트레스 테스트) · **시연 1**(09:10 걸기 → 09:20 결과) · 역할 = 가동 8단계(09:26) · 파일 자동 공개(09:28)
+2. <time>09:31–09:50</time> **위기 카드 개봉** <span class="tf-chip tf-chip--must">실습 A</span> [Step 1 카드 해석 · 변수표](lab-a.md#a-card)
+3. <time>10:00–10:11</time> **브리핑 ① 솔루션 킷** — 팀 저장소 · 이슈에서 릴리스까지 · worktree(미니 시연 1) · `CLAUDE.md`와 권한
+4. <time>10:11–10:40</time> <span class="tf-chip tf-chip--must">실습 A</span> [Step 2 설계 · 이슈](lab-a.md#a-design) → **CP1 10:40** 설계도 · README 골격
+5. <time>11:00–11:10</time> **브리핑 ② 거버넌스와 보안** — SOP · AI 사용 규칙서 · 권한 잠금(미니 시연 2)
+6. <time>11:10–11:45</time> <span class="tf-chip tf-chip--must">실습 A</span> [Step 3 가동 ③–⑤](lab-a.md#a-run1) · 11:15 일부 카드의 추가 단계 · **11:30 인젝트 1** → **CP2 11:45** 스탠드업 · `v0.5`
+7. <time>12:00–13:00</time> 점심 — 강사가 팀 저장소를 보고 오후 우선순위 카드를 씁니다.
+8. <time>13:00–13:50</time> <span class="tf-chip tf-chip--must">실습 A</span> [Step 4 가동 ⑥–⑧](lab-a.md#a-run2) · **13:15 인젝트 2** · 13:20 1:1 코칭 시작
+9. <time>14:00–14:12</time> **브리핑 ③ ROI와 KPI** — 기준선 · 보수안 · AI 운영비 · **시연 2**(14:00 걸기 → 14:10 결과)
+10. <time>14:12–14:50</time> <span class="tf-chip tf-chip--must">실습 B</span> [Step 5 ROI · KPI](lab-b.md#b-roi) → **CP3 14:50** SOP · ROI 초안
+11. <time>15:00–15:10</time> **브리핑 ④ 확산과 데모** — 사내 도입 퍼널 · 7분 데모 · **시연 3**(15:00 걸기 → 15:10 결과)
+12. <time>15:10–15:50</time> <span class="tf-chip tf-chip--must">실습 B</span> [Step 6 킷 마감](lab-b.md#b-release) → **CP4 15:40** 코드 프리즈 → **15:50 `v1.0` 링크**
+13. <time>16:05–17:05</time> <span class="tf-chip tf-chip--must">실습 B</span> [Step 7 7분 데모](lab-b.md#b-demo) × 5팀(16:05 · 16:15 · 16:25 · 16:35 · 16:45) → 사후 진단 · 동료 투표(17:05 마감)
+14. <time>17:10–17:50</time> <span class="tf-chip tf-chip--must">실습 B</span> [Step 8 기획서 마감](lab-b.md#b-plan) — 시상 · 서면 심사표 · 6일 총정리 → **17:50 개인 제출**
+
+</div>
+
+- 1:1 코칭 10분은 13:20–15:30 사이 내 시각에 있습니다(순서는 09:00 봉투 첫 장). 자리를 비우는 동안 내 역할은 **대행자**가 맡습니다.
 - 인젝트 시각(11:30 · 13:15)에는 **전원 기립 → 낭독 → 10분 타이머**입니다. 낭독 전에는 노트북을 만지지 않습니다.
-- **18:00에 슬라이드 PDF(발표자 노트 제외)**가 [파일 받기](#files) 표에 올라옵니다.
 
 ## 시연 다섯 건과 우리가 해 보는 것 {#demos}
 
-시연은 늘 **문제 상황 → 입력 → 진행 → 결과** 순서로 봅니다. 시연 1 · 2 · 3은 **걸어 두고** 이론을 보며 기다리는 방식이고, 미니 시연 둘은 브리핑 안에서 2–3분입니다. 오후 실습은 이 시연을 **간소화하거나 조금 다르게(변형)** 우리 카드 · 우리 숫자로 모두가 해 봅니다.
+시연 1 · 2 · 3은 **걸어 두고** 이론을 보며 기다리고, 미니 시연 둘은 브리핑 안에서 2–3분입니다. 오후 실습은 이 시연을 줄이거나 조금 바꿔 우리 카드 · 우리 숫자로 모두가 해 봅니다.
 
-| 시연 | 문제 상황 | 입력 → 결과 | 우리가 해 보는 것 |
-|---|---|---|---|
-| **1** 위기 카드 파이프라인 · Claude Code(Plan) | 핵심 바이어 한 곳에 법원 회생 신청 공시가 떴다. 영업은 선적을 원한다 — 15분 안에 숫자 · 근거 · 사람이 결정할 목록을 만들어야 한다 | 위기 카드(MD) · CSV 5 · 한도 LP · 규정 · 약관 → 한도 변경표 · 변경 기록 · EL 표 · 그래프 · 통지 기한 경보 · 근거표 · SOP 초안 · 결정 기록(**결정자 칸은 빈칸**) | **실습 A** — 우리 카드 · **팀 팩**(우리 카드 행만) · **역할마다 세션** |
-| **미니 1** worktree로 두 세션 | 4인 팀에서 한 사람이 R1 · R2를 맡는다. 한 폴더에서 두 세션을 돌리면 서로의 파일을 덮는다 | 저장소 → 작업대(폴더) 둘 · 세션 둘 | 겸임자는 작업대를 하나 더 놓는다([실습 A](lab-a.md#a-worktree)) |
-| **미니 2** 권한이 실제로 막는 장면 | `CLAUDE.md`에 '키 금지'라고 써도 부탁일 뿐이다 | `settings.json`의 deny + `.env`(가짜 값) → 거부 표시 · `.env.example` 제안 | 팀 규칙 3줄과 권한 파일 확인([Step 2](lab-a.md#a-design)) |
-| **2** 엑셀 ROI를 웹 계산기로 · Claude Code | 경영진이 "DSO가 하루만 줄면? AI 사용료가 두 배면?"을 바로 묻는다. 엑셀 3안 표는 답이 늦다 | 수식이 든 ROI 엑셀 + 모델 단가표 → 웹 계산기 · 테스트 기록 · 산식 표 | **실습 B** — 엑셀 노란 칸 + AI에게 가장 약한 가정 묻기(계산기는 선택) |
-| **3** README와 릴리스 v1.0 · Claude Code + gh | 코드 프리즈 40분 전, README는 비었고 키가 커밋됐는지도 남이 돌려도 같은 숫자인지도 모른다 | 저장소 이력 · 점검표 · 릴리스 노트 틀 → README · 보안 점검 · PR · 릴리스 · 재현 테스트 | **실습 B** — 우리 저장소에서 같은 순서([Step 6](lab-b.md#b-release)) |
+<div class="grid cards tf-cols-3" markdown>
+
+-   <span class="tf-eyebrow">시연 1 · 위기 카드 파이프라인 · Claude Code(Plan)</span>
+
+    **핵심 바이어의 회생 공시 — 15분 안에 숫자 · 근거 · 사람이 결정할 목록**
+
+    위기 카드 · CSV · 한도 LP · 규정 · 약관 → 한도 변경표 · EL 표 · 경보 · 근거표 · SOP 초안 · 결정 기록(결정자 칸은 빈칸)
+
+    <small>실습 A — 우리 카드 · 팀 팩 · 역할마다 세션 하나</small>
+
+-   <span class="tf-eyebrow">미니 시연 1 · worktree로 두 세션</span>
+
+    **한 사람이 두 역할 — 작업대를 하나 더**
+
+    저장소 하나 → 작업대(폴더) 둘 · 세션 둘
+
+    <small>실습 A [2-4 겸임자의 작업대](lab-a.md#a-worktree)</small>
+
+-   <span class="tf-eyebrow">미니 시연 2 · 권한이 실제로 막는 장면</span>
+
+    **`CLAUDE.md`는 부탁, deny는 잠금**
+
+    `settings.json`의 deny + 가짜 `.env` → 거부 표시 · `.env.example` 제안
+
+    <small>실습 A [2-1 팀 규칙 · 권한](lab-a.md#a2-rules)</small>
+
+-   <span class="tf-eyebrow">시연 2 · 엑셀 ROI를 웹 계산기로 · Claude Code</span>
+
+    **"DSO가 하루만 줄면? 사용료가 두 배면?"에 바로 답하기**
+
+    수식이 든 ROI 엑셀 + 모델 단가표 → 테스트로 증명한 계산기
+
+    <small>실습 B — 우리 카드 ROI 완성본 + 가장 약한 가정(계산기는 선택)</small>
+
+-   <span class="tf-eyebrow">시연 3 · README와 릴리스 v1.0 · Claude Code + gh</span>
+
+    **코드 프리즈 40분 전 — README · 보안 · 재현**
+
+    저장소 이력 · 점검표 → README · 보안 점검 · PR · 릴리스 · 새 폴더 재현 '차이 0줄'
+
+    <small>실습 B [Step 6](lab-b.md#b-release) — 우리 저장소에서 같은 순서로</small>
+
+</div>
+
+## 오후까지의 실습 지도 {#map}
+
+<div class="grid cards tf-cols-2" markdown>
+
+-   <span class="tf-eyebrow">실습 A · 09:31–13:50</span>
+
+    **[우리 카드로 스트레스 테스트](lab-a.md)**
+
+    Step 1 카드 해석 · 변수표 → Step 2 설계 · 이슈(CP1) → Step 3 가동 ③–⑤ · 인젝트 1 · `v0.5`(CP2) → Step 4 가동 ⑥–⑧ · 다른 모델 검증 · 인젝트 2 결정 기록
+
+    <small>만드는 것: 변경 데이터 · 등급 · 한도 · EL · 경보 · 근거표 · SOP v1 · 결정 기록</small>
+
+-   <span class="tf-eyebrow">실습 B · 14:12–17:50</span>
+
+    **[증명하고, 남기고, 보여 준다](lab-b.md)**
+
+    Step 5 ROI · KPI(CP3) → Step 6 킷 마감(CP4 → `v1.0`) → Step 7 7분 데모 → Step 8 기획서 마감
+
+    <small>만드는 것: ROI 3안 · 나만의 KPI · README · `v1.0` · 데모 · 개인 기획서</small>
+
+</div>
 
 ## 오늘의 규칙 한 장 {#rules}
 
 | 항목 | 내용 |
 |---|---|
-| 팀 | 4인 × 5팀 · 팀 저장소 = 5일차 17:31에 조장이 킷 템플릿으로 만든 **비공개** `tradefin-kit-T{조}`(팀원 · 강사는 협업자) |
-| 카드 | 팀마다 위기 카드 1장(09:31) + 공통 인젝트 2장(11:30 · 13:15) — 카드는 [위기 카드](cards.md) |
+| 팀 | 4인 × 5팀 · 팀 저장소 = 5일차에 조장이 킷 템플릿으로 만든 **비공개** `tradefin-kit-T{조}`(팀원 · 강사는 협업자) |
+| 카드 | 팀마다 위기 카드 1장(09:31) + 공통 인젝트 2장(11:30 · 13:15) → [위기 카드](cards.md) |
 | 재료 | 1–5일차 산출물(내 것 또는 강사 정답본) · Claude Code · ChatGPT · Claude |
 | 원칙 | **가상 데이터만** · 메일은 **DRY RUN**(실제 발송 0건) · AI 출력엔 **근거** · 사람 결정 4종은 **빨간색** |
 | 제출 | 팀 15:50 릴리스 `v1.0` 링크 · 개인 17:50 기획서 · KPI · ROI(비공개 폼) → [제출](submit.md) |
-| 막히면 | 그 AI에게 오류 전문 → 팀 → 빨간 표시 · **20분 막히면 정답본 합류(감점 없음)** |
+| 막히면 | 그 AI에게 오류 전문 → 팀 → 빨간 스티커 · **20분 막히면 정답본 합류(감점 없음)** |
 
 !!! warning "사람이 결정하는 네 가지 — 표에서 빨간색"
-    **한도 변경 · 선적 보류(해제) · K-SURE 통지 · 바이어 발송.** AI와 시스템은 **초안까지**만 만들고, 결정 · 근거 · 결정자 · 시각을 `docs/decision_log.md`에 남깁니다. PR 병합 버튼도 사람이 누릅니다. 승인 창은 읽고 한 건씩 `1 Yes`합니다 — `use auto mode` · 일괄 허용은 고르지 않습니다.
 
-규칙 원문 `hackathon_rules.md`(팀마다 A4 2장 인쇄)와 안내 전체 `hackathon_brief.md`는 아래 [파일 받기](#files) 표와 저장소 `labs/day6/`에 있습니다.
+    **한도 변경 · 선적 보류(해제) · K-SURE 통지 · 바이어 발송.** AI와 시스템은 **초안까지**만 만들고, 결정 · 근거 · 결정자 · 시각을 `docs/decision_log.md`에 남깁니다. PR 병합 버튼도 사람이 누릅니다. 승인 창은 읽고 한 건씩 `1 Yes` — `use auto mode` · 일괄 허용은 고르지 않습니다.
 
 ## 역할이 곧 파이프라인 단계 {#roles}
 
 <figure markdown="span">
   ![가동 8단계를 두 줄 네 칸으로 그린 도식 — 단계마다 맡는 역할, AI가 하는 일, 다음 단계로 넘기는 파일, 맨 아래 사람 결정 4종이 decision_log로 모인다](../assets/diagrams/d6-roles-8steps.png){ loading=lazy }
-  <figcaption>가동 8단계 — ①–④ 카드 해석 · 변수 매핑과 설계 · 데이터 갱신 · 재등급, ⑤–⑧ 한도와 EL · 경보 · 규정 근거 · SOP 초안. ⑤ 칸 끝의 `v0.5`는 11:45, 오른쪽 끝 `v1.0`은 15:50</figcaption>
+  <figcaption>가동 8단계 — ⑤ 칸 끝의 <code>v0.5</code>는 11:45, 오른쪽 끝 <code>v1.0</code>은 15:50</figcaption>
 </figure>
 
-| 역할 | 맡는 단계 | 넘기는 것 | Claude Code 시작 프롬프트 |
+| 역할 | 맡는 단계 | 넘기는 것 | 시작 프롬프트 |
 |---|---|---|---|
-| ① 데이터 (R1) | 데이터 갱신 | `data/d6_{카드}_scored.csv` · `d6_{카드}_open_inv.csv` · `change_log.csv` | [R1](../prompts/day6.md#r1) |
-| ② 모델 · 등급 (R2) | 재등급 | 등급 변동표 `out/{카드}/grade_changes.csv` | [R2](../prompts/day6.md#r2) |
-| ③ 한도 · 시나리오 · ROI (R3) | 한도 · EL, 경보, (오후) ROI | `limits_diff.csv` · `el_table.md` · `alerts.csv` · `roi/roi_kpi.xlsx` | [R3](../prompts/day6.md#r3) |
-| ④ 규정 · RAG · 거버넌스 (R4) | 규정 근거 | `docs/evidence.md` · `sop/ai_usage_rules.md` | [R4](../prompts/day6.md#r4) |
-| ⑤ SOP · 커뮤니케이션 · 발표 (R5) | SOP 초안 | `sop/SOP_{카드}.md` · 메일 초안(DRY RUN) · `docs/demo_script.md` | [R5](../prompts/day6.md#r5) |
-| 저장소 관리자 | 전 과정 | 이슈 · README · 태그 `v0.5` · 릴리스 `v1.0` | [RA](../prompts/day6.md#ra) |
+| ① 데이터 (R1) | 데이터 갱신 | `data/d6_{카드}_scored.csv` · `_open_inv.csv` · `change_log.csv` | [R1](../prompts/day6.md#r1) |
+| ② 모델 · 등급 (R2) | 재등급 | `out/{카드}/grade_changes.csv` | [R2](../prompts/day6.md#r2) |
+| ③ 한도 · 시나리오 · ROI (R3) | 한도 · EL · 경보 · ROI | `limits_diff.csv` · `el_table.md` · `alerts.csv` · `roi/roi_kpi.xlsx` | [R3](../prompts/day6.md#r3) |
+| ④ 규정 · 근거 · 거버넌스 (R4) | 규정 근거 · 검증 | `docs/evidence.md` · `sop/ai_usage_rules.md` | [R4](../prompts/day6.md#r4) |
+| ⑤ SOP · 커뮤니케이션 · 발표 (R5) | SOP 초안 · 데모 | `sop/SOP_{카드}.md` · 메일 초안(DRY RUN) · `docs/demo_script.md` | [R5](../prompts/day6.md#r5) |
+| 저장소 관리자 | 전 과정 | 입력 파일 · 이슈 · README · `v0.5` · `v1.0` | [RA](../prompts/day6.md#ra) |
 
-- **4인 팀은 R1 · R2를 한 사람이 맡고, 작업대(worktree) 두 개로 나눠** 일합니다. 저장소 관리자는 어제 조장입니다. 역할 카드 원문(`role_cards.md`)은 [파일 받기](#files) 표에 있습니다.
-- 역할마다 Claude Code 세션 하나 — 오전 시연 1의 프롬프트 틀([시연 1 틀](../prompts/day6.md#frame))에 우리 카드와 내 단계를 넣어 시작합니다.
+4인 팀은 R1 · R2를 한 사람이 맡고 작업대(worktree) 두 개로 나눠 일합니다. 저장소 관리자는 어제 조장입니다.
 
 ## 체크포인트 — 커밋으로 확인합니다 {#checkpoints}
 
-| CP | 시각 | 저장소에서 확인하는 것 | 못 했으면 |
+| CP | 시각 | 저장소에서 보는 것 | 못 했으면 |
 |---|---|---|---|
-| **CP1** | 10:40 | `docs/architecture.md`(설계도 + 변수표) · 역할 이슈 5개(담당 · 대행자) · README 5항목 제목 · `CLAUDE.md`의 팀 규칙 3줄 | 3교시 가동 전 강사와 5분 설계 점검 |
-| **CP2** | 11:45 | 스탠드업 3문항(`standup_board.md`) · 태그 `v0.5` · `data/` 3종 · 등급 변동표 · 한도안 · EL 2열 · 인젝트 I-1 한 줄 | 점심 우선순위 카드의 '최소 완료 경로'(정답본 합류) |
-| **CP3** | 14:50 | `sop/SOP_{카드}.md` 0–6장 · ROI 3안 초안(보수안 먼저) · `docs/decision_log.md`의 I-2 결정 | 15:10 스프린트를 SOP · ROI에만 쓴다 |
-| **CP4** | 15:40 → 15:50 | README 5항목 · 폴더 6개 · 보안 3검색 · `v1.0` + 릴리스 노트 → 링크 제출 | zip `d6_team_solution__T{조}.zip` + README |
+| **CP1** | 10:40 | `docs/architecture.md`(설계도 + 변수표) · 역할 이슈 5개 · README 제목 · `CLAUDE.md` 팀 규칙 3줄 | 10:50 휴식에 강사와 5분 설계 점검 |
+| **CP2** | 11:45 | 스탠드업 3분 · 태그 `v0.5` · `data/` 3종 · 등급 변동표 · 한도안 · EL 2열 · 인젝트 1 한 줄 | 점심 우선순위 카드의 '최소 완료 경로' |
+| **CP3** | 14:50 | SOP 0–6장 · ROI 3안(보수안 먼저) · `decision_log`의 인젝트 2 결정 · 검증 커밋 | 15:10 스프린트를 SOP · ROI에만 |
+| **CP4** | 15:40 → 15:50 | README 5항목 · 폴더 6개 · 보안 3검색 · `v1.0` + 릴리스 노트 → 링크 | zip `d6_team_solution__T{조}.zip` + README |
 
-체크포인트는 말로 보고하지 않고 **저장소의 커밋과 태그**로 확인합니다. 시각을 못 맞춰도 괜찮습니다 — 점심에 나눠 주는 오후 우선순위 카드에 '최소 완료 경로'가 적혀 있습니다.
+체크포인트는 말이 아니라 **저장소의 커밋과 태그**로 확인합니다.
 
 ## 쓰는 도구 {#tools}
 
 | 도구 | 어디서 | 오늘 쓰는 곳 |
 |---|---|---|
-| **Claude Code** (VS Code 확장) | 팀 저장소를 연 VS Code | 실습 A · B 대부분 — 첫 프롬프트는 **Plan**, 계획 승인 창에서 **`2 Yes, and manually approve edits`**, 편집 · 명령 허락 창은 읽고 `1 Yes` |
-| **Git · GitHub** | VS Code 소스 제어 · github.com | 이슈 → 브랜치(겸임자는 worktree) → PR → 태그 · 릴리스, 보안 3검색, 짝 리뷰 |
-| **uv · Python** | VS Code 터미널 | `uv sync`로 만든 환경에서 `uv run python app/pipeline/…` — 숫자는 스크립트가 계산 |
-| **ChatGPT** · **Claude** | 브라우저 | 카드 해석 · 변수표 · **초안과 다른 모델로 SOP 교차 검증** · Claude Code를 못 쓸 때의 [채팅 경로](lab-a.md#chat-path) |
-| **엑셀** | 내 PC | ROI 템플릿의 노란 칸 · 나만의 KPI |
+| **Claude Code**(VS Code 확장) | 팀 저장소를 연 VS Code | 역할마다 세션 하나 — 첫 프롬프트는 **Plan**, 계획 승인은 마우스로 `2 Yes, and manually approve edits`, 허락 창은 읽고 `1 Yes` |
+| **Git · GitHub** | VS Code 소스 제어 · github.com | 이슈 → 브랜치(겸임자는 worktree) → PR → 태그 · 릴리스 · 보안 3검색 |
+| **ChatGPT · Claude** | 브라우저 새 대화 | 카드 해석 변수표 · **초안과 다른 모델로 SOP 검증** · 가장 약한 가정 · 기획서 · Claude Code를 못 쓸 때의 [채팅 경로](lab-a.md#chat-path) |
+| **엑셀** | 내 PC · 웹용 Excel | 우리 카드 ROI 완성본 읽기 · 나만의 KPI |
 
 !!! note "Claude Code는 유료 구독이 필요합니다"
-    Pro 이상 구독이나 API(Console) 계정으로 로그인합니다. 무료(Free) 플랜으로는 쓸 수 없습니다. 설치가 막힌 PC는 **채팅 경로**(ChatGPT 또는 Claude에 카드 · 팀 팩을 올려 같은 표를 만들고 GitHub 웹으로 커밋)로 같은 실습을 하고, 어느 경로를 썼는지 README 3번에 적으면 감점이 없습니다 → [실습 A 채팅 경로](lab-a.md#chat-path) · [실습 B 채팅 경로](lab-b.md#chat-path).
 
-!!! tip "패키지가 없다고 하면"
-    팀 저장소의 `pyproject.toml`에는 pandas · numpy · scipy · PuLP(3.3.2) · matplotlib · openpyxl이 들어 있습니다. 더 필요하면 Claude Code가 `uv add 이름`을 하겠다고 먼저 알려 주니 읽고 승인하거나, 터미널에서 직접 `uv add 이름`을 합니다. `pyproject.toml`과 `uv.lock`이 함께 바뀌니 커밋에 포함합니다. **새 폴더(worktree)에는 `.venv`가 없으니 `uv sync`부터** 하세요.
+    Pro 이상 구독이나 API 계정으로 로그인합니다(무료 플랜은 쓸 수 없습니다). 설치가 막힌 PC는 **채팅 경로**로 같은 실습을 하고 README 3번에 쓴 경로를 적으면 감점이 없습니다 → [실습 A 채팅 경로](lab-a.md#chat-path) · [실습 B 채팅 경로](lab-b.md#chat-path). 새 폴더(worktree)에는 `.venv`가 없으니 `uv sync`부터 합니다.
 
 ## 파일 받기 {#files}
 
-규칙 · 양식은 **10/20(화) 18:00**에, **위기 카드 · 데이터 팩은 10/21(수) 09:28**에 공개됩니다(11:15 카드의 추가 단계 · 11:30 · 13:15 인젝트는 투입 시각에). **저장소 관리자가 팀 저장소에서 명령 하나**면 됩니다.
+**팀 저장소에서는 명령 하나** — 저장소 관리자가 09:28 뒤 `uv run python tools/get_day_files.py 6`을 실행하면 카드 · 데이터 팩 · 팀 팩 · ROI 완성본과 4일차 입력 · 환율 파일이 같은 경로로 들어옵니다. 11:15 · 11:30 · 13:15에 같은 명령을 다시 실행하면 새로 열린 파일만 더 받습니다. 아래 카드에 잠금 표시가 있는 파일은 그 시각에 저절로 열립니다(사이트에는 1–3분 뒤 링크가 생깁니다). 양식과 슬라이드 PDF(사전판)는 지금 받을 수 있습니다.
 
-```text
-uv run python tools/get_day_files.py 6
-uv run python tools/get_day_files.py 4
-```
+--8<-- "docs/_snippets/day6/files_all_cards.md"
 
-- 첫 줄이 오늘 파일입니다. 같은 경로(`data/checkpoints/` · `labs/day6/`)로 내려받고, **공개 시각마다 다시 실행하면 새로 올라온 파일만** 더 받습니다. 둘째 줄은 한도 단계(R3)가 쓰는 **4일차 입력 파일**입니다.
-- 받은 폴더(`data/checkpoints/` · `labs/`)는 `.gitignore`에 있어 커밋되지 않습니다. **우리 팀 카드는 `cards/`로, 우리 팀 팩(`team_0{조}.xlsx`)은 `data/input/`으로 복사해 커밋**합니다. 다른 팀 파일은 옮기지 않습니다.
-- 규정은 5일차에 쓴 `hanbit_credit_policy.md`를 `rules/`에 둡니다. K-SURE 약관 Markdown은 **재배포 금지**라 `local/`에 두고 커밋하지 않습니다(`.gitignore`에 들어 있습니다).
-- 막히면 아래 표 맨 위 **`day6_files.zip`**의 **받기**를 누르고, 압축을 풀어 **`D6`** 폴더의 파일을 같은 자리에 둡니다(저장소 없이 채팅 경로로 하는 사람은 이 방법).
-
---8<-- "docs/_snippets/day6/files_all.md"
+- 받은 폴더(`data/checkpoints/` · `labs/`)는 팀 저장소에서 커밋되지 않습니다. **우리 카드는 `cards/`로, 우리 팀 팩 · 4일차 입력 · 환율 파일은 `data/input/`으로** 복사해 커밋합니다 — 프롬프트 [RA](../prompts/day6.md#ra)가 해 줍니다. 다른 팀 파일은 옮기지 않습니다.
+- 규정 `rules/hanbit_credit_policy.md`는 킷에 들어 있습니다. K-SURE 약관은 **재배포 금지**라 각자 공식 링크에서 받아 `local/`에 두고 커밋하지 않습니다.
 
 ## 데이터와 이용 조건 {#data}
 
-- 오늘 쓰는 데이터는 모두 **(가상) 한빛정밀(주)의 합성 데이터**이거나 **공개 데이터**입니다. 한빛정밀(주)과 바이어 150곳, 위기 카드의 상황과 숫자, 팀 데이터 팩, 여신관리규정(`rag/corpus/hanbit_credit_policy.md`)은 교육용 가상이며 실존 기업 · 기관과 무관하고, 숫자는 실제 거래 기록이 아닙니다. 투자 · 여신 · 보험 판단 자료가 아닙니다. 카드 뒷면의 '실제 앵커'만 실제로 있었던 일이고, 실존 피해 기업의 이름은 쓰지 않습니다.
-- 합성 데이터와 문서는 CC BY 4.0, 코드는 MIT입니다. 환율은 미국 연준 H.10 환율(FRED 제공)로 'Public Domain: Citation Requested'이며 인용 방법은 저장소의 `data/external/ATTRIBUTION.md`에 있습니다. 라이선스 전문은 저장소의 `LICENSE-DATA.md` · `NOTICE.md`에 있습니다.
-- **K-SURE 약관 본문은 이 저장소에 없습니다**(재배포하지 않습니다). 5일차에 공식 링크에서 각자 받은 파일을 `local/`에 두고 인용할 때만 읽으며, 오늘 슬라이드와 카드가 말하는 약관 내용은 개념 설명입니다. 실제 조항은 각자 공식 자료와 담당 부서로 확인합니다.
-- **오늘 파일은 합성 데이터라 ChatGPT · Claude 같은 AI 도구에 올리거나 붙여 넣어도 됩니다.** 다만 **회사 실데이터 · 개인정보는 어떤 AI 도구에도 넣지 않습니다 — 익명화본도.** AI 서비스의 '모델 개선(학습)' 설정은 끄고 시작하고([사전 준비 — AI 학습 설정 끄기](../setup.md#ai-training)), **키 · 비밀번호 · 회사 자료는 커밋하지 않습니다.** 팀 저장소는 비공개이지만 팀원 · 강사가 모두 봅니다.
-- 개인 기획서 · 개인 KPI · ROI의 자사판은 [익명화 체크리스트](../setup.md#byod)를 통과한 값만 쓰고 **비공개 폼으로만** 냅니다 — 팀 저장소에 올리지 않습니다.
+- 오늘 데이터는 모두 **(가상) 한빛정밀(주)의 합성 데이터**이거나 **공개 데이터**입니다. 카드의 상황과 숫자는 교육용 가정이고, 카드 뒷면의 '실제 앵커'만 실제로 있었던 일입니다(실존 피해 기업의 이름은 쓰지 않습니다). 투자 · 여신 · 보험 판단 자료가 아닙니다.
+- 합성 데이터와 문서는 CC BY 4.0, 코드는 MIT입니다. 환율은 미국 연준 H.10(FRED 제공)이며 인용 방법은 저장소의 `data/external/ATTRIBUTION.md`에 있습니다.
+- 오늘 파일은 합성 데이터라 ChatGPT · Claude에 올려도 됩니다. **회사 실데이터 · 개인정보는 어떤 AI 도구에도 넣지 않습니다 — 익명화본도.** AI 서비스의 학습 설정은 끄고 시작합니다([사전 준비](../setup.md#ai-training)).
+- 개인 기획서 · 개인 KPI · ROI의 자사판은 [익명화 체크리스트](../setup.md#byod)를 통과한 값만 쓰고 **비공개 폼으로만** 냅니다.
 
 ## 오늘의 결과물과 제출 {#submit}
 
-| 결과물 | 어디에 | 점검 기준 |
-|---|---|---|
-| **솔루션 킷 `v1.0`** | 팀 저장소 릴리스 | README 5항목 · 폴더 6개 · 보안 3검색 · 릴리스 노트 · **새 폴더에서 5분 안에 같은 숫자** |
-| 카드를 반영한 결과 | `data/` · `out/{카드}/` | 바꾼 행 수 = `buyer_changes` 행 수 · 한도안(감액 30% 이상 빨간색) · EL 2열 · 경보(기한 경과 건 맨 위) |
-| 근거와 결정 | `docs/evidence.md` · `docs/decision_log.md` | 조치마다 인용 2개 · 인젝트 2개 반영 · 결정자 칸은 사람이 채움 |
-| SOP · 규칙서 | `sop/SOP_{카드}.md` · `sop/ai_usage_rules.md` | 0–10장 · 사람 승인 지점 · '15/1000' 일반화 0건 · 메일 발송 0건 |
-| ROI · KPI | 팀 `roi/roi_kpi.xlsx` · 개인 `d6_roi__T{조}-{번호}.xlsx` | 보수안 먼저 · 중앙값 10%와 비교 한 줄 · KPI마다 기준선 · 측정 방법 · 주기 |
-| 개인 도입 기획서 | 비공개 폼 `d6_plan__T{조}-{번호}.docx`(11장) | 17:50 — 11장 구현 의도 3줄 |
-| 7분 데모 | 발표 | 결론 먼저(0:40 안) · 7:00 컷 · 전원 발언 · 숫자와 근거로 답함 |
+<div class="tf-checklist" data-title="오늘 남길 것" markdown>
 
-제출 절차와 양식은 [제출](submit.md), 채점 앵커는 [심사 기준](judging.md)에 있습니다.
+- [ ] **팀 솔루션 킷 `v1.0`** — README 5항목 · 폴더 6개 · 보안 3검색 · 릴리스 노트 · 새 폴더에서 같은 숫자
+- [ ] 카드를 반영한 결과 — `data/` 3종 · `out/{카드}/`(등급 · 한도 · EL · 경보)
+- [ ] 근거와 결정 — `docs/evidence.md`(조치마다 인용 2개) · `docs/decision_log.md`(인젝트 2개 반영)
+- [ ] SOP · 규칙서 — `sop/SOP_{카드}.md` · `sop/ai_usage_rules.md`(메일 발송 0건 · '15/1000' 일반화 0건)
+- [ ] ROI · KPI — 팀 `roi/roi_kpi.xlsx`(보수안 먼저) · 개인 `d6_roi__T{조}-{번호}.xlsx`
+- [ ] 15:50 팀 링크는 <span data-tf-link="team_form">팀 제출 폼</span>, 17:50 개인 기획서는 <span data-tf-link="plan_form">개인 제출 비공개 폼</span>
+
+</div>
+
+제출 절차는 [제출](submit.md), 채점 앵커는 [심사 기준](judging.md)에 있습니다.
 
 ## 흔한 막힘과 해결 {#troubleshooting}
 
-| # | 증상 | 원인 | 이렇게 |
-|---|---|---|---|
-| 1 | Claude Code에 `use auto mode`가 미리 골라져 있다 | Enter만 치면 그 선택이 눌린다 | **마우스로** `2 Yes, and manually approve edits`를 고른다. 모드 표시기가 Auto로 시작했다면 Plan으로 바꾼다 |
-| 2 | 처음 여는 폴더에서 허용 규칙이 안 먹는다 | Workspace Trust 전에는 팀 설정이 무시된다 | 폴더를 열 때 **'신뢰'**를 누른다 |
-| 3 | 새 작업대(worktree)에서 파이썬이 안 돈다 | 새 체크아웃에는 `.venv`와 `.env`가 없다 | `uv sync`부터. `.env`는 새로 만들지 말고 값 없는 견본 `.env.example`만 쓴다 |
-| 4 | 데이터 변경이 빠지거나 두 번 들어갔다 | `buyer_changes`를 손으로 옮기다 놓쳤다 | 바꾼 행 수를 `buyer_changes` 행 수와 맞춘다. 20분 넘게 막히면 강사 정답본으로 합류 |
-| 5 | 한도(LP)가 안 풀린다 · 제약이 사라졌다 | 4일차 엔진이 없거나 PuLP 4.0 문법이 섞였다 | PuLP는 3.3.2. 엔진이 없으면 `labs/day4/MODEL_SPEC.md`에서 다시 만들거나 등급 상한 규칙으로 근사하고 README에 쓴 경로를 적는다 |
-| 6 | SOP에 근거 없는 조항 · 숫자가 들어갔다 | AI 환각 | [P6-2](../prompts/day6.md#p6-2)를 **다른 모델**로 돌리고, ④가 근거표와 한 줄씩 대조해 서명한다 |
-| 7 | "늦게 통지하면 15/1000 차감"이 SOP에 들어갔다 | 약관 오독 | 15/1000은 약관 제21조③의 **한정 조항** — 일반 규칙으로 쓰지 않는다 |
-| 8 | AI가 품목 · 규제 해당 여부를 단정한다 | 품목 분류를 확인하지 않았다 | '전문가 확인 필요'로 바꾸고 SOP 10장(한계 · 가정)에 적는다 |
-| 9 | 기한 계산이 약관 해석과 걸린다 | 날짜 산술과 약관 해석은 다른 일이다 | 날짜는 스크립트가 계산하고, 영업일 · 공휴일 처리처럼 해석이 필요한 부분은 AI가 단정하지 않고 '확인 필요'로 남긴다 |
-| 10 | 보안 검색에 줄이 걸린다 | 검색어를 설명한 글 · 예시 이름 · 가상 주소 | **실제 키 · 실제 이메일은 0건**이어야 한다. 설명 글에 걸린 줄은 남아도 되고, 줄마다 이유를 한 줄 적는다 |
-| 11 | `gh` 명령이 막힌다 | 인증 · 회사 망 | GitHub 웹에서 같은 일을 한다(이슈 · PR · Releases → Draft a new release) |
-| 12 | 키를 커밋했다 | 이력에 남는다 | 파일을 지워도 소용없다 — **키를 폐기하고 새로 받은 뒤** 강사에게 알린다. `force push`는 하지 않는다 |
-| 13 | 재현 숫자가 다르다 | README 실행 방법에서 빠진 줄 | 새 폴더에서 `uv sync`부터 다시 돌려 빠진 줄을 찾는다 — 결과 폴더를 지우고 다시 만들어 비교한다 |
-| 14 | 대시보드(앱)가 잠들었다 | 12시간 무접속 | **Yes, get this app back up!** → 안 되면 강사 앱 URL · 스크립트가 낸 `alerts.csv`로 대신하고 README에 쓴 경로를 적는다 |
-| 15 | 마감을 못 맞춘다 | – | 오후 우선순위 카드의 '최소 완료 경로'. 15:40 코드 프리즈 뒤에는 README와 오타만 |
+??? fix "Claude Code에 'use auto mode'가 미리 골라져 있어요"
+
+    Enter만 치면 그 선택이 눌립니다 — **마우스로** `2 Yes, and manually approve edits`를 고릅니다. 모드 표시기가 Auto로 시작했다면 Plan으로 바꿉니다.
+
+??? fix "처음 여는 폴더에서 허용 규칙이 안 먹어요"
+
+    Workspace Trust 창에서 **'신뢰'**를 눌러야 팀 설정이 적용됩니다.
+
+??? fix "바꾼 행 수가 buyer_changes와 달라요"
+
+    팀 팩 `card` 시트의 `n_buyers` · `applied` ✔ 수 · `change_log` 행 수를 대조합니다. 20분 넘게 막히면 강사 정답본으로 합류합니다(감점 없음).
+
+??? fix "한도(LP)가 안 풀려요"
+
+    PuLP는 3.3.2. 엔진이 없으면 `labs/day4/MODEL_SPEC.md`에서 다시 만들거나 등급 상한 규칙으로 근사하고 README에 쓴 경로를 적습니다.
+
+??? fix "SOP에 근거 없는 조항 · 숫자가 들어갔어요"
+
+    [P6-2](../prompts/day6.md#p6-2)를 **초안과 다른 모델**로 돌리고, ④가 근거표와 한 줄씩 대조합니다. '15/1000'은 약관 제21조③의 한정 조항입니다 — 일반 규칙으로 쓰지 않습니다.
+
+??? fix "보안 검색에 줄이 걸려요 · 키를 커밋했어요"
+
+    실제 키 · 실제 이메일은 0건이어야 합니다. 설명 글 · 예시 이름 · 가상 주소에 걸린 줄은 이유 한 줄. 키가 커밋됐다면 지워도 이력에 남습니다 — 폐기 · 재발급 뒤 강사에게 알리고, `force push`는 하지 않습니다.
+
+??? fix "재현 숫자가 달라요"
+
+    새 폴더에서 `uv sync`부터 다시 돌려 README에서 빠진 줄을 찾습니다 — 결과 폴더를 지우고 다시 만들어 비교합니다.
 
 ## 오늘 쓰는 프롬프트 {#prompts}
 
-[프롬프트 라이브러리](../prompts/day6.md)나 실습 페이지의 '펼쳐서 복사' 상자에서 복사합니다.
-
 | 단계 | 프롬프트 |
 |---|---|
-| Step 1–4 (실습 A) | [시연 1 틀](../prompts/day6.md#frame) · [R1](../prompts/day6.md#r1) · [R2](../prompts/day6.md#r2) · [R3](../prompts/day6.md#r3) · [R4](../prompts/day6.md#r4) · [R5](../prompts/day6.md#r5) · [RA](../prompts/day6.md#ra) · [P6-1 SOP](../prompts/day6.md#p6-1) · [P6-2 검증](../prompts/day6.md#p6-2) · [P6-5 규칙서](../prompts/day6.md#p6-5) |
-| Step 5–8 (실습 B) | [P6-6 나만의 KPI](../prompts/day6.md#p6-6) · [P6-8 ROI 계산기](../prompts/day6.md#p6-8) · [P6-9 킷 점검 · 릴리스](../prompts/day6.md#p6-9) · [P6-3 릴리스 노트](../prompts/day6.md#p6-3) · [P6-4 데모 대본](../prompts/day6.md#p6-4) · [P6-7 기획서 요약](../prompts/day6.md#p6-7) |
-| 막힐 때 | [채팅 경로](../prompts/day6.md#chat-path) |
+| 실습 A Step 1–4 | [RA](../prompts/day6.md#ra) · [S1](../prompts/day6.md#s1) · [S2](../prompts/day6.md#s2) · [R1](../prompts/day6.md#r1) · [R2](../prompts/day6.md#r2) · [R3](../prompts/day6.md#r3) · [I1](../prompts/day6.md#i1) · [R3b](../prompts/day6.md#r3b) · [R4](../prompts/day6.md#r4) · [I2](../prompts/day6.md#i2) · [R5](../prompts/day6.md#r5) · [P6-1](../prompts/day6.md#p6-1) · [P6-2](../prompts/day6.md#p6-2) · [P6-5](../prompts/day6.md#p6-5) |
+| 실습 B Step 5–8 | [S5](../prompts/day6.md#s5) · [S5b](../prompts/day6.md#s5b) · [P6-6](../prompts/day6.md#p6-6) · [P6-8](../prompts/day6.md#p6-8) · [P6-9](../prompts/day6.md#p6-9) · [P6-3](../prompts/day6.md#p6-3) · [P6-4](../prompts/day6.md#p6-4) · [P6-7](../prompts/day6.md#p6-7) · [S8](../prompts/day6.md#s8) |
+| 막힐 때 | [채팅 경로](../prompts/day6.md#chat-path) · [시연 1 틀](../prompts/day6.md#frame) |
 
 ## 6일을 마치며 — 다섯 문장 {#wrapup}
 

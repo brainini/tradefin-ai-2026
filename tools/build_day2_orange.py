@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Day2 Orange 전처리 워크플로 `labs/day2/d2_orange_preprocess.ows`(수강생용)와 강사용 채운 판을 만들고, 다시 열어 실행 검사한다.
 
-정본: DAY2_SPEC_v3 부록 B Step 4 ③ · Step 8 · §0.8 #6 · #7 · 사이트 docs/day2/lab-a.md Step 4 ④ · lab-b.md Step 8 '(선택) Orange로 저장하는 길'.
+(v3 — 이번 과정은 쓰지 않는다) Orange 전처리 워크플로 생성기.
   [File] d2_step1.xlsx · 시트 features(buyer_id = meta · late_30d = target)
    ├ [Column Statistics](옛 이름 Feature Statistics) — 결측 비율
    ├ [Impute (중앙값 · Step 4)] Default = Don't impute · current_ratio · debt_to_equity · dso_buyer · op_margin = Fixed values

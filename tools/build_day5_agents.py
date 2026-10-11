@@ -5,7 +5,7 @@
 사용(저장소 루트):
     python tools/build_day5_agents.py            # agents/n8n/dunning_workflow_v1.json · agents/dify/hanbit_policy_rag_v1.yml 생성 + 검사
     python tools/build_day5_agents.py --check    # 생성하지 않고 검사만(Node.js가 있으면 Code 노드 JS를 실제로 돌려 앱 규칙과 대조)
-사양: 03 Part1 §8.1(n8n 노드 15)·§8.2(Dify KB·Chatflow) ∪ 03 Part2 §5.10(화이트리스트·금지 문구·발송 시간·C등급 앞당김)·§5.11(템플릿 4종).
+(v3 — 이번 과정은 쓰지 않는다) n8n 노드 15 · Dify KB · Chatflow · 화이트리스트 · 금지 문구 · 발송 시간 · C등급 앞당김 · 템플릿 4종.
 - 프롬프트 원문은 app/prompts/dunning_v1.md(T0~T4) · rag_system_v1.md(P5-1) 하나다 → 앱과 n8n·Dify가 같은 문장을 쓴다.
 - 자격증명(Google Sheets·Gmail·OpenAI 호환)은 넣지 않는다 — 가져온 뒤 각자 연결한다(agents/README.md).
 - 노드 id는 이름에서 만든 고정 UUID(uuid5)라 다시 만들어도 같은 파일이 나온다.

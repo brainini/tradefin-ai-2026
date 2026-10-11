@@ -5,7 +5,7 @@
     python tools/fetch_external.py all
 
 결과: data/external/fred_*.csv (받은 그대로), data/external/_fetch_log.csv (수집 로그)
-ECOS·SEC·UCI 등 나머지 대상(03 Part1 §5.1)은 키·이용조건 확인 후 추가 예정.
+ECOS·SEC·UCI 등 나머지 대상은 키·이용조건 확인 후 추가 예정.
 """
 from __future__ import annotations
 

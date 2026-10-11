@@ -12,6 +12,10 @@ secrets.toml
 # 자사 자료 · 개인 파일 — 이 저장소에는 가상 데이터만 둔다
 private/
 *_private*
+# 개인 기획서 · 개인 KPI · ROI — 비공개 폼으로만 낸다(팀 저장소 폴더에 저장해도 커밋되지 않게)
+d6_plan__*
+d6_roi__*
+plan_draft__*
 
 # 내려받은 재배포 금지 자료(K-SURE 약관 Markdown 등) — 각자 받아 local/에 두고 커밋하지 않는다
 local/

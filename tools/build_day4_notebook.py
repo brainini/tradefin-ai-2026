@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Day4 Challenge 노트북 `labs/day4/d4_challenge.ipynb`를 nbformat으로 만든다(출력 없는 수강생용).
 
-정본: 03 Part2 §4.11(PuLP·linprog 교차검증 · 몬테카를로 1-요인), §4.5(LP 정식화), 02 Part2 D4-25·27.
+(v3 — 이번 과정은 쓰지 않는다) PuLP · linprog 교차검증 · 몬테카를로 1-요인 · LP 정식화.
 섹션: 0 준비 · A LP 입력(워크북 02_Buyers와 같은 식) · B PuLP 3.3.2 · C scipy linprog(HiGHS) 교차검증 ·
       D 16_Compare로 보내기 · E 제약 실험 · F 몬테카를로(독립 vs 1-요인) · G AI와 함께 확장 · H 셀프 체크
 

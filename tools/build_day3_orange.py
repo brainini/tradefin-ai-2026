@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Day3 Orange 완성 워크플로 `labs/day3/d3_orange_model.ows`를 만들고, 수강생 PC처럼 다시 열어 끝까지 실행해 검사한다.
 
-정본: DAY3_SPEC_v3 부록 B Step 1–7 · 03 Part2 §3.5(위젯 체인·설정) · 사이트 docs/day3/lab-a.md '워크플로 한 장'.
+(v3 — 이번 과정은 쓰지 않는다) Orange 모델 워크플로(위젯 체인 · 설정) 생성기.
   [File] d3_start_features.csv (late_30d = target · buyer_id · ref_date · sample_weight · split_suggested = meta ·
          fx_krw_close · usd_krw_close = skip)
    └ [Data Sampler ①] 70% · Stratify · Replicable ─ Data Sample ─┬─ [Select Rows] late_30d is 1 ─ [Data Sampler ②]

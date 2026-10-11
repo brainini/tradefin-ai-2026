@@ -27,27 +27,30 @@ use_directory_urls: false
 theme:
   name: material
   language: ko
-  font:
-    text: Noto Sans KR
-    code: Nanum Gothic Coding
+  custom_dir: overrides          # overrides/main.html — 글꼴 미리 연결 · 주소창 색 (hooks/ 의 파이썬은 사이트에 복사되지 않는다)
+  font: false                    # 글꼴은 아래 extra_css에서(Pretendard · JetBrains Mono · Nanum Gothic Coding). 막히면 맑은 고딕으로 보이고 기능은 같다
   icon:
     logo: material/finance
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: blue
+      primary: custom            # 색은 docs/stylesheets/tf26.css의 토큰(덱과 같은 남색 · 파랑)
+      accent: custom
       toggle:
         icon: material/weather-night
         name: 어두운 화면으로 바꾸기
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: light blue
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: 밝은 화면으로 바꾸기
   features:
+    - navigation.instant         # 쪽을 다시 받지 않고 바꾼다(왼쪽 메뉴 위치 유지) — OFFLINE 빌드에서는 자동으로 꺼진다
+    - navigation.instant.progress
+    - navigation.tabs            # 위쪽 탭 = 홈 · 시작하기 · 1–6일차 · 자료실, 왼쪽 메뉴는 고른 탭의 쪽만
+    - navigation.path            # 쪽 위 경로 표시(홈 › 1일차 10/14)
     - navigation.sections
     - navigation.indexes
     - navigation.top
@@ -58,11 +61,35 @@ theme:
     - search.suggest
     - toc.follow
 
+# 디자인 시스템 — 색 · 부품은 docs/stylesheets/tf26.css, 동작(오늘 표시 · 단계 카드 · 진행 추적 · 열기 시각)은 docs/javascripts/tf26.js
 extra_css:
-  - stylesheets/extra.css
+  - https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css
+  - https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Nanum+Gothic+Coding:wght@400;700&display=swap
+  - stylesheets/tf26.css
+
+extra_javascript:
+  - javascripts/tf26.js          # 오늘 표시 · 단계 카드 · 진행 추적 · 열기 시각 잠금 · 그림 확대 · 모바일 표 (의존성 없음)
+
+extra:
+  generator: false
+  # ── 강사만 아는 주소 — 여기 한 곳만 고친다 ─────────────────────────────────────────
+  # 값을 넣고 main에 push하면 다음 배포부터 사이트의 해당 자리(<span data-tf-link="키">)가 링크로 바뀐다.
+  # 비워 두면 그 자리는 '첫날 안내'(또는 쪽이 정한 문구)로 보이고 빌드는 깨지지 않는다(overrides/hooks/course_links.py).
+  course_links:
+    open_chat: ""      # 오픈채팅방 주소 — 홈 공지
+    pre_survey: ""     # 사전 설문(1일차 시작 전 · 10분, Google Forms) — 홈 공지
+    submit_form: ""    # 산출물 제출 폼(1일차 A-1·05 내 저장소 주소 · 1–5일차 PR · 앱 주소) — 홈 공지 · 일차 쪽
+    plan_form: ""      # 개인 도입 기획서 비공개 폼(5일차 21:00 초안 · 6일차 17:50 최종 · 수료 뒤 다시 내기)
+    team_form: ""      # 6일차 15:50 팀 솔루션 킷 v1.0 링크 제출 폼
+    post_survey: ""    # 6일차 16:55 사후 진단 폼(사전 설문과 같은 문항)
+    peer_form: ""      # 6일차 발표 동료 피드백 · 투표 폼
+    demo_app: ""       # 강사 데모 앱 주소(https://….streamlit.app) — 5일차 실습 B1 · B6 · 채팅 경로(로컬 실행이 안 될 때)
+    venue: ""          # 강의장 이름 · 호실(링크가 아니면 글자로 보인다) — 홈 공지 · 과정 소개
 
 hooks:
   - tools/mkdocs_hooks.py      # docs/downloads/ 의 .md 파일(보고서 발췌 등)을 페이지가 아닌 '내려받을 파일'로 복사
+  - overrides/hooks/course_links.py   # extra.course_links의 주소를 쪽의 <span data-tf-link="키">에 채운다(비면 '첫날 안내')
+  - overrides/hooks/download_names.py   # 내려받기 단추의 download="download" → 실제 파일 이름(확장자 없는 'download'로 저장되지 않게)
 
 plugins:
   - search:
@@ -92,6 +119,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
+      pygments_lang_class: true  # 코드 블록에 language-text 같은 클래스 — 프롬프트(text)만 본문 글꼴로 보이게(tf26.css)
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.tabbed:
@@ -106,7 +134,7 @@ markdown_extensions:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.snippets:
-      base_path: ["."]         # 저장소 루트 기준 — labs/day1/prompts.md 를 그대로 끼워 넣는다
+      base_path: [!relative $config_dir]   # 저장소 루트(mkdocs.yml 자리) 기준 — 어느 폴더에서 빌드해도 labs/day1/prompts.md 를 그대로 끼워 넣는다
       check_paths: false       # 아직 없는 파일은 비워 둔 채 빌드(파일이 생기면 자동으로 들어간다)
 
 # docs/ 안에 있지만 사이트에 올리지 않는 것
@@ -129,61 +157,64 @@ validation:
   anchors: warn
 
 nav:
-  # 사이트 맵. 일차 페이지 = 개요(index) · 이론 요약(theory) · 실습 A(4–5교시) · 실습 B(6–7교시). 6일차는 해커톤 전용 페이지가 더 있다.
+  # 사이트 맵 = 위쪽 탭. 일차 탭 = 개요(index) · 이론 요약 · 실습 A(4–5교시) · 실습 B(6–7교시). 6일차는 해커톤 쪽이 더 있다.
+  # 쪽 파일 경로 · 주소 · 앵커는 바꾸지 않는다(덱 노트 · 다른 쪽이 day1/lab-b.html#b1-diagnose처럼 부른다).
   # 옛 주소(day1/lab1–3.md)는 안내 한 줄만 남기고 메뉴에서 뺐다(위 not_in_nav).
   - 홈: index.md
-  - 과정 소개: course.md
-  - 사전 준비: setup.md
-  - "1일차 · 10/14(수)":
+  - 시작하기:
+      - 과정 소개: course.md
+      - 사전 준비: setup.md
+      - 데이터: data.md
+      - FAQ·트러블슈팅: faq.md
+  - "1일차 10/14":
       - day1/index.md
       - "이론 요약": day1/theory.md
-      - "실습 A (4–5교시)": day1/lab-a.md
-      - "실습 B (6–7교시)": day1/lab-b.md
-  - "2일차 · 10/15(목)":
+      - "실습 A · 13:00": day1/lab-a.md
+      - "실습 B · 15:00": day1/lab-b.md
+  - "2일차 10/15":
       - day2/index.md
       - "이론 요약": day2/theory.md
-      - "실습 A (4–5교시)": day2/lab-a.md
-      - "실습 B (6–7교시)": day2/lab-b.md
-  - "3일차 · 10/16(금)":
+      - "실습 A · 13:00": day2/lab-a.md
+      - "실습 B · 15:00": day2/lab-b.md
+  - "3일차 10/16":
       - day3/index.md
       - "이론 요약": day3/theory.md
-      - "실습 A (4–5교시)": day3/lab-a.md
-      - "실습 B (6–7교시)": day3/lab-b.md
-  - "4일차 · 10/19(월)":
+      - "실습 A · 13:00": day3/lab-a.md
+      - "실습 B · 15:00": day3/lab-b.md
+  - "4일차 10/19":
       - day4/index.md
       - "이론 요약": day4/theory.md
-      - "실습 A (4–5교시)": day4/lab-a.md
-      - "실습 B (6–7교시)": day4/lab-b.md
-  - "5일차 · 10/20(화)":
+      - "실습 A · 13:00": day4/lab-a.md
+      - "실습 B · 15:00": day4/lab-b.md
+  - "5일차 10/20":
       - day5/index.md
       - "이론 요약": day5/theory.md
-      - "실습 A (4–5교시)": day5/lab-a.md
-      - "실습 B (6–7교시)": day5/lab-b.md
-  - "6일차 · 10/21(수) 해커톤":
+      - "실습 A · 13:00": day5/lab-a.md
+      - "실습 B · 15:00": day5/lab-b.md
+  - "6일차 10/21":
       - day6/index.md
       - "이론 요약": day6/theory.md
-      - "실습 A (09:31–13:50)": day6/lab-a.md
-      - "실습 B (14:12–17:50)": day6/lab-b.md
+      - "실습 A · 09:31": day6/lab-a.md
+      - "실습 B · 14:12": day6/lab-b.md
       - "위기 카드": day6/cards.md
       - "솔루션 킷": day6/kit.md
       - "심사 기준": day6/judging.md
       - "제출": day6/submit.md
-  - 기초 지식:
-      - foundations/index.md
-      - "F1 내 데이터는 어디로 가나": foundations/f1.md
-      - "F2 웹·API, 그리고 커밋 이력": foundations/f2.md
-      - "F3 같은 입력이면 같은 결과": foundations/f3.md
-      - "F4 프로그램은 언제 도는가": foundations/f4.md
-      - "F5 내 PC의 앱을 모두의 앱으로": foundations/f5.md
-      - "F6 솔루션 킷 = 저장소 하나": foundations/f6.md
-  - "내 업무를 AI 과업으로 정의하기": ax-project.md
-  - 프롬프트 라이브러리:
-      - "1일차 (A0–A3 · B1–B5)": prompts/day1.md
-      - "2일차 (A1–A6 · B1–B6)": prompts/day2.md
-      - "3일차 (A0–A5 · B1–B6)": prompts/day3.md
-      - "4일차 (A1–A6 · B1–B6)": prompts/day4.md
-      - "5일차 (P5-A1~A4 · P5-B1~B5)": prompts/day5.md
-      - "6일차 (R1~R5 · P6-1~P6-9)": prompts/day6.md
-  - 용어집: glossary.md
-  - 데이터: data.md
-  - FAQ·트러블슈팅: faq.md
+  - 자료실:
+      - 프롬프트 라이브러리:
+          - "1일차": prompts/day1.md
+          - "2일차": prompts/day2.md
+          - "3일차": prompts/day3.md
+          - "4일차": prompts/day4.md
+          - "5일차": prompts/day5.md
+          - "6일차": prompts/day6.md
+      - 용어집: glossary.md
+      - 기초 지식:
+          - foundations/index.md
+          - "F1 내 데이터는 어디로 가나": foundations/f1.md
+          - "F2 웹·API, 그리고 커밋 이력": foundations/f2.md
+          - "F3 같은 입력이면 같은 결과": foundations/f3.md
+          - "F4 프로그램은 언제 도는가": foundations/f4.md
+          - "F5 내 PC의 앱을 모두의 앱으로": foundations/f5.md
+          - "F6 솔루션 킷 = 저장소 하나": foundations/f6.md
+      - "내 업무를 AI 과업으로 정의하기": ax-project.md

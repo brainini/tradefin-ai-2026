@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Day3 Challenge 노트북 `labs/day3/d3_challenge.ipynb`를 nbformat으로 만든다(출력 없는 수강생용).
 
-정본: DAY3_SPEC_v3 §1.4·부록 B(🟣 열) · 03 Part2 §3.10(셀 구성) · DECISIONS_v3 D6(노트북 하나) · D12(t/4·t/2·t 정본).
+(v3 — 이번 과정은 쓰지 않는다) 3일차 Challenge 노트북 하나 — 등급 t/4 · t/2 · t.
 섹션: 0 준비 · A 300행 빠른 실험(무작위 vs 바이어 단위 분할) · B 패널 시간 분할 + 불균형 처리 비교(class weight · SMOTE)
       · C 비용 기반 임계값(FN:FP = 5:1) · D SHAP · E 등급 S/A/B/C + 저장 · F 환율 예측 3경로(Prophet · ARIMA · ETS)
       · G AI와 함께 확장 · H 셀프 체크

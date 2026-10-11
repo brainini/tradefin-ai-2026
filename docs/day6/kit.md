@@ -1,8 +1,14 @@
-# 6일차 · 솔루션 킷 = 팀 저장소 `v1.0`
+---
+title: 6일차 솔루션 킷
+---
 
-!!! abstract "한 줄"
-    오늘의 최종 산출물인 **AI 기반 무역 금융 리스크 관리 통합 파이프라인 솔루션 킷**을 이 과정에서는 **팀 저장소 하나**로 냅니다.
-    처음 보는 사람이 **README만 보고 5분 안에 다시 돌릴 수 있어야** 하고, 제출은 **릴리스 `v1.0`**으로 고정합니다 → 이론은 [이론 요약 2장](theory.md#ch2), 단계는 [실습 B Step 6](lab-b.md#b-release).
+<div class="tf-hero tf-hero--sm" markdown>
+<span class="tf-eyebrow">6일차 · 솔루션 킷 = 팀 저장소 `v1.0` <span class="tf-daystate" data-tf-daystate="6"></span></span>
+
+# 솔루션 킷 — 다른 사람이 다시 돌릴 수 있게
+
+오늘의 최종 산출물인 **AI 기반 무역 금융 리스크 관리 통합 파이프라인 솔루션 킷**을 이 과정에서는 **팀 저장소 하나**로 냅니다. 처음 보는 사람이 **README만 보고 5분 안에 다시 돌릴 수 있어야** 하고, 제출은 **릴리스 `v1.0`**으로 고정합니다 → 이론은 [이론 요약 2장](theory.md#ch2), 단계는 [실습 B Step 6](lab-b.md#b-release).
+</div>
 
 | 킷이 담는 결과물 | 킷 안의 자리 | 담당 |
 |---|---|---|
@@ -15,7 +21,7 @@
 
 어제 이미 만들었다면 건너뜁니다.
 
-1. **조장**: 킷 템플릿 저장소 [`brainini/tradefin-kit-template`](https://github.com/brainini/tradefin-kit-template) → **Use this template** → **Create a new repository** → 이름 `tradefin-kit-T{조}`(예: `tradefin-kit-T2`) · **Private**(비공개 — 가상 데이터만 둡니다) → **Create repository**.
+1. **조장**: 킷 템플릿 저장소 [`brainini/tradefin-kit-template`](https://github.com/brainini/tradefin-kit-template) → **Use this template** → **Create a new repository** → 이름 `tradefin-kit-T{조}`(예: `tradefin-kit-T2`) · **Private**(비공개 — 가상 데이터만 둡니다) → **Create repository**. 규정 `rules/hanbit_credit_policy.md` · 점검표 · SOP 양식 · 파일 받기 도구가 이미 들어 있습니다.
 2. **조장**: **Settings** → **Collaborators** → **Add people** → 팀원과 강사의 GitHub 아이디로 초대합니다. 무료 계정의 비공개 저장소에서도 이슈 · PR · 리뷰 · 릴리스는 됩니다 — 보호 브랜치가 없으니 '다른 역할 1명 리뷰 뒤에 사람이 병합'을 `CLAUDE.md`와 점검표로 지킵니다.
 3. **팀원**: 초대를 수락하고 `README.md` **5. 담당자** 표에 내 줄(조-번호 · 역할 · GitHub 아이디 — 실명 · 회사명 · 이메일 금지)을 더하는 **브랜치 + PR**을 엽니다.
 4. **다른 팀원**: PR에 리뷰 코멘트 1개 이상 → **Approve** → **Merge pull request**.
@@ -30,49 +36,28 @@
   <figcaption>킷 템플릿의 파일 목록(GitHub 화면이라 영어) — 이 아래에 README가 그려집니다</figcaption>
 </figure>
 
-```text
-tradefin-kit-T{조}/
-├─ README.md                  5항목: 목적 · 구성 · 실행 방법(재현 절차) · 데이터 원천과 가상 여부 · 담당자
-├─ CLAUDE.md                  AI가 세션마다 먼저 읽는 팀 규칙(5줄 + 우리 팀 규칙 3줄)
-├─ .claude/settings.json      권한 규칙: allow(uv run · git diff) · deny(.env 읽기 · git push --force)
-├─ pyproject.toml · uv.lock   환경 — uv sync 한 번이면 누구나 같은 버전(Python 3.13)
-├─ cards/                     우리 팀 위기 카드(09:28 이후 복사)            ← 직접 만듭니다
-├─ data/                      ① 카드를 반영한 결과(가상 데이터만) · README.md
-│  └─ input/                  우리 팀 팩 team_0{조}.xlsx                    ← 직접 만듭니다
-├─ app/
-│  ├─ README.md               배포 주소 · 사용한 커밋 · 바꾼 기능 · 막혔을 때 쓴 경로
-│  └─ pipeline/               파이프라인 스크립트 + README.md(단계별 받는 파일 · 내는 파일 계약)
-├─ out/{카드}/                스크립트가 낸 결과(등급 변동표 · 한도 변경안 · EL 표 · 경보)  ← 스크립트가 만듭니다
-├─ sop/
-│  ├─ SOP_template.md         복사해서 SOP_{카드}.md로(0–10장 + 부록)
-│  └─ ai_usage_rules.md       ④ AI 사용 규칙서 1쪽
-├─ roi/README.md              ③ roi_kpi.xlsx(팀 ROI 3안)를 이 폴더에
-├─ docs/
-│  ├─ architecture.md         CP1 설계도 + 역할 표
-│  ├─ evidence.md             ④ 근거표(질문 · 답 · 조항 · 원문 인용 · 상태)
-│  ├─ decision_log.md         사람이 내린 결정(시각 · 결정 · 근거 · 결정자 · AI 초안 여부 · 대안)
-│  ├─ demo_script.md          ⑤ 7분 대본
-│  ├─ proposal_team.md        ⑤ 팀 도입 기획서 요약 2쪽
-│  └─ kit_checklist.md        CP4 점검표(시연 3의 프롬프트가 이 파일과 저장소를 대조한다)
-├─ tools/                     get_day_files.py(그날 파일 받기) · fonts/(차트 한글 글꼴)
-├─ .github/                   ISSUE_TEMPLATE(role.md · bug.md) · PULL_REQUEST_TEMPLATE.md
-├─ .gitignore                 secrets · .env(견본 .env.example은 예외) · private/ · local/ · data/checkpoints/ · labs/ · .venv/
-└─ secrets.toml.example       값 없는 견본 — 진짜 키는 서비스의 Secrets 칸에만
-```
-
-| 경로 | 오늘 채울 것 | 담당 | 언제 |
-|---|---|---|---|
-| `README.md` | 5항목 + 위기 카드 요약 · 데모 링크 · 릴리스 | 저장소 관리자 | 골격 CP1 → 완성 CP4 |
-| `CLAUDE.md` | '우리 팀 규칙' 세 줄 | 전원 | 10:11 첫 5분 |
-| `data/` | `d6_{카드}_scored.csv` · `d6_{카드}_open_inv.csv` · `change_log.csv`(예: 카드 ② → `d6_2_scored.csv`) | ① 데이터 | CP2 |
-| `app/pipeline/` · `out/{카드}/` | 단계별 스크립트와 결과 — 받는 파일 · 내는 파일은 `app/pipeline/README.md`의 표대로 | ① – ③ | CP2 – CP3 |
-| `sop/` | `SOP_{카드}.md`(CP3 0–6장 → CP4 0–10장, P6-1 → P6-2 검증 이력) · `ai_usage_rules.md` | ⑤ · ④ | CP3 · CP4 |
-| `roi/` | `roi_kpi.xlsx`(보수 · 기준 · 낙관, 도구비 시나리오) | ③ | CP3 |
-| `docs/` | `architecture.md` · `evidence.md` · `decision_log.md` · `demo_script.md` · `proposal_team.md` | ⑤ · ④ | CP1 – CP4 |
-| Releases | `v0.5`(CP2) · `v1.0`(15:50 제출) + 릴리스 노트(P6-3) | 저장소 관리자 | CP2 · CP4 |
+| 경로 | 들어 있는 것 | 누가 · 언제 |
+|---|---|---|
+| `README.md` | 5항목: 목적 · 구성 · 실행 방법(재현 절차) · 데이터 원천과 가상 여부 · 담당자 | 저장소 관리자 · CP1 골격 → CP4 완성 |
+| `CLAUDE.md` · `.claude/settings.json` | AI가 세션마다 먼저 읽는 팀 규칙(+ 우리 팀 규칙 3줄) · 권한 allow(`uv run` · `git diff`) · deny(`.env` 읽기 · `git push --force`) | 전원 · 10:11 |
+| `pyproject.toml` · `uv.lock` | 환경 — `uv sync` 한 번이면 누구나 같은 버전(Python 3.13) | 킷에 들어 있다 |
+| `cards/` | 우리 팀 위기 카드 | RA · 09:28 |
+| `data/input/` | 우리 팀 팩 · 4일차 입력 4개 · 환율 파일 — 읽기만(커밋해 두어 새 폴더 재현이 그대로 된다) | RA · 09:28 |
+| `data/` | ① 카드를 반영한 결과 `d6_{카드}_scored.csv` · `_open_inv.csv` · `change_log.csv`(가상 데이터만) | ① · CP2 |
+| `app/pipeline/` | 파이프라인 스크립트 + `README.md`(단계별 받는 파일 · 내는 파일 계약) | ① – ③ · CP2 – CP3 |
+| `out/{카드}/` | 스크립트가 낸 결과 — 등급 변동표 · 한도 변경안 · EL 표 · 경보 · 인젝트 계산 | 스크립트 |
+| `rules/` | 가상 여신관리규정(근거표의 원문 — 킷에 들어 있다) | ④ |
+| `sop/` | `SOP_template.md` → `SOP_{카드}.md`(0–10장 + 부록) · `ai_usage_rules.md`(1쪽) | ⑤ · ④ · CP3 – CP4 |
+| `roi/` | `roi_kpi.xlsx` — 우리 카드 ROI 완성본(보수 · 기준 · 낙관 + 민감도) | ③ · CP3 |
+| `docs/` | `architecture.md` · `evidence.md` · `decision_log.md` · `demo_script.md` · `proposal_team.md` · `kit_checklist.md` | ⑤ · ④ · CP1 – CP4 |
+| `tools/` | `get_day_files.py`(그날 파일 받기) · `fonts/`(차트 한글 글꼴) | 킷에 들어 있다 |
+| `.github/` | 이슈 양식(역할 · 버그) · PR 양식 | 킷에 들어 있다 |
+| `.gitignore` | 비밀값 · 개인 파일(`d6_plan__*` · `d6_roi__*`) · `local/` · `data/checkpoints/` · `labs/` · `.venv/` | 킷에 들어 있다 |
+| `local/` | 각자 받은 K-SURE 약관(재배포 금지 — 커밋되지 않는 폴더) | ④ |
+| Releases | `v0.5`(CP2 · 11:45) · `v1.0`(CP4 · 15:50 제출) + 릴리스 노트 | 저장소 관리자 |
 
 - 개인 도입 기획서 · 개인 ROI 시트 · 사후 진단은 **저장소에 올리지 않습니다** — 비공개 폼으로 냅니다 → [제출](submit.md#personal).
-- `get_day_files.py`가 받은 폴더(`data/checkpoints/` · `labs/`)와 K-SURE 약관 Markdown(`local/`)은 `.gitignore`에 있어 커밋되지 않습니다. 비밀값은 작업 폴더에 두지 않는 것이 가장 확실한 잠금입니다.
+- `get_day_files.py`가 받은 폴더(`data/checkpoints/` · `labs/`)와 K-SURE 약관(`local/`)은 `.gitignore`에 있어 커밋되지 않습니다 — 그래서 파이프라인이 읽는 입력은 `data/input/`에 복사해 커밋합니다(새 폴더 재현이 그대로 됩니다). 비밀값은 작업 폴더에 두지 않는 것이 가장 확실한 잠금입니다.
 
 ## README 5항목 — 심사 기준 ③ {#readme}
 
@@ -80,7 +65,7 @@ tradefin-kit-T{조}/
 |---|---|---|
 | 1. 목적 | 카드 번호 · 제목 · 한 줄 요약(상황 · 트리거 · 영향 숫자 1개) · 답한 질문 · 반영한 인젝트 | "카드 ② — 대상 바이어 n곳의 EL이 S0 대비 □배(`out/2/el_table.md`)" |
 | 2. 구성 | 폴더마다 무엇이 있고 누가 맡았나(템플릿 표를 채운다) | `data/` — 카드 반영 결과 · ① |
-| 3. 실행 방법(재현 절차) | **3–5줄** — 어떤 파일로 → 무엇을 실행하면 → 무엇이 나오나 + 사용한 경로. **새 폴더에서 `uv sync`부터 다시 돌려 확인한 그대로** | "`uv sync` → `data/input/team_02.xlsx`를 두고 → `uv run python app/pipeline/01_apply.py` → `data/d6_2_scored.csv`" |
+| 3. 실행 방법(재현 절차) | **3–5줄** — 어떤 파일로 → 무엇을 실행하면 → 무엇이 나오나 + 사용한 경로. **새 폴더에서 `uv sync`부터 다시 돌려 확인한 그대로** · 입력 위치(`cards/` · `data/input/`) | "`uv sync` → 입력은 `data/input/`(커밋됨) → `uv run python app/pipeline/01_apply.py` → `data/d6_2_scored.csv`" |
 | 4. 데이터 원천과 가상 여부 | 파일 · 원천 · 가상 여부 + 보안 점검 확인 시각 · 확인한 사람 | `data/…` — 과정 데이터 팩 · 가상 |
 | 5. 담당자 | 조-번호 · 역할 · GitHub 아이디 | `T2-07` · ③ · `@아이디` |
 
@@ -130,12 +115,17 @@ tradefin-kit-T{조}/
 
 내 PC에 clone했다면 `git grep -nIE "sk-|AIza|ghp_|@"`로 한 번에 봅니다.
 
-- **걸린 줄은 줄마다 이유를 판단합니다.** 검색어를 설명한 글(점검표 자신) · 예시 이름 · 가상 주소 `example`에 걸린 줄은 남아도 되고 줄마다 이유를 한 줄 적습니다. **실제 키 · 실제 이메일은 0건**이어야 합니다.
+**걸린 줄은 줄마다 이유를 판단합니다.** 검색어를 설명한 글(점검표 자신) · 예시 이름 · 가상 주소 `example`에 걸린 줄은 남아도 되고 줄마다 이유를 한 줄 적습니다. **실제 키 · 실제 이메일은 0건**이어야 합니다.
+
+<div class="tf-checklist" data-title="보안 점검" markdown>
+
 - [ ] `data/`에는 가상 한빛정밀 데이터만 있다(회사 실데이터 · 익명화본도 올리지 않는다)
 - [ ] **Settings** → **Collaborators**: 우리 팀원과 강사 계정뿐이다
 - [ ] 키가 한 번이라도 노출됐다면 이미 **교체**했다(파일을 지워도 커밋 이력에 남는다 — `force push`로 덮지 않는다)
-- [ ] `local/`(약관) · `.env`가 커밋 목록에 없다
+- [ ] `local/`(약관) · `.env` · 개인 파일(`d6_plan__…` · `d6_roi__…`)이 커밋 목록에 없다
 - [ ] AI 사용 규칙서 `sop/ai_usage_rules.md`가 있다
+
+</div>
 
 ## 릴리스 `v0.5` · `v1.0` 만들기 {#release}
 
@@ -156,16 +146,16 @@ gh release create v1.0 --target main --title "v1.0 — {카드 제목} 솔루션
 3. **Release title**: `v1.0 — {카드 제목} 솔루션 킷`.
 4. 설명 칸에 릴리스 노트를 붙입니다. 초안은 [P6-3](../prompts/day6.md#p6-3)(커밋 목록 · README · 폴더 목록을 넣는다)으로 받고 사람이 고칩니다 — 6절: 이 릴리스에 든 것 · 다시 돌리는 법 · 데이터 · 사람이 승인하는 지점 · 알려진 한계 · `v0.5` → `v1.0` 바뀐 것.
 5. `v0.5`는 **Set as a pre-release**, `v1.0`은 **Set as the latest release**를 고릅니다.
-6. **Publish release** → 주소 `https://github.com/{아이디}/tradefin-kit-T{조}/releases/tag/v1.0`을 복사해 [제출 폼](submit.md#team)에 붙입니다.
+6. **Publish release** → 주소 `https://github.com/{아이디}/tradefin-kit-T{조}/releases/tag/v1.0`을 복사해 <span data-tf-link="team_form">팀 제출 폼</span>에 붙입니다([제출](submit.md#team)).
 
 **재현 테스트(제3자 5분)** — 다른 역할 한 명이 새 폴더에서 다시 돌립니다.
 
 ```text
 git fetch --tags
 git worktree add ../T-verify v1.0
-# 받아야 하는 입력(cards/ · data/input/ · local/)을 README 대로 새 폴더에 복사
 cd ../T-verify
 uv sync
+# 입력 확인 — cards/ · data/input/ 은 커밋돼 따라온다(빠진 것이 있으면 README 대로 get_day_files.py 6 → 같은 자리)
 # 결과 폴더(out/)를 지우고 README의 실행 방법대로 다시 돌린 뒤 처음 폴더의 같은 파일과 비교
 ```
 
@@ -189,20 +179,24 @@ uv sync
 
 ## 킷 체크리스트 — CP4 15:40 {#checklist}
 
+<div class="tf-checklist" data-title="CP4 15:40 — 코드 프리즈 전에" markdown>
+
 - [ ] README 5항목(목적 · 구성 · 실행 방법 · 데이터 원천과 가상 여부 · 담당자)
 - [ ] 폴더 6개가 제자리(README · data · app · sop · roi · docs)
 - [ ] `data/` — `d6_{카드}_scored.csv` · `d6_{카드}_open_inv.csv` · `change_log.csv`
 - [ ] `sop/` — `SOP_{카드}.md` 0–10장(P6-2 검증 반영) · `ai_usage_rules.md`
-- [ ] `roi/` — `roi_kpi.xlsx`(보수안부터 3안)
+- [ ] `roi/` — `roi_kpi.xlsx`(우리 카드 완성본 · 보수안부터 3안 · 민감도 1줄)
 - [ ] `docs/` — `architecture.md` · `evidence.md` · `decision_log.md` · `demo_script.md` · `proposal_team.md`
 - [ ] 역할 이슈 5개 · PR 이력
 - [ ] 보안 점검 3검색(실제 키 0건) · 협업자 확인
 - [ ] `v0.5`(CP2) · `v1.0` + 릴리스 노트
 - [ ] 팀 밖의 한 사람이 새 폴더에서 README만 보고 5분 안에 재현했다
 
+</div>
+
 ## 킷 파일 {#files}
 
---8<-- "docs/_snippets/day6/files_kit.md"
+--8<-- "docs/_snippets/day6/files_kit_cards.md"
 
 - SOP 양식은 팀 저장소의 `sop/SOP_template.md`와 같은 내용입니다. 팀 저장소에서는 그 파일을 복사해 씁니다. 점검표(`kit_checklist.md`)도 팀 저장소 `docs/`에 이미 들어 있습니다.
-- 기획서 양식 `ax_proposal_template.md`는 Word · Google Docs로 옮겨 `.docx`로 냅니다 → [기획서 11장](submit.md#proposal).
+- 기획서 양식 `ax_proposal_template.md`의 7–11장은 프롬프트 [S8](../prompts/day6.md#s8)이 `.docx`로 바로 만들어 줍니다 → [기획서 11장](submit.md#proposal).

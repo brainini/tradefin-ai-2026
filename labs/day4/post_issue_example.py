@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""조기경보 결과를 GitHub 이슈로 알리는 참고 스크립트(4일차 실습 B ②) - 엔진(ews.py · ews_example.py) 다음에 실행한다.
+"""조기경보 결과를 GitHub 이슈로 알리는 참고 스크립트(4일차 실습 B 02) - 엔진(ews.py · ews_example.py) 다음에 실행한다.
 
     uv run python labs/day4/post_issue_example.py             # Actions 러너에서 - 이슈를 만들거나 댓글을 단다
     uv run python labs/day4/post_issue_example.py --dry-run   # 아무것도 올리지 않고 본문만 출력(내 PC에서는 이 모드로 본문을 미리 본다)
@@ -22,7 +22,8 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+# 저장소 맨 위 폴더 = pyproject.toml이 있는 가장 가까운 위 폴더 — scripts/ 로 복사하거나 작업 사본 폴더에서 돌려도 같은 곳을 읽는다
+ROOT = next((p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").exists()), Path(__file__).resolve().parents[2])
 KST = timezone(timedelta(hours=9))
 RECO = "권고(사람 승인 전)"
 LABEL = {"R-CREDIT-EVENT": "신용사건", "R-FRAUD-ACCOUNT": "계좌 변경 요청", "R-D30-HOLD": "선적 보류(D+30)",

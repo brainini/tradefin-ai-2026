@@ -1,6 +1,6 @@
 # 6일차 역할 카드 5종 (+ 저장소 관리자)
 
-> A6로 한 장씩 인쇄 · 09:25 역할 이슈 5개를 만들 때 쓴다(저장소 이슈 양식 '역할') · 4인 팀은 ①②를 한 명이 함께 맡는다(R1 데이터 · R2 등급 — 작업대(worktree) 두 개) · 3인이 되면 ④를 ⑤가 함께 맡는다
+> A6로 한 장씩 인쇄 · 09:26 역할 이슈 5개를 만들 때 쓴다(저장소 이슈 양식 '역할') · 4인 팀은 ①②를 한 명이 함께 맡는다(R1 데이터 · R2 등급 — 작업대(worktree) 두 개) · 3인이 되면 ④를 ⑤가 함께 맡는다
 > 역할마다 **Claude Code 세션 하나** — 시작 프롬프트는 [`prompts.md`](prompts.md#roles)의 R1–R5 · 모두 **Plan 모드**로 시작한다
 > 이슈마다 **대행자**(1:1 코칭으로 자리를 비울 때 맡아 줄 사람)를 적는다 · 사람이 결정할 항목은 모든 표에서 빨간색
 
@@ -11,7 +11,7 @@
 | 칸 | 내용 |
 |---|---|
 | 미션 | 카드의 트리거 변경을 데이터에 정확히 반영하고 변경 기록을 남긴다 |
-| 받는 것 | 우리 팀 팩 `data/input/team_0{조}.xlsx`(`buyer_changes` · `invoice_changes` · `buyers` · `open_inv`) · 카드 `cards/` |
+| 받는 것 | 우리 팀 팩 `data/input/team_0{조}.xlsx`(`buyer_changes` · `invoice_changes` · `buyers` · `open_inv`) · 4일차 150곳 · 300건(`data/input/d4_start_scored.csv` · `d4_open_inv.csv`) · 카드 `cards/` |
 | 넘기는 것 | `data/d6_{카드}_scored.csv` → ② · `data/d6_{카드}_open_inv.csv` → ③ · `data/change_log.csv`(바뀐 행: 대상 · 열 · 전 값 · 후 값 · 근거 · 시각) |
 | 도구 | Claude Code(시작 프롬프트 **R1**, 스크립트 `app/pipeline/01_apply.py`) · 막히면 엑셀 필터 · 표 만들기 |
 | 완료 체크 | 바꾼 행 수 = `buyer_changes`의 우리 카드 행 수 · 바뀐 값이 모두 `change_log`에 · 끝에 검산 3줄 |
@@ -25,7 +25,7 @@
 |---|---|
 | 미션 | 바뀐 데이터로 다시 점수를 매겨 등급을 재분류하고, 등급이 바뀐 이유를 설명한다 |
 | 받는 것 | ①의 `data/d6_{카드}_scored.csv` · 등급 경계(S < 0.0425 ≤ A < 0.0849 ≤ B < 0.1698 ≤ C) · (선택) 3일차 모델 |
-| 넘기는 것 | 등급 변동표 `out/grade_changes.csv`(바이어 · 전 등급 → 후 등급 · 새 PD · 사유 1줄) → ③ · ⑤ |
+| 넘기는 것 | 등급 변동표 `out/{카드}/grade_changes.csv`(바이어 · 전 등급 → 후 등급 · 새 PD · 사유 1줄) → ③ · ⑤ |
 | 도구 | Claude Code(시작 프롬프트 **R2**, `app/pipeline/02_regrade.py`) · 막히면 엑셀 근사 `PD_s = MIN(1, PD × pd_multiplier)` |
 | 완료 체크 | 바이어마다 사유 1줄 · 등급별 개수 전 · 후 · 쓴 경로(스크립트 / 엑셀 근사)를 README에 |
 | 사람이 결정할 것 | 등급은 권고 — 한도 · 보류 결정은 사람에게 넘긴다 |
@@ -37,10 +37,10 @@
 | 칸 | 내용 |
 |---|---|
 | 미션 | 한도를 다시 배분하고, 시나리오별 기대손실(EL) · 선적 보류 · 통지 기한 목록을 만들고, 오후에 팀 ROI 3안을 계산한다 |
-| 받는 것 | ②의 등급 변동표 · 팀 팩 `scenarios` · `limit_realloc` · `deadlines` · 4일차 한도 엔진(`ref/limits_lp.py`) · `roi_kpi_template.xlsx` |
-| 넘기는 것 | 한도 변경안 `out/limits_diff.csv`(감액 30% 이상 = 승인 필요) · EL 표(S0 대 카드 시나리오) · 경보 `out/alerts.csv`(기한이 지난 건이 맨 위) · `roi/roi_kpi.xlsx` → ⑤ |
-| 도구 | Claude Code(시작 프롬프트 **R3**) · PuLP 3.3.2(scipy HiGHS로 대조) · 엑셀(ROI 노란 칸) |
-| 완료 체크 | 목적함수 전 · 후 · 감액 30% 이상 빨간색 · EL 2열 · 보류 · 통지 목록 · ROI 3안(보수안부터) · 끝에 검산 3줄 |
+| 받는 것 | ②의 등급 변동표 · 팀 팩 `scenarios` · `limit_realloc` · `deadlines` · 4일차 입력(`data/input/d4_*.csv`) · 한도 엔진(`ref/limits_lp.py`) · 우리 카드 ROI 완성본(`roi_kpi_card{카드}.xlsx`) |
+| 넘기는 것 | 한도 변경안 `out/{카드}/limits_diff.csv`(감액 30% 이상 = 승인 필요) · EL 표(S0 대 카드 시나리오) · 경보 `out/{카드}/alerts.csv`(기한이 지난 건이 맨 위) · `roi/roi_kpi.xlsx` → ⑤ |
+| 도구 | Claude Code(시작 프롬프트 **R3** · 경보 **R3b** · 인젝트 **I1**) · PuLP 3.3.2(scipy HiGHS로 대조) · 엑셀(ROI 완성본 읽기) · ChatGPT · Claude(가장 약한 가정 **S5**) |
+| 완료 체크 | 목적함수 전 · 후 · 감액 30% 이상 빨간색 · EL 2열 이상 · 보류 · 통지 목록 · ROI 3안(보수안부터) + AI의 '가장 약한 가정'을 61_한칸민감도와 견준 1줄 · 끝에 검산 3줄 |
 | 사람이 결정할 것 | 한도 변경 · 선적 보류 · 해제(빨간색) |
 | 막히면 | 4일차 `scripts/limits_lp.py`가 없으면 `labs/day4/MODEL_SPEC.md`와 속성 테스트로 다시 만들거나, 등급 상한 규칙으로 근사 → 강사 정답본 |
 | 체크포인트 | CP2 한도 · EL · I-1 한 줄 · CP3 ROI 초안 |
@@ -50,7 +50,7 @@
 | 칸 | 내용 |
 |---|---|
 | 미션 | 조치마다 근거 조항을 찾고, 규정 충돌을 찾고, 팀 AI 사용 규칙서를 쓴다 |
-| 받는 것 | 팀의 질문(카드의 핵심 질문 5) · `rules/hanbit_credit_policy.md` · K-SURE 약관 Markdown(`local/` — 5일차에 받은 파일, **저장소에 올리지 않는다**) · SOP 초안 |
+| 받는 것 | 팀의 질문(카드의 핵심 질문 5) · `rules/hanbit_credit_policy.md`(킷에 들어 있다) · K-SURE 약관 PDF(공식 링크에서 받아 `local/` — **저장소에 올리지 않는다**, R4가 조문 Markdown으로 바꾼다) · SOP 초안 |
 | 넘기는 것 | 근거표 `docs/evidence.md`(질문 · 답 · 조항 · 원문 인용 · 상태) → ⑤ · `sop/ai_usage_rules.md`([P6-5](prompts.md#p6-5)) · SOP 검증 결과([P6-2](prompts.md#p6-2)) |
 | 도구 | Claude Code(시작 프롬프트 **R4**) · 검증은 **초안과 다른 모델**(ChatGPT 또는 Claude 웹) |
 | 완료 체크 | 조치마다 인용 2개 이상 · 인용문이 원문 파일에 글자 그대로 있는지 grep으로 확인 · "확인되지 않습니다"는 '확인 필요'로 · '15/1000' 일반화 0건 |
@@ -76,7 +76,7 @@
 | 칸 | 내용 |
 |---|---|
 | 미션 | 파일 받기 · README 5항목 · 이슈 · PR 병합 · 태그 `v0.5` · 릴리스 `v1.0`을 책임진다 |
-| 넘기는 것 | 09:28 `get_day_files.py 6` 후 우리 카드 · 팀 팩 커밋 · 역할 이슈 5개 · README(목적 · 구성 · 실행 방법 · 데이터 원천과 가상 여부 · 담당자) · `v0.5`(CP2) · `v1.0` + 릴리스 노트(P6-3) |
+| 넘기는 것 | 09:28 `get_day_files.py 6` 후 우리 카드(`cards/`) · 팀 팩과 4일차 입력(`data/input/`) 커밋 · 역할 이슈 5개 · README(목적 · 구성 · 실행 방법 · 데이터 원천과 가상 여부 · 담당자) · `v0.5`(CP2) · `v1.0` + 릴리스 노트(P6-3) |
 | 도구 | Claude Code(시작 프롬프트 **RA**, `gh`) · GitHub 웹 |
 | 완료 체크 | [`kit_checklist.md`](kit_checklist.md) — 폴더 6개 · 보안 3검색 · 새 폴더 재현 · 15:50 릴리스 링크 제출 |
 | 막히면 | `gh`가 막히면 GitHub 웹에서 같은 일을 한다. GitHub 전체가 막히면 혼자 올리고(팀원은 Drive · 오픈채팅으로 전달), 최악이면 zip 제출 |

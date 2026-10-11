@@ -9,6 +9,7 @@
 ## 환경
 - 처음 한 번 `uv sync` — `.venv`(Python 3.13)를 `uv.lock` 그대로 만든다. 실행은 `uv run python app/pipeline/…`.
 - 그날 파일 받기: `uv run python tools/get_day_files.py 6` (공개 시각마다 다시 실행하면 새로 공개된 파일만 더 온다).
+- 답은 한국어, 표는 Markdown 표로 쓴다.
 
 ## 우리 팀 규칙 (10시 첫 5분에 3줄을 적는다)
 - {예: data/의 원본은 고치지 않고 out/에 새 파일로 쓴다}

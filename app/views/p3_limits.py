@@ -80,4 +80,4 @@ s2.metric("채권 원화 가치(십억 원)", f"{row['krw_value_bn']:.2f}", delt
 s3.metric("금융비용(USD)", ui.money(row["finance_cost_usd"]))
 st.bar_chart(el.set_index("scenario_id")[["el_usd", "el_budget_usd"]])
 st.dataframe(el, hide_index=True)
-st.caption("EL_s = Σ 미결 잔액 × min(1, PD_g × 배수) × LGD_s × (1 − 보상비율·부보 시). PD 배수·LGD 상향은 교육용 가정(R09).")
+st.caption("EL_s = Σ 미결 잔액 × min(1, PD_g × 배수) × LGD_s × (1 − 보상비율·부보 시). PD 배수·LGD 상향은 교육용 가정.")

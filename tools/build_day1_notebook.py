@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Day1 Challenge 노트북 `labs/day1/d1_challenge.ipynb`를 nbformat으로 만든다(출력 없는 수강생용).
 
-정본: instructor/day1/DAY1_SPEC_v3.md 부록 B(Step 1–6 Challenge) · DAY1_OUTLINE.md §2(v2 Lab1·Lab2 Challenge), 03 Part2 §1.7.
+(v3 — 이번 과정은 쓰지 않는다) 1일차 Challenge 노트북(Step 1–6) 생성기.
 v3(2026-10-07): 섹션 안내의 실습 위치를 v2 Lab1·Lab2에서 v3 블록 A·B Step 번호로 바꿨다(계산 셀은 그대로).
 섹션: 0 준비 · A 공시 재무비율(SEC companyfacts) · B 인보이스 원장 EDA(d1_invoices) · C AI와 함께 확장 · D 셀프 체크.
 

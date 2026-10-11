@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 """Day2 Challenge 노트북 `labs/day2/d2_challenge.ipynb`를 nbformat으로 만든다(출력 없는 수강생용).
 
-정본: DAY2_SPEC_v3 부록 B(🟣 열)·§0.8(#1 AsOf 2026-08-31 · #2 P2-2 앵커 = D10 · #4 GDELT 행 없음 · #6 결측 대체)
-      · 03 Part2 §2.9(셀 구성) · 03 Part1 §4.9 · instructor/day2/answers/README.md(정의 1–7).
+(v3 — 이번 과정은 쓰지 않는다) 2일차 Challenge 노트북 — AsOf 2026-08-31 · 결측 대체 · 뉴스 점수 기준선. 정의는 강사 자료.
 섹션: 0 준비 · A 진단(수정 금지) · B 통화·금액·기준일 환율(merge_asof) · C 결측 대체(중앙값 + 표시 vs KNN)
       · D 스케일링은 파이프라인 안에서 · E 특성 공학(정본 열 이름, 기준일 2026-08-31 150행)
       · F 뉴스 점수 — LLM 없는 사전(lexicon) 기준선 + 골든셋 일치도 · G 집계·병합·저장 · H GDELT 톤 공식·(선택) Colab AI · I 셀프 체크

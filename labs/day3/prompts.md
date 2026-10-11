@@ -1,35 +1,34 @@
 # 3일차 프롬프트 — 실습 A · B
 
-오후 실습에서 쓰는 프롬프트 전문입니다. 슬라이드의 실습 장(A-1 · A-2 · B-1 · B-2)과 **단계가 같고**, 메모 프롬프트(B4)와 시연 프롬프트는 슬라이드와 **글자가 같습니다**. 복사 버튼 :material-content-copy: 으로 통째로 복사하고, `{중괄호}` 자리만 내 상황에 맞게 바꿔 붙여 넣습니다(중괄호 기호도 지웁니다).
+오후 실습에서 쓰는 프롬프트 전문입니다. 슬라이드의 실습 장(A-1 · A-2 · B-1 · B-2)과 **단계 번호가 같고**(예: 실습 B-1 · 02 = 슬라이드 B-1의 두 번째 줄), 메모 프롬프트(B4)와 시연 프롬프트는 슬라이드와 **글자가 같습니다**. 복사 버튼 :material-content-copy: 으로 통째로 복사하고, `{중괄호}` 자리만 내 상황에 맞게 바꿔 붙여 넣습니다(중괄호 기호도 지웁니다).
 
 | 쓰는 도구 | 어디서 | 이 페이지의 프롬프트 |
 |---|---|---|
-| **Claude Code** (VS Code 확장) | 내 저장소를 연 VS Code | [A0](#a0) · [A1](#a1) · [A2](#a2) · [A3](#a3) · [A4](#a4) · [A5](#a5) · [B1](#b1) · [B2](#b2) · [B3](#b3) · [B4](#b4) · [B5](#b5) · [B6](#b6) · [안 맞을 때](#mismatch) |
+| **Claude Code** (VS Code 확장) | 내 저장소를 연 VS Code | [A0](#a0) · [A1](#a1) · [A2](#a2) · [A3](#a3) · [A4](#a4) · [A5](#a5) · [B1](#b1) · [B1b](#b1b) · [B1c](#b1c) · [B1d](#b1d) · [B2](#b2) · [B3](#b3) · [B4](#b4) · [B5](#b5) · [B6](#b6) · [커밋 · push](#commit) · [안 맞을 때](#mismatch) |
 | **ChatGPT · Claude 웹** | 브라우저 새 대화 | 막혔을 때의 [채팅 경로](#chat-path) · 수업 뒤 다시 해 보는 [시연 프롬프트](#demos) |
 
 !!! success "오늘 파일은 모두 합성 데이터입니다 — AI 도구에 넣어도 됩니다"
-    오늘 쓰는 파일(`d3_start_features.csv` · `d3_features_panel.csv` · `d3_start_scoring.csv` · `fx_forecast_inputs.csv`)은 (가상) 한빛정밀(주)의 합성 데이터와 공개 환율입니다. ChatGPT · Claude에 올리거나 붙여 넣어도 됩니다.
+    오늘 쓰는 파일(`d3_start_features.csv` · `d3_features_panel.csv` · `d3_start_scoring.csv` · `fx_forecast_inputs.csv` · 완성본 `d3_grade_banding_example.xlsx` · `d3_grade_example.csv`)은 (가상) 한빛정밀(주)의 합성 데이터와 공개 환율입니다. ChatGPT · Claude에 올리거나 붙여 넣어도 됩니다.
     **회사 실데이터는 어떤 AI 도구에도 넣지 않습니다.** 익명화본도 마찬가지입니다 → [익명화 체크리스트](../setup.md#byod). 쓰는 AI의 '모델 개선(학습)' 설정은 끄고 시작합니다.
 
-!!! info "'3일차 작업 폴더' · 'outputs 폴더'는 어디인가"
-    프롬프트에 나오는 **3일차 작업 폴더**는 이 저장소에서 `workbench/day3/`입니다. `rules/`(오늘의 데이터 규칙 `d3_rules.md`) · `prompts/` · `data/`(오늘 파일의 작업 사본) · `outputs/`(결과)가 그 안에 있고, 재현 메모 `notes.md`만 폴더 바로 아래에 둡니다. 프롬프트의 **outputs 폴더**는 `workbench/day3/outputs/`입니다 — 저장소의 `CLAUDE.md`에 적혀 있어서 Claude Code가 먼저 읽습니다. 경로를 정확히 쓰고 싶으면 `outputs/…`를 `workbench/day3/outputs/…`로 바꿔 써도 됩니다.
+!!! info "'3일차 작업 폴더' · 'outputs 폴더' · 권한 모드"
+    프롬프트에 나오는 **3일차 작업 폴더**는 이 저장소에서 `workbench/day3/`입니다. `rules/`(오늘의 데이터 규칙 `d3_rules.md`) · `prompts/` · `data/`(오늘 파일의 작업 사본) · `outputs/`(결과)가 그 안에 있고, 재현 메모 `notes.md`만 폴더 바로 아래에 둡니다. 프롬프트의 **outputs 폴더**는 `workbench/day3/outputs/`입니다 — 저장소의 `CLAUDE.md`에 적혀 있어서 Claude Code가 먼저 읽습니다.
 
-!!! tip "권한 모드는 일의 성격에 맞춰 바꿉니다"
-    입력창 아래의 모드 표시기를 누르면 바뀝니다. 오늘은 **Plan**(계획만 · 파일을 고치지 못함)으로 시작해 계획을 읽고, 승인 창에서 **`2 Yes, and manually approve edits`**를 고르면 계획대로 실행합니다 — 파일을 쓰거나 명령을 돌릴 때마다 한 번씩 확인합니다. 맨 위 `use auto mode`는 고르지 않습니다. `2 … for this project`처럼 허락 범위를 넓히는 선택도 쓰지 않습니다.
+    **권한 모드**는 입력창 아래의 모드 표시기를 누르면 바뀝니다. 오늘은 **Plan**(계획만 · 파일을 고치지 못함)으로 시작해 계획을 읽고, 승인 창에서 **`2 Yes, and manually approve edits`**를 고르면 계획대로 실행합니다 — 파일을 쓰거나 명령을 돌릴 때마다 한 번씩 확인합니다. 맨 위 `use auto mode`와 `2 … for this project`처럼 허락 범위를 넓히는 선택은 쓰지 않습니다.
 
 ## 빈칸 값 {#values}
 
 | 빈칸 | 값 | 쓰는 곳 |
 |---|---|---|
 | `{FN비용}` | 내 회사 비용비의 앞 숫자 — `3`(3:1 → t 0.25) 또는 `10`(10:1 → t 0.09). 슬라이드의 기본은 5:1(t = 1/6 ≈ 0.17) | A4 |
-| `{내 t}` | 실습 A-2에서 정한 임계값(예: `0.17`). 시험 연체가 4건뿐이라 표의 최소 비용 t가 흔들리면 이론값 `0.17`(5:1)을 씁니다 | B2 |
-| `{id}` `{p}` `{g}` `{t}` | 근거 메모를 쓸 **C등급 1곳**의 buyer_id · pd_30d · 등급 · 내 t — B3 표에서 읽습니다 | B4 |
+| `{내 t}` | 실습 A-2에서 정한 임계값(예: `0.17`). 시험 연체가 4건뿐이라 표의 최소 비용 t가 흔들리면 이론값 `0.17`(5:1)을 씁니다 | B1c · B2 |
+| `{id}` `{p}` `{g}` `{t}` | 근거 메모를 쓸 **C등급 1곳**의 buyer_id · pd_30d · 등급 · 내 t — B3의 `d3_shap_table.csv`와 `d3_end_scored.csv`에서 읽습니다 | B4 |
 
 ## 프롬프트를 쓰는 습관 {#habits}
 
 1. **정의와 결정은 문장으로 준다** — 무엇이 정답(`late_30d`)인지, 어디서 나눌지(`split_suggested`), 비용비가 얼마인지는 사람이 정해 프롬프트에 적습니다. 그 문장이 곧 좋은 프롬프트입니다.
 2. **계획을 먼저 읽는다** — Plan 모드의 계획에서 금지 열 표 · 분할 · 만들어질 파일 이름을 확인한 뒤 승인합니다.
-3. **숫자는 코드가, 확인은 손으로** — 계산은 스크립트가 하고, 나는 한 줄이라도 직접 대조합니다(엑셀 · 확인표).
+3. **숫자는 코드가, 확인은 손으로** — 계산은 스크립트가 하고, 나는 한 줄이라도 직접 대조합니다(비용표 한 줄 · 완성본 엑셀).
 4. **틀리면 바로 고치게 하지 않는다** — "어느 쪽이 틀렸나"를 먼저 묻습니다([안 맞을 때](#mismatch)).
 5. **허락 창은 읽고 승인한다** — 무엇을 · 어디에 · 지우는지 세 가지를 읽고 `1 Yes`. 파일 삭제 · 강제 push · `git reset --hard`는 거절합니다.
 6. **AI 초안은 내 말로 고친다** — 근거 메모의 결론 · 확인할 것 · 한계는 AI가 쓴 그대로 두지 않습니다. 마지막 줄 '사람 승인 전 초안'이 그 약속입니다.
@@ -38,7 +37,7 @@
 
 ## A0 · 오늘의 규칙 읽히기 {#a0}
 
-**도구** Claude Code · **실습 A-1 ①** · 읽기만 합니다
+**도구** Claude Code · **실습 A-1 · 01** · 읽기만 합니다
 
 <!-- --8<-- [start:a0] -->
 ```text
@@ -56,7 +55,7 @@
 
 ## A1 · 데이터 카드 — Plan 모드로 {#a1}
 
-**도구** Claude Code · **모드 Plan** · **실습 A-1 ②** · 결과 `workbench/day3/outputs/d3_data_card.md`
+**도구** Claude Code · **모드 Plan** · **실습 A-1 · 02** · 결과 `workbench/day3/outputs/d3_data_card.md`
 
 <!-- --8<-- [start:a1] -->
 ```text
@@ -78,7 +77,7 @@
 
 ## A2 · 첫 모델 — 로지스틱과 LightGBM {#a2}
 
-**도구** Claude Code · **모드 Edit automatically(또는 Manual)** · **실습 A-1 ③** · 결과 `d3_train.py` · `d3_eval.md` · `d3_test_pred.csv` · `model_v1.txt`
+**도구** Claude Code · **모드 Edit automatically(또는 Manual)** · **실습 A-1 · 03** · 결과 `d3_train.py` · `d3_eval.md` · `d3_test_pred.csv` · `model_v1.txt`
 
 <!-- --8<-- [start:a2] -->
 ```text
@@ -103,7 +102,7 @@ workbench/day3/outputs/d3_train.py를 만들어 실행해.
 
 ## A3 · 누수 실험 — sample_weight를 넣으면 {#a3}
 
-**도구** Claude Code · **실습 A-1 ④** · 결과 `d3_eval.md`에 3줄 추가 + 코드 원상복구
+**도구** Claude Code · **실습 A-1 · 04** · 결과 `d3_eval.md`에 3줄 추가 + 코드 원상복구
 
 <!-- --8<-- [start:a3] -->
 ```text
@@ -123,25 +122,45 @@ workbench/day3/outputs/d3_train.py를 만들어 실행해.
 
 ---
 
+## 커밋 · push 맡기기 {#commit}
+
+**도구** Claude Code(또는 VS Code 소스 제어로 직접) · **실습 A-1 · 05 · A-2 · 05** · 커밋 메시지는 두 줄
+
+<!-- --8<-- [start:commit] -->
+```text
+workbench/day3/outputs/의 결과 파일만 커밋해 줘(메시지 두 줄: 첫 줄 '3일차: 무엇', 한 줄 비우고 '왜: 이유'). workbench/day3/data/의 사본은 커밋하지 마. 커밋하기 전에 파일 목록과 메시지를 먼저 보여 줘.
+```
+<!-- --8<-- [end:commit] -->
+
+<!-- --8<-- [start:commit-push] -->
+```text
+workbench/day3/outputs/의 바뀐 결과 파일만 커밋하고(메시지 두 줄: 첫 줄 '3일차: 무엇', 한 줄 비우고 '왜: 이유') d3-model 브랜치를 push해 줘. workbench/day3/data/의 사본은 커밋하지 마. 커밋하기 전에 파일 목록 · 메시지 · push할 브랜치를 먼저 보여 줘.
+```
+<!-- --8<-- [end:commit-push] -->
+
+**확인할 것** 허락 창에서 **파일 목록**(데이터 사본 없음) · **메시지 두 줄** · **브랜치 `d3-model`**(main이 아님)을 읽고 승인합니다. 소스 제어로 직접 할 때는 결과 파일만 `+`로 고르고 메시지 칸에 두 줄을 씁니다.
+
+---
+
 ## A4 · 비용으로 정하는 임계값 — Markdown 표 {#a4}
 
-**도구** Claude Code · **실습 A-2 ①–③** · 결과 `workbench/day3/outputs/d3_threshold.md`
+**도구** Claude Code · **실습 A-2 · 01–03** · 결과 `workbench/day3/outputs/d3_threshold.md`
 
 <!-- --8<-- [start:a4] -->
 ```text
-시험셋 예측(d3_test_pred.csv)으로 임계값 0.05~0.50(0.05 간격) 표를 만들어: TP · FN · FP · TN · 재현율 · 정밀도 · 비용(5×FN + FP).
-최소 비용 t와 이론값 1/6을 비교하고, 그 t에서 놓친 바이어(FN)의 buyer_id와 주요 특성 3개를 표로.
+시험셋 예측(d3_test_pred.csv)으로 임계값 0.05~0.50(0.05 간격) 표를 만들어: TP · FN · FP · TN · 재현율 · 정밀도 · 경보 수 · 비용(5×FN + FP).
+최소 비용 t와 이론값 1/6(≈ 0.17)을 비교하고, 최소 비용 t와 t = 0.17 두 곳에서 놓친 바이어(FN)의 buyer_id · ref_date · pd_30d와 주요 특성 3개(값 포함)를 표로.
 workbench/day3/outputs/d3_threshold.md로 저장해.
 ```
 <!-- --8<-- [end:a4] -->
 
-**어떻게 생겼나** 오전 시연 4(엑셀 시뮬레이터)를 **Markdown 표**로 줄인 것입니다. 비용 5 × FN + FP는 "놓친 연체 1건 = 헛경보 5건"이라는 사내 가정이고, 이론상 최적 임계값은 t = 1 ÷ (1 + 5) ≈ **0.17**입니다.
+**어떻게 생겼나** 오전 시연 4(엑셀 시뮬레이터)를 **Markdown 표**로 줄인 것입니다. 비용 5 × FN + FP는 "놓친 연체 1건 = 헛경보 5건"이라는 사내 가정이고, 이론상 최적 임계값은 t = 1 ÷ (1 + 5) ≈ **0.17**입니다. 놓친 바이어를 **두 곳(최소 비용 t와 0.17)**에서 보는 이유는, 시험 연체가 4건뿐이라 최소 비용 t에서는 놓친 바이어가 1곳뿐이어서 공통점을 찾을 수 없는 경우가 많기 때문입니다.
 
 **확인할 것**
 
-- 표가 `0.05, 0.10, … 0.50` 열 개 줄이고 비용 열이 `5 × FN + FP`와 같은지 계산해 봅니다.
+- 표가 `0.05, 0.10, … 0.50` 열 개 줄이고 비용 열이 `5 × FN + FP`와 같은지 **한 줄을 손으로** 계산해 봅니다(예: t = 0.50 줄의 FN과 FP로).
 - 최소 비용 t가 이론값 0.17과 **다르게 나와도 정상입니다.** 시험 연체가 4건뿐이라 비용이 계단처럼 움직이고(한 칸이 연체 1건), 표 전체가 몇 줄씩 같은 값일 수 있습니다. 최소 비용 t는 이 설정이면 0.10–0.25 근처가 나오는 사람이 많지만, 시드 · 특성 · 설정에 따라 0.05나 0.30 이상이 나오기도 합니다. 차이를 **한 줄로** 적는 것이 오늘의 연습입니다.
-- 놓친 바이어(FN)의 특성 세 개를 나란히 보고, 모델이 무엇을 못 보는지 오전 '한계' 장의 내용과 맞는지 생각해 봅니다(공통점 2줄).
+- 놓친 바이어(FN)의 특성 세 개를 나란히 보고, 모델이 무엇을 못 보는지 오전 '한계' 장의 내용과 맞는지 생각해 봅니다(공통점 2줄). 주요 특성은 연체 · 잔액 관련 열(`oldest_open_days` · `max_dpd_180d` · `pct_current` · `overdue_amount_usd`)이 읽기 쉽습니다.
 
 **내 회사 비용비로 다시** — 놓친 연체가 내 회사에서는 헛경보 몇 건만큼 아픈지 정해 한 번 더 돌립니다. 3:1이면 t = 0.25, 10:1이면 t ≈ 0.09입니다([빈칸 값](#values)).
 
@@ -151,11 +170,13 @@ workbench/day3/outputs/d3_threshold.md로 저장해.
 ```
 <!-- --8<-- [end:a4-cost] -->
 
+3:1인데 표의 최소 비용 t가 5:1과 같게 나오는 일이 흔합니다(같은 계단) — 그때는 **이론 t와 그 t에서의 경보 수** 쪽 변화를 씁니다. 10:1의 이론 t 0.09는 0.05 간격 표에 없으니 "이론 t 행을 한 줄 더해 줘"라고 덧붙여도 됩니다.
+
 ---
 
 ## A5 · 트랙 확장 — 표준 · 도전 {#a5}
 
-**도구** Claude Code · **실습 A-2 ④** · 빨리 끝난 분이 이어 갑니다(기본 트랙은 A4까지)
+**도구** Claude Code · **실습 A-2 · 04** · 빨리 끝난 분이 이어 갑니다(기본 트랙은 A4까지)
 
 **표준 — 패널로 시간 분할.** 4,017행 패널로 같은 실험을 시간 기준으로 해서, 표본이 커지면 숫자가 얼마나 안정되는지 봅니다.
 
@@ -189,7 +210,7 @@ worktree는 VS Code **소스 제어 › … › Worktrees › Create Worktree**(
 
 ## B1 · 150곳 점수 {#b1}
 
-**도구** Claude Code · **실습 B-1 ①** · 결과 `workbench/day3/outputs/d3_scores.csv`
+**도구** Claude Code · **실습 B-1 · 01** · 결과 `workbench/day3/outputs/d3_scores.csv`
 
 <!-- --8<-- [start:b1] -->
 ```text
@@ -201,45 +222,118 @@ model_v1.txt(또는 내 최종 모델)로 @d3_start_scoring.csv 150곳의 pd_30d
 
 **확인할 것** `d3_scores.csv`가 **150행 · 3열**이고 `pd_30d`가 0~1 사이인지 봅니다. 대부분의 바이어가 0에 가깝고 일부만 높은 쌍봉 모양이 정상입니다.
 
+**실습 A를 못 끝내 `model_v1.txt`가 없으면** — 완성본의 점수를 내 점수 대신 써서 B-1 · 02부터 이어 갑니다(B2를 보낼 때 `model_version`은 `'day3_example'`로 바꿉니다).
+
+<!-- --8<-- [start:b1-late] -->
+```text
+workbench/day3/outputs/d3_scores.csv가 아직 없어. @d3_grade_example.csv 의 buyer_id · ref_date · pd_30d 세 열만 workbench/day3/outputs/d3_scores.csv로 저장해 줘(완성본의 점수를 내 점수 대신 쓴다). 원본은 고치지 마.
+```
+<!-- --8<-- [end:b1-late] -->
+
+---
+
+## B1b · 완성본 엑셀 읽기 {#b1b}
+
+**도구** Claude Code + 엑셀 · **실습 B-1 · 02** · 읽기만 합니다 · 짝 파일 `labs/day3/d3_grade_banding_example.xlsx`(완성본)
+
+슬라이드의 B-1 · 02–04(붙여넣기 → t 입력 → IFS → 채우기 핸들 → 조건부 서식 → 피벗 → 단조성 붙여넣기)는 수업에서 **완성본을 열어 읽는 것**으로 대신합니다. 완성본을 엑셀로 열어 보면서 AI에게도 같은 파일을 읽혀 **어떻게 만들었는지 설명하게 하고, 내가 엑셀에서 본 것과 대조**합니다.
+
+<!-- --8<-- [start:b1b] -->
+```text
+@d3_grade_banding_example.xlsx 를 읽기만 하고(파일은 고치지 마), 이 엑셀이 어떻게 만들어졌는지 표로 설명해 줘.
+① 이름 t가 가리키는 칸과 값 ② pred 시트 grade 열(D열)의 수식을 셀 주소와 함께 글자 그대로 — 어떤 순서로 검사하고, A부터 검사하게 바꾸면 무엇이 틀어지나
+③ 조건부 서식 규칙(범위 · 조건 · 색) ④ 기준 시트 등급 분포 표가 세는 것과 그 값 ⑤ 단조성 시트의 표와 판정 문구 수식.
+수식과 저장된 값을 나란히 보여 줘.
+```
+<!-- --8<-- [end:b1b] -->
+
+**어떻게 생겼나** 완성본은 수식과 **계산값을 함께** 저장해 두어서, AI가 파이썬으로 읽어도(`openpyxl`) 엑셀이 계산한 값이 보입니다. AI는 엑셀 화면을 직접 보지 못하니 **색 · 칸 위치는 사람이 엑셀에서** 확인합니다.
+
+**확인할 것** AI의 설명과 내가 엑셀에서 본 것이 같은가 — 이름 `t`가 `기준!B3`(노란 칸)인지, `pred!D2` 수식이 **C부터** 검사하는지, 분포 표가 `COUNTIF`로 세는지(피벗 테이블로 세어도 같은 숫자), 단조성 판정 문구가 `단조성!H7`에 있는지.
+
+---
+
+## B1c · 내 점수로 등급 분포 — 완성본과 대조 {#b1c}
+
+**도구** Claude Code · **실습 B-1 · 03** · 결과 `workbench/day3/outputs/d3_grade_compare.md`('분포' 절)
+
+<!-- --8<-- [start:b1c] -->
+```text
+t = 0.17로 C ≥ t, B ≥ t/2, A ≥ t/4, 나머지 S 규칙(엑셀처럼 C부터 검사)을 내 workbench/day3/outputs/d3_scores.csv에 적용해 등급별 곳 수와 비율을 표로 보여 줘.
+같은 표에 완성본 @d3_grade_example.csv(엑셀 완성본의 pred 시트, t = 0.17)의 등급 분포를 나란히 놓고, 다르면 점수 차이 때문인지 규칙 차이 때문인지 2줄로 써.
+내 t가 0.17이 아니면 내 t({내 t})로 센 분포도 한 줄 더해. 결과는 workbench/day3/outputs/d3_grade_compare.md의 '분포' 절로 저장해.
+```
+<!-- --8<-- [end:b1c] -->
+
+**어떻게 생겼나** 인쇄본의 '조건부 서식 → 피벗으로 등급 분포'를 **AI 계산 + 완성본 대조**로 바꾼 것입니다. 완성본의 분포(엑셀 `COUNTIF` = 피벗과 같은 값)와 AI가 내 점수로 센 분포를 한 표에 놓습니다.
+
+**(선택) 내 점수로 엑셀을 다시 채우기** — 같은 점수 · 같은 규칙을 **엑셀과 AI가 각각 계산**하게 해서, 원래 설계의 '엑셀 vs AI' 대조를 손작업 없이 합니다.
+
+<!-- --8<-- [start:b1c-mine] -->
+```text
+labs/day3/d3_grade_banding_example.xlsx를 workbench/day3/outputs/d3_grade_banding_mine.xlsx로 복사해서, pred 시트 A2:C151은 내 d3_scores.csv 값으로, 단조성 시트 A–D열(2행부터)은 내 d3_test_pred.csv 값으로 바꾸고(남는 행은 비워) 기준!B3(이름 t)에 0.17을 넣어 줘.
+수식 · 조건부 서식 · 이름은 그대로 두고, 엑셀이 열 때 다시 계산하도록(fullCalcOnLoad) 저장해. labs/의 원본은 고치지 마.
+```
+<!-- --8<-- [end:b1c-mine] -->
+
+**확인할 것** 분포가 완성본과 같으면 "같은 설정 · 같은 점수"라는 뜻이고, 다르면 2줄의 이유(점수 차이인가 · 규칙 차이인가)가 그 답입니다. `d3_grade_banding_mine.xlsx`는 **엑셀로** 열어야 숫자가 보입니다(미리보기 앱은 빈칸 — 엑셀이 열 때 계산합니다).
+
+---
+
+## B1d · 단조성 — 내 시험셋 {#b1d}
+
+**도구** Claude Code · **실습 B-1 · 04** · 결과 `d3_grade_compare.md`('단조성' 절)
+
+<!-- --8<-- [start:b1d] -->
+```text
+workbench/day3/outputs/d3_test_pred.csv(시험 88행)에 t = 0.17 등급을 붙여 등급별 행 수 · 연체 수 · 실제 연체율 표를 만들고, S < A < B < C 순서인지 판정해 줘. 행이 5개 미만인 등급은 '표본 적음'으로 표시해.
+완성본 @d3_grade_banding_example.xlsx 의 단조성 시트 표와 나란히 놓고, 같은지 · 다르면 왜인지 2줄로. d3_grade_compare.md에 '단조성' 절로 이어 써.
+```
+<!-- --8<-- [end:b1d] -->
+
+**확인할 것** 표를 **건수와 함께** 읽고 S와 C부터 비교합니다. 시험 연체가 4건뿐이라 A · B는 몇 행뿐이고 연체율이 0%나 50%로 뜁니다 — 오전 시연 4의 엑셀도 A가 작아서 ✗가 떴습니다. 건수가 충분한 등급끼리(S와 C) 순서가 뒤집히면 등급 규칙을 업무에 쓸 수 없으니 t와 규칙 순서를 다시 봅니다.
+
 ---
 
 ## B2 · AI 대조 — 엑셀과 다른 행 찾기 {#b2}
 
-**도구** Claude Code + 엑셀 · **실습 B-1 ⑤** · 결과 `workbench/day3/outputs/d3_end_scored.csv`(150행 · 6열 · UTF-8)
-
-먼저 엑셀(`d3_grade_banding.xlsx`)에서 손으로 등급을 매기고 결과를 `d3_grade_excel.csv`로 저장해 둡니다([실습 B-1](../day3/lab-b.md#b-excel)). 그다음 보냅니다.
+**도구** Claude Code · **실습 B-1 · 05** · 결과 `workbench/day3/outputs/d3_end_scored.csv`(150행 · 6열 · UTF-8) + `d3_grade_compare.md`('대조' 절)
 
 <!-- --8<-- [start:b2] -->
 ```text
-t = {내 t}로 C ≥ t, B ≥ t/2, A ≥ t/4, 나머지 S 규칙을 d3_scores.csv에 적용해 등급 분포를 보여 주고, 엑셀에서 저장한 d3_grade_excel.csv와 한 행씩 견줘 다른 행을 찾아 줘. 최종 d3_end_scored.csv 6열(buyer_id, ref_date, pd_30d, grade, threshold_used, model_version='day3_my_v1')을 UTF-8로 workbench/day3/outputs/에 저장해.
+① 규칙 점검: 완성본 @d3_grade_example.csv 의 pd_30d에 t = 0.17 규칙(C ≥ t, B ≥ t/2, A ≥ t/4, 나머지 S — C부터)을 적용해, 엑셀의 grade와 150행이 모두 같은지 확인해.
+② 내 workbench/day3/outputs/d3_scores.csv에도 t = 0.17로 같은 규칙을 적용하고, 완성본 등급과 buyer_id로 한 행씩 견줘 다른 행을 표로 보여 줘(buyer_id · 내 pd_30d · 완성본 pd_30d · 내 등급 · 완성본 등급 · 가장 가까운 경계와의 거리 · 이유: 점수 차이 / 경계 옆).
+③ 최종 파일은 t = {내 t}로: workbench/day3/outputs/d3_end_scored.csv 6열(buyer_id, ref_date, pd_30d, grade, threshold_used, model_version='day3_my_v1')을 UTF-8로 저장하고 행 · 열 수를 출력해.
+①·②의 결과는 d3_grade_compare.md에 '대조' 절로 이어 써.
 ```
 <!-- --8<-- [end:b2] -->
 
-**어떻게 생겼나** "엑셀과 AI 결과가 한 행이라도 다르면 어느 쪽을 믿는가?" — 둘 다 바로 믿지 않습니다. 다른 행의 `pd_30d`가 **경계값 바로 옆**인지, **반올림** 때문인지 먼저 봅니다.
+**어떻게 생겼나** "엑셀과 AI 결과가 한 행이라도 다르면 어느 쪽을 믿는가?" — **둘 다 바로 믿지 않습니다.** ①은 규칙이 같은지(엑셀의 IFS = AI의 규칙), ②는 점수가 같은지를 따로 봅니다. 다른 행은 그 행의 `pd_30d`가 **경계값(t/4 · t/2 · t) 바로 옆**인지, **반올림** 때문인지부터 봅니다.
 
-**확인할 것** 다른 행이 **0개**이거나, 다르면 경계(`t/4` · `t/2` · `t`) 옆의 행인지 봅니다. 최종 파일은 첫 줄이 `buyer_id,ref_date,pd_30d,grade,threshold_used,model_version`이고 **150행**이어야 합니다. 등급 분포는 **S가 대부분(125곳 넘게)** · C는 15–20곳 안팎입니다(A2 설정 그대로면 16–18곳 — 설정 · 특성을 바꾸면 10–25곳까지 달라집니다).
+**확인할 것** ① 150/150 일치 ② 다른 행이 **0개**이거나, 다르면 경계 옆의 행인지 ③ 최종 파일 첫 줄이 `buyer_id,ref_date,pd_30d,grade,threshold_used,model_version`이고 **150행 · 6열**. 등급 분포는 **S 대다수 · C 15–20곳 안팎**이 정상입니다(설정 · 특성을 바꾸면 10–25곳까지 달라집니다).
 
 ---
 
 ## B3 · SHAP — 전역 상위 10과 C등급 1곳의 워터폴 {#b3}
 
-**도구** Claude Code · **실습 B-2 ①** · 결과 PNG 2장 + 기여 표
+**도구** Claude Code · **실습 B-2 · 01** · 결과 PNG 2장 · `d3_shap_table.csv` · `d3_shap_global_top8.csv`
 
 <!-- --8<-- [start:b3] -->
 ```text
-내 LightGBM으로 150곳 SHAP 값을 계산해(pred_contrib=True). ① 전역 평균 |SHAP| 상위 10 막대(한글 특성명) ② C등급 중 pd_30d가 가장 높은 1곳의 워터폴 ③ 그 바이어의 위험을 올린 요인 상위 3과 낮춘 요인 상위 2 표(특성 · 값 · 기여)를 d3_shap_table.csv로. PNG는 workbench/day3/outputs/에 저장하고, 한글 글꼴은 CLAUDE.md의 것을 써.
+내 LightGBM(model_v1.txt)으로 150곳 SHAP 값을 계산해(pred_contrib=True, 학습 때와 같은 특성 처리). ① 전역 평균 |SHAP| 상위 10 막대 → d3_shap_global.png ② C등급 중 pd_30d가 가장 높은 1곳의 워터폴 → d3_shap_waterfall.png ③ 그 바이어의 위험을 올린 요인 상위 3과 낮춘 요인 상위 2 표(특성 · 값 · 기여) → d3_shap_table.csv ④ 전역 상위 8 특성(한글명 · 평균 |SHAP|) → d3_shap_global_top8.csv.
+한글 특성명은 data/data_dictionary.xlsx columns 시트의 '한글명'을 쓰고, 그림의 한글 글꼴은 CLAUDE.md의 것을 써. 파일은 모두 workbench/day3/outputs/에 저장해.
 ```
 <!-- --8<-- [end:b3] -->
 
-**어떻게 생겼나** 오전 시연 5의 첫 프롬프트를 **내 모델 · 바이어 1곳**으로 줄인 것입니다. LightGBM의 `pred_contrib=True`로 계산하므로 별도 패키지가 필요 없습니다. 기여의 단위는 **로그오즈**(확률이 아님)라서, 막대 숫자를 확률로 읽지 않습니다.
+**어떻게 생겼나** 오전 시연 5의 첫 프롬프트를 **내 모델 · 바이어 1곳**으로 줄인 것입니다. LightGBM의 `pred_contrib=True`로 계산하므로 별도 패키지가 필요 없습니다. 기여의 단위는 **로그오즈**(확률이 아님)라서, 막대 숫자를 확률로 읽지 않습니다. 한글 이름을 데이터 사전에서 가져오게 해서 사람마다 이름이 달라지지 않게 했습니다.
 
-**확인할 것** PNG 2장(전역 상위 10 · 워터폴)과 `d3_shap_table.csv`가 생겼는지, 막대 이름이 **'한글 특성명 = 값'**으로 읽히는지 봅니다. 위험을 올린 막대가 가장 크게 보이는 바이어가 오늘의 C등급 1곳입니다 — 그 `buyer_id` · `pd_30d`를 메모해 B4에 씁니다.
+**확인할 것** PNG 2장(전역 상위 10 · 워터폴)과 표 2개가 생겼는지, 막대 이름이 **'한글 특성명 = 값'**으로 읽히는지 봅니다. 워터폴의 바이어가 오늘의 C등급 1곳입니다 — 그 `buyer_id` · `pd_30d`를 메모해 B4에 씁니다. 오전 시연 5의 그림(B118)과 바이어 · 숫자가 다른 것은 정상입니다(강사 모델은 다른 데이터로 학습).
 
 ---
 
 ## B4 · 근거 메모 5칸 {#b4}
 
-**도구** Claude Code 또는 ChatGPT · Claude 새 대화 · **실습 B-2 ②** · 결과 `workbench/day3/outputs/d3_shap_memo.md`
+**도구** Claude Code 또는 ChatGPT · Claude 새 대화 · **실습 B-2 · 02** · 결과 `workbench/day3/outputs/d3_shap_memo.md`
 
 <!-- --8<-- [start:b4] -->
 ```text
@@ -253,22 +347,38 @@ t = {내 t}로 C ≥ t, B ≥ t/2, A ≥ t/4, 나머지 S 규칙을 d3_scores.cs
 ```
 <!-- --8<-- [end:b4] -->
 
-Claude Code로 보낼 때는 `[입력]`의 기여 표 자리에 파일을 적어도 됩니다 — 예: `이 바이어의 기여 표는 @d3_shap_table.csv, 등급과 pd_30d는 @d3_end_scored.csv`.
+**Claude Code로 보낼 때 덧붙이는 한 줄** — B4 본문은 그대로 두고 맨 끝에 붙입니다. `[입력]`의 숫자를 파일에서 읽게 하고 결과 파일 이름을 정합니다.
+
+<!-- --8<-- [start:b4-cc] -->
+```text
+[입력]의 기여 표는 @d3_shap_table.csv, 전역 상위 8은 @d3_shap_global_top8.csv, pd_30d · 등급 · 임계값은 workbench/day3/outputs/d3_end_scored.csv에서 읽고, 결과는 workbench/day3/outputs/d3_shap_memo.md로 저장해.
+```
+<!-- --8<-- [end:b4-cc] -->
+
+18:00 뒤에는 강사 기준 `data/checkpoints/d3_end_scored.csv`(이름이 같은 비교용 파일)도 생기므로, `@d3_end_scored.csv` 대신 위처럼 **전체 경로**를 씁니다.
 
 **어떻게 생겼나** 오전 시연 5의 위원회 슬라이드 프롬프트를 **Markdown 메모 5칸**으로 줄인 것입니다. 뼈대는 같습니다 — **역할 · 입력 · 출력 · 규칙.** 결론을 세 가지 중에서 고르게 한 것도 의도입니다(자유롭게 쓰게 하면 '즉시 거래 중단' 같은 과한 표현이 나옵니다).
 
-**끝난 뒤** AI가 쓴 초안을 `d3_shap_memo.md`로 저장하고 **결론 · 확인할 것 · 한계는 내 말로 고칩니다.** AI는 초안을 빨리 만들었고, 책임 있는 문장은 사람이 씁니다. 양식이 필요하면 `labs/day3/d3_shap_report_template.docx`(같은 5칸 + 그림 2칸)를 씁니다.
+**끝난 뒤** 초안을 `d3_shap_memo.md`로 받고 **결론 · 확인할 것 · 한계는 내 말로 고칩니다.** AI는 초안을 빨리 만들었고, 책임 있는 문장은 사람이 씁니다.
 
 **확인할 것**
 
 - 메모의 **모든 숫자가 입력에 있는 숫자**인지 한 줄씩 대조합니다. 입력에 없는 숫자나 "~ 때문에 연체한다" 같은 인과 문장이 있으면 "입력에 없는 사실은 지우고 '입력에 없음'으로 바꿔라" 또는 "'때문에 연체한다'를 '모델이 위험을 높게 본 근거'로 고쳐라"라고 시킵니다.
 - 위험을 **올린** 요인과 **낮춘** 요인의 부호가 뒤바뀌지 않았는지, 마지막 줄이 **'사람 승인 전 초안'**인지 봅니다.
 
+**(선택) Word 양식이 필요하면 — 손으로 옮기지 않습니다.** 메모를 다 고친 뒤 보냅니다.
+
+<!-- --8<-- [start:b4-docx] -->
+```text
+labs/day3/d3_shap_report_template.docx를 workbench/day3/outputs/d3_shap_memo.docx로 복사해서, @workbench/day3/outputs/d3_shap_memo.md 의 내용을 양식의 같은 이름 칸(① 결론 1문장 ~ ⑤ 한계 3줄)에 글자 그대로 옮겨 줘(python-docx). 그림 1 · 그림 2 칸에는 d3_shap_global.png · d3_shap_waterfall.png를 넣어. 문장은 고치지 말고 labs/의 원본 양식은 건드리지 마.
+```
+<!-- --8<-- [end:b4-docx] -->
+
 ---
 
 ## B5 · 환율 위험 구간 {#b5}
 
-**도구** Claude Code · **실습 B-2 ③** · 결과 `workbench/day3/outputs/d3_fx.md` · `d3_fx.png`
+**도구** Claude Code · **실습 B-2 · 03** · 결과 `workbench/day3/outputs/d3_fx.md` · `d3_fx.png`
 
 <!-- --8<-- [start:b5] -->
 ```text
@@ -278,13 +388,13 @@ Claude Code로 보낼 때는 `[입력]`의 기여 표 자리에 파일을 적어
 
 **어떻게 생겼나** 오전 시연 2(환율 위험 구간)의 축소판입니다. 제공된 CSV로 5월 29일까지 학습하고, 이후 구간을 예측해 **실제값이 95% 구간 안에 들어왔는지** 봅니다. ETS는 이미 설치된 statsmodels로 바로 되고, Prophet은 먼저 `uv sync --group forecast`로 받아야 합니다 — 시간이 빠듯하면 ETS로 합니다.
 
-**확인할 것** **6월 5일 1,555.96원은 95% 구간 밖**입니다(ETS · ARIMA · Prophet 모두). 포함률은 모델마다 다릅니다 — 주 단위 ETS 약 47%, 일 단위 ARIMA 약 56%, Prophet 약 29%. 날짜 형식이 어긋나면 그래프가 이상해지니 `date` 열이 날짜로 읽혔는지 봅니다. **표준**: 주평균(월요일 시작)으로 바꿔 ETS를 비교합니다(약 17주). **도전**: ARIMA까지 3모델의 포함률 표.
+**확인할 것** **6월 5일 1,555.96원은 95% 구간 밖**입니다 — 어떤 모델을 골라도 같습니다. 포함률은 모델 · 단위에 따라 다릅니다: Claude Code가 흔히 고르는 **일 단위 ETS는 약 65–72%**, 주 단위 ETS 약 47%, 일 단위 ARIMA 약 56%, Prophet 약 29%(오전 시연 2). 모두 95%보다 낮은 것이 이 시연의 요점입니다. 날짜 형식이 어긋나면 그래프가 이상해지니 `date` 열이 날짜로 읽혔는지 봅니다. **표준**: 주평균(월요일 시작)으로 바꿔 ETS를 비교합니다(약 17주). **도전**: ARIMA까지 3모델의 포함률 표.
 
 ---
 
 ## B6 · 재현 메모 · 커밋 · PR {#b6}
 
-**도구** Claude Code 또는 VS Code 소스 제어 · **실습 B-2 ④–⑤ (16:45)** · 결과 `workbench/day3/notes.md` · PR 링크
+**도구** Claude Code 또는 VS Code 소스 제어 · **실습 B-2 · 04–05 (16:45)** · 결과 `workbench/day3/notes.md` · PR 링크
 
 <!-- --8<-- [start:b6-notes] -->
 ```text
@@ -294,11 +404,11 @@ workbench/day3/notes.md에 재현 메모를 써 줘: 시드 · 패키지 버전(
 
 <!-- --8<-- [start:b6-pr] -->
 ```text
-지금까지의 변경을 커밋해 줘(메시지 두 줄: 첫 줄 '3일차: 무엇', 한 줄 비우고 '왜: 이유'). d3-model 브랜치를 push한 뒤 PR을 만들어 줘. 제목은 '3일차: 연체 확률 모델 · 등급 · 근거 메모', 본문에는 무엇 / 왜와 시험 AUC · t · C등급 곳 수를 적어.
+지금까지의 변경을 커밋해 줘(메시지 두 줄: 첫 줄 '3일차: 무엇', 한 줄 비우고 '왜: 이유'). workbench/day3/outputs/와 workbench/day3/notes.md만 올리고 workbench/day3/data/의 사본은 커밋하지 마. d3-model 브랜치를 push한 뒤 PR을 만들어 줘. 제목은 '3일차: 연체 확률 모델 · 등급 · 근거 메모', 본문에는 무엇 / 왜와 시험 AUC · t · C등급 곳 수를 적어.
 ```
 <!-- --8<-- [end:b6-pr] -->
 
-**확인할 것** 허락 창의 명령에서 **커밋 메시지가 두 줄인지**, **어느 브랜치로 push하는지**(`d3-model`, `main`이 아님)를 읽고 승인합니다. 컴퓨터에 GitHub CLI(`gh`)가 없으면 PR 만들기에서 멈춥니다 — GitHub 저장소 화면 위쪽의 **Compare & pull request** 단추로 만듭니다. 머지는 **내 손으로** 누릅니다.
+**확인할 것** 허락 창의 명령에서 **커밋 메시지가 두 줄인지**, **어느 브랜치로 push하는지**(`d3-model`, `main`이 아님), 올리는 파일에 `workbench/day3/data/` 사본이 없는지 읽고 승인합니다. 컴퓨터에 GitHub CLI(`gh`)가 없으면 PR 만들기에서 멈춥니다 — GitHub 저장소 화면 위쪽의 **Compare & pull request** 단추로 만듭니다. 머지는 **내 손으로** 누릅니다.
 
 **저장 확인(16:45)** `workbench/day3/outputs/d3_end_scored.csv`가 **150행 · 6열 · UTF-8**인지, `notes.md`가 있는지 봅니다. 개인 저장소가 공개면 짝이 바로 코멘트할 수 있고, 비공개면 1일차에 초대한 짝만 볼 수 있습니다 — 초대하지 않았다면 PR 본문에 짝의 `@아이디`를 적습니다.
 
@@ -330,15 +440,12 @@ Claude Code 계정이 없거나(무료 플랜은 쓸 수 없습니다) 확장이
 | 대화 환경에 LightGBM이 없다 | "scikit-learn의 HistGradientBoostingClassifier(min_samples_leaf=5, max_iter=200, learning_rate=0.05)로 바꿔 줘"를 한 줄 덧붙입니다(같은 그래디언트 부스팅 계열 — 기본값 `min_samples_leaf=20`이면 작은 표에서 `sample_weight` 누수가 보이지 않습니다) |
 
 - **A 대체**: A1–A4를 같은 순서로 보냅니다. 대화가 길어지면 새 대화에서 `d3_start_features.csv`를 다시 올리고 결과 표만 붙여 이어 갑니다.
-- **B-1 대체**: 대화 환경이 초기화됐을 수 있으니 **"모델 학습 + 150곳 점수"를 한 프롬프트로** 보냅니다 — `d3_start_features.csv`와 `d3_start_scoring.csv`를 함께 올리고 A2의 ①–③에 "학습한 모델로 150곳의 pd_30d를 계산해 `d3_scores.csv`로 내려받게 해 줘"를 이어 붙입니다. 등급 매칭은 엑셀로 끝낼 수 있습니다.
+- **B-1 대체**: 대화 환경이 초기화됐을 수 있으니 **"모델 학습 + 150곳 점수"를 한 프롬프트로** 보냅니다 — `d3_start_features.csv`와 `d3_start_scoring.csv`를 함께 올리고 A2의 ①–③에 "학습한 모델로 150곳의 pd_30d를 계산해 `d3_scores.csv`로 내려받게 해 줘"를 이어 붙입니다. 등급(B-1 · 02–05)은 완성본 엑셀을 엑셀(또는 웹용 Excel)로 열어 보고, 대화에는 `d3_grade_example.csv`의 **내용을 붙여 넣어**(업로드 3개 한도) B1c · B1d · B2와 같은 문장을 보냅니다 — 최종 6열 CSV를 내려받습니다.
 - **B-2 대체**: SHAP은 계산이 필요해서, 저장소의 **`labs/day3/shap_sample_3buyers.csv`**(B118 · B005 · B085의 점수 · 등급 · 위험을 올린 상위 3과 낮춘 상위 2 — 강사 모델 값)를 대화에 붙이고 B4를 보냅니다. 전역 상위 8 특성은 아래를 `[입력]`에 그대로 씁니다. 환율은 ChatGPT에 `fx_forecast_inputs.csv`를 올려 B5와 같은 질문을 합니다.
 
   `전역 상위 8(평균 |SHAP|, 강사 모델): 연체 잔액 0.56 · 31일+ 잔액 비중 0.53 · 미연체 잔액 비중 0.47 · 최장 미결 연체일 0.26 · DPD 추세 0.15 · 연체 비율(180일) 0.14 · 신용도 점수 0.14 · 분쟁 비율(1년) 0.12`
 
-- **올리기**: 결과 표를 Markdown으로 받아 GitHub 웹의 **Add file → Upload files**로 `workbench/day3/outputs/`에 올립니다(순서는 [실습 B의 채팅 경로](../day3/lab-b.md#chat-path)).
-
-!!! warning "데이터 위생"
-    오늘 파일은 합성 데이터라 올려도 됩니다. 회사 실데이터는 익명화한 것이라도 올리지 않습니다. 쓰는 AI의 '모델 개선(학습)' 설정은 끄고 시작합니다.
+- **올리기**: 결과 표를 Markdown으로 받아 GitHub 웹의 **Add file → Upload files**로 `workbench/day3/outputs/`에 올립니다(순서는 [실습 B의 채팅 경로](../day3/lab-b.md#chat-path)). Upload files는 `.gitignore`를 보지 않으니 올리기 전에 파일 이름과 내용을 한 번 봅니다.
 
 ---
 
@@ -448,7 +555,7 @@ B118 여신위원회 보고 슬라이드 3장을 만들어 줘.
 
 ### 시연 6 · 실험 기록과 PR 자동 검증 — Claude Code + MLflow + GitHub Actions {#demo-6}
 
-8교시 시연입니다. `params.yaml` · `src/train.py` · 품질 게이트 워크플로가 든 **시연용 저장소**가 있어야 하므로, 수업 뒤에는 `labs/day3/quality_gate/`(17:40 공개)를 내 저장소에 붙여 같은 흐름을 해 봅니다. 프롬프트는 세 번에 나눠 보내고, 명령 승인 창은 끝까지 읽고 `1 Yes`를 누릅니다(`2 … for this project`는 고르지 않습니다). 병합 버튼은 사람이 누릅니다.
+8교시 시연입니다. `params.yaml` · `src/train.py` · 품질 게이트 워크플로가 든 **시연용 저장소**가 있어야 하므로, 수업 뒤에는 `labs/day3/quality_gate/`(`get_day_files.py 3`이 받는다)를 내 저장소에 붙여 같은 흐름을 해 봅니다. 프롬프트는 세 번에 나눠 보내고, 명령 승인 창은 끝까지 읽고 `1 Yes`를 누릅니다(`2 … for this project`는 고르지 않습니다). 병합 버튼은 사람이 누릅니다.
 
 <!-- --8<-- [start:demo-6] -->
 ```text
@@ -469,3 +576,4 @@ B118 여신위원회 보고 슬라이드 3장을 만들어 줘.
 | 판 | 날짜 | 바뀐 것 |
 |---|---|---|
 | v4 | 2026-10-08 | VS Code + Claude Code + Git/GitHub 기본 경로로 다시 썼다(A0–A5 · B1–B6). 데이터 파일을 AI에 올려도 되는 합성 데이터로 안내하고, 단계마다 채팅 경로를 둔다. LightGBM 설정을 프롬프트에 적어 준다(작은 표용). 시연 프롬프트 여섯 건을 모았다 |
+| v4.1 | 2026-10-12 | 실습 B-1 · 02–04의 엑셀 손작업을 **완성본**(`d3_grade_banding_example.xlsx` · `d3_grade_example.csv`) + AI 대조(B1b · B1c · B1d)로 바꾸고 B2가 완성본과 대조한다. A4는 t = 0.17의 놓친 바이어도 보고, B3는 데이터 사전의 한글명과 전역 상위 8 파일을, B4에는 Claude Code용 한 줄을 더했다. B6의 PR은 `workbench/day3/data/` 사본을 올리지 않는다. 단계 표기를 슬라이드 번호(실습 A-1 · 01)로 맞췄다 |

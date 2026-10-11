@@ -1,8 +1,9 @@
-"""거시 쇼크 손실 시뮬레이터 — 4일차 실습 A ⑤의 참고 스크립트(시연 2에서 HTML 부분을 뺀 판).
+"""거시 쇼크 손실 시뮬레이터 — 4일차 실습 A 05의 참고 스크립트(시연 2에서 HTML 부분을 뺀 판).
 
 실행(저장소 맨 위 폴더)
     uv run python labs/day4/stress_mc.py
     uv run python labs/day4/stress_mc.py --scenarios workbench/day4/data/d4_scenarios.csv   # 내 시나리오 U1을 더한 사본
+    uv run python labs/day4/stress_mc.py --rho 0 0.2 0.4 --out workbench/day4/outputs/rho  # 결과를 다른 폴더에(기본 결과를 덮지 않는다)
 
 읽는 것  data/checkpoints/d4_start_scored.csv (바이어 150곳) · d4_scenarios.csv (시나리오 S0–S4)
          workbench/day4/outputs/limits_proposed.xlsx (있으면 한도 재배정의 절감액도 계산)
@@ -24,13 +25,22 @@ import numpy as np
 import pandas as pd
 from scipy.stats import norm
 
-ROOT = Path(__file__).resolve().parents[2]
+# 저장소 맨 위 폴더 = pyproject.toml이 있는 가장 가까운 위 폴더 — scripts/ 로 복사하거나 작업 사본 폴더에서 돌려도 같은 곳을 읽는다
+ROOT = next((p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").exists()), Path(__file__).resolve().parents[2])
 DATA = ROOT / "data" / "checkpoints"
 OUT = ROOT / "workbench" / "day4" / "outputs"
 LC = ["LC_SIGHT", "LC_USANCE"]            # 신용장 — 손실률 LGD_LC(0.1)
 NO_LIMIT = LC + ["TT_ADV"]                 # 신용장 · 선수금 = 외상 한도 대상 아님
 LGD_LC = 0.1
 BASE_LGD = 0.6                             # S0의 손실률 — 절감액의 시나리오 배율 계산에 쓴다
+
+
+def rel(p: Path) -> str:
+    """저장소 맨 위 폴더 기준 경로(밖이면 그대로) — 화면 출력용."""
+    try:
+        return str(p.relative_to(ROOT))
+    except ValueError:
+        return str(p)
 
 
 def scenario_vectors(b: pd.DataFrame, s: pd.Series) -> tuple[np.ndarray, np.ndarray]:
@@ -109,8 +119,10 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=42, help="난수 시드")
     ap.add_argument("--rho", type=float, nargs="+", default=[0.0, 0.2], help="공통 요인 비중 ρ(여러 개 가능)")
     ap.add_argument("--out", type=Path, default=OUT, help="결과 폴더")
-    ap.add_argument("--limits", type=Path, default=OUT / "limits_proposed.xlsx", help="실습 A ②의 한도안(있으면 절감액 계산)")
+    ap.add_argument("--limits", type=Path, default=OUT / "limits_proposed.xlsx", help="실습 A 02의 한도안(있으면 절감액 계산)")
     args = ap.parse_args()
+    # 상대 경로(예: --out workbench/day4/outputs/u1)는 지금 폴더 기준의 절대 경로로 바꾼다 — 출력 줄에서 경로를 줄일 때 멈추지 않게
+    args.scenarios, args.out, args.limits = (p.resolve() for p in (args.scenarios, args.out, args.limits))
 
     b = pd.read_csv(DATA / "d4_start_scored.csv", encoding="utf-8-sig")
     sc = pd.read_csv(args.scenarios, encoding="utf-8-sig")
@@ -137,11 +149,11 @@ def main() -> int:
     print(show.drop(columns=["name_ko", "n_sims", "seed"]).to_string(index=False))
 
     draw_hist(args.out / "loss_hist.png", {k: v for k, v in runs.items() if k in ("S0", "S3")})
-    print(f"저장: {(args.out / 'stress_results.csv').relative_to(ROOT)} · {(args.out / 'loss_hist.png').relative_to(ROOT)}")
+    print(f"저장: {rel(args.out / 'stress_results.csv')} · {rel(args.out / 'loss_hist.png')}")
 
     sav = savings(b, sc, args.limits)
     if sav is None:
-        print(f"(한도안 {args.limits.name}이 없어 절감액은 건너뜀 — 실습 A ②를 마친 뒤 다시 돌리면 나옵니다)")
+        print(f"(한도안 {args.limits.name}이 없어 절감액은 건너뜀 — 실습 A 02를 마친 뒤 다시 돌리면 나옵니다)")
     else:
         sav.round(2).to_csv(args.out / "stress_savings.csv", index=False, encoding="utf-8-sig")
         keep = sav[sav["scenario_id"].isin(["S0", "S3"])]

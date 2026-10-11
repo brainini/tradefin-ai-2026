@@ -13,13 +13,13 @@
       "sha256": "d130abd7cbd1cf29d9fb9f8f15abf972e3e4802c78298f6221cd37ea08e84112"
     },
     "checkpoints/d1_invoices.xlsx": {
-      "sha256": "1b80a415b333f0d152b1c1bd842d18066d2f48787d7aedfe1ee8024d41b823ba"
+      "sha256": "eb08e771a90623b9e53964e28634a50d3ad0639b5b22cbda31951ad8c718b90b"
     },
     "checkpoints/d2_news.csv": {
       "sha256": "48a46be63729d05d4ac90c6308d9e9796fae9f87b3c8687a9a333320540687c1"
     },
     "checkpoints/d2_start.xlsx": {
-      "sha256": "1031dc5dc3785b04b29fbae492ac14cbba1f56ff6ef9a4c5150ecc9ffc154fa9"
+      "sha256": "724ad02fe09fc310fe68eb2932e030d2ada58d80d11e0ccf7625903f0a691b6e"
     },
     "checkpoints/d3_end_scored.csv": {
       "sha256": "ef235663e3fe6baa0b11c029fd50ff19b299e535b31d86a7897aa4fca7df5ca9"
@@ -34,16 +34,16 @@
       "sha256": "b50ea79158096a182588b0870d9b0534143a6ce60291a71600d7bb9c70fc14b1"
     },
     "checkpoints/d4_limit_model.xlsx": {
-      "sha256": "208f0044add3b61db9ee1f7c194d6bd6fa2c862df01dbb7f570815eab46750fb"
+      "sha256": "a4156fbf8ad141a6908b80e03b834aafbb61c3a7d38fb1a0818bb73f4f7802fa"
     },
     "checkpoints/d4_open_inv.csv": {
       "sha256": "5a0b37bced941445452fb60253d62355230161e9eb995012ac21807e13b691e1"
     },
     "checkpoints/d4_params.csv": {
-      "sha256": "05c83b67e1a660a490c69a73e98235f33d588f2c61177867183c8f2994d8659e"
+      "sha256": "6f6229c358d6e9450bb95c2ecbae6d97c191b193f8852e39412c2ad23022a884"
     },
     "checkpoints/d4_scenarios.csv": {
-      "sha256": "fbca0f3f55c299e602adba1475a24db7a29b42c2d63643128d00850de09e5919"
+      "sha256": "d630406890d1ae92a90400960b9d56e884f4809359df71fac4593c7e31db9ba5"
     },
     "checkpoints/d4_start_scored.csv": {
       "sha256": "8ced73b522126c70dfe783346e390305bde079fe26082a34406ec6bf7204a01b"
@@ -55,7 +55,7 @@
       "sha256": "d0960323829ffc999b81e1e7bad3932a36dfd1f80bb0f1face588c38ae34ede7"
     },
     "data_dictionary.xlsx": {
-      "sha256": "e2e470696b11c680344f447c7d490c5af7bb60784fdaa71e22859cba955d38fc"
+      "sha256": "28f2f8eac4cafae80a6f229b23c01d6d5fdff2afc511ca9017ae2e4ab108dd9b"
     },
     "raw/dirty_log.csv": {
       "sha256": "de4cffe7289051ebb699f04b80ae95b0477d9a9cbe16179e747d297dddfa0442"
@@ -72,7 +72,7 @@
       "sha256": "46edf88d7b534e449a26a9f21d43bb3e86b3d2d396885a587474eb5e11aee547"
     },
     "rag/eval_sheet_template.xlsx": {
-      "sha256": "25c8f1a23da58d33bda6f88211671acb53dd91b494d55cf68bdff3762a35d4d0"
+      "sha256": "926aa068f876932ef2952c8ad0442d32731fc1478487304e8ef15a906e6327df"
     },
     "app/sample_data/upload_sample.csv": {
       "sha256": "7dd1800e653fb1ebc910c28bfa5f70a5b4708cf2f9a614af6af12eaf6f448eed"
@@ -90,11 +90,11 @@
         "builder": "tools/checkpoints_day4.py"
       },
       "data/checkpoints/d4_params.csv": {
-        "sha256": "05c83b67e1a660a490c69a73e98235f33d588f2c61177867183c8f2994d8659e",
+        "sha256": "6f6229c358d6e9450bb95c2ecbae6d97c191b193f8852e39412c2ad23022a884",
         "builder": "tools/checkpoints_day4.py"
       },
       "data/checkpoints/d4_scenarios.csv": {
-        "sha256": "a188d9918edded53ac951f7f06285293a39522370e726b8a36d765db6b1897ff",
+        "sha256": "d630406890d1ae92a90400960b9d56e884f4809359df71fac4593c7e31db9ba5",
         "builder": "tools/checkpoints_day4.py"
       },
       "data/checkpoints/d4_open_inv.csv": {
@@ -102,11 +102,11 @@
         "builder": "tools/checkpoints_day4.py"
       },
       "labs/day4/d4_limit_model.xlsx": {
-        "sha256": "1aa02eb4300be30cb976a28089a29cc48b2c26ba6093361b2fd59c0d672bcf64",
+        "sha256": "be7586ba5fd70c81680d813491fc5f2461922732e52ea4bdbcb3815b604b6cbd",
         "builder": "tools/build_day4_workbook.py"
       },
       "data/checkpoints/d4_limit_model.xlsx": {
-        "sha256": "a9a261e987173c53f121b5b56c29e48a15425d66538376baffd1d575c82d7d10",
+        "sha256": "a4156fbf8ad141a6908b80e03b834aafbb61c3a7d38fb1a0818bb73f4f7802fa",
         "builder": "tools/build_day4_workbook.py"
       }
     },
@@ -126,19 +126,19 @@
   "day6": {
     "note": "Day6 해커톤 팩(build_day6_pack.py) — 팩 · 팀 팩 · 카드 ⑤ 2단계 · 템플릿 xlsx",
     "asof": "2026-09-30",
-    "assign": "기본(팀 n ← 카드 n, 08:30 확정 전)",
+    "assign": "고정 배정 — 강사 키트(instructor/PUBLISHING_days2-6.md §6)에만 적는다",
     "day4_limits": "Day4 강사 정답 lp_solution.csv(proposed_limit)",
     "files": {
       "data/checkpoints/d6_crisis_pack.xlsx": {
-        "sha256": "2cdb90f24f949b6d1682537d53f01b60cad2acb5301e20676bb10c8898e5c0d6",
+        "sha256": "ae581f41a3b19572d03606560ecf32a3d7d376ecbdc00a83c17340c87eb34023",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_card5_stage2.xlsx": {
-        "sha256": "4f1d5f06332b6131a0e1ddf683d62beea9d4c280c9f453cc8b30fe2343ca6b97",
+        "sha256": "f28731b23e91b6440d142be3999a6c7f4d245658ab28c81f2919a1cebfb03ae3",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_budget.csv": {
-        "sha256": "09d26175a0e8c7b4a6c1bc39b2eb0101c966e0878825ff41cea9e64155096f2e",
+        "sha256": "3e0710ff349f0f04de472e213b6af0b94ebce5c5578ed630549a1ebdb6f8466f",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_buyer_changes.csv": {
@@ -146,11 +146,11 @@
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_cards.csv": {
-        "sha256": "c55a92dfa7171e56c4fe8bb5cc9fc505580699c7e7f74079ac8e7c146404a988",
+        "sha256": "6653acd310121f0cf84c842ed20895b18702ac561909ba436ce5586cfee67c64",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_injects.csv": {
-        "sha256": "3f38065f7ea65a2e7479da10672c2620f0dc96b1a03aab19e25741439205753a",
+        "sha256": "c3dade406f9599077067e7277e021f0ff9c13ac8189204dd4187be341d8423ee",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_invoice_changes.csv": {
@@ -170,7 +170,7 @@
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_scenarios.csv": {
-        "sha256": "93b8a44468928b985c375f3179b4d7bad045ca4c6e9d8af36e5cd6b6c871d0d2",
+        "sha256": "078c550b311a532ae25f126d751d8e371356cc5fd0591c2e5f06d99ec93d74ed",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_templates.csv": {
@@ -178,23 +178,23 @@
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_01.xlsx": {
-        "sha256": "3f00fc1eacb4b833f8a8d33bc2754f055c5adca68da45855f8b240bbcf6089b3",
+        "sha256": "8ff7bbf013e973c7b96ff9358cf55145223092890c57c45eec7baa59a57aa1fd",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_02.xlsx": {
-        "sha256": "bdaec655853539ed21a8c9be7063dd041940cb67546a49be21e82426e8b33deb",
+        "sha256": "e1191b01ca304e4185758f49aa46bcbea02e88fdf00befac7fc98308edd32172",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_03.xlsx": {
-        "sha256": "ec95bece59d931fbe8c678bcb1d7ef3379c736790b6cba3fdb9f08f227826f6a",
+        "sha256": "83dd7bbcbd17845d61cea2a8a0b9dc4481b874092c80d518a342e7118c4ceafd",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_04.xlsx": {
-        "sha256": "4d8d59d0a0f97fe47bcd6cf3a2c3172ba629f3c6cb8e571750a10dbff1445bac",
+        "sha256": "52bcdb9b1b3744d9432ead42c2c2fa62705451d7517a93c8fc9847417553bc65",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_05.xlsx": {
-        "sha256": "c9da4620dc74f2cf6719e2a44b618ac7d0711c4d2d0c049ae3f4ec87a8cb4997",
+        "sha256": "88ca7455993a3702f99e3516fc2b0173dc571f9b8e398abd0a370a68cab541a4",
         "builder": "tools/build_day6_pack.py"
       }
     },
@@ -217,10 +217,10 @@
         "sha256": "8ced73b522126c70dfe783346e390305bde079fe26082a34406ec6bf7204a01b"
       },
       "data/checkpoints/d4_params.csv": {
-        "sha256": "05c83b67e1a660a490c69a73e98235f33d588f2c61177867183c8f2994d8659e"
+        "sha256": "6f6229c358d6e9450bb95c2ecbae6d97c191b193f8852e39412c2ad23022a884"
       },
       "data/checkpoints/d4_scenarios.csv": {
-        "sha256": "a188d9918edded53ac951f7f06285293a39522370e726b8a36d765db6b1897ff"
+        "sha256": "d630406890d1ae92a90400960b9d56e884f4809359df71fac4593c7e31db9ba5"
       },
       "data/checkpoints/d4_open_inv.csv": {
         "sha256": "5a0b37bced941445452fb60253d62355230161e9eb995012ac21807e13b691e1"

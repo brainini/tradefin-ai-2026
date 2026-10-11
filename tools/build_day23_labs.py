@@ -3,7 +3,7 @@
 
 만드는 파일(수강생용 = 공개 저장소, 정답 없음)
   labs/day2/news_warmup_10.txt          실습 B 워밍업 뉴스 10건(한 4 · 영 6) — d2_news.csv 앞쪽 행 그대로, 점수 없음(채팅 경로 형식 시험용)
-  labs/day2/byod_anonymize_template.xlsx 자사 엑셀 익명화 점검표 + 가상 예시 변환 수식(R08 §2.11 · 사이트 setup.md#byod)
+  labs/day2/byod_anonymize_template.xlsx 자사 엑셀 익명화 점검표 + 가상 예시 변환 수식(사이트 setup.md#byod)
   labs/day3/d3_grade_banding.xlsx       등급 매칭 시트(실습 B-1): pred(붙여넣기 칸 — grade 열은 비워 두고 IFS를 직접 쓴다) · 이름 t(빈칸) · 기준·분포 · 단조성
   labs/day3/d3_shap_report_template.md / .docx  근거 메모 1장(실습 B-2) — 메모 프롬프트(B4) 출력 5칸 + 그림 2칸(같은 내용 두 형식)
 강사용(저장소 밖 ../instructor/day3/answers/)
@@ -121,7 +121,7 @@ def _text_sheet(ws, title, lines, width=110):
 
 
 # ---------------------------------------------------------------- 2) BYOD 익명화 점검표
-BYOD_RULES = [  # (원본 칸, 처리 규칙, 예(가상)) — R08 §2.11 · 사이트 setup.md#byod
+BYOD_RULES = [  # (원본 칸, 처리 규칙, 예(가상)) — 사이트 setup.md#byod
     ("바이어명 · 담당자명 · 이메일 · 전화", "지우고 BUYER_### 코드로 바꾼다. 코드 ↔ 실제 이름 대응표는 내 PC의 별도 파일(…_private.xlsx)에만 둔다",
      "(가상) Alpha Trading GmbH → BUYER_001"),
     ("국가", "그 나라 바이어가 3곳 미만이면 권역으로 올린다", "KEN(1곳) → 사하라 이남 아프리카"),
@@ -169,9 +169,9 @@ def build_byod() -> Path:
     wb = Workbook()
     ws0 = wb.active
     ws0.title = "00_사용법"
-    _text_sheet(ws0, "자사 엑셀 익명화(BYOD) 점검표 — 2일차 다 했으면 · 6일차 기획서", [
+    _text_sheet(ws0, "자사 엑셀 익명화(BYOD) 점검표 — 내 업무 숫자를 다루기 전 · 6일차 기획서", [
         "■ 원칙 — 구조만 내 것, 값은 비식별",
-        "원본은 내 PC의 엑셀에서만 연다. 익명화본도 GitHub(개인 저장소 · fork)에는 올리지 않는다. AI에는 익명화본만, 학습 설정을 끈 뒤에 넣는다.",
+        "원본은 내 PC의 엑셀에서만 연다. 익명화본도 GitHub(개인 저장소 · fork)와 과정의 AI 도구(ChatGPT · Claude · Claude Code)에는 넣지 않는다 — 내 PC의 엑셀 · 스크립트로만 다룬다(과정 뒤에는 회사가 허용한 AI 도구에서 같은 기준).",
         "■ 순서",
         "① 01_규칙표의 7행마다 '내 파일의 열 이름'을 적고, 처리했으면 '처리함'을 예로 바꾼다(해당 열이 없으면 '해당 없음').",
         "② 03_대응표_private 시트처럼 코드 · 날짜 이동 · 권역 · 비밀 계수 k를 만든다 → 이 시트는 별도 파일(예: byod_key_private.xlsx)로 옮겨 내 PC에만 둔다.",
@@ -182,7 +182,7 @@ def build_byod() -> Path:
         "대응표 · 비밀 계수 파일 이름에는 _private를 넣는다(예: byod_key_private.xlsx) — 과정 저장소의 .gitignore가 git 커밋을 막는다. "
         "GitHub 웹의 'Upload files'는 .gitignore와 관계없이 올라가므로 올리기 전에 파일을 직접 확인한다.",
         "■ 근거와 한계",
-        "규칙은 과정 자료(데이터 조사 R08 §2.11)와 과정 사이트 '사전 준비 → 익명화 체크리스트'와 같다. 법률 자문이 아니다 — 회사 보안 규정 · NDA가 먼저다.",
+        "규칙은 과정 사이트 '사전 준비 → 익명화 체크리스트'와 같다. 법률 자문이 아니다 — 회사 보안 규정 · NDA가 먼저다.",
         "실수로 실데이터를 올렸다면: 그 대화를 바로 삭제 → 강사 · 도우미에게 알림(비난하지 않고 기록만) → 가상 데이터로 계속.",
     ])
     # ---- 01_규칙표
@@ -303,7 +303,10 @@ def build_banding(path: Path, filled: dict | None = None) -> Path:
     wb = Workbook()
     ws0 = wb.active
     ws0.title = "00_사용법"
-    _text_sheet(ws0, "3일차 실습 B-1 — S/A/B/C 등급 매칭 시트", [
+    title = ("3일차 실습 B-1 — S/A/B/C 등급 매칭 시트" if filled else
+             "3일차 실습 B-1 — S/A/B/C 등급 매칭 시트(빈 양식 · 선택) — 수업 시간에는 완성본 d3_grade_banding_example.xlsx를 쓰고, "
+             "이 양식은 엑셀로 직접 해 보고 싶을 때(수업 뒤) 쓴다")
+    _text_sheet(ws0, title, [
         "■ 규칙(C부터 검사) — C: pd_30d ≥ t · B: ≥ t/2 · A: ≥ t/4 · 나머지 S",
         "t = 실습 A-2에서 정한 임계값(비용 5:1이면 이론값 1 ÷ 6 ≈ 0.17). 등급은 회사 내부 관리 등급이며 무역보험의 공식 등급이 아니다.",
         "■ 순서",
@@ -315,7 +318,8 @@ def build_banding(path: Path, filled: dict | None = None) -> Path:
         "④ 조건부 서식: grade 열을 선택 → 홈 › 조건부 서식 › 셀 강조 규칙 › 같음 → C는 빨강, B는 주황(글자도 함께). 피벗 테이블로 등급별 바이어 수를 센다(기준 시트의 분포 표와 같아야 한다).",
         "⑤ 단조성: 실습 A의 d3_test_pred.csv(buyer_id · ref_date · late_30d · pd_30d, 88행) 데이터 4열을 단조성 시트 A2부터 붙인다 → 등급별 실제 연체율이 S < A < B < C 쪽으로 오르는지 본다.",
         "   시험셋 연체가 4건뿐이라 A · B는 행이 0~몇 개뿐이다 — 연체율이 0% 또는 100%로 뛰는 것은 표본 탓이니 건수와 함께 읽고, S와 C를 먼저 비교한다.",
-        "⑥ pred 시트(buyer_id · ref_date · pd_30d · grade)를 파일 › 다른 이름으로 저장 › CSV UTF-8(쉼표로 분리)로 workbench/day3/outputs/d3_grade_excel.csv에 저장한다. 최종 d3_end_scored.csv(6열)는 Claude Code가 같은 규칙으로 만들고 이 파일과 견준다.",
+        ("⑥ pred 시트(buyer_id · ref_date · pd_30d · grade)를 파일 › 다른 이름으로 저장 › CSV UTF-8(쉼표로 분리)로 workbench/day3/outputs/d3_grade_excel.csv에 저장한다. 최종 d3_end_scored.csv(6열)는 Claude Code가 같은 규칙으로 만들고 이 파일과 견준다." if filled else
+         "⑥ 결과가 완성본(labs/day3/d3_grade_banding_example.xlsx)의 등급 분포 · 단조성 표와 같은지 본다. 다르면 t 값 · 붙여 넣은 행 수 · 수식 순서(C부터 검사)를 확인한다."),
         "■ 등급 → 결제조건 [교육용 가정]",
         "S · A: O/A 유지 · B: 결제기간 단축 · 부보 검토 · C: 선수금 · L/C만(신규 O/A 금지), 조건 변경은 사람이 승인한다.",
         "■ 주의",

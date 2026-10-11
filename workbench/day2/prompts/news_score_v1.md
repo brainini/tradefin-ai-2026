@@ -30,7 +30,7 @@
 [출력]
 입력 1행 = JSON 1줄. 머리말 · 설명 · 코드블록 표시 없이, 입력 행 수와 출력 줄 수가 같아야 한다.
 키: news_id · buyer_id · date · news_sent_0_10 · label · evidence · confidence
-예: {"news_id":"N0231","buyer_id":"B017","date":"2026-08-12","news_sent_0_10":3,"label":"high","evidence":"has delayed payments by up to 60 days","confidence":0.8}
+예: {"news_id":"N00995","buyer_id":"B014","date":"2026-01-22","news_sent_0_10":3,"label":"high","evidence":"has delayed payments by up to 79 days","confidence":0.8}
 
 ## 변경 기록
 

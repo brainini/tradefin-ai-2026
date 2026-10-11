@@ -15,6 +15,7 @@ Claude Code가 매번 먼저 읽는 규칙 파일입니다. 짧게 유지합니�
 - `scripts/` — 계산 · 정리 코드. 숫자를 만든 코드는 여기에 남깁니다.
 - `app/` · `rag/` — 5일차 대시보드(Streamlit) · 규정 챗봇 자료(규정 PDF · 골든셋 · 평가 시트). `agents/`는 강사 서버 설정이라 쓰지 않습니다.
 - `docs/` · `mkdocs.yml` · `tools/` — 과정 사이트와 도구. 고치지 않습니다(`tools/get_day_files.py`는 실행만).
+  `docs/`는 사이트 원고(확인값 · 기대 결과가 섞여 있다)라 실습 중에는 읽지 않습니다.
 
 ## 환경 (uv)
 - 처음 한 번 `uv sync` — `.venv`(Python 3.13)를 `uv.lock` 그대로 만듭니다. `.venv/`는 커밋하지 않습니다.

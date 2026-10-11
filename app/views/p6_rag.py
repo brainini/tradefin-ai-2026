@@ -76,7 +76,7 @@ if ss["rag_history"]:
 
 st.divider()
 st.subheader("골든셋 20문항 일괄 실행(모의 모드 기권 규칙)")
-st.caption("결과 CSV를 평가 시트(rag/eval_sheet_template.xlsx) run_app 탭 A1에 그대로 붙여 넣는다. 가상 규정만 있으면 K-SURE 문항은 기권이 정상이다.")
+st.caption("앱 안의 참고 계산이다 — 실습 A의 평가 시트(rag/eval_sheet_template.xlsx의 eval · eval_B 탭)와 정의가 달라 숫자가 다를 수 있어 실습 기록에는 쓰지 않는다. 가상 규정만 있으면 K-SURE 문항은 기권이 정상이다.")
 if st.button("골든셋 실행"):
     gold = pd.read_csv(IO.GOLDSET, encoding="utf-8-sig", dtype=str, keep_default_na=False)
     ss["goldset_run"] = RG.run_goldset(gold, retr)
@@ -95,4 +95,4 @@ if gr is not None:
     st.caption("P@K = 맞힌 조항 수 ÷ K · R@K = 맞힌 조항 수 ÷ 정답 조항 수 · F1@K = 2PR ÷ (P + R) — K를 늘리면 놓치는 것은 줄지만 잡음이 는다.")
     st.dataframe(gr.drop(columns=["answer_text"]), hide_index=True, height=300)
     export = gr[["q_id", "r1", "r2", "r3", "r4", "r5", "abstained", "top_score", "answer_text"]]
-    st.download_button("평가 시트용 CSV(run_app)", export.to_csv(index=False).encode("utf-8-sig"), file_name="run_app.csv", mime="text/csv")
+    st.download_button("결과 CSV 받기(참고용)", export.to_csv(index=False).encode("utf-8-sig"), file_name="goldset_app_run.csv", mime="text/csv")
