@@ -1,0 +1,150 @@
+{
+  "as_of": "2026-09-30",
+  "portfolio": {
+    "total_ar_usd": 4290900.93,
+    "total_ar_krw": 5835625265,
+    "krw_per_usd": 1360,
+    "insured_share": 0.6815,
+    "grade_counts": {
+      "S": 127,
+      "A": 2,
+      "B": 3,
+      "C": 18
+    },
+    "c_ar_usd": 1154423.75
+  },
+  "limits": {
+    "current_eligible": 5130000,
+    "proposed": 2599969,
+    "cut30": 68,
+    "increase": 22,
+    "binding": {
+      "total_cap": 0.6723,
+      "ctry_NGA": 1.3959
+    },
+    "objective": 3135799
+  },
+  "scenarios": {
+    "S0": {
+      "name_ko": "기준",
+      "pd_multiplier": 1.0,
+      "usd_krw_level": 1360,
+      "el_usd": 43366
+    },
+    "S1": {
+      "name_ko": "경미",
+      "pd_multiplier": 1.2,
+      "usd_krw_level": 1292,
+      "el_usd": 45866
+    },
+    "S2": {
+      "name_ko": "중간",
+      "pd_multiplier": 1.5,
+      "usd_krw_level": 1550,
+      "el_usd": 49618
+    },
+    "S3": {
+      "name_ko": "심각",
+      "pd_multiplier": 2.5,
+      "usd_krw_level": 1570,
+      "el_usd": 62121,
+      "mc_p95_usd": 114013,
+      "mc_p99_usd": 164604
+    },
+    "S4": {
+      "name_ko": "극단",
+      "pd_multiplier": 4.0,
+      "usd_krw_level": 1960,
+      "el_usd": 107691
+    }
+  },
+  "alerts": {
+    "d30": {
+      "count": 21,
+      "amount_usd": 233455
+    },
+    "ship_hold": 19,
+    "notice_soon": 9,
+    "notice_overdue": 14
+  },
+  "top5": [
+    {
+      "buyer_id": "B118",
+      "country": "USA",
+      "grade": "C",
+      "pd_30d": 0.91333,
+      "open_ar_usd": 20060.0,
+      "oldest_dpd": 27,
+      "alert": "D+15",
+      "top_reasons_ko": "미연체 잔액 비중 0%(+2.61) · 연체 잔액 $20,060(+2.25) · 최장 미결 연체일 27일(+1.34)"
+    },
+    {
+      "buyer_id": "B073",
+      "country": "BRA",
+      "grade": "C",
+      "pd_30d": 0.87999,
+      "open_ar_usd": 48270.0,
+      "oldest_dpd": 19,
+      "alert": "D+15",
+      "top_reasons_ko": "연체 잔액 $48,270(+2.74) · 미연체 잔액 비중 0%(+2.62) · 최장 미결 연체일 19일(+1.26)"
+    },
+    {
+      "buyer_id": "B119",
+      "country": "IND",
+      "grade": "C",
+      "pd_30d": 0.87045,
+      "open_ar_usd": 48780.0,
+      "oldest_dpd": 10,
+      "alert": "D+7",
+      "top_reasons_ko": "연체 잔액 $21,910(+2.32) · 미연체 잔액 비중 55%(+2.08) · 최장 미결 연체일 10일(+0.83)"
+    },
+    {
+      "buyer_id": "B134",
+      "country": "MEX",
+      "grade": "C",
+      "pd_30d": 0.81554,
+      "open_ar_usd": 93460.0,
+      "oldest_dpd": 74,
+      "alert": "D+30 (선적 보류 권고)",
+      "top_reasons_ko": "연체 잔액 $59,200(+2.72) · 미연체 잔액 비중 37%(+2.03) · 최장 미결 연체일 74일(+0.96)"
+    },
+    {
+      "buyer_id": "B087",
+      "country": "TWN",
+      "grade": "C",
+      "pd_30d": 0.77924,
+      "open_ar_usd": 113071.61,
+      "oldest_dpd": 32,
+      "alert": "D+30 (선적 보류 권고)",
+      "top_reasons_ko": "연체 잔액 $49,855(+2.77) · 미연체 잔액 비중 56%(+2.01) · 최장 미결 연체일 32일(+1.03)"
+    }
+  ],
+  "savings": {
+    "s0": 6722,
+    "s3": 16805
+  },
+  "basis": {
+    "fx": "FRED H.10 · 2026-09-10 1,345.63",
+    "fx_krw": "원화 환산 한국은행 ECOS 매매기준율 · 2026-09-23",
+    "rate": "Term SOFR 3M 4.047% · 2026-09-23",
+    "units": "금액은 모두 USD(달러), 원화는 portfolio.total_ar_krw 하나뿐 · 비율은 소수로 적는다(1이 100%)",
+    "definitions": {
+      "grade_counts": "등급별 바이어 수(곳)",
+      "cut30": "현행 한도보다 30% 이상 줄어드는 바이어 수(곳) — 사람이 최종 승인",
+      "increase": "현행보다 한도가 늘어나는 바이어 수(곳)",
+      "binding": "한도 최적화에서 걸린 제약과 잠재가격(한도를 1달러 더 줄 때 연 기대이익 지표가 늘어나는 양)",
+      "objective": "한도 최적화의 목적함수 값 — 연 기대이익 지표(USD)",
+      "savings": "제안 한도로 줄어드는 연 기대손실(USD) — s0는 기준 시나리오, s3는 심각 시나리오",
+      "d30": "결제기일 후 30일 이상 연체한 인보이스의 건수(건)와 금액(USD)",
+      "ship_hold": "선적 보류 권고 바이어 수(곳) — 결제기일 후 30일 이상 연체한 외상 거래의 바이어",
+      "notice_soon": "보험 사고발생통지 기한이 10일 안에 닿는 인보이스(건)",
+      "notice_overdue": "통지 기한이 이미 지난 인보이스(건)"
+    }
+  },
+  "approvers": {
+    "limit_change": "채권관리팀장이 시행하고 전결권자에게 보고 — 큰 폭 감액은 사람이 최종 승인",
+    "portfolio_limit_policy": "여신위원회 심의",
+    "ship_hold": "채권관리팀장 (선적을 계속하려면 영업본부장 승인)",
+    "ksure_notice": "채권관리팀장 준비 · 대표이사 결재"
+  }
+}

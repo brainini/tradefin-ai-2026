@@ -1,0 +1,55 @@
+{
+ "v": 1,
+ "note": "봉인 묶음 — .github/workflows/d6-release.yml이 정한 시각(at, UTC)에 풀어 이 브랜치에 올린다",
+ "items": [
+  {
+   "id": "x0",
+   "at": "2026-10-13T12:10:00Z",
+   "enc": "sealed/x0.tgz.enc",
+   "enc_sha256": "a11e258579676a163c9de0835509de2b2c5ef1934613694fa7191f43e012a231",
+   "bytes": 672
+  },
+  {
+   "id": "r1",
+   "at": "2026-10-21T00:28:00Z",
+   "enc": "sealed/r1.tgz.enc",
+   "enc_sha256": "9fad8a6b3b88104a5f6cf74ec13657e51bb645be92f0111e52bff643c946896a",
+   "bytes": 144064
+  },
+  {
+   "id": "r2",
+   "at": "2026-10-21T02:15:00Z",
+   "enc": "sealed/r2.tgz.enc",
+   "enc_sha256": "0954b0fd45e213093b3ca3592a5c3feedeebc7c28a6599e35130e7a0d38305c2",
+   "bytes": 9824
+  },
+  {
+   "id": "r3",
+   "at": "2026-10-21T02:30:00Z",
+   "enc": "sealed/r3.tgz.enc",
+   "enc_sha256": "dcabf0a58804b3a6a90a7b86e6538d3f11195b0021a1fc528e3e9678b337ae9f",
+   "bytes": 1712
+  },
+  {
+   "id": "r4",
+   "at": "2026-10-21T04:15:00Z",
+   "enc": "sealed/r4.tgz.enc",
+   "enc_sha256": "b32b4aa0762b999054c3fde7fc94dd315f5b61a9893b906b75aa3f6b95e1eec1",
+   "bytes": 1648
+  },
+  {
+   "id": "r5",
+   "at": "2026-10-21T09:00:00Z",
+   "enc": "sealed/r5.tgz.enc",
+   "enc_sha256": "02a2a98a770650758c577ec80e604198f1e26829f034f3645ab1fa6370292a96",
+   "bytes": 5611792
+  },
+  {
+   "id": "r6",
+   "at": "2026-10-21T10:00:00Z",
+   "enc": "sealed/r6.tgz.enc",
+   "enc_sha256": "3dd48bab3694b79e69fab99e55475629331fc5e851fdafecae27b73b3a5b6672",
+   "bytes": 806736
+  }
+ ]
+}

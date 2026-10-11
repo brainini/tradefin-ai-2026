@@ -1,0 +1,66 @@
+﻿param_id,excel_name,name_ko,value,unit,value_display,status,source,source_url,as_of,note
+P1,SOFR,SOFR(익일물 담보 기준금리),0.0388,연율,3.88%,확인,NY Fed SOFR API,https://markets.newyorkfed.org/api/rates/secured/sofr/last/10.json,2026-09-24,09-16 3.62% → 09-17 3.85%(FOMC 인상 다음 날)
+P2,TSOFR1M,Term SOFR 1개월,0.03901,연율,3.901%,확인,CME Term SOFR(Chatham 재배포),https://cf.com/rates/us,2026-09-23,CME 원 페이지는 자동 조회 차단 — 수업 당일 브라우저로 확인
+P3,TSOFR3M,Term SOFR 3개월,4.047,연율,4.047%,확인,CME Term SOFR(Chatham 재배포),https://cf.com/rates/us,2026-09-23,할인율·LP 금리의 기준 B(t)
+P4,CD91D,CD 91일물,0.0321,연율,3.21%,확인,한국은행 ECOS 817Y002/010502000,https://ecos.bok.or.kr/,2026-09-23,원화 대안 비교용
+P5,BOK_Base,한국은행 기준금리,0.03,연율,3%,확인,한국은행 기준금리 추이,https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=200643,2026-08-27,2.50%(2025-05-29) → 2.75%(2026-07-16) → 3.00%(2026-08-27 인상)
+P6,USDKRW,원/달러 매매기준율,1360.0,원,"1,360원",확인,한국은행 ECOS 731Y001/0000001,https://ecos.bok.or.kr/,2026-09-23,FRED 뉴욕 정오율과 기준·시각이 다르다 — 11_Scenario S0 원/달러
+P7_31D,Hana31,하나은행 USD 기한부 환가료율 31일(일괄선취),0.0574851,연율,5.74851%,확인,하나은행 기한부환가료율,https://www.kebhana.com/cms/rate/index.do?contentUrl=/cms/rate/wpfxd652_01i.do,2026-09-23,"고시 = 기준금리(Term SOFR) + 가산금리, 우대 전"
+P7_92D,Hana92,하나은행 USD 기한부 환가료율 92일(일괄선취),0.0653297,연율,6.53297%,확인,하나은행 기한부환가료율,https://www.kebhana.com/cms/rate/index.do?contentUrl=/cms/rate/wpfxd652_01i.do,2026-09-23,"05_NPV 은행 견적 대조(USD 100,000·92일 → 환가료 USD 1,669.54)"
+P7_184D,Hana184,하나은행 USD 기한부 환가료율 184일(일괄선취),0.0690141,연율,6.90141%,확인,하나은행 기한부환가료율,https://www.kebhana.com/cms/rate/index.do?contentUrl=/cms/rate/wpfxd652_01i.do,2026-09-23,123·184일 같은 구간
+P8_31D,ImplSpread31,암묵 가산금리 31일(고시 − Term SOFR 1M),0.0184751,%p,1.84751%p,계산,P7_31D − P2,,2026-09-23,우대 전 고시 기준 상한 성격
+P8_92D,ImplSpread92,암묵 가산금리 92일(고시 − Term SOFR 3M),0.0248597,%p,2.48597%p,계산,P7_92D − P3,,2026-09-23,C등급 은행 가산(P19_C 2.5%p)의 상한 근거
+P9_USD,DayBasis,일수 기준(USD),360.0,일,360일,확인,하나은행 환가료 공시,https://www.kebhana.com/cms/rate/index.do?contentUrl=/cms/rate/wpfxd652_01i.do,2026-09-23,KRW·GBP·JPY 등은 365
+P9_KRW,DayBasisKRW,일수 기준(KRW),365.0,일,365일,확인,하나은행 환가료 공시,https://www.kebhana.com/cms/rate/index.do?contentUrl=/cms/rate/wpfxd652_01i.do,2026-09-23,
+P10,Fee_KRW,수출환어음 매입취급수수료,20000.0,원/건,"20,000원/건",확인,은행연합회 수출입수수료 비교공시,https://portal.kfb.or.kr/compare/commission_exchange_2.php,2026-09-26,"하나·우리·KB(외화) 2만 원, IBK 면제"
+P11,CollectFee,수출환어음 추심수수료,0.001,건당 비율,0.1%,확인,은행연합회 수출입수수료 비교공시,https://portal.kfb.or.kr/compare/commission_exchange_2.php,2026-09-26,최저 1~2만·최고 3만 원(하나는 건당 2만 원)
+P12,FactoringFee,국제팩토링 취급수수료(IBK),0.004,건당 비율,0.4%,확인,IBK 수출입 이용수수료,https://www.ibk.co.kr/inform/detailFee.ibk?category=E&pageId=FM04010200,2026-06-01,"추심 0.2%, 신용조회 건당 1만 원"
+P13_AC,KS_Direct_AC,K-SURE 다이렉트 선적후 수입자 지정형 A~C급 요율,0.004,건당 비율,0.4%,확인,무역보험 제도안내 2026.8 PDF 23쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,"수입자별 U$20만, 보상비율 95%"
+P13_OTH,KS_Direct_Oth,K-SURE 다이렉트 선적후 수입자 지정형 그 외 등급 요율,0.005,건당 비율,0.5%,확인,무역보험 제도안내 2026.8 PDF 23쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,수입자별 U$10만
+P13_GEN,KS_Direct_Gen,K-SURE 다이렉트 선적후 일반형 요율,0.006,건당 비율,0.6%,확인,무역보험 제도안내 2026.8 PDF 23쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,건별 U$5만·수출자별 U$10만
+P14_LO,KS_PlusLo,K-SURE 중소중견Plus+ 무신용장(중소) 하한,0.0082,연율,0.82%,확인,무역보험 제도안내 2026.8 PDF 26쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,책임금액 구간별 누진
+P14_HI,KS_PlusHi,K-SURE 중소중견Plus+ 무신용장(중소) 상한,0.0162,연율,1.62%,확인,무역보험 제도안내 2026.8 PDF 26쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,중견 1.020~2.520%
+P15,KS_PlusLC,K-SURE 중소중견Plus+ 신용장,0.0022,연율,0.22%,확인,무역보험 제도안내 2026.8 PDF 26쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,
+P16,KS_Forfaiting,포페이팅 보험,0.004,연율,0.4%,확인,무역보험 제도안내 2026.8 PDF 33쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,국가등급이 높을수록·개설은행 순자산이 클수록 저렴
+P17_LO,KS_GuarLo,수출신용보증(매입) 하한,0.005,연율,0.5%,확인,무역보험 제도안내 2026.8 PDF 46쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,포괄매입 0.25~0.85%(48쪽)
+P17_HI,KS_GuarHi,수출신용보증(매입) 상한,0.025,연율,2.5%,확인,무역보험 제도안내 2026.8 PDF 46쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,
+P18,Cov,보상비율(다이렉트 선적후),0.95,비율,95%,확인,무역보험 제도안내 2026.8 PDF 23쪽,https://www.ksure.or.kr/rh-kr/bbs/i-329/down.do?bbs_id=1014&atfile_sn=1&data_ty_cd=A&ntt_sn=38033,2026-09-09,단기수출보험 중소기업 부보율은 100% — 실습은 보수적으로 95%
+P19_S,Spread_S,은행 가산금리 S,0.01,%p,1%p,가정,[가정],,,C는 P8 92일(2.49%p) 상한
+P19_A,Spread_A,은행 가산금리 A,0.015,%p,1.5%p,가정,[가정],,,
+P19_B,Spread_B,은행 가산금리 B,0.02,%p,2%p,가정,[가정],,,
+P19_C,Spread_C,은행 가산금리 C,0.025,%p,2.5%p,가정,[가정],,,
+P20_S,Prem_S,K-SURE 보험료 S(90일 건당),0.003,건당 비율,0.3%,가정,"[가정] — 요율표 비공개, P13~P15 앵커",,,연환산 = 요율 × 365 ÷ 결제기간
+P20_A,Prem_A,K-SURE 보험료 A(90일 건당),0.004,건당 비율,0.4%,가정,[가정],,,
+P20_B,Prem_B,K-SURE 보험료 B(90일 건당),0.005,건당 비율,0.5%,가정,[가정],,,
+P20_C,Prem_C,K-SURE 보험료 C(90일 건당),0.01,건당 비율,1%,가정,[가정],,,
+P21_S,PD_S,연 부도확률 S,0.005,연율,0.5%,가정,[가정] — ICC 무역금융 부도율 참조,,,
+P21_A,PD_A,연 부도확률 A,0.015,연율,1.5%,가정,[가정],,,
+P21_B,PD_B,연 부도확률 B,0.04,연율,4%,가정,[가정],,,
+P21_C,PD_C,연 부도확률 C,0.1,연율,10%,가정,[가정] — Atradius 아시아 B2B 대손 약 5% 참조,,,
+P22,LGD,부도 시 손실률(무보험),0.6,비율,60%,가정,[가정] — K-SURE 추심수수료 10~20%·1년 후 회수율 급감,,,
+P23,EarlyPay_2_10_30,조기결제 할인 2/10 net 30 연환산,0.3673,연율,36.73%,계산,0.02 ÷ 0.98 × 360 ÷ 20,https://taulia.com/glossary/what-is-dynamic-discounting/,,365일 기준 37.24% · 복리 44.59%
+P24,Equity_USD,자기자본(가상 회사),10000000.0,USD,"10,000,000 USD",교육용 가정,교육용 예시값,,,🔵 자사 값으로 바꿔 해 찾기 다시 실행
+P25,Alpha,미부보 EL 예산 비율 α,0.03,비율,3%,가정,여신관리규정 제16조,,,EL 예산 = 자기자본 × α
+P26_S,s_S,자기 감당 한도 비율 S,0.05,비율,5%,가정,[가정] 업계 예시(25%)를 보수적으로 축소,,,Self = 자기자본 × s(g)
+P26_A,s_A,자기 감당 한도 비율 A,0.03,비율,3%,가정,[가정],,,
+P26_B,s_B,자기 감당 한도 비율 B,0.01,비율,1%,가정,[가정],,,
+P26_C,s_C,자기 감당 한도 비율 C,0.0,비율,0%,가정,[가정],,,
+P27,Fed_Lo,연준 목표범위 하단,0.0375,연율,3.75%,확인,FOMC 성명 2026-09-16,https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm,2026-09-16,+25bp(12:0) — 3.50~3.75% → 3.75~4.00%
+P28,Fed_Hi,연준 목표범위 상단,0.04,연율,4%,확인,FOMC 성명 2026-09-16,https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm,2026-09-16,
+P29,Tenor,할인율 표 기준 기간,90.0,일,90일,교육용 가정,교육용 예제,,,"03_RateBuild 검산표(USD 100,000·90일)"
+P30,Grace,필요한도 유예일,15.0,일,15일,가정,여신관리규정 제13조,,,Need = 월평균 매출 × (결제기간 + 15) ÷ 30
+P31_A,Cap_A,등급 상한 A,200000.0,USD,"200,000 USD",가정,K-SURE 다이렉트 A~C U$20만 앵커,,,S는 상한 없이 Need
+P31_B,Cap_B,등급 상한 B,100000.0,USD,"100,000 USD",가정,K-SURE 다이렉트 그 외 U$10만 앵커,,,
+P31_C,Cap_C_OA,등급 상한 C(외상),0.0,USD,0 USD,가정,여신관리규정 제10조·제13조② — C는 선수금·L/C만,,,
+P32,ShareCap_B,B등급 한도 합 상한(총허용익스포저 대비),0.3,비율,30%,교육용 가정,교육용 가정,,,
+P33_02,CtryCap_02,국가 한도율: OECD CRC 미분류·0~2,0.2,비율,20%,교육용 가정,교육용 가정 · OECD CRC 2026-06-26,,,총허용익스포저 대비
+P33_3,CtryCap_3,국가 한도율: CRC 3,0.12,비율,12%,교육용 가정,교육용 가정,,,
+P33_45,CtryCap_45,국가 한도율: CRC 4~5,0.06,비율,6%,교육용 가정,교육용 가정,,,
+P33_67,CtryCap_67,국가 한도율: CRC 6~7,0.03,비율,3%,교육용 가정,교육용 가정,,,
+P34,TotalCapShare,총허용익스포저 = 상한 합 × 이 비율(10만 단위 반올림),0.7,비율,70%,교육용 가정,교육용 가정,,,70% → 총량 제약이 반드시 걸린다(우선순위가 생긴다)
+P35,Util,평균 한도 사용률,0.7,비율,70%,교육용 가정,교육용 가정,,,
+P36,GM,매출총이익률,0.25,비율,25%,교육용 가정,교육용 가정,,,
+P37,StratMin,전략 바이어 최소 한도(현행 한도 대비),0.5,비율,50%,교육용 가정,교육용 가정,,,
+P38,NoticeWarnDays,K-SURE 통지 기한 임박 경보 일수,10.0,일,10일,교육용 가정,교육용 가정,,,
+P39,LGD_LC,신용장 거래 LGD,0.1,비율,10%,교육용 가정,은행 지급확약 — 서류 하자 등 잔여 위험만,,,
+P40,Rho,몬테카를로 공통요인 상관 ρ,0.0,비율,0%,교육용 가정,교육용 가정 — 0 = 독립(Excel 기본),,,🟣 0.2로 바꿔 꼬리위험 비교

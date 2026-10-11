@@ -1,0 +1,27 @@
+# 3일차 품질 게이트(수강생판) — PR을 열면 GitHub 서버가 d3_end_scored.csv의 약속(150행 · 6열 · 등급 규칙)을 점검해 ✓ / ✗를 붙입니다.
+# 8교시 시연 6(PR마다 같은 데이터로 다시 학습해 기준 모델과 견주는 게이트)의 축소판입니다. 병합 여부는 사람이 정합니다.
+# 내 저장소에서는 이 파일을 .github/workflows/d3-check.yml 로, check_scored.py를 tools/check_scored.py 로 둡니다.
+name: d3-check
+
+on:
+  pull_request:
+    paths:
+      - "workbench/day3/outputs/d3_end_scored.csv"
+      - "tools/check_scored.py"
+      - ".github/workflows/d3-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check-scored:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: d3_end_scored.csv 점검
+        # 요약표는 Actions 화면의 job summary에 쓰고, 같은 표를 로그에도 남긴다.
+        # data/checkpoints/d3_start_scoring.csv는 내 저장소에 올라가 있지 않으면 150곳 대조만 건너뛴다.
+        run: |
+          set -o pipefail
+          python3 tools/check_scored.py workbench/day3/outputs/d3_end_scored.csv --scoring data/checkpoints/d3_start_scoring.csv | tee -a "$GITHUB_STEP_SUMMARY"

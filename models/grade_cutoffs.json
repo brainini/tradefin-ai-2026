@@ -1,0 +1,37 @@
+{
+  "model_version": "day3_lgbm_v1",
+  "method": "t/4·t/2·t",
+  "threshold": 0.1698,
+  "threshold_theory": 0.1667,
+  "cost_fn": 5.0,
+  "cost_fp": 1.0,
+  "cutoffs": {
+    "S": [
+      0.0,
+      0.0425
+    ],
+    "A": [
+      0.0425,
+      0.0849
+    ],
+    "B": [
+      0.0849,
+      0.1698
+    ],
+    "C": [
+      0.1698,
+      1.0
+    ]
+  },
+  "alternative": {
+    "method": "quantile",
+    "shares": {
+      "S": 0.15,
+      "A": 0.35,
+      "B": 0.35,
+      "C": 0.15
+    },
+    "rule": "rank_pct ≥ 0.85 C · ≥ 0.50 B · ≥ 0.15 A · 나머지 S"
+  },
+  "calibration": "없음 — 불균형 보정 없이 학습해 확률이 이미 보정돼 있다(검증 신뢰도표). 확률 그대로 쓴다"
+}
