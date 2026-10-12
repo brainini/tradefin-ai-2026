@@ -31,15 +31,15 @@ hide:
 
 -   :material-chat-processing-outline:{ .lg .middle } **오픈채팅**
 
-    공지 · 질문 · 링크 — <span data-tf-link="open_chat">오픈채팅 들어가기</span>
+    공지 · 질문 · 링크 — <span data-tf-link="open_chat" data-tf-empty="과정 안내 메시지(문자 · 메일)로 받은 주소로 들어갑니다">오픈채팅 들어가기</span>
 
 -   :material-clipboard-check-outline:{ .lg .middle } **사전 설문 · 10분**
 
-    1일차 시작 전에 — <span data-tf-link="pre_survey">설문 열기</span><br><small>6일차 사후 진단과 같은 문항이라 내 변화를 견줍니다. 성적과 무관합니다</small>
+    1일차 시작 전에 — <span data-tf-link="pre_survey" data-tf-empty="과정 안내 메시지(문자 · 메일)로 받은 주소에서 답합니다">설문 열기</span><br><small>6일차 사후 진단과 같은 문항이라 내 변화를 견줍니다. 성적과 무관합니다</small>
 
 -   :material-send-check-outline:{ .lg .middle } **제출 폼**
 
-    내 저장소 주소(1일차) · PR · 앱 주소 — <span data-tf-link="submit_form">제출 폼 열기</span>
+    내 저장소 주소(1일차) · PR · 앱 주소 — <span data-tf-link="submit_form" data-tf-empty="수업 중 화면 · 오픈채팅 공지로 받은 주소로 냅니다">제출 폼 열기</span>
 
 -   :material-map-marker-outline:{ .lg .middle } **강의장**
 
@@ -104,7 +104,7 @@ hide:
 
     위기 카드 · 솔루션 킷 · 거버넌스 · ROI → 팀 저장소 `v1.0` · 7분 데모 · 개인 도입 기획서
 
-    [개요](day6/index.md) · [실습 A](day6/lab-a.md) · [실습 B](day6/lab-b.md) · [위기 카드](day6/cards.md) · [제출](day6/submit.md)
+    [개요](day6/index.md) · [이론](day6/theory.md) · [실습 A](day6/lab-a.md) · [실습 B](day6/lab-b.md) · [위기 카드](day6/cards.md) · [제출](day6/submit.md)
     { .tf-day-links }
 
 </div>

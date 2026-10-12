@@ -1,5 +1,5 @@
 ---
-title: 실습 B — 뉴스 위험지수와 융합 특성표
+title: 2일차 실습 B · 뉴스 위험지수와 융합 특성표
 ---
 
 <div class="tf-lab" markdown>
@@ -28,6 +28,8 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 <div class="tf-lab__cell" markdown><span class="tf-lab__label">목표</span> 뉴스 100건을 AI가 0–10 점수로 바꾸고 **믿을 만한지 잰 뒤**, 기준일 전 30일 뉴스 위험지수를 정제 표에 붙인 **융합 특성표**를 PR로 올립니다</div>
 <div class="tf-lab__cell" markdown><span class="tf-lab__label">오전 시연과의 관계</span> 시연 5의 축소판 — API 대신 Claude Code 세션 안에서 직접 채점(키 불필요) · 300건 → 100건 · 골든셋 20건. 시연 3의 창 집계 · LEFT JOIN, 시연 4의 수집 점검, 시연 1의 worktree를 직접</div>
 </div>
+
+<small>macOS에서는 이 쪽 단축키의 ++ctrl++ 을 ++cmd++ 로 누릅니다. 터미널 ++ctrl+grave++ 과 소스 제어 ++ctrl+shift+g++ 만 macOS도 ++ctrl++ 그대로입니다.</small>
 
 <div data-tf-map></div>
 </div>
@@ -124,27 +126,27 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
     2. 브라우저 주소창에 `사이트주소/robots.txt` → 전체를 복사해 **Claude 웹**에 `robots` 프롬프트와 함께 보냅니다.
     3. 그 사이트의 **이용약관**에서 ++ctrl+f++ 로 crawl · scrap · robot · automated · data mining · AI(한글이면 수집 · 크롤링 · 자동)를 찾아 그 절을 같은 대화에 `terms` 프롬프트와 함께 붙입니다.
     4. AI가 인용한 문장을 **약관 원문에서 ++ctrl+f++ 로 직접 찾습니다** — 글자 그대로 없으면 근거로 쓰지 않습니다.
-    5. `terms-form`으로 5칸 초안을 받아 `workbench/day2/rules/수집점검.md`에 붙이고, **결론 하나**(API 사용 / 수동 열람만 / 수집 불가)와 이유 한 줄을 직접 씁니다.
+    5. `terms-form`으로 2–5칸 초안을 받아 `workbench/day2/rules/수집점검.md`에 붙이고, **0칸(사이트 · 날짜) · 1칸(목적) · 결론 하나**(API 사용 / 수동 열람만 / 수집 불가)와 이유 한 줄을 직접 씁니다. 2칸이 '확인 필요'이면 그 사이트의 공식 API · RSS를 직접 찾아봅니다.
 
-!!! prompt "robots.txt 읽기 — Claude 웹(원문 그대로 · 추측 금지)"
+!!! prompt "`robots` · robots.txt 읽기 — Claude 웹(원문 그대로 · 추측 금지)"
 
     --8<-- "labs/day2/prompts.md:robots"
 
     빈칸 `{사이트 이름}` — 고른 사이트 이름 · 마지막 줄 자리에 robots.txt 원문을 붙입니다 · [빈칸 값 표](../prompts/day2.md#values)
 
-!!! prompt "약관 읽기 — Claude 웹(같은 대화)"
+!!! prompt "`terms` · 약관 읽기 — Claude 웹(같은 대화)"
 
     --8<-- "labs/day2/prompts.md:terms"
 
     마지막 줄 자리에 약관에서 찾은 절(짧으면 전문)을 붙입니다.
 
-???+ prompt "5칸 초안 — Claude 웹(결론은 비워 둔다)"
+???+ prompt "`terms-form` · 5칸 초안 — Claude 웹(결론은 비워 둔다)"
 
     --8<-- "labs/day2/prompts.md:terms-form"
 
 !!! ai "AI가 하는 일"
 
-    Claude 웹이 Disallow 줄 · AI 수집 봇 줄과 금지 조항을 **원문 그대로 인용한 표**로 정리하고, 양식의 2–5칸 초안을 씁니다 — 모르는 칸은 '확인 필요', 결론 칸은 비워 둡니다. 인용이 원문과 한 글자라도 다를 수 있으니 확인은 사람이 합니다.
+    Claude 웹이 Disallow 줄 · AI 수집 봇 줄과 금지 조항을 **원문 그대로 인용한 표**로 정리하고, 양식의 2–5칸 초안을 씁니다 — 4칸은 금지 내용이 담긴 핵심 문장만, 모르는 칸은 '확인 필요', 0 · 1칸과 결론 칸은 비워 둡니다(미리 해 본 실행: 세 프롬프트에 합쳐 40초 안팎). 인용이 원문과 한 글자라도 다를 수 있으니 확인은 사람이 합니다.
 
 <figure class="result" markdown="span">
   ![정체를 밝힌 curl로 받은 robots.txt와 Claude Code가 정리한 수집 조건 표](../assets/screens/d2-robots-conditions.png){ width="680" loading=lazy }
@@ -161,6 +163,10 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
     - [ ] `수집점검.md` 5칸이 모두 있고, 인용은 원문 그대로 + 찾은 위치
     - [ ] 결론 하나 + 이유 한 줄
     - [ ] 기사를 수집하거나 본문을 복사하지 않았다(남기는 것은 제목 · 날짜 · 주소 · 점수)
+
+??? fix "약관 페이지를 못 찾겠어요"
+
+    사이트 맨 아래(푸터)의 Terms · Terms of use · 이용약관 · AGB · Nutzungsbedingungen 같은 링크를 봅니다. 없으면 검색창에 `사이트이름 terms of use`. 5분 안에 못 찾으면 4칸에 '찾지 못함'으로 쓰고, 근거가 없으니 결론은 **수동 열람만**으로 둡니다.
 
 ??? fix "robots.txt가 없어요(404)"
 
@@ -197,7 +203,7 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 
     --8<-- "labs/day2/prompts.md:b3"
 
-??? prompt "15:35 뒤에 채점을 이어 간다면 — B2 끝에 덧붙이기"
+??? prompt "`b2-guard` · 15:35 뒤에 채점을 이어 간다면 — B2 끝에 덧붙이기"
 
     --8<-- "labs/day2/prompts.md:b2-guard"
 
@@ -225,7 +231,7 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 
     - [ ] `news_scored.jsonl` **100줄**, 한 줄에 키 7개(news_id · buyer_id · date · news_sent_0_10 · label · evidence · confidence)
     - [ ] B3 검사 **위반 0** · 다시 채점한 행이 어느 줄이었는지 안다
-    - [ ] 점수가 5–7에 몰리지 않았다
+    - [ ] 점수가 5(경계)에 몰리지 않았다 — 애매한 기사는 5가 아니라 confidence를 낮췄다(6–8 '중립 · 일상'이 많은 것은 정상)
 
 ??? fix "AI가 키워드 규칙 스크립트를 쓰려고 해요"
 
@@ -235,9 +241,9 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 
     "outputs/news_scored.jsonl에 51–100행을 **이어서** 붙여 써"라고 보냅니다. B3 검사가 빠진 `news_id`를 찾아 줍니다.
 
-??? fix "점수가 5–7에 몰려요"
+??? fix "점수가 5에 몰려요 · 거의 모두 같은 점수예요"
 
-    "척도 앵커를 다시 읽고, 애매하면 5로 뭉개지 말고 confidence를 낮춰라"라고 덧붙여 다시 채점하게 합니다.
+    "척도 앵커를 다시 읽고, 애매하면 5로 뭉개지 말고 confidence를 낮춰라"라고 덧붙여 다시 채점하게 합니다. 중립 소식에 7을 많이 주는 것은 규칙(6–8) 안이라 괜찮습니다 — 미리 해 본 실행에서는 100건 중 47건이 7이었고, 정답 20건과의 차이는 모두 1점 이내였습니다.
 
 ??? fix "evidence가 번역 · 요약돼 있어요 · 헤드라인과 본문을 이어 붙인 인용이 위반으로 잡혀요"
 
@@ -316,15 +322,15 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 
     --8<-- "labs/day2/prompts.md:b5"
 
-???+ prompt "B5 덧붙임 — 결과 32열(권장)"
+???+ prompt "`b5-columns` · B5 덧붙임 — 결과 32열(권장)"
 
     --8<-- "labs/day2/prompts.md:b5-columns"
 
-!!! prompt "이어서 — 규칙 문서 8칸(뉴스 창)"
+!!! prompt "`b5-rule8` · 이어서 — 규칙 문서 8칸(뉴스 창)"
 
     --8<-- "labs/day2/prompts.md:b5-rule8"
 
-!!! prompt "이어서 — 데이터 사전에 새 열(시점 점검은 비워 둔다)"
+!!! prompt "`b5-dict` · 이어서 — 데이터 사전에 새 열(시점 점검은 비워 둔다)"
 
     --8<-- "labs/day2/prompts.md:b5-dict"
 
@@ -394,14 +400,14 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 
     1. 16:30 확인표를 펼치고 **`b-check`**로 내 파일에서 계산한 값과 나란히 놓습니다 — 같은 표에 **엑셀 검산본**(`d2_excel_check.xlsx`의 '확인표_B' 시트: 창 안 기사 · 바이어 수를 엑셀 수식으로 센 값) 열도 붙습니다.
     2. 소스 제어에서 바뀐 파일을 훑습니다 — 키 · 실데이터 · 기사 본문 전체가 없어야 합니다.
-    3. **`b-commit`**으로 이번에 만든 파일만 커밋 · push합니다(받은 파일 사본은 빼고). 직접 하려면 소스 제어에서 파일을 골라 Commit → Publish Branch.
+    3. **`b-commit`**으로 이번에 만든 파일만 커밋 · push합니다(받은 파일 사본은 빼고, B4 · B5에서 AI가 만든 **평가 · 결합 스크립트는 넣고** — 숫자를 만든 코드입니다). 직접 하려면 소스 제어에서 파일을 골라 Commit → Publish Branch.
     4. **Compare & pull request** → base **`main`** → 본문에 무엇을 했나 · 확인한 값(150행 · 9월 0건 · 평가 숫자) · 오차 큰 2건 → **Create pull request**. 머지는 8교시에.
 
-!!! prompt "확인표 대조 — 내 값 · 엑셀 검산본 · 기대값을 한 표로(고치지 않음)"
+!!! prompt "`b-check` · 확인표 대조 — 내 값 · 엑셀 검산본 · 기대값을 한 표로(고치지 않음)"
 
     --8<-- "labs/day2/prompts.md:b-check"
 
-!!! prompt "커밋 · push · PR 본문 초안(머지는 하지 않음)"
+!!! prompt "`b-commit` · 커밋 · push · PR 본문 초안(머지는 하지 않음)"
 
     --8<-- "labs/day2/prompts.md:b-commit"
 
@@ -454,7 +460,7 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
     1. PR B의 **Files changed**를 내가 먼저 훑습니다.
     2. `p8-review`로 네 가지를 점검 표로 받아 내 눈과 맞춰 봅니다. **테스트**는 두 가지로 봅니다 — `uv run pytest -q`(실습 A 테스트가 그대로 통과) + `validate_scores.py` 위반 0.
 
-!!! prompt "셀프 리뷰 4가지 — 점검 표만(고치지 않음)"
+!!! prompt "`p8-review` · 셀프 리뷰 4가지 — 점검 표만(고치지 않음)"
 
     --8<-- "labs/day2/prompts.md:p8-review"
 
@@ -467,7 +473,11 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 !!! me "내가 할 일"
 
     1. 짝의 PR B에 코멘트를 **하나** 남깁니다(실습 A 06과 같은 방법 — Files changed의 줄 왼쪽 `+`).
-    2. 받은 코멘트를 반영합니다 — `d2-news` 창의 Claude Code에 "PR의 리뷰 코멘트를 반영해 줘". 반영 커밋이 PR에 자동으로 붙습니다.
+    2. 받은 코멘트를 반영합니다 — 코멘트 글을 GitHub에서 복사해 `d2-news` 창의 Claude Code에 `review-fix`로 붙여 보냅니다(Claude Code는 PR 코멘트를 직접 못 읽는 경우가 많습니다). 반영 커밋을 push하면 PR에 저절로 붙습니다.
+
+??? prompt "`review-fix` · 짝의 리뷰 코멘트 반영 — 코멘트 글을 붙여 넣는다"
+
+    --8<-- "labs/day2/prompts.md:review-fix"
 
 !!! ok "확인"
 
@@ -478,7 +488,8 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 !!! me "내가 할 일"
 
     1. PR 화면 아래 **Merge pull request → Create a merge commit → Confirm**. 스쿼시 · 리베이스를 고르면 그래프에 갈래가 보이지 않습니다.
-    2. 충돌이 나면 `d2-news` 창의 Claude Code에 **B6**을 보내고, **해결된 diff를 내가 읽은 뒤** 머지합니다.
+    2. 충돌이 나면 `d2-news` 창의 Claude Code에 **B6**을 보내고, **해결된 diff를 내가 읽습니다.**
+    3. diff에 동의하면 `push해 줘`(또는 소스 제어 **Sync Changes**) — B6은 합친 결과를 내 PC에만 두고 끝나는 경우가 많습니다(미리 해 본 실행도 그랬습니다). PR 화면이 'This branch has no conflicts'로 바뀌면 1처럼 머지합니다.
 
 !!! prompt "프롬프트 B6 — 충돌이 날 때(슬라이드 문장 그대로)"
 
@@ -490,7 +501,7 @@ title: 실습 B — 뉴스 위험지수와 융합 특성표
 
 !!! ok "확인"
 
-    - [ ] PR 두 개가 머지됐고, 파일에 충돌 표식(`<<<<<<<` · `=======` · `>>>>>>>`)이 없다
+    - [ ] PR 두 개가 머지됐고, 파일에 충돌 표식(`<<<<<<<` · `=======` · `>>>>>>>`)이 없다(충돌을 풀었다면 push까지 했다)
 
 ### 04. worktree 정리(소스 제어 › Worktrees) → git log --graph --oneline으로 오늘 이력 { #p8-cleanup .step data-tool="VS Code, Git" data-phase="8교시" }
 

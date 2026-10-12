@@ -41,10 +41,10 @@
 
 릴리스는 **고정해 두는 판**이다 — 태그는 옮기지 않고, 15:50 뒤에 고친 것은 `v1.1`로 낸다. 심사 대상은 `v1.0`이다.
 
-1. **15:40 코드 프리즈** — 이후에는 README와 릴리스 노트만 고친다.
-2. 릴리스 노트 `docs/release_v1.0.md` 6절: 이 릴리스에 든 것 · 다시 돌리는 법 · 데이터 · 사람이 승인하는 지점 · 알려진 한계 · `v0.5` → `v1.0` 바뀐 것. 초안은 프롬프트 [P6-3](prompts.md#p6-3)으로 받고 사람이 고친다.
-3. 브랜치 `release/v1.0`에 커밋 → PR → **다른 역할 1명이 확인하고 사람이 병합**한다(병합 버튼은 사람이).
-4. 병합 뒤 main에서 `gh release create v1.0 --target main --title "v1.0 — {카드 제목} 솔루션 킷" --notes-file docs/release_v1.0.md`. `gh`가 막히면 **GitHub 웹: Releases → Draft a new release → Choose a tag에 `v1.0` 입력 → Target = `main` → Publish release**.
+1. 릴리스 노트 `docs/release_v1.0.md` 6절: 이 릴리스에 든 것 · 다시 돌리는 법 · 데이터 · 사람이 승인하는 지점 · 알려진 한계 · `v0.5` → `v1.0` 바뀐 것. 초안은 프롬프트 [P6-3](prompts.md#p6-3)으로 받고 사람이 고친다.
+2. 브랜치 `release/v1.0`에 커밋 → PR → **다른 역할 1명이 확인하고 사람이 병합**한다(병합 버튼은 사람이) — 15:40 코드 프리즈 전에.
+3. **15:40 코드 프리즈** — 이후에는 기능을 더하지 않는다. README · 오타는 `v1.0`을 만들기 전에만 고친다.
+4. 프리즈 뒤 main에서 `gh release create v1.0 --target main --title "v1.0 — {카드 제목} 솔루션 킷" --notes-file docs/release_v1.0.md`. `gh`가 막히면 **GitHub 웹: Releases → Draft a new release → Choose a tag에 `v1.0` 입력 → Target = `main` → Publish release**.
 5. 릴리스 주소(`…/releases/tag/v1.0`)를 제출 폼에(15:50).
 
 ## 5. GitHub이 막히면

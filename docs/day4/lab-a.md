@@ -1,5 +1,5 @@
 ---
-title: 실습 A — 한도 최적화와 스트레스 테스트
+title: 4일차 실습 A — 한도 최적화와 스트레스 테스트
 ---
 
 <div class="tf-lab" markdown>
@@ -27,6 +27,8 @@ title: 실습 A — 한도 최적화와 스트레스 테스트
 <div class="tf-lab__cell" markdown><span class="tf-lab__label">목표</span> 정책 손잡이 하나를 바꿨을 때 **한도 · 잠재가격 · 손실이 어떻게 달라지는지 숫자로 설명**한다</div>
 <div class="tf-lab__cell" markdown><span class="tf-lab__label">오전 시연과의 관계</span> 시연 1을 설계 1쪽 · 답안 카드 · 속성 테스트로 **줄이고**, 시연 2는 제공 스크립트에 **내 시나리오 하나**를 더합니다. 실험 카드 1장으로 사람마다 다른 결과를 냅니다</div>
 </div>
+
+<small>macOS에서는 이 쪽 단축키의 ++ctrl++을 ++cmd++로 누릅니다(미리보기 ++cmd+shift+v++). 터미널(++ctrl+grave++) · 소스 제어(++ctrl+shift+g++)는 macOS도 ++ctrl++ 그대로입니다.</small>
 
 <div data-tf-map></div>
 </div>
@@ -90,12 +92,12 @@ title: 실습 A — 한도 최적화와 스트레스 테스트
 !!! ok "확인"
 
     - [ ] 왼쪽 아래 상태 표시줄에 `d4-limits`
-    - [ ] 받기 결과에 `data/checkpoints/d4_*` 줄과 마지막 `요약:` 줄이 있다
+    - [ ] 받기 결과에 `data/checkpoints/d4_*` 6줄(`[받음]`, 아침에 받았으면 `[있음]`)과 마지막 `요약:` 줄이 있다 — `[열기 전]` 9줄은 정상(그 시각에 받는다)
     - [ ] `MODEL_SPEC.md`가 열리고 1–5절을 한 번 읽었다
 
 ??? fix "'열기 전'이라고 나와요"
 
-    시작 파일(`d4_start_scored.csv` · 엑셀판 모델)은 10/19(월) 08:30부터 받습니다. PC 시계가 맞는지 보고, 시각이 지난 뒤 같은 명령을 다시 실행합니다.
+    13:00에는 `[열기 전]` 줄이 **9개 있는 것이 정상**입니다 — 카드 확인표(14:15) · 기대값 테스트 2개(14:45) · 실습 B 파일 5개(15:00) · 기준 결과 워크북(18:00). 그 시각에 같은 명령을 다시 실행하면 새로 열린 파일만 받습니다. 시작 파일(`d4_start_scored.csv` · 엑셀판 모델)까지 '열기 전'이면 10/19(월) 08:30 전이거나 PC 시계가 틀린 것입니다 — 시계를 보고 시각이 지난 뒤 다시 실행합니다.
 
 ??? fix "'과정 저장소의 파일 목록을 확인하지 못했습니다'가 나와요"
 
@@ -152,8 +154,9 @@ title: 실습 A — 한도 최적화와 스트레스 테스트
     | 5 | 제17조 ① 바이어 1곳 한도는 자기자본의 10% 이하 — 설계에는 없다. 넣나? | 모든 상한이 그 값보다 작아 **걸릴 수 없으니 제약으로 넣지 않는다.** 코드로 확인만 하고 모델 카드에 |
     | 6 | 계수가 같은 바이어가 여럿이면 한도를 어떻게 나누나? | **솔버가 정한 대로.** 솔버끼리는 바이어별 한도가 아니라 **목적함수 · 걸린 제약 · 잠재가격**으로 비교한다 |
     | 7 | 분할 송금(`TT_SPLIT_30_70`) 바이어는 외상 한도 대상인가? | **대상이다** — 설계 1의 제외 목록(`LC_SIGHT` · `LC_USANCE` · `TT_ADV`)에 없다 |
-    | 8 | 결제기간이 0일인 바이어(D/P)의 계수는? | **0** — 설계 1의 coef는 `T > 0`일 때만 계산한다(0으로 나누지 않는다) |
-    | 9 | 감액률 30%의 분모는? | **현행 한도 `current_limit_usd`** — 외상 대상 바이어는 모두 0이 아니다 |
+    | 8 | 결제기간이 0일인 바이어(D/P)의 계수는? `L`을 하한에 묶는 후처리를 넣나? | **계수 0** — 설계 1의 coef는 `T > 0`일 때만 계산한다(0으로 나누지 않는다). **후처리는 넣지 않는다** — 설계에 없는 규칙이고, 비교는 목적함수 · 걸린 제약 · 잠재가격으로 한다 |
+    | 9 | 감액률 30%의 분모는? 현행 한도가 0인 바이어는? | **현행 한도 `current_limit_usd`** — 외상 대상 바이어는 모두 0이 아니다. 0인 곳은 신용장 · 선수금 바이어라 1번대로 '대상 아님' |
+    | 10 | 'IF · MIN · MAX 금지'는 어디까지인가? 설계의 UB · LB에도 MIN이 있다 | **LP 식(목적 · 제약)에서만 금지**한다. UB · LB · coef는 설계 1절대로 **열로 미리 계산**하고, 그때는 MIN을 써도 된다(A1 규칙의 뜻) |
 
     </div>
 
@@ -163,7 +166,7 @@ title: 실습 A — 한도 최적화와 스트레스 테스트
 
 !!! ai "AI가 하는 일"
 
-    Plan 모드에서 설계 1쪽과 CSV를 읽고 **결정변수 · 목적 · 제약 표와 질문 3개**를 냅니다(3분 안팎). 승인하면 `scripts/limits_lp.py`(200줄 남짓 — PuLP와 HiGHS 두 솔버)를 쓰고, 엔진을 돌려 `workbench/day4/outputs/limits_proposed.xlsx`(limits · constraints · summary)와 `model_card.md`를 만든 뒤 속성 테스트까지 돌립니다. 끝에 '걸린 제약 2개와 잠재가격의 뜻'을 쉬운 말 3줄로 씁니다. 허락 창은 파일 쓰기 · `uv run`마다 한 번씩, 모두 5–8번 안팎 뜹니다.
+    Plan 모드에서 설계 1쪽과 CSV를 읽고 **결정변수 · 목적 · 제약 표와 질문 3개**를 냅니다(1–3분). 승인하면 `scripts/limits_lp.py`(200줄 남짓 — PuLP와 HiGHS 두 솔버)를 쓰고, 엔진을 돌려 `workbench/day4/outputs/limits_proposed.xlsx`(limits · constraints · summary)와 `model_card.md`(보통 같은 `outputs/` 폴더 — 다른 곳에 두었으면 그 자리)를 만든 뒤 속성 테스트까지 돌립니다(1–2분). 끝에 '걸린 제약 2개와 잠재가격의 뜻'을 쉬운 말 3줄로 씁니다. 허락 창은 파일 쓰기 · `uv run`마다 한 번씩, 모두 5–8번 안팎 뜹니다.
 
 <figure class="result" markdown="span">
   ![Claude Code 입력창 아래 Plan 표시와 표로 답하는 계획 — 코드 대신 진단 표가 먼저 온 화면](../assets/screens/d2-plan-diagnosis.png){ loading=lazy }
@@ -219,7 +222,7 @@ title: 실습 A — 한도 최적화와 스트레스 테스트
     3. **A3-기록**을 보내 `workbench/day4/experiments.md`의 '## 기준 모델' 절을 AI가 쓰게 합니다.
     4. 그 절의 잠재가격 두 개를 `constraints` 시트(엑셀이 없으면 "constraints 시트를 표로 보여 줘")와 **눈으로 대조**합니다.
     5. (선택) **A3-대조**로 엑셀판 같은 모델(완성본)의 참고 잠재가격과 표로 견줍니다.
-    6. 커밋합니다 — 소스 제어(++ctrl+shift+g++)에서 `scripts/limits_lp.py` · `workbench/day4/outputs/limits_proposed.xlsx` · `model_card.md` · `workbench/day4/experiments.md`를 골라(`+`) 두 줄 메시지로. 받은 작업 사본(`workbench/day4/data/`)은 올리지 않아도 됩니다.
+    6. 커밋합니다 — 소스 제어(++ctrl+shift+g++)에서 `scripts/limits_lp.py` · `workbench/day4/outputs/limits_proposed.xlsx` · `workbench/day4/outputs/model_card.md` · `workbench/day4/experiments.md`를 골라(`+`) 두 줄 메시지로. 받은 작업 사본(`workbench/day4/data/`)과 버그 카드 결과(`outputs/bug/`)는 올리지 않아도 됩니다.
 
         ```text
         4일차: 바이어별 한도 엔진과 모델 카드 추가
@@ -248,7 +251,7 @@ title: 실습 A — 한도 최적화와 스트레스 테스트
 
     <dl markdown>
     <dt>무엇</dt><dd markdown>오늘 엔진과 **같은 한도 LP**(+ 할인율 · 시나리오 · 8주 유동성 갭)를 엑셀 수식과 해 찾기 모델로 만든 워크북(시트 17개)입니다. `16_Compare`에는 강사 PC에서 PuLP로 푼 **참고 잠재가격**이, `10_LimitLP`의 P열에는 참고 해가 들어 있습니다.</dd>
-    <dt>왜</dt><dd markdown>엑셀 모델을 손으로 만들지 않습니다. AI가 짠 내 엔진의 숫자를 **코드가 아닌 다른 풀이**와 맞춰 보는 기준선입니다 — 같으면 확인, 다르면 어디서 갈렸는지가 과제입니다.</dd>
+    <dt>왜</dt><dd markdown>엑셀 모델을 손으로 만들지 않습니다. AI가 짠 내 엔진의 숫자를 **다른 사람이 따로 만든 풀이**(엑셀 수식 · 해 찾기 모델과 그 안에 저장된 참고 해 · 잠재가격)와 맞춰 보는 기준선입니다 — 같으면 확인, 다르면 어디서 갈렸는지가 과제입니다. 시험 실행에서는 제약 23줄이 모두 차이 0.001 안으로 같았습니다.</dd>
     <dt>어떻게 만들었나</dt><dd markdown>같은 CSV(`d4_start_scored` · `d4_params`)에서 생성 스크립트가 수식 · 이름 정의 · 해 찾기 모델을 채웠습니다. 수식 칸은 엑셀이 열 때 계산하므로 **파이썬으로 읽으면 비어 있습니다** — 그래서 A3-대조는 숫자가 저장된 칸(16_Compare D열)만 읽게 합니다.</dd>
     </dl>
 
@@ -261,7 +264,7 @@ title: 실습 A — 한도 최적화와 스트레스 테스트
 !!! ok "확인"
 
     - [ ] `8 passed`
-    - [ ] `experiments.md` '## 기준 모델'에 `total_cap` · `ctry_NGA`와 잠재가격, 쉬운 말 한 줄
+    - [ ] `experiments.md` '## 기준 모델'에 `total_cap` · `ctry_NGA`와 잠재가격, 쉬운 말 한 줄(`total_cap`의 slack 0.01은 센트 반올림 — 걸린 제약이 맞다)
     - [ ] 잠재가격 두 개가 `constraints` 시트와 같다(눈으로 대조)
     - [ ] 커밋 1개 — 메시지 두 줄(`4일차: …` / 빈 줄 / `왜: …`)
 
@@ -288,9 +291,9 @@ uv run pytest labs/day4/tests/test_limits_props.py -q --params data/checkpoints/
 
     저장소의 `pytest.ini`는 기본으로 `workbench/`만 봅니다. 오늘 테스트는 **경로를 꼭 줍니다** — `uv run pytest labs/day4/tests/test_limits_props.py -q`.
 
-??? fix "소스 제어에 바뀐 파일이 수십 개 보여요"
+??? fix "소스 제어에 모르는 새 파일이 여러 개 보여요"
 
-    받기 명령이 만든 작업 사본(`workbench/day4/data/`)입니다 — `labs/day4/`의 스크립트 · 문서 사본도 섞여 있습니다. 커밋할 파일만 골라 `+`를 누르고, 사본 폴더의 `.py`는 돌리지 않습니다(원본 자리 `labs/day4/`에서 돌립니다).
+    받기 명령이 만든 작업 사본(`workbench/day4/data/` — 데이터 CSV · 15:00 뒤 지표 JSON)과 버그 카드 결과(`outputs/bug/`)입니다. 커밋할 파일만 골라 `+`를 누르면 되고, 나머지는 그대로 둡니다(지우지 않습니다).
 
 ??? fix "엑셀이 없어요"
 
@@ -310,7 +313,7 @@ uv run pytest labs/day4/tests/test_limits_props.py -q --params data/checkpoints/
     4. 소스 제어 → 저장소 줄의 `…` → **Worktrees › Create Worktree…** → `+ Create new branch…` → `d4-exp`(카드 ①이면 `d4-cap80`) → 폴더 경로는 기본값 그대로 Enter.
     5. 새 창으로 엽니다 — File › New Window → Open Folder(방금 만든 폴더), 또는 터미널에서 `code -n 경로`.
     6. 새 창 터미널에서 `uv sync` → `uv run python tools/get_day_files.py 4`(새 폴더는 `.venv`도 받은 파일도 없습니다).
-    7. 새 창 Claude Code에 **A4**(`{바꿀 값}` = 카드의 값)를 보내고, 3줄을 읽은 뒤 같은 속성 테스트를 겁니다.
+    7. 새 창 Claude Code에 **A4**(`{바꿀 값}` = 카드의 값 — 카드 ①이면 `TotalCapShare를 0.8로`)를 보내고, 3줄을 읽은 뒤 같은 속성 테스트를 겁니다.
 
         ```text
         uv run pytest labs/day4/tests/test_limits_props.py -q --params workbench/day4/data/d4_params.csv --result workbench/day4/outputs/exp/limits_proposed.xlsx
@@ -346,11 +349,11 @@ uv run pytest labs/day4/tests/test_limits_props.py -q --params data/checkpoints/
 
 ??? fix "새 폴더에 scripts/limits_lp.py가 없어요"
 
-    03에서 커밋하지 않았습니다. 원래 창에서 커밋한 뒤, 명령 팔레트(F1) `Git: Delete Worktree…`로 새 폴더를 지우고 다시 만듭니다.
+    03에서 커밋하지 않았습니다. 원래 창에서 커밋한 뒤, 명령 팔레트(++ctrl+shift+p++ · macOS ++cmd+shift+p++) → `Git: Delete Worktree…`로 새 폴더를 지우고 다시 만듭니다.
 
 ??? fix "저장소 줄(…)이 안 보여요"
 
-    소스 제어 제목줄의 `…` 메뉴에서 **Repositories**를 켜거나, F1 → `Git: Create Worktree…`를 고릅니다.
+    소스 제어 제목줄의 `…` 메뉴에서 **Repositories**를 켜거나, 명령 팔레트(++ctrl+shift+p++ · macOS ++cmd+shift+p++) → `Git: Create Worktree…`를 고릅니다.
 
 ??? fix "'already checked out'이라고 해요"
 
@@ -448,10 +451,11 @@ uv run pytest labs/day4/tests/test_limits_props.py -q --params data/checkpoints/
         uv run pytest labs/day4/tests/test_limits_expected.py labs/day4/tests/test_stress_expected.py -q
         ```
 
-    3. 어긋나면 고치기 전에 **'어디서 갈렸나'**를 보내고, 이유 한 줄을 `experiments.md` '## 기대값 대조'에 씁니다. 실험 폴더에서 돌리면 일부러 어긋납니다 — 그 폭이 실험 결과입니다.
-    4. **A6**으로 PR 제목 · 본문 3줄을 받습니다.
-    5. 커밋 → 소스 제어 **Publish Branch**(또는 `git push -u origin d4-limits`) → GitHub의 **Compare & pull request** → PR 만들기. 허락 창에서 push 대상이 `d4-limits`인지 읽습니다. **병합하지 않습니다.**
-    6. PR 링크를 <span data-tf-link="submit_form" data-tf-empty="제출 폼(주소는 첫날 안내)">제출 폼</span>에 붙입니다.
+    3. `experiments.md` '## 기대값 대조'에 결과 한 줄을 씁니다 — 통과면 `8 passed`, 어긋나면 고치기 전에 **'어디서 갈렸나'**를 보내고 그 이유 한 줄. 실험 폴더(`--result workbench/day4/outputs/exp/limits_proposed.xlsx`)로 돌리면 일부러 어긋납니다 — 그 폭이 실험 결과입니다.
+    4. **먼저 커밋합니다**(A6은 커밋된 변경만 읽습니다) — `workbench/day4/experiments.md` · `workbench/day4/outputs/exp/` · `stress_results.csv` · `stress_savings.csv` · `loss_hist.png`, 두 줄 메시지(예: `4일차: 실험 카드 ① · 스트레스 U1 · 기대값 대조 기록` / 빈 줄 / `왜: …`).
+    5. **A6**으로 PR 제목 · 본문 3줄을 받습니다.
+    6. 소스 제어 **Publish Branch**(또는 `git push -u origin d4-limits`) → GitHub의 **Compare & pull request** → A6의 제목 · 본문을 붙여 PR 만들기. 허락 창에서 push 대상이 `d4-limits`인지 읽습니다. **병합하지 않습니다.**
+    7. PR 링크를 <span data-tf-link="submit_form">제출 폼</span>에 붙입니다.
 
 !!! prompt "프롬프트 — 어디서 갈렸나(기대값과 다를 때)"
 
@@ -496,7 +500,7 @@ uv run pytest labs/day4/tests/test_limits_props.py -q --params data/checkpoints/
 
 ??? fix "증액 곳 수가 1–2곳 달라요"
 
-    계수가 같은 바이어끼리 나누는 방식(동점 배분)이 솔버마다 다릅니다. 목적함수 · 걸린 제약 · 잠재가격이 맞으면 정상입니다.
+    계수가 같은 바이어끼리 나누는 방식(동점 배분)이 솔버마다 다릅니다. 목적함수 · 걸린 제약 · 잠재가격이 맞으면 정상이고, 기대값 테스트도 증액은 22곳 ± 2를 통과로 봅니다('사람 승인 필요' 68곳은 정확히 맞아야 합니다).
 
 ??? fix "기대값 테스트 파일이 없어요 · '열기 전'이라고 해요"
 
@@ -508,7 +512,7 @@ uv run pytest labs/day4/tests/test_limits_props.py -q --params data/checkpoints/
 
 ??? ext "수업 뒤 — 기준 결과 워크북과 견주기(A6-비교)"
 
-    4일차 기준 결과 워크북(`d4_end_limits.xlsx`, 카드의 잠금이 풀린 뒤)을 받으면 **A6-비교**로 내 한도안의 목적함수 · 제약 · 잠재가격을 표로 견줍니다 → [A6-비교 프롬프트](../prompts/day4.md#a6-compare).
+    18:00 뒤 받기 명령을 한 번 더 실행해 4일차 기준 결과 워크북(`data/checkpoints/d4_end_limits.xlsx`)을 받고, 내 한도안이 있는 브랜치로 옮긴 뒤(`git switch d4-limits` — 실습 B를 하며 다른 브랜치에 있을 것입니다) **A6-비교**로 목적함수 · 제약 · 잠재가격을 표로 견줍니다 → [A6-비교 프롬프트](../prompts/day4.md#a6-compare). 시험 실행에서는 94개 값이 모두 0.01% 안으로 같았습니다.
 
 <p class="tf-check"><time>14:50</time> <span>PR 링크 — 실습 A 완료. 14:50–15:00 쉬는 시간.</span></p>
 

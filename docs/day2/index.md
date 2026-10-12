@@ -185,16 +185,16 @@ uv run python tools/get_day_files.py 2
 <div class="tf-checklist" data-title="오늘 남길 것" markdown>
 
 - [ ] 이슈 1개(닫힘) · PR A(머지) — 본문 첫 줄 `Closes #번호` · 짝 리뷰 코멘트 1개 반영
-- [ ] `workbench/day2/rules/정제규칙.md`(1–8칸) · `scripts/clean_buyers.py` · `workbench/day2/tests/test_clean.py` — `uv run pytest -q` 통과
+- [ ] `workbench/day2/rules/정제규칙.md`(1–8칸) · `scripts/clean_buyers.py` · `workbench/day2/tests/`의 테스트 파일 — `uv run pytest -q` 통과
 - [ ] `workbench/day2/outputs/d2_buyers_clean.csv`(150행) · `dq_report.md` · `profile.md` · `scaling.md` — 확인표 여섯 줄 · 원본 그대로
 - [ ] `workbench/day2/rules/수집점검.md` — 다섯 칸 + 결론 하나
-- [ ] `news_scored.jsonl`(100줄 · 위반 0) · `scripts/validate_scores.py` · `eval.md`(숫자 3개 + 오차 원인 2건)
+- [ ] `news_scored.jsonl`(100줄 · 위반 0) · `scripts/validate_scores.py`와 평가 · 결합 스크립트 · `eval.md`(숫자 3개 + 오차 원인 2건)
 - [ ] **`d2_end_features.csv`(150행 · 32열)** · `workbench/day2/data/데이터사전.md`(새 열 7개 · 시점 점검)
 - [ ] PR B 머지 · worktree 정리 · `main`에 오늘 결과 전부
 
 </div>
 
-- **제출 = push · PR**입니다. 강사는 1일차에 <span data-tf-link="submit_form" data-tf-empty="제출 폼">제출 폼</span>으로 낸 내 저장소 주소에서 오늘 PR을 확인합니다 — 따로 올릴 파일은 없습니다.
+- **제출 = push · PR**입니다. 강사는 1일차에 <span data-tf-link="submit_form">제출 폼</span>으로 낸 내 저장소 주소에서 오늘 PR을 확인합니다 — 따로 올릴 파일은 없습니다. 1일차에 저장소 주소를 내지 못했다면 오늘 같은 폼으로 냅니다.
 - 점검 기준은 '파일이 있다'가 아니라 **검증한 흔적**입니다 — 테스트 통과 · 확인표 일치 · 위반 0 · 9월 기사 0건.
 - PR 본문 · 커밋 메시지 · 규칙 문서에 **회사 이름 · 실명 · 실제 숫자를 쓰지 않습니다.** 저장소가 공개입니다.
 - 다 끝내지 못했어도 그대로 push하세요. 내일 아침에는 모두 같은 기준 특성표로 시작합니다.

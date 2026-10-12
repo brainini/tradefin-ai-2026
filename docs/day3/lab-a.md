@@ -1,5 +1,5 @@
 ---
-title: 실습 A — 내 첫 연체 예측 모델
+title: 3일차 실습 A — 내 첫 연체 예측 모델
 ---
 
 <div class="tf-lab" markdown>
@@ -44,6 +44,8 @@ title: 실습 A — 내 첫 연체 예측 모델
 - [ ] 회사 실데이터는 어떤 AI 도구에도 넣지 않는다
 
 </div>
+
+이 쪽의 단축키는 Windows 기준입니다. Mac은 ++ctrl++ 대신 ++cmd++를 누르고(미리보기 ++cmd+shift+v++), 터미널 ++ctrl+grave++와 소스 제어 ++ctrl+shift+g++만 Mac에서도 ++ctrl++입니다.
 
 ## 입력 파일 받기 {#files}
 
@@ -146,7 +148,7 @@ title: 실습 A — 내 첫 연체 예측 모델
 
 ??? fix "`uv`를 찾을 수 없대요 · 회사망이 파일 받기를 막아요"
 
-    `uv`가 없으면 [사전 준비](../setup.md)의 설치를 따라 합니다. 회사망이 `raw.githubusercontent.com`을 막으면 사이트의 3일차 ZIP을 받아 `D3` 폴더의 파일을 저장소의 같은 경로에 둡니다.
+    `uv`가 없으면 [사전 준비](../setup.md)의 설치를 따라 합니다. 회사망이 `raw.githubusercontent.com`을 막으면 사이트의 3일차 ZIP을 받습니다. 압축을 푼 `D3` 폴더에는 파일만 들어 있으니 자리를 나눠 둡니다 — `d3_start_features.csv` · `d3_start_scoring.csv` · `d3_features_panel.csv`는 `data/checkpoints/`에, 나머지(`fx_forecast_inputs.csv` · 완성본 · 양식 · 표본)는 `labs/day3/`에(`fred_dexkous.csv`는 이미 `data/external/`에 있습니다).
 
 ??? fix "`git switch -c`가 '이미 있다(already exists)'고 해요"
 
@@ -297,7 +299,7 @@ title: 실습 A — 내 첫 연체 예측 모델
 
 !!! ai "AI가 하는 일"
 
-    지금 코드를 `git add`로 스테이징해 '원래 모습'의 기준으로 남기고 → `sample_weight`를 특성에 더해 두 모델을 한 번씩 → 이유 3줄을 `d3_eval.md`에 → 코드를 되돌린 뒤 `git diff`가 비었는지 보여 줍니다(허락 창 3–4번 · 2분).
+    지금 코드를 `git add`로 스테이징해 '원래 모습'의 기준으로 남기고 → `sample_weight`를 특성에 더해 두 모델을 한 번씩(결과 파일 `d3_test_pred.csv` · `model_v1.txt`는 덮어쓰지 않게) → 이유 3줄을 `d3_eval.md`에 → 코드를 되돌린 뒤 `git diff`가 비었는지 보여 줍니다(허락 창 3–4번 · 2분). 원본 대신 임시 사본으로 실험해 "되돌릴 것이 없었다"고 답하기도 합니다 — 그것도 정상이고, `git diff`가 비어 있으면 됩니다.
 
 <figure class="result" markdown="span">
   ![VS Code 소스 제어의 diff 화면 — 왼쪽 빨강은 지운 줄, 오른쪽 초록은 더한 줄](../assets/screens/d2-rules-diff.png){ width="760" loading=lazy }
@@ -326,13 +328,21 @@ title: 실습 A — 내 첫 연체 예측 모델
 
     되돌리는 명령입니다. 허락 창에서 **대상 파일이 `d3_train.py` 하나뿐인지** 읽고 승인합니다. 다른 파일까지 되돌리려 하면 `No`.
 
+??? fix "실험 뒤 A4 비용표가 완벽해요(FN 0 · FP 0) · B1에서 열 개수 오류가 나요"
+
+    누수 실험이 결과 파일 `d3_test_pred.csv` · `model_v1.txt`를 누수 모델로 덮어쓴 것입니다(아직 커밋 전이라 `git diff`에 보이지 않습니다). 원래 코드로 한 번 더 돌려 되돌립니다 — 이 스크립트는 `d3_eval.md`도 새로 쓰므로 누수 3줄은 다시 붙여 달라고 합니다.
+
+    ```text
+    uv run python workbench/day3/outputs/d3_train.py
+    ```
+
 ### A-1 · 05 커밋 — 메시지 두 줄(무엇 / 왜) (13:45–13:50) { #a1-5 .step data-tool="Git · Claude Code" }
 
 **왜** 커밋 하나에 '무엇'과 '왜'를 남기면 월요일의 내가 같은 숫자를 다시 만들 수 있습니다. outputs 파일 → 두 줄 메시지 → 커밋 1개
 
 !!! me "내가 할 일"
 
-    1. 소스 제어(++ctrl+shift+g++)에서 `workbench/day3/outputs/`의 결과 파일만 `+`로 고릅니다. 받은 데이터 사본(`workbench/day3/data/`)은 고르지 않습니다.
+    1. 소스 제어(++ctrl+shift+g++)에서 `workbench/day3/outputs/`의 결과 파일과, Claude Code가 `scripts/`에 만든 코드(예: `scripts/d3_data_card.py` — 숫자를 만든 코드라 함께 올립니다)만 `+`로 고릅니다. 받은 데이터 사본(`workbench/day3/data/`)은 고르지 않습니다.
     2. 메시지 칸에 두 줄을 쓰고(첫 줄 · 빈 줄 · `왜:`) **Commit**을 누릅니다.
 
         ```text
@@ -355,7 +365,7 @@ title: 실습 A — 내 첫 연체 예측 모델
 !!! ok "확인"
 
     - [ ] 커밋 1개 — `git log --oneline`에 첫 줄만 보인다(빈 줄이 있다는 뜻)
-    - [ ] 데이터 사본(`workbench/day3/data/`)이 커밋에 없다
+    - [ ] 데이터 사본(`workbench/day3/data/`)이 커밋에 없다 · `scripts/`에 새 코드가 있었다면 함께 들어갔다
 
 ??? fix "커밋 메시지가 한 줄로 붙어 보여요"
 
@@ -363,7 +373,14 @@ title: 실습 A — 내 첫 연체 예측 모델
 
 ??? fix "`Please tell me who you are` · `GH007 … private email`이 나와요"
 
-    `git config --global user.name "내 이름"`과 `git config --global user.email "아이디@users.noreply.github.com"`(GitHub 설정 › Emails의 noreply 주소)을 한 번 하고 다시 커밋합니다.
+    커밋 작성자를 한 번 정하고 다시 커밋합니다. 저장소가 공개라 이름은 실명 대신 별명, 주소는 GitHub **Settings → Emails**에 보이는 noreply 주소(숫자ID+아이디 꼴)를 그대로 복사해 넣습니다([사전 준비 0-2](../setup.md#git)).
+
+    ```text
+    git config --global user.name "내 별명"
+    git config --global user.email "숫자ID+아이디@users.noreply.github.com"
+    ```
+
+    `GH007`은 push 때 나옵니다 — 이미 만든 커밋에 개인 메일이 찍혀 있다는 뜻입니다. 위 설정 뒤 소스 제어 **···** → **Commit → Undo Last Commit**을 오늘 만든 커밋 수만큼 누르고, 다시 Commit → push합니다(두 커밋을 하나로 합쳐도 됩니다).
 
 ??? fix "데이터 사본까지 스테이징됐어요"
 
@@ -463,7 +480,7 @@ title: 실습 A — 내 첫 연체 예측 모델
     새로 보내는 프롬프트는 없습니다 — A4가 이미 놓친 바이어 표를 만들었습니다. 주요 특성이 엉뚱하면 아래 '막히면'의 한 줄로 다시 고르게 합니다.
 
 <figure markdown="span">
-  ![레이블 창 — 기준일 t 왼쪽 관측창에서 특성을, 오른쪽 결과창 (t, t+30]에서 정답을 만든다](../assets/diagrams/d3-label-window.png){ loading=lazy }
+  ![레이블 창 — 기준일 t 왼쪽 관측창에서 특성을, 오른쪽 결과창(t 다음 날부터 t+30까지)에서 정답을 만든다](../assets/diagrams/d3-label-window.png){ loading=lazy }
   <figcaption>관측창과 결과창 — 기준일까지 연체 이력이 없다가 뒤 30일에 처음 연체하는 바이어는 특성에 신호가 거의 없습니다</figcaption>
 </figure>
 
@@ -570,11 +587,13 @@ title: 실습 A — 내 첫 연체 예측 모델
 
 ??? ok "참고 실행 값"
 
-    표준 — 학습 2,723행(연체 141) · 시험 1,084행(연체 61) · LightGBM ROC-AUC **0.976** · PR-AUC 0.708. 300행의 88행 · 4건보다 훨씬 안정적입니다.
+    - 표준 — 학습 2,723행(연체 141) · 시험 1,084행(연체 61) · LightGBM ROC-AUC **0.976** · PR-AUC 0.708. 300행의 88행 · 4건보다 훨씬 안정적입니다.
+    - 도전 ①(한 번 돌린 예) — ROC-AUC는 셋 다 0.95 안팎으로 비슷하고, 시험셋 평균 확률이 기본 0.040 → balanced 0.102 · SMOTE 0.090으로 실제 연체율 0.045의 약 2배가 됩니다(Brier도 나빠짐). 순위는 그대로, 확률만 부풉니다.
+    - 도전 ②(한 번 돌린 예) — 시험 바이어 44곳을 1,000번 다시 뽑으면 LightGBM AUC 95% 구간이 약 0.87–1.00 — 위쪽이 1.0에 막힐 만큼 넓습니다.
 
 ??? fix "`imbalanced-learn`이 없대요"
 
-    Claude Code가 `uv add imbalanced-learn`을 하겠다고 알리면 읽고 승인합니다. 설치가 막히면 class weight만 비교해도 됩니다.
+    Claude Code가 `uv add imbalanced-learn`을 하겠다고 알리면 읽고 승인합니다. 설치가 막히면 class weight만 비교해도 됩니다. `uv add`는 `pyproject.toml` · `uv.lock`을 바꾸니 다음 커밋에 이 두 파일도 함께 올립니다(다른 PC에서도 같은 환경이 되게).
 
 ??? fix "worktree 폴더에 `.venv` · 받은 파일이 없어요"
 
@@ -628,7 +647,7 @@ title: 실습 A — 내 첫 연체 예측 모델
 
 ??? fix "push가 거부되거나 로그인을 물어요"
 
-    VS Code 왼쪽 아래 **계정 아이콘**에서 GitHub에 로그인합니다. `GH007 … private email`이면 A-1 · 05의 noreply 주소 설정을 하고 다시 커밋합니다.
+    VS Code 왼쪽 아래 **계정 아이콘**에서 GitHub에 로그인합니다. `GH007 … private email`이면 [A-1 · 05의 막히면](#a1-5)대로 noreply 주소로 바꾸고 오늘 커밋을 다시 만듭니다.
 
 ??? fix "Publish Branch 단추가 안 보여요"
 

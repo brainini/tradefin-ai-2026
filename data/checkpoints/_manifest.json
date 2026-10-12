@@ -130,7 +130,7 @@
     "day4_limits": "Day4 강사 정답 lp_solution.csv(proposed_limit)",
     "files": {
       "data/checkpoints/d6_crisis_pack.xlsx": {
-        "sha256": "ae581f41a3b19572d03606560ecf32a3d7d376ecbdc00a83c17340c87eb34023",
+        "sha256": "50736492f81646bb723ea5f666e4214dd0b006e5649e128d8e6d38bb0f8691a6",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_card5_stage2.xlsx": {
@@ -170,19 +170,19 @@
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_scenarios.csv": {
-        "sha256": "078c550b311a532ae25f126d751d8e371356cc5fd0591c2e5f06d99ec93d74ed",
+        "sha256": "1be50d94b2e893e96ae4acb66b044c9c403e80005daee23ff9506d1ec3e5d02c",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_crisis_pack_templates.csv": {
-        "sha256": "9c79725cde98be007aa2b8e0188a9cd6ee0c30b8f77dfc53b81ccae9ac86e4ed",
+        "sha256": "07ec025620eabd596ec6959818c9783dcae2b391f0a12a001b483f1c18b018ce",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_01.xlsx": {
-        "sha256": "8ff7bbf013e973c7b96ff9358cf55145223092890c57c45eec7baa59a57aa1fd",
+        "sha256": "311f2f1cd7293a89c1c22578370e692066c83a7b14232bb56ecd7577f4ec3f92",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_02.xlsx": {
-        "sha256": "e1191b01ca304e4185758f49aa46bcbea02e88fdf00befac7fc98308edd32172",
+        "sha256": "53b15930f0e2e56bbb473636ab87c8f0a5dc88be2d95400e6e0c5778ae6a9a08",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_03.xlsx": {
@@ -190,7 +190,7 @@
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_04.xlsx": {
-        "sha256": "52bcdb9b1b3744d9432ead42c2c2fa62705451d7517a93c8fc9847417553bc65",
+        "sha256": "6101326920c9dd156c85413a1e0da8fd95892921e38ddce9bfef05674bb35cc2",
         "builder": "tools/build_day6_pack.py"
       },
       "data/checkpoints/d6_teams/team_05.xlsx": {

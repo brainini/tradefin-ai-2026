@@ -16,14 +16,16 @@
   1. 그날 파일 목록을 정합니다 — 내 저장소에 이미 있는 파일 + 과정 저장소(공개)의 수업 파일 목록(files 브랜치의 _index.json).
   2. 내 저장소에 없는 파일은 과정 저장소에서 '같은 경로'로 내려받습니다(예: data/checkpoints/d2_start.xlsx).
      프롬프트의 @경로가 모든 사람에게 같게 됩니다. 받은 파일은 목록의 해시와 맞는지 확인합니다.
-  3. data/ 와 labs/ 의 파일은 workbench/dayN/data/ 에도 '작업 사본'으로 둡니다.
-     원본(data/, labs/)은 고치지 않고, 고쳐 쓸 파일은 사본에서 다룹니다.
+  3. 고쳐 쓸 데이터 파일(data/ 의 표 · JSON, 5일차는 요구사항 카드 · 톤 표)은 workbench/dayN/data/ 에 '작업 사본'도 둡니다.
+     원본(data/, labs/)은 고치지 않고 사본에서 다룹니다. 프롬프트 · 양식 · 코드 · 완성본 · 비교 기준은 사본을 만들지 않습니다
+     (원본 자리에서 읽습니다).
   이미 있는 파일은 덮어쓰지 않습니다(--force 를 줄 때만).
 
 수업 파일은 모두 미리 올라와 있습니다. 다만 '먼저 내 결과를 만든 뒤 견주는' 비교 기준 파일(골든셋 · 기대값 테스트 · 강사 결과)과
 전날 결과가 들어 있는 시작 파일은 정한 시각(열기 시각) 전에는 내 폴더에 들이지 않고 '[열기 전]'으로 알려 줍니다 —
 AI가 내 폴더에서 정답을 미리 읽지 않게 하는 장치입니다. 시각이 지난 뒤 같은 명령을 다시 실행하면 받습니다(급하면 --now).
-6일차 위기 카드 · 인젝트는 정한 시각에 자동으로 올라옵니다 — 그 시각 뒤에 같은 명령을 다시 실행하면 새로 올라온 파일만 더 받습니다.
+6일차 위기 카드 · 인젝트는 정한 시각에 자동으로 올라옵니다 — 그 시각 뒤에 같은 명령을 다시 실행하면 새로 올라온 파일만 더 받습니다
+(보통 1–2분 늦게 올라옵니다. 시각이 지났는데 아직이면 그 묶음 줄과 출력 맨 끝에 '시각이 지났는데 아직 올라오지 않았습니다'라고 알려 줍니다).
 막히면 과정 사이트의 '파일 받기'에서 직접 내려받을 수 있습니다.
 """
 from __future__ import annotations
@@ -173,6 +175,18 @@ OPEN_AT_FALLBACK = {
 IGNORE_NAMES = {".gitkeep", ".DS_Store", "Thumbs.db", "desktop.ini"}
 IGNORE_DIRS = {"__pycache__", ".ipynb_checkpoints", "sec_cache", ".git", ".venv"}
 
+# 작업 사본(workbench/dayN/data/) — 실습에서 고쳐 쓰는 '데이터' 파일만 둔다(원본 data/ · labs/ 는 읽기만).
+#   사본을 만드는 것: data/ 아래 표 · JSON(.csv · .xlsx · .json · .txt) — 정책 숫자 · 시나리오 · 지표 JSON처럼 바꿔 보는 파일
+#   만들지 않는 것: labs/ 의 프롬프트 · 양식 · 참고 파일 · 코드 · 테스트 · 워크플로, 읽기만 하는 보고서(.md),
+#                  완성본 · 비교 기준(먼저 내 결과를 만든 뒤 원본 자리에서 견준다)
+COPY_EXT = (".csv", ".xlsx", ".json", ".txt")
+COPY_ONLY = {                       # 이 일차는 이 파일만 사본을 만든다
+    5: ("labs/day5/spec_fx_tile.md", "labs/day5/tone_matrix.csv"),   # 실습 B2 · B4에서 고친다 — 앱은 data/checkpoints/ 원본을 읽는다
+    6: (),                                                          # 6일차는 팀 저장소(킷)에서 일한다
+}
+NO_COPY_BADGES = ("완성본", "비교 기준")
+NO_COPY_NAMES = ("_check", "_example", "_answer", "_expected", "_end_", "_limit_model")   # 목록을 읽지 못했을 때 완성본 · 비교 기준을 이름으로 가린다
+
 
 class NetError(Exception):
     """인터넷 문제 — 사람이 읽을 이유를 담는다."""
@@ -200,18 +214,25 @@ def at(rel: str) -> Path:
     return REPO.joinpath(*rel.split("/"))
 
 
-def work_name(rel: str) -> str | None:
-    """작업 사본 이름 — data/ 와 labs/ 의 파일만 workbench/dayN/data/ 에 둔다."""
+def work_name(rel: str, day: int, entry: dict | None = None) -> str | None:
+    """작업 사본 이름(workbench/dayN/data/ 아래) — 사본을 만들지 않는 파일이면 None."""
+    if day in COPY_ONLY:
+        return rel.rsplit("/", 1)[-1] if rel in COPY_ONLY[day] else None
     p = rel.split("/")
-    if p[0] == "labs" and len(p) >= 3:  # labs/day2/x → x
-        if p[2] == "tests":  # 테스트는 원본 자리(labs/dayN/tests/)에서 돌린다 — 사본을 만들면 pytest가 사본까지 모으고 경로가 어긋난다
+    if p[0] != "data" or not p[-1].lower().endswith(COPY_EXT):
+        return None
+    if entry:
+        if entry.get("badge") in NO_COPY_BADGES or entry.get("role") == "baseline":
             return None
-        if p[1] == "day4" and not (rel.endswith((".csv", ".xlsx", ".json")) or p[-1] == "alert_rules.yml"):
-            return None  # 4일차 참고 스크립트 · 메일 · 문서는 원본 자리에서 읽는다 — 사본은 데이터와 규칙 파일만(사본 .py를 돌리지 않게)
-        return "/".join(p[2:])
-    if p[0] == "data":  # data/day1/x · data/checkpoints/x → x,  data/파일 → 파일
-        return "/".join(p[2:] if len(p) >= 3 else p[1:])
-    return None
+    elif any(x in p[-1] for x in NO_COPY_NAMES):
+        return None
+    return "/".join(p[2:] if len(p) >= 3 else p[1:])   # data/day1/x · data/checkpoints/x → x,  data/파일 → 파일
+
+
+def mine(rel: str) -> bool:
+    """workbench/dayN/data/(작업 사본) · workbench/dayN/outputs/(내 결과) — '그날 파일'로 세지 않는다."""
+    p = rel.split("/")
+    return len(p) >= 3 and p[0] == "workbench" and p[2] in ("data", "outputs")
 
 
 def net_reason(err: BaseException) -> str:
@@ -252,6 +273,23 @@ def kst(t) -> str:
     return f"{k.month}/{k.day}({'월화수목금토일'[k.weekday()]}) {k:%H:%M}"
 
 
+def later_reason(entry: dict | None, t) -> str:
+    """'[열기 전]' 줄 끝의 이유 — 목록 항목의 구분(badge · role)과 열기 시각으로 고른다."""
+    import datetime as _dt
+    e = entry or {}
+    k = t.astimezone(_dt.timezone(_dt.timedelta(hours=9)))
+    morning = (k.hour, k.minute) <= (9, 0)
+    if e.get("badge") == "완성본":
+        return "시작 파일과 같은 데이터로 만든 완성본이라 그날 아침에 엽니다" if morning else "그날 실습 시각에 여는 완성본"
+    if e.get("badge") == "비교 기준" or e.get("role") == "baseline":
+        return "먼저 내 결과를 만든 뒤 견주는 비교 기준"
+    if not e:
+        return "정한 시각에 여는 파일"
+    if morning:
+        return "전날 실습의 결과가 들어 있어 그날 아침에 여는 시작 파일" if e.get("role") == "start" else "그날 아침에 여는 파일"
+    return "그날 실습 시각에 맞춰 여는 파일"
+
+
 def open_at_of(rel: str, entry: dict | None, have_index: bool):
     """이 파일을 내 폴더에 들이는 시각(UTC). 없으면 None."""
     ts = (entry or {}).get("open_at")
@@ -275,7 +313,7 @@ def local_files(prefixes) -> set[str]:
         for f in base.rglob("*"):
             if f.is_file():
                 rel = f.relative_to(REPO).as_posix()
-                if rel.startswith(pre) and not ignored(rel):
+                if rel.startswith(pre) and not ignored(rel) and not mine(rel):
                     found.add(rel)
     return found
 
@@ -369,7 +407,8 @@ def run(day: int, args) -> int:
                 if not rel or not safe(rel) or ignored(rel) or e.get("role") in ("handout", "rehearsal", "after"):
                     continue
                 if e.get("day") == day or any(rel.startswith(x) for x in prefixes):
-                    entries[rel] = e
+                    if rel not in entries or e.get("day") == day:   # 같은 파일이 여러 일차에 있으면 오늘 일차의 항목(구분 · 시각)을 쓴다
+                        entries[rel] = e
             upcoming = [b for b in index.get("bundles", []) if b.get("day") == day and not b.get("released")]
             say("과정 저장소(공개)의 수업 파일 목록을 확인했습니다.")
         else:
@@ -433,7 +472,7 @@ def run(day: int, args) -> int:
     wb_root = REPO / "workbench" / f"day{day}" / "data"
     copies: dict[str, str] = {}
     for rel in ([] if KIT else have_now):
-        name = work_name(rel)
+        name = work_name(rel, day, entries.get(rel))
         if name is None:
             continue
         dest = wb_root.joinpath(*name.split("/"))
@@ -454,10 +493,7 @@ def run(day: int, args) -> int:
             continue
         tail = f"  ({clabel[copies[rel]]})" if rel in copies else ""
         if results[rel] == "later":
-            e = entries.get(rel) or {}
-            why = ("먼저 내 결과를 만든 뒤 견주는 비교 기준" if e.get("role") == "baseline" or e.get("badge") in ("비교 기준", "완성본")
-                   else "전날 실습의 결과가 들어 있어 그날 아침에 여는 시작 파일" if e else "정한 시각에 여는 파일")
-            tail = f"  ({kst(later[rel])} 이후에 받습니다 — {why})"
+            tail = f"  ({kst(later[rel])} 이후에 받습니다 — {later_reason(entries.get(rel), later[rel])})"
         say(f"  [{label[results[rel]]}] {rel}{tail}")
 
     def count(d: dict, key: str) -> int:
@@ -471,10 +507,22 @@ def run(day: int, args) -> int:
         + (f" · 아직 공개 전 {miss}개" if miss else "") + (f" · 오류 {count(results, 'err')}개" if count(results, "err") else ""))
     if later:
         say("열기 전 파일은 그 시각이 지난 뒤 같은 명령을 다시 실행하면 받습니다. (지금 꼭 필요하면 --now — 먼저 내 결과를 만든 뒤에)")
+    due: list[str] = []   # 시각은 지났는데 아직 올라오지 않은 자동 공개 묶음(보통 1–2분 늦는다) — 출력 맨 끝에 다시 알린다
     if upcoming:
-        say("자동 공개 예정(그 시각 뒤에 같은 명령을 다시 실행하면 새로 올라온 파일만 더 받습니다):")
+        say("자동 공개 시각(그 시각 뒤에 같은 명령을 다시 실행하면 새로 올라온 파일만 더 받습니다):")
         for b in sorted(upcoming, key=lambda x: x.get("at", "")):
-            say(f"    {kst(utc(b['at']))}  {b.get('note', '')}")
+            t = utc(b["at"])
+            if t <= nowu:
+                due.append(kst(t).split(" ")[-1])
+            say(f"    {kst(t)}  {b.get('note', '')}" + ("  ← 시각이 지났는데 아직 올라오지 않았습니다" if t <= nowu else ""))
+
+    def done(code: int) -> int:
+        if due:
+            say("")
+            say(f"{' · '.join(due)} 자동 공개 파일은 시각이 지났는데 아직 올라오지 않았습니다 — 보통 1–2분 늦게 올라오니 "
+                "잠시 뒤 같은 명령을 다시 실행하세요(강사가 공개 시각을 늦췄다고 알리면 그 시각 뒤에).")
+        return code
+
     if problem:
         say(f"일부 파일을 받지 못했습니다 — {problem}. 잠시 뒤 같은 명령을 다시 실행하세요.")
     if miss:
@@ -482,20 +530,26 @@ def run(day: int, args) -> int:
     say("")
     if args.list:
         say("목록만 보았습니다 — 파일은 바꾸지 않았습니다.")
-        return 0
+        return done(0)
     say("다음")
     if KIT:  # 팀 저장소 — workbench/ 없이 킷 폴더에 둔다
         say("  - 받은 파일은 과정 저장소와 같은 경로(data/checkpoints/ · labs/)에 들어옵니다. 이 두 폴더는 .gitignore에 있어 커밋되지 않습니다.")
         if day == 6:
             say("  - 우리 팀 카드(labs/day6/crisis_cards/card{번호}_*.md)는 cards/ 로, 우리 팀 팩(data/checkpoints/d6_teams/team_0{조}.xlsx)은 data/input/ 으로 복사한 뒤 커밋하세요(다른 팀 파일은 옮기지 않습니다).")
+            say("  - 4일차 입력 4개(data/checkpoints/d4_start_scored.csv · d4_params.csv · d4_scenarios.csv · d4_open_inv.csv)와 환율 파일(fx_krw_daily.csv)도 data/input/ 으로 복사합니다.")
+            say("  - 입력 커밋은 브랜치 · PR 없이 main에 바로 커밋 · push — 팀원은 git pull 한 번으로 같은 입력을 받습니다.")
             say("  - 자동 공개: 09:28 카드 · 데이터 팩 / 11:15 카드 ⑤ 2단계 / 11:30 인젝트 1 / 13:15 인젝트 2 — 그때마다 같은 명령을 다시 실행하면 새로 올라온 파일만 더 받습니다.")
         say("  - 결과 파일은 out/ (프롬프트가 정한 폴더)에, 코드는 app/pipeline/ 에 둡니다.")
-        return 1 if count(results, "err") else 0
-    say(f"  - 원본(data/, labs/)은 고치지 않습니다. 고쳐 쓸 파일은 작업 사본 workbench/day{day}/data/ 에서 다룹니다.")
+        return done(1 if count(results, "err") else 0)
+    if copies:
+        say(f"  - 원본(data/, labs/)은 고치지 않습니다. 고쳐 쓸 데이터는 작업 사본 workbench/day{day}/data/ 에서 다룹니다"
+            " (프롬프트 · 양식 · 완성본 · 비교 기준은 원본 자리에서 읽습니다).")
+    else:
+        say("  - 원본(data/, labs/)은 고치지 않습니다. 고쳐 쓸 파일이 있으면 복사해서 씁니다.")
     say(f"  - 결과 파일은 workbench/day{day}/outputs/ 에 저장합니다.")
     if day >= 2:
         say("  - 열기 시각이 있는 날은 그 시각 뒤에 같은 명령을 다시 실행하면 새로 열린 파일만 더 받습니다.")
-    return 1 if count(results, "err") else 0
+    return done(1 if count(results, "err") else 0)
 
 
 def not_released(day: int, cfg: dict, upcoming: list | None = None) -> int:

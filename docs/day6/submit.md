@@ -7,7 +7,7 @@ title: 6일차 제출
 
 # 제출 — 팀은 릴리스 링크 하나, 개인은 비공개 폼
 
-**팀**은 솔루션 킷을 팀 저장소(비공개, 강사가 협업자)의 릴리스 `v1.0` 링크 하나로 냅니다. **개인** 도입 기획서 · 나만의 KPI · ROI는 회사 이야기가 들어가므로 **비공개 폼으로만** 내고, 저장소에는 올리지 않습니다. 폼 링크는 이 쪽의 링크 자리와 당일 화면(QR)에 같습니다.
+**팀**은 솔루션 킷을 팀 저장소(비공개, 강사가 협업자)의 릴리스 `v1.0` 링크 하나로 냅니다. **개인** 도입 기획서 · 나만의 KPI · ROI는 회사 이야기가 들어가므로 **비공개 폼으로만** 내고, 저장소에는 올리지 않습니다. 폼 주소는 수업 중 화면(QR)과 오픈채팅 공지로 안내합니다 — 아래 표의 폼 이름이 링크로 보이면 거기서 열어도 됩니다.
 </div>
 
 ## 한눈에 — 마감 {#overview}
@@ -16,7 +16,7 @@ title: 6일차 제출
 |---|---|---|---|
 | **5일차(10/20) 21:00** | 개인 | 기획서 초안 `plan_draft__T{조}-{번호}.docx`(1–6장) | <span data-tf-link="plan_form">개인 제출 비공개 폼</span> |
 | **6일차 15:50** | 팀 | 솔루션 킷 `tradefin-kit-T{조}` 릴리스 `v1.0` 링크 | <span data-tf-link="team_form">팀 제출 폼</span> |
-| **6일차 17:05** | 개인 | 사후 진단 · 동료 투표 | <span data-tf-link="post_survey" data-tf-empty="16:55 화면의 QR">사후 진단 폼</span> · <span data-tf-link="peer_form" data-tf-empty="16:00 화면의 QR">동료 투표 폼</span> |
+| **6일차 17:05** | 개인 | 사후 진단 · 동료 투표 | <span data-tf-link="post_survey" data-tf-empty="사후 진단 폼">사후 진단 폼</span> · <span data-tf-link="peer_form" data-tf-empty="동료 피드백 · 투표 폼">동료 피드백 · 투표 폼</span> — 주소는 수업 중 화면(QR) · 오픈채팅 공지, 안 열리면 [종이 양식](judging.md#files) |
 | **6일차 17:50** | 개인 | 최종 기획서 `d6_plan__T{조}-{번호}.docx`(11장) · 나만의 KPI · ROI `d6_roi__T{조}-{번호}.xlsx` | <span data-tf-link="plan_form">개인 제출 비공개 폼</span> |
 | 수료 후 7일 안 | 개인(선택) | 피드백 반영본 다시 내기 | 같은 비공개 폼 |
 
@@ -24,13 +24,14 @@ title: 6일차 제출
 
 ## 팀 제출 — 15:50 `v1.0` 릴리스 링크 {#team}
 
-1. **15:40 코드 프리즈** — 이후로는 README와 릴리스 노트만 고칩니다.
-2. README 5항목(목적 · 구성 · 실행 방법 · 데이터 원천과 가상 여부 · 담당자)과 [보안 점검](kit.md#security) 3검색(실제 키 · 실명 · 실제 이메일 → 0건)을 마칩니다. 새 폴더 재현 테스트도 마칩니다.
-3. 저장소 관리자: 릴리스 노트(P6-3 초안 → 사람이 고침)를 `release/v1.0` PR로 병합한 뒤 `gh release create v1.0 …` 또는 **Releases** → **Draft a new release** → 태그 `v1.0` → **Publish release** → [릴리스 만들기](kit.md#release).
-4. 릴리스 주소(`…/releases/tag/v1.0`)를 <span data-tf-link="team_form">팀 제출 폼</span>에 붙이고 제출합니다. 팀당 한 번이면 됩니다.
-5. GitHub가 막히면 `d6_team_solution__T{조}.zip`(README 포함, 폴더 구조 그대로)으로 내고, 강사가 대신 올립니다.
+1. **15:40 코드 프리즈 전에** README 5항목(목적 · 구성 · 실행 방법 · 데이터 원천과 가상 여부 · 담당자)과 [보안 점검](kit.md#security) 3검색(실제 키 · 실명 · 실제 이메일 → 0건)을 마치고, 릴리스 노트(P6-3 초안 → 사람이 고침)를 `release/v1.0` PR로 병합합니다.
+2. **15:40 코드 프리즈** — 이후로는 기능을 더하지 않습니다. README · 오타는 `v1.0`을 만들기 전에만 고칩니다.
+3. 저장소 관리자: 프리즈 뒤 `gh release create v1.0 …` 또는 **Releases** → **Draft a new release** → 태그 `v1.0` → **Publish release** → [릴리스 만들기](kit.md#release).
+4. 다른 역할 1명이 `v1.0`을 새 폴더에서 다시 돌려 '차이 0줄'을 확인합니다 → [재현 테스트](lab-b.md#b6-repro).
+5. **15:50까지** 릴리스 주소(`…/releases/tag/v1.0`)를 <span data-tf-link="team_form">팀 제출 폼</span>에 붙이고 제출합니다. 팀당 한 번이면 됩니다.
+6. GitHub가 막히면 `d6_team_solution__T{조}.zip`(README 포함, 폴더 구조 그대로)으로 내고, 강사가 대신 올립니다.
 
-- 15:50 이후에 고친 것은 `v1.1`로 새 릴리스를 만듭니다. 심사는 `v1.0` 기준입니다.
+- `v1.0`을 낸 뒤 고친 것은 `v1.1`로 새 릴리스를 만듭니다 — 태그는 옮기지 않습니다. 심사는 `v1.0` 기준입니다.
 - 15:45에 발표 순서를 추첨합니다 → [7분 데모](kit.md#demo).
 
 ## 개인 제출 — 비공개 폼 {#personal}
@@ -125,7 +126,7 @@ title: 6일차 제출
 
 - **7영역**: ① 생성형 AI 활용 · 검증 ② 데이터 전처리 ③ 시각화 · EDA ④ ML 결과 해석 ⑤ 리스크 의사결정 ⑥ 에이전트 · RAG · 대시보드 ⑦ AI 거버넌스 · 보안.
 - **추가 4문항**: 가장 먼저 현업에 적용할 것 · 가장 어려웠던 실습과 이유 · 업무 관련성(1–5) · 30일 실행계획 3개(기획서 11장과 같게).
-- 같은 시간에 [동료 투표](judging.md#peer)도 냅니다 — 둘 다 **17:05 마감**. 폼: <span data-tf-link="post_survey" data-tf-empty="16:55 화면의 QR">사후 진단 폼</span>(폼이 안 열리면 종이 양식 `post_assessment.md`)
+- 같은 시간에 [동료 투표](judging.md#peer)도 냅니다 — 둘 다 **17:05 마감**. 폼: <span data-tf-link="post_survey" data-tf-empty="사후 진단 폼(수업 중 화면 · 오픈채팅 공지로 받은 주소)">사후 진단 폼</span> — 안 열리면 종이 양식 `post_assessment.md`.
 
 <figure markdown="span">
   ![위에 7영역 목록, 아래에 L1–L4 수준 사다리(들어본 적 없음 → 개념 설명 → 도움 받아 수행 → 자사 업무에 독립 적용), 맨 아래 띠 변화 = 사후 수준 − 사전 수준](../assets/diagrams/d6-post-assessment.png){ width="520" loading=lazy }

@@ -74,7 +74,10 @@ extra:
   generator: false
   # ── 강사만 아는 주소 — 여기 한 곳만 고친다 ─────────────────────────────────────────
   # 값을 넣고 main에 push하면 다음 배포부터 사이트의 해당 자리(<span data-tf-link="키">)가 링크로 바뀐다.
-  # 비워 두면 그 자리는 '첫날 안내'(또는 쪽이 정한 문구)로 보이고 빌드는 깨지지 않는다(overrides/hooks/course_links.py).
+  # 비워 두면 그 자리에는 주소를 실제로 받는 곳이 점선 알약으로 보이고 빌드는 깨지지 않는다(overrides/hooks/course_links.py):
+  #   개강 전 항목(open_chat · pre_survey · venue) → '과정 안내 메시지(문자 · 메일)로 받은 주소'
+  #   수업 중 항목(나머지)                        → '수업 중 화면 · 오픈채팅 공지로 받은 주소'(post_survey · peer_form은 6일차 종이 양식도)
+  #   쪽이 data-tf-empty를 정했으면 그 글. 비워 두면 그 안내를 과정 안내 메시지 · 수업 화면 · 오픈채팅에서 꼭 해야 한다.
   course_links:
     open_chat: ""      # 오픈채팅방 주소 — 홈 공지
     pre_survey: ""     # 사전 설문(1일차 시작 전 · 10분, Google Forms) — 홈 공지
@@ -88,8 +91,9 @@ extra:
 
 hooks:
   - tools/mkdocs_hooks.py      # docs/downloads/ 의 .md 파일(보고서 발췌 등)을 페이지가 아닌 '내려받을 파일'로 복사
-  - overrides/hooks/course_links.py   # extra.course_links의 주소를 쪽의 <span data-tf-link="키">에 채운다(비면 '첫날 안내')
+  - overrides/hooks/course_links.py   # extra.course_links의 주소를 쪽의 <span data-tf-link="키">에 채운다(비면 주소를 받는 곳 안내)
   - overrides/hooks/download_names.py   # 내려받기 단추의 download="download" → 실제 파일 이름(확장자 없는 'download'로 저장되지 않게)
+  - overrides/hooks/inline_code.py      # 점검 시각(tf-check) · 그림 설명(figcaption) 같은 원시 HTML 안의 `코드` → <code>(백틱이 글자로 보이지 않게)
 
 plugins:
   - search:
@@ -201,13 +205,13 @@ nav:
       - "심사 기준": day6/judging.md
       - "제출": day6/submit.md
   - 자료실:
-      - 프롬프트 라이브러리:
-          - "1일차": prompts/day1.md
-          - "2일차": prompts/day2.md
-          - "3일차": prompts/day3.md
-          - "4일차": prompts/day4.md
-          - "5일차": prompts/day5.md
-          - "6일차": prompts/day6.md
+      - 프롬프트 라이브러리:         # 이름에 '프롬프트'를 붙인다 — 6일차 '제출' 쪽 아래 '다음' 단추가 '1일차'로만 보이면 1일차 개요로 오해한다
+          - "1일차 프롬프트": prompts/day1.md
+          - "2일차 프롬프트": prompts/day2.md
+          - "3일차 프롬프트": prompts/day3.md
+          - "4일차 프롬프트": prompts/day4.md
+          - "5일차 프롬프트": prompts/day5.md
+          - "6일차 프롬프트": prompts/day6.md
       - 용어집: glossary.md
       - 기초 지식:
           - foundations/index.md

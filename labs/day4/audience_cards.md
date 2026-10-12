@@ -12,8 +12,8 @@
 
 1. 입력: 지표 JSON `workbench/day4/data/d4_report_input.json`(작업 사본 — 원본은 `data/checkpoints/`, 4일차 15:00부터 받는 파일). 오전 시연 1 · 2 · 4의 결과 파일에서 **코드가 모은 숫자**라 사람도 AI도 옮겨 적지 않았습니다. 칸 이름은 `labs/day4/report_schema.json`이 정합니다.
 2. Claude Code에 **B2-CC**를 보내 `workbench/day4/outputs/narrative.json`을 파일로 바로 받습니다(채팅을 쓴다면 **B2** — 답에서 코드 블록 표시 ```를 빼고 `{`로 시작하게 저장).
-3. `uv run python labs/day4/make_report.py` → `workbench/day4/outputs/credit_report_2026-09.docx`. '멈춤: docxtpl 이 없습니다'가 나오면 `uv add docxtpl`을 한 번 한 뒤 다시 돌립니다.
-4. `uv run python labs/day4/check_numbers.py` → 불일치 0이어야 다음 단계로.
+3. `uv run python labs/day4/make_report.py` → `workbench/day4/outputs/credit_report_2026-09.docx`. '멈춤: docxtpl 이 없습니다'가 나오면 `uv sync`를 한 번 한 뒤 다시 돌립니다(`docxtpl`은 과정 환경에 들어 있습니다).
+4. `uv run python labs/day4/check_numbers.py` → 불일치 0이어야 다음 단계로(불일치가 있으면 `prompts.md`의 B4-고침).
 
 ## 카드 ② 영업팀 바이어별 조치표 — 엑셀
 

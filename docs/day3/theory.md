@@ -258,7 +258,7 @@ title: 3일차 이론 요약
 ### 레이블 설계가 곧 문제 정의다 {#ch2-label}
 
 <figure markdown="span">
-  ![레이블 창 — 기준일 t 왼쪽 관측창에서 특성을, 오른쪽 결과창 (t, t+30]에서 정답을 만든다](../assets/diagrams/d3-label-window.png){ loading=lazy }
+  ![레이블 창 — 기준일 t 왼쪽 관측창에서 특성을, 오른쪽 결과창(t 다음 날부터 t+30까지)에서 정답을 만든다](../assets/diagrams/d3-label-window.png){ loading=lazy }
   <figcaption>기준일 t(매월 말일)의 과거로 특성을, 뒤 30일로 정답을 만듭니다</figcaption>
 </figure>
 

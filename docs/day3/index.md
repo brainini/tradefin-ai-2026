@@ -172,9 +172,9 @@ uv run python tools/get_day_files.py 3
 ```
 
 - 카드에 **잠금 표시**가 있는 파일은 그 시각 뒤에 받습니다 — 그 전에는 `get_day_files.py`도 '열기 전'이라고 알려 주고 받지 않습니다. 시작 파일 · 완성본 · SHAP 표본은 **10/16(금) 08:30**(2일차 실습의 결과가 들어 있어서), 강사 기준 등급 파일 `d3_end_scored.csv`는 **10/16(금) 18:00**(먼저 내 결과를 만든 뒤 견주는 비교 기준)입니다. 시각이 지난 뒤 같은 명령을 다시 실행하면 새로 열린 파일만 받습니다.
-- 강사 기준 `d3_end_scored.csv`는 **내 결과와 이름이 같지만 폴더가 다릅니다** — 강사 것은 `data/checkpoints/`, 내 것은 `workbench/day3/outputs/`입니다. 월요일 4일차는 모두 같은 기준 등급으로 시작합니다.
+- 강사 기준 `d3_end_scored.csv`는 **내 결과와 이름이 같지만 폴더가 다릅니다** — 강사 것은 `data/checkpoints/`(비교 기준이라 작업 사본은 만들지 않습니다), 내 것은 `workbench/day3/outputs/`입니다. 월요일 4일차는 모두 같은 기준 등급으로 시작합니다.
 - 8교시 품질 게이트의 수강생판(`labs/day3/quality_gate/`)도 같은 명령이 받습니다 — 수업 뒤 [실습 B '다 했으면'](lab-b.md#more).
-- 막히면 아래 카드에서 직접 받습니다. 맨 위 ZIP 카드를 받아 압축을 풀면(Windows: 마우스 오른쪽 → **모두 압축 풀기**, Mac: 더블클릭) **`D3`** 폴더가 나옵니다 — 안의 파일을 저장소의 같은 경로에 둡니다. 저장소 없이 채팅 경로로 하는 분도 여기서 받습니다.
+- 막히면 아래 카드에서 직접 받습니다. 맨 위 ZIP 카드를 받아 압축을 풀면(Windows: 마우스 오른쪽 → **모두 압축 풀기**, Mac: 더블클릭) **`D3`** 폴더가 나옵니다. 폴더 안에는 파일만 있으니 자리를 나눠 둡니다 — `d3_start_features.csv` · `d3_start_scoring.csv` · `d3_features_panel.csv`(18:00 뒤에는 `d3_end_scored.csv`도)는 `data/checkpoints/`에, 나머지는 `labs/day3/`에 둡니다(`fred_dexkous.csv`는 이미 `data/external/`에 있습니다). 프롬프트의 경로가 이 자리를 가리킵니다. 저장소 없이 채팅 경로로 하는 분도 여기서 받습니다.
 
 --8<-- "docs/_snippets/day3/files_all_cards.md"
 

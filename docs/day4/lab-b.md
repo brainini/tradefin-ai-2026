@@ -1,5 +1,5 @@
 ---
-title: 실습 B — 경보 자동화와 경영진 리포트
+title: 4일차 실습 B — 경보 자동화와 경영진 리포트
 ---
 
 <div class="tf-lab" markdown>
@@ -73,9 +73,9 @@ title: 실습 B — 경보 자동화와 경영진 리포트
         cp labs/day4/alert_rules.yml workbench/day4/rules/alert_rules.yml
         ```
 
-    2. **내 규칙 1개**를 더합니다 — `workbench/day4/rules/alert_rules.yml` 맨 아래 아이디어 셋 중 하나의 `#`를 풀거나, `labs/day4/fraud_signals.md`의 신호에서 고르거나, 내 문장을 **B1-규칙**으로 규칙으로 바꿉니다. **경계값(`>=` · `>` · `<=`)을 정하는 것이 내 판단입니다.**
-    3. 입력창 아래 모드를 **Plan**으로 바꾸고, **B1** 끝에 **B1-기준일** 한 줄을 붙여 한 번에 보냅니다.
-    4. 계획을 읽습니다 — 입력 = 작업 사본 · 출력 4종 · 중복 키(인보이스 + 규칙 + 기준일) · 만들 파일 이름. 승인 창에서 `2 Yes, and manually approve edits` → 허락 창마다 무엇을 · 어디에를 읽고 `1 Yes`.
+    2. **내 규칙 1개**를 더합니다 — `workbench/day4/rules/alert_rules.yml` 맨 아래 아이디어 셋 중 하나의 `#`를 풀거나(줄을 고르고 ++ctrl+slash++ · macOS ++cmd+slash++), `labs/day4/fraud_signals.md`의 신호에서 고르거나, 내 문장을 **B1-규칙**으로 규칙으로 바꿉니다. **경계값(`>=` · `>` · `<=`)을 정하는 것이 내 판단입니다.** 내 규칙은 `rules/` 사본에만 씁니다(원본 `labs/day4/alert_rules.yml`은 그대로).
+    3. 입력창 아래 모드를 **Plan**으로 바꾸고, **B1** 끝에 **B1-기준일** 세 줄을 붙여 한 번에 보냅니다.
+    4. 계획을 읽습니다 — 입력 = 작업 사본 · 출력 4종 · 중복 키(인보이스 + 규칙 + 기준일) · 만들 파일 이름. 질문이 오면 한 줄로 답합니다(모르면 "기본안대로"). 승인 창에서 `2 Yes, and manually approve edits` → 허락 창마다 무엇을 · 어디에를 읽고 `1 Yes`.
     5. 터미널에서 내 눈으로 확인합니다.
 
         ```text
@@ -83,7 +83,7 @@ title: 실습 B — 경보 자동화와 경영진 리포트
         uv run pytest labs/day4/tests/test_ews_props.py -q --rules workbench/day4/rules/alert_rules.yml
         ```
 
-    6. **멱등** — 엔진을 한 번 더 돌리고 `git status`를 봅니다. `alerts.csv` · `alert_summary.json` · `alert_digest.md`는 그대로, `run_log.jsonl`만 한 줄 늘어야 합니다.
+    6. **멱등** — **B1-멱등**을 보내 엔진을 한 번 더 돌린 전후의 해시 표를 받습니다. `alerts.csv` · `alert_summary.json` · `alert_digest.md`는 '같음', `run_log.jsonl`만 한 줄 늘어야 합니다(결과 파일은 아직 커밋 전이라 `git status`로는 같은지 보이지 않습니다).
 
 <div class="tf-stack" markdown>
 
@@ -100,7 +100,7 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
     --8<-- "labs/day4/prompts.md:b1"
 
-!!! prompt "B1 끝에 붙이는 한 줄 — B1-기준일"
+!!! prompt "B1 끝에 붙이는 세 줄 — B1-기준일"
 
     --8<-- "labs/day4/prompts.md:b1-asof"
 
@@ -108,9 +108,13 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
     --8<-- "labs/day4/prompts.md:b1-rule"
 
+!!! prompt "프롬프트 B1-멱등 — 두 번 돌려도 같은가"
+
+    --8<-- "labs/day4/prompts.md:b1-idem"
+
 !!! ai "AI가 하는 일"
 
-    Plan으로 규칙 파일 · 테스트 첫머리('엔진이 지켜야 할 모양')를 읽고 계획을 낸 뒤, 승인하면 `scripts/ews.py`를 쓰고 테스트가 통과할 때까지 고칩니다. 이어서 B1의 3) 4)대로 **워크플로 `.github/workflows/d4-ews.yml` · 이슈 스크립트(Claude가 정한 이름, 예: `scripts/post_issue.py`) · 커밋 메시지 초안**까지 준비합니다(02에서 씁니다). 모두 10분 안팎, 허락 창 6–10번 안팎.
+    Plan으로 규칙 파일 · 테스트 첫머리('엔진이 지켜야 할 모양')를 읽고 계획을 낸 뒤, 승인하면 `scripts/ews.py`를 **새로** 쓰고 테스트가 통과할 때까지 고칩니다(B1-기준일의 마지막 줄 때문에 참고 엔진은 열지 않습니다). 이어서 B1의 3) 4)대로 **워크플로 `.github/workflows/d4-ews.yml` · 이슈 스크립트(Claude가 정한 이름, 예: `scripts/post_issue.py`) · 담을 파일 목록과 커밋 메시지 초안**까지 준비합니다(02에서 씁니다). 계획 1–2분 + 만들기 · 검증 2–5분(시험 실행 기준), 허락 창 6–10번 안팎. 커밋 · push는 하지 않거나 허락 창으로 묻습니다 — 02에서 내가 합니다.
 
 <figure class="result" markdown="span">
   ![VS Code 좌우 분할 — 왼쪽 경보 규칙 파일 alert_rules.yml, 오른쪽 워크플로 파일 d4-ews.yml](../assets/screens/d4-ews-input.png){ loading=lazy }
@@ -124,10 +128,10 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
 !!! ok "확인"
 
-    - [ ] 경보 속성 테스트 통과(`passed`, 실패 0)
-    - [ ] 엔진 콘솔이 **D+30 21건(USD 233,455) · 선적 보류 19곳 · 통지 임박 9건 · 경과 14건**(기본 규칙 기준)
-    - [ ] 내 규칙의 건수가 위 표와 같다(새 규칙이면 B1-규칙이 센 건수)
-    - [ ] 두 번 돌려도 결과 3종이 그대로 — `run_log.jsonl`만 한 줄 늘었다
+    - [ ] 경보 속성 테스트 통과(`20 passed`, 실패 0)
+    - [ ] 엔진 콘솔(또는 `alert_digest.md`의 단계 · 규칙 표)이 **D+30 21건(USD 233,455) · 선적 보류 19곳 · 통지 임박 9건 · 경과 14건**(기본 규칙 기준)
+    - [ ] 내 규칙의 건수가 위 표와 같다 — 콘솔의 규칙별 건수나 `alert_digest.md`의 규칙 표에서(새 규칙이면 B1-규칙이 센 건수)
+    - [ ] B1-멱등 표: 결과 3종 '같음' · `run_log.jsonl`만 한 줄 늘었다
 
 ??? fix "테스트 파일이 없어요"
 
@@ -197,7 +201,7 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 <figure class="result" markdown="span">
   ![실행 요약의 잡 상자 — 초록 체크와 ews 18s](../assets/day4/d4-actions-green-check.png){ width="480" loading=lazy }
   ![실행 아래 아티팩트 줄 — alerts 3.75 KB](../assets/day4/d4-actions-artifact.png){ width="480" loading=lazy }
-  <figcaption>결과 예시 — 잡에 초록 체크, 실행 아래 아티팩트 <code>alerts</code>에 결과 파일 4종이 보관됩니다(시연 화면 예시)</figcaption>
+  <figcaption>결과 예시 — 잡에 초록 체크, 실행 아래 아티팩트(시연에서는 <code>alerts</code> — 이름은 내 워크플로가 정한 대로)에 결과 파일 4종이 보관됩니다(시연 화면 예시)</figcaption>
 </figure>
 
 <figure class="result" markdown="span">
@@ -244,9 +248,9 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
     워크플로가 원본 규칙(`labs/day4/alert_rules.yml`)을 읽고 있습니다. 실행 줄에 `--rules workbench/day4/rules/alert_rules.yml`을 붙이게 하고 다시 PR → 병합 → 실행합니다.
 
-??? fix "Actions 목록에 'site'가 회색(건너뜀)으로 보여요"
+??? fix "Actions 목록에 'site' · 'd6-release'가 회색(건너뜀)으로 여러 줄 보여요"
 
-    과정 템플릿에서 따라온 사이트 배포 워크플로가 내 저장소에서는 일부러 돌지 않는 것입니다. 정상입니다.
+    과정 템플릿에서 따라온 워크플로(사이트 배포 · 6일차 자동 공개)가 정한 시각마다 깨어났다가 '과정 저장소가 아니면 건너뛰기'로 끝난 줄입니다 — 오늘은 08:3x · 09:17 · 14:4x · 15:0x · 18:0x에 생깁니다. 정상이고 아무것도 하지 않아도 됩니다. 내 실행만 보려면 왼쪽 목록에서 **d4-ews**를 누릅니다.
 
 ??? fix "병합을 Claude Code에 시키고 싶어요"
 
@@ -331,7 +335,11 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
 ??? fix "'멈춤: docxtpl 이 없습니다'"
 
-    `uv add docxtpl`을 한 번 실행합니다(Claude Code가 하겠다고 하면 읽고 승인). `pyproject.toml` · `uv.lock`이 함께 바뀌니 05에서 같이 커밋합니다.
+    `docxtpl`은 과정 환경(`pyproject.toml`)에 들어 있습니다 — 터미널에서 `uv sync`를 한 번 하고 다시 돌립니다. 그래도 같으면(과정 전에 만든 옛 저장소) `uv add docxtpl` 뒤 바뀐 `pyproject.toml` · `uv.lock`을 05에서 같이 커밋합니다.
+
+??? fix "'제안 한도 합계 재검산은 건너뜀'이라고 나와요"
+
+    정상입니다. 한도안(`limits_proposed.xlsx`)은 실습 A의 브랜치 `d4-limits`에 있어 지금 브랜치(`d4-report`)에는 없습니다. 나머지 세 줄(총 미결 채권 · 부보 비중 · 선적 보류)의 재검산이 ✅이면 됩니다.
 
 ??? fix "'지표 JSON 이 원본과 다릅니다'로 멈춰요"
 
@@ -349,14 +357,14 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
 ## 04. 레드팀 — 다른 AI 한 번 → 맞는 지적만 반영(15분) (16:20–16:35) { #b-redteam .step data-tool="ChatGPT · Claude · Claude Code" }
 
-**왜** 같은 AI는 자기 글에 관대합니다. 숫자는 **코드가** 대조하고, **다른 AI가** 허점을 찾고, 반영 여부는 **사람이** 정합니다. 숫자 대조 → B4(다른 AI · 파일 첨부) → B4-표 → 반영 / 기각(사람) → B4-점검 → 체크 · 서명(사람)
+**왜** 같은 AI는 자기 글에 관대합니다. 숫자는 **코드가** 대조하고, **다른 AI가** 허점을 찾고, 반영 여부는 **사람이** 정합니다. 숫자 대조 → B4(다른 AI · 파일 첨부) → B4-표 → 반영 / 기각(사람) → B4-고침 → B4-점검 → 체크 · 서명(사람)
 
 !!! me "내가 할 일"
 
-    1. 카드 ①이면 `uv run python labs/day4/check_numbers.py` → **불일치 0**이면 다음, 아니면 표의 `where` · `number` · `json_path` · `status`를 읽고 문장을 고쳐 다시 돌립니다.
+    1. 카드 ①이면 `uv run python labs/day4/check_numbers.py` → **불일치 0**이면 다음. 불일치가 있으면 표의 `where` · `number` · `json_path` · `status`를 읽고(무엇이 왜 다른지는 내가 본다) **B4-고침**으로 문장을 고치게 한 뒤 다시 돌립니다.
     2. **초안을 쓴 AI와 다른 서비스**(Claude로 썼으면 ChatGPT)의 새 대화에 **B4**를 붙이고 파일 두 개를 **첨부**합니다 — 초안 파일(`credit_report_2026-09.docx` 또는 `action_table.xlsx` · `ceo_mail.txt`)과 `d4_report_input.json`.
-    3. 받은 지적 표를 **B4-표**로 `workbench/day4/outputs/redteam.md`에 저장하고, 지적마다 입력과 작성 규칙을 열어 보고 **반영 / 기각 + 이유**를 내가 씁니다. 반영했으면 narrative를 고치고 렌더 · 대조를 다시 돌립니다.
-    4. **B4-점검**의 근거 표를 보며 `labs/day4/review_checklist.md` 12항목을 내가 체크하고 서명 칸을 채웁니다.
+    3. 받은 지적 표를 **B4-표**로 `workbench/day4/outputs/redteam.md`에 저장하고, 지적마다 입력과 작성 규칙을 열어 보고 **반영 / 기각 + 이유**를 그 파일의 빈 칸에 내가 씁니다. 반영이 있으면 **B4-고침**을 보내 narrative를 고치고 렌더 · 대조를 다시 돌립니다(카드 ② ③은 표 · 메일을 AI에게 다시 쓰게 합니다).
+    4. **B4-점검**으로 체크리스트 사본 `workbench/day4/outputs/review_checklist.md`(항목마다 근거 한 줄)를 받고, 근거를 읽으며 12항목을 내가 `[x]`로 체크하고 서명 칸을 채웁니다 — 근거가 '확인 필요'인 항목은 보고 파일을 직접 열어 내 눈으로 봅니다. 원본 `labs/day4/review_checklist.md`는 그대로 둡니다.
 
 !!! prompt "프롬프트 B4 — 레드팀(다른 AI · 파일 첨부)"
 
@@ -366,13 +374,17 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
     --8<-- "labs/day4/prompts.md:b4-table"
 
-??? prompt "프롬프트 B4-점검 — 체크리스트 12항목의 근거 찾기(Claude Code)"
+!!! prompt "프롬프트 B4-고침 — 대조 불일치 · 반영한 지적을 해석 파일에(Claude Code)"
+
+    --8<-- "labs/day4/prompts.md:b4-fix"
+
+!!! prompt "프롬프트 B4-점검 — 체크리스트 사본에 12항목의 근거(Claude Code)"
 
     --8<-- "labs/day4/prompts.md:b4-check"
 
 !!! ai "AI가 하는 일"
 
-    숫자 대조 스크립트(코드)가 문장 속 숫자를 정규식으로 뽑아 지표 JSON과 대조하고 `number_trace.csv`를 씁니다 — 쉼표 · 반올림은 정규화하고, 같은 값이라도 **단위가 다르면**(곳 대 건) 잡습니다. 다른 AI는 일곱 유형으로 지적 표와 숫자 위치 표를 냅니다 — 지적은 **후보**일 뿐입니다. 오전 시연에서는 5건 중 2건 반영 · 3건 기각이었고, 기각 중 2건은 레드팀이 작성 규칙을 보지 못하고 낸 지적이었습니다.
+    숫자 대조 스크립트(코드)가 문장 속 숫자를 정규식으로 뽑아 지표 JSON과 대조하고 `number_trace.csv`를 씁니다 — 쉼표 · 반올림은 정규화하고, 같은 값이라도 **단위가 다르면**(곳 대 건) 잡습니다. 다른 AI는 일곱 유형으로 지적 표와 숫자 위치 표를 냅니다(1–2분) — 지적은 **후보**일 뿐입니다. 오전 시연에서는 5건 중 2건 반영 · 3건 기각이었고, 기각 중 2건은 레드팀이 작성 규칙을 보지 못하고 낸 지적이었습니다. 수업 전 시험 실행에서는 9건 중 2건 반영(절감액의 가정 표시 · 환율 두 값의 자료 이름과 기준일) · 7건 기각(렌더 코드의 표시 형식 · 양식에 박힌 제목)이었습니다. B4-고침 · B4-점검은 각각 1분 안팎입니다.
 
 <figure class="result" markdown="span">
   ![완성된 보고서 1쪽과 레드팀 지적에 대한 사람의 판단 표 — 지적 5건 중 반영 2 · 기각 3과 이유](../assets/screens/d4-report-output.png){ loading=lazy }
@@ -383,7 +395,7 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
     - [ ] 카드 ①: 숫자 대조 **불일치 0** · 카드 ② ③: 숫자 위치 표에 '입력에 없음' 0
     - [ ] `redteam.md`에 지적마다 반영 / 기각과 이유 — 반영 1건 이상(지적이 없으면 '지적 없음'과 대조한 숫자 3개)
-    - [ ] 체크리스트 12항목을 내가 체크하고 서명 칸을 채웠다
+    - [ ] `workbench/day4/outputs/review_checklist.md`의 12항목을 내가 체크하고 서명 칸을 채웠다
 
 ??? fix "레드팀이 '지적 없음'만 내요"
 
@@ -395,7 +407,7 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
 ??? fix "숫자 대조가 '단위 다름'으로 멈춰요"
 
-    값은 같아도 단위가 다른 문장입니다(예: '선적 보류 21곳'은 D+30 연체 21건이지 바이어 수가 아닙니다). 문장을 고칩니다.
+    단위가 맞지 않는 문장입니다 — 예: '선적 보류 21곳'(D+30 연체 21건이지 바이어 수가 아닙니다), '몬테카를로 95% 손실'(분위 이름 95를 퍼센트 숫자로 읽음 → 'P95'로). **B4-고침**으로 문장을 고치고 렌더 · 대조를 다시 돌립니다.
 
 ??? fix "'trace 없음'이 나와요"
 
@@ -413,7 +425,7 @@ title: 실습 B — 경보 자동화와 경영진 리포트
 
 !!! me "내가 할 일"
 
-    1. 커밋합니다 — 카드 파일 · `narrative.json` · `number_trace.csv` · `redteam.md` · 체크리스트(+ docxtpl을 더했다면 `pyproject.toml` · `uv.lock`). 메시지는 두 줄.
+    1. 커밋합니다 — `workbench/day4/outputs/`의 카드 파일(`credit_report_2026-09.docx` · `action_table.xlsx` · `ceo_mail.txt` 중 만든 것) · `narrative.json` · `number_trace.csv` · `redteam.md` · `review_checklist.md`. 메시지는 두 줄.
 
         ```text
         4일차: 경영진 보고서 초안과 숫자 대조 · 레드팀 기록 추가
@@ -421,10 +433,10 @@ title: 실습 B — 경보 자동화와 경영진 리포트
         왜: AI 초안을 코드 대조와 다른 AI 검토를 거쳐 사람이 확정하는 흐름을 남기려고
         ```
 
-    2. **B6** → PR 제목 · 본문 3줄(실행 · 이슈 링크는 내가 알려 준 것만).
+    2. **B6** → PR 제목 · 본문 3줄. 02의 Actions 실행 화면과 이슈의 주소를 브라우저 주소창에서 복사해 B6의 `{실행 링크}` · `{이슈 링크}` 자리에 넣습니다(AI가 링크를 지어내지 않게).
     3. push `d4-report` → PR(`d4-report` → `main`) — **병합하지 않습니다.**
     4. 짝의 PR에 코멘트 하나 — 바뀐 파일 · 커밋 메시지의 '왜' · 실데이터가 없는지 · 키가 없는지 · 한 줄.
-    5. PR 링크를 <span data-tf-link="submit_form" data-tf-empty="제출 폼(주소는 첫날 안내)">제출 폼</span>에 붙입니다.
+    5. PR 링크를 <span data-tf-link="submit_form">제출 폼</span>에 붙입니다.
 
 !!! prompt "프롬프트 B6 — PR 제목 · 본문 3줄"
 

@@ -1,5 +1,5 @@
 ---
-title: 실습 A — 바이어 표 정제 파이프라인
+title: 2일차 실습 A · 바이어 표 정제 파이프라인
 ---
 
 <div class="tf-lab" markdown>
@@ -26,6 +26,8 @@ title: 실습 A — 바이어 표 정제 파이프라인
 <div class="tf-lab__cell" markdown><span class="tf-lab__label">목표</span> 지저분한 바이어 표를 AI와 함께 **규칙 문서 · 스크립트 · 테스트**로 정제해, 다시 돌려도 같은 결과가 나오는 파이프라인을 **PR**로 남깁니다</div>
 <div class="tf-lab__cell" markdown><span class="tf-lab__label">오전 시연과의 관계</span> 시연 2(엑셀 → 정제 파이프라인)의 축소판 — 시트 하나 · 프롬프트 4개 · 확인표. 시연 1의 GitHub flow를 이슈 1 · 브랜치 1 · PR 1로 처음부터 끝까지</div>
 </div>
+
+<small>macOS에서는 이 쪽 단축키의 ++ctrl++ 을 ++cmd++ 로 누릅니다. 터미널 ++ctrl+grave++ 과 소스 제어 ++ctrl+shift+g++ 만 macOS도 ++ctrl++ 그대로입니다.</small>
 
 <div data-tf-map></div>
 </div>
@@ -83,7 +85,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
 !!! me "내가 할 일"
 
     1. VS Code에서 **내 저장소**를 열고 Claude Code 패널(오른쪽 위 Claude 아이콘)을 엽니다. 로그인 상태이고 입력창 아래 모드가 **Manual**인지 봅니다 — Auto나 Plan이면 Manual로 바꿉니다(PC마다 시작 모드가 다릅니다).
-    2. 파일을 받습니다. 터미널(++ctrl+grave++)에서 `git pull` 다음 `uv run python tools/get_day_files.py 2` — 또는 아래 **a0** 프롬프트로 Claude Code에게 맡깁니다.
+    2. 파일을 받습니다. 터미널(++ctrl+grave++)에서 `git pull` 다음 `uv run python tools/get_day_files.py 2` — 또는 아래 `a0` 프롬프트로 Claude Code에게 맡깁니다.
     3. **GitHub 웹에서 이슈를 하나** 만듭니다. 내 저장소 → **Issues** → 초록 **New issue** → 제목 **바이어 표 정제 파이프라인**, 본문은 아래 상자를 복사해 붙여 넣고 **Create**. 제목 옆 **번호**(`#1` 같은 글자)를 메모합니다 — 06에서 `Closes #번호`로 씁니다.
     4. 브랜치를 만듭니다. Claude Code에게 `d2-clean 브랜치를 만들어 줘`(허락 창의 `git switch -c d2-clean`을 읽고 `1 Yes`) — 또는 왼쪽 아래 상태 표시줄의 브랜치 이름 → `+ Create new branch…` → `d2-clean`.
 
@@ -96,13 +98,13 @@ title: 실습 A — 바이어 표 정제 파이프라인
     - [ ] 정제규칙.md 1–7칸 채움
     ```
 
-???+ prompt "a0 — 준비 맡기기(선택 · Manual)"
+???+ prompt "`a0` · 준비 맡기기(선택 · Manual)"
 
     --8<-- "labs/day2/prompts.md:a0"
 
 !!! ai "AI가 하는 일"
 
-    a0를 보내면 `git pull` · 파일 받기 명령마다 허락 창이 한 번씩 뜹니다(1–2분). 끝나면 받은 파일 목록 · 현재 브랜치 · `git status`를 보여 줍니다. 터미널에는 파일마다 `[받음] data/checkpoints/d2_start.xlsx  (사본 만듦)` 같은 줄이 나오고, 받은 파일은 `workbench/day2/data/`에 **작업 사본**도 생깁니다.
+    `a0`를 보내면 `git pull` · 파일 받기 명령마다 허락 창이 한 번씩 뜹니다(1–2분). 끝나면 받은 파일 목록 · 현재 브랜치 · `git status`를 보여 줍니다. 터미널에는 파일마다 `[받음] data/checkpoints/d2_start.xlsx  (사본 만듦)` 같은 줄이 나오고, 받은 파일은 `workbench/day2/data/`에 **작업 사본**도 생깁니다.
 
 <figure class="result" markdown="span">
   ![GitHub Issues 탭 — 목록 위쪽 오른쪽의 초록색 New issue 단추와 열린 이슈 두 개](../assets/screens/d2-issues-list.png){ width="680" loading=lazy }
@@ -116,7 +118,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
 !!! ok "확인"
 
-    - [ ] 터미널(또는 a0 보고)에 `d2_start.xlsx` · `fx_krw_daily.csv` · `d2_excel_check.xlsx`를 받았다는 줄이 있다
+    - [ ] 터미널(또는 `a0` 보고)에 `[받음] data/checkpoints/d2_start.xlsx` · `[받음] labs/day2/d2_excel_check.xlsx` 줄이 있다(`fx_krw_daily.csv`는 저장소에 이미 있어 `[있음]`)
     - [ ] 이슈 #번호를 메모했다
     - [ ] 상태 표시줄이 `d2-clean`, 입력창 아래 모드가 **Manual**이다
 
@@ -154,7 +156,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
     --8<-- "labs/day2/prompts.md:a1"
 
-!!! prompt "이어서 — 진단 표 저장(Edit automatically)"
+!!! prompt "`a1-save` · 이어서 — 진단 표 저장(Edit automatically)"
 
     --8<-- "labs/day2/prompts.md:a1-save"
 
@@ -214,11 +216,11 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
     빈칸 `{중위수 또는 KNN}` — [빈칸 값 표](../prompts/day2.md#values)
 
-???+ prompt "A2 덧붙임 — 결정 줄(권장 · 확인표가 이 정의를 전제로 합니다)"
+???+ prompt "`a2-decide` · A2 덧붙임 — 결정 줄(권장 · 확인표가 이 정의를 전제로 합니다)"
 
     --8<-- "labs/day2/prompts.md:a2-decide"
 
-???+ prompt "이어서 — 규칙 문서만 먼저 커밋(커밋 1)"
+???+ prompt "`a2-commit` · 이어서 — 규칙 문서만 먼저 커밋(커밋 1)"
 
     --8<-- "labs/day2/prompts.md:a2-commit"
 
@@ -271,7 +273,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
     --8<-- "labs/day2/prompts.md:a3"
 
-???+ prompt "A3 덧붙임 — 결과 25열(권장)"
+???+ prompt "`a3-columns` · A3 덧붙임 — 결과 25열(권장)"
 
     --8<-- "labs/day2/prompts.md:a3-columns"
 
@@ -288,7 +290,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
     - [ ] `workbench/day2/outputs/d2_buyers_clean.csv`가 **150행 × 25열**, `buyer_id` 첫 열 · `late_30d` 끝 열이다
     - [ ] `dq_report.md`에 정제 전 · 후 표(통화 표기 · 글자 섞인 칸 · 결측 · 단위 의심)가 있다
-    - [ ] `git status`에서 맨 위 `data/` 변경이 없다
+    - [ ] `git status`에서 맨 위 `data/` 변경이 없고, `scripts/clean_buyers.py`에 `data/` 안으로 **쓰는** 줄(`to_excel` · `save` · `to_csv`)이 없다 — 받은 원본(`d2_start.xlsx`)은 `.gitignore`라 바뀌어도 `git status`에 안 보입니다
 
     `workbench/day2/data/` 아래 **받은 파일 사본이 '추적 안 됨'(U)으로 여러 줄** 보이는 것은 정상입니다 — 커밋하지 않아도 됩니다.
 
@@ -303,6 +305,10 @@ title: 실습 A — 바이어 표 정제 파이프라인
 ??? fix "결과가 저장소 맨 위 outputs/에 생겼어요"
 
     내 저장소의 `CLAUDE.md`가 경로를 정합니다. "결과는 workbench/day2/outputs/에 다시 저장해 줘"라고 보내고, 맨 위의 잘못 생긴 파일은 지웁니다(지우기 전에 Claude가 묻습니다).
+
+??? fix "A3가 규칙 문서까지 고쳤어요"
+
+    데이터를 읽고 규칙을 좁히거나(예: ÷1,000을 잔액 열만) '확인 필요'를 채우는 경우가 있습니다(과정 준비 때 미리 해 본 실행에서도 그랬습니다). 소스 제어에서 `정제규칙.md` diff를 읽고 9칸 변경 기록에 한 줄이 있는지 봅니다. 동의하지 않는 줄은 "이 줄은 되돌려 줘" — **결정은 사람이** 합니다.
 
 ??? fix "B141의 '47.0k'는 어떻게 하나요"
 
@@ -337,7 +343,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
 !!! ai "AI가 하는 일"
 
-    `workbench/day2/tests/test_clean.py`에 행 수 · ID 유일 · 통화 4종 · 금액 ≥ 0 · B072 단위 플래그 테스트를 쓰고 `pytest`를 돌립니다. 실패하면 원인을 설명하고 고친 뒤 다시 돌립니다. 마지막에 `git add` · `git commit` 허락 창 — 파일 목록과 두 줄 메시지를 읽고 승인합니다.
+    `workbench/day2/tests/`에 테스트 파일(이름은 `test_clean.py` · `test_buyers_clean.py`처럼 실행마다 다릅니다)을 만들어 행 수 · ID 유일 · 통화 4종 · 금액 ≥ 0 · B072 단위 플래그 테스트를 쓰고 `pytest`를 돌립니다. 실패하면 원인을 설명하고 고친 뒤 다시 돌립니다. 마지막에 `git add` · `git commit` 허락 창 — 파일 목록과 두 줄 메시지를 읽고 승인합니다.
 
 <figure class="result" markdown="span">
   ![터미널 pytest 실행 — 10 passed 줄과 테스트 파일 하나의 6개 항목이 모두 PASSED](../assets/screens/d2-pytest-passed.png){ loading=lazy }
@@ -357,7 +363,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
     | 결측 처리 | 플래그 47곳 · 중위수라면 1.4218 · 1.4579 · 66.44 · 0.0654 |
     | 기록 | 테스트 통과 · 스케일 비교 표 · 커밋 2개+ · PR 1개(Closes #n) |
 
-!!! prompt "확인표 대조 — 눈 대신 AI가 내 파일에서 계산(고치지 않음)"
+!!! prompt "`a-check` · 확인표 대조 — 눈 대신 AI가 내 파일에서 계산(고치지 않음)"
 
     --8<-- "labs/day2/prompts.md:a-check"
 
@@ -378,18 +384,25 @@ title: 실습 A — 바이어 표 정제 파이프라인
     1. 01에서 받은 `labs/day2/d2_excel_check.xlsx`를 엑셀(또는 웹용 Excel)로 **읽기만** 엽니다. '읽는 법' 시트를 1분 읽습니다.
     2. 'B001_손계산' 시트의 노란 칸을 눌러 수식을 봅니다. 원하면 흰 칸 B13에 `=18100*1589.5/1368.25`를 한 번 직접 칩니다(1분).
     3. 아래 프롬프트로 AI 결과와 엑셀 검산본을 **항목마다 나란히** 놓습니다.
-    4. '다름'이 있으면 원인 후보 하나를 엑셀에서 직접 봅니다 — 'buyers_원본' 시트의 노란 열('통화_표준' · `ar_balance_usd` · `unit_flag`)에서 그 바이어 행을 찾습니다.
+    4. '다름'이 있으면 원인 후보 하나를 엑셀에서 직접 봅니다 — 'buyers_원본' 시트의 노란 열('통화_표준' · `ar_balance_usd` · `unit_flag` · 비율 4열)에서 그 바이어 행이나 수식을 찾습니다.
+    5. 원인에 **내가 동의하면** `a-fix`로 규칙 문서부터 고치고 스크립트를 다시 돌린 뒤, `a-check`를 한 번 더 보내 '같음'이 됐는지 봅니다(1–2분).
 
-!!! prompt "엑셀 검산본과 대조 — 어느 쪽이 맞는지는 쓰지 않게"
+!!! prompt "`excel-compare` · 엑셀 검산본과 대조 — 어느 쪽이 맞는지는 쓰지 않게"
 
     --8<-- "labs/day2/prompts.md:excel-compare"
+
+??? prompt "`a-fix` · 이어서 — 원인에 동의했으면 규칙부터 고치고 다시 돌리기"
+
+    --8<-- "labs/day2/prompts.md:a-fix"
+
+    결정 줄에 '비율 열을 채운다'가 없던 미리 해 본 실행에서는 대체값 두 줄이 '다름'이었고, `excel-compare`가 원인(재무 원값을 먼저 채운 뒤 비율을 계산함 — 검산본은 비율 열의 대체 전 중앙값)을 찾았습니다. `a-fix` 한 번(1분)으로 네 값이 모두 '같음'이 됐습니다.
 
 #### 스케일 표
 
 !!! me "내가 할 일"
 
     1. **A5**로 `scaling.md`를 만듭니다(확인표 '기록' 줄의 스케일 비교 표).
-    2. 규칙 문서에 **"정규화 열을 특성 파일에 넣지 않는 이유"** 한 줄을 적습니다 — 평가 데이터의 정보가 섞이고, 내일의 트리 모델은 스케일에 둔감합니다.
+    2. 규칙 문서 **2칸(숫자 변환) 끝**에 `정규화:`로 시작하는 한 줄을 내가 적습니다 — **"정규화 열을 특성 파일에 넣지 않는 이유"**: 평가 데이터의 정보가 섞이고, 내일의 트리 모델은 스케일에 둔감합니다. 06의 A6이 이 줄을 `scaling.md`와 함께 커밋합니다.
 
 !!! prompt "프롬프트 A5 — 스케일 비교 표(특성 파일에는 넣지 않음)"
 
@@ -432,6 +445,8 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
     결측 정의가 다릅니다 — 유동자산 · 유동부채 · 총부채 · 자기자본 · 매출 중 **하나라도** 빈칸이면 1. 중앙값은 **대체하기 전 150행**(기준일 08-31)으로 계산합니다. 300행(두 기준일)이나 대체한 뒤의 값으로 계산하면 달라집니다.
 
+    대체값이 1.52 · 1.51 · 60 · 0.05 근처로 나오면 AI가 **재무 원값(유동자산 · 매출 …)을 먼저 채운 뒤 비율을 계산한 것**입니다. 확인표 · 검산본은 비율 열(`current_ratio` …)을 먼저 계산하고 그 열의 빈칸을 대체 전 중앙값으로 채웁니다 — `a2-decide` 결정 줄에 이 정의가 있습니다. `excel-compare`로 원인을 확인하고 `a-fix`로 규칙 3칸부터 고칩니다.
+
 ??? fix "엑셀 검산본의 노란 칸이 비어 보이거나 #NAME?이 나와요"
 
     엑셀이 아닌 미리보기(브라우저 · VS Code)는 수식을 계산하지 않을 수 있습니다. 엑셀 2016 이상이나 웹용 Excel로 엽니다. '제한된 보기' 노란 띠가 뜨면 **편집 사용**을 눌러야 수식이 계산됩니다 → [FAQ](../faq.md#q-protected-view).
@@ -450,9 +465,9 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
     1. 커밋이 이미 **2개 이상**인지 봅니다 — 터미널 `git log --oneline main..`(03의 규칙 커밋 + 05의 테스트 커밋).
     2. **A6**을 보냅니다 — 남은 변경(`scaling.md` · 규칙 한 줄)을 커밋하고 push한 뒤 PR 본문 초안을 받습니다. 직접 하려면 소스 제어 → Commit → **Publish Branch**.
-    3. 내 저장소 화면 위쪽 노란 띠 **Compare & pull request** → 본문 첫 줄 `Closes #번호` + A6이 쓴 초안 → **Create pull request**.
+    3. 내 저장소 화면 위쪽 노란 띠 **Compare & pull request** → 본문 첫 줄 `Closes #번호` + A6이 쓴 초안 → **Create pull request**. (내 PC에 `gh`가 로그인돼 있으면 A6이 PR까지 만들 수 있습니다 — 그때는 Pull requests 탭에서 그 PR을 열어 본문 첫 줄만 확인합니다.)
     4. **짝의 PR**에 코멘트 하나 — Files changed에서 줄 왼쪽 `+`. 데이터 PR은 네 가지를 봅니다: **행 수 전 · 후 · 테스트 통과 · 실데이터와 키 없음 · 규칙 문서 갱신**.
-    5. 받은 코멘트를 반영합니다 — Claude Code에 "PR의 리뷰 코멘트를 반영해 줘"(반영 커밋이 PR에 자동으로 붙습니다).
+    5. 받은 코멘트를 반영합니다 — 코멘트 글을 GitHub에서 **복사해** 아래 `review-fix`에 붙여 보냅니다. Claude Code는 PR 코멘트를 직접 못 읽는 경우가 많습니다(미리 해 본 실행에서 "PR의 리뷰 코멘트를 반영해 줘"만 보내자 "코멘트를 붙여 넣어 달라"고 답했습니다). 반영 커밋을 push하면 PR에 저절로 붙습니다.
     6. **Merge pull request → Create a merge commit → Confirm** — 내가 직접 누릅니다.
     7. 터미널에서 `git switch main` · `git pull` — 실습 B는 머지된 `main`에서 시작합니다.
 
@@ -461,6 +476,10 @@ title: 실습 A — 바이어 표 정제 파이프라인
     --8<-- "labs/day2/prompts.md:a6"
 
     빈칸 `{번호}` — 01에서 메모한 이슈 번호(숫자만) · [빈칸 값 표](../prompts/day2.md#values)
+
+??? prompt "`review-fix` · 짝의 리뷰 코멘트 반영 — 코멘트 글을 붙여 넣는다"
+
+    --8<-- "labs/day2/prompts.md:review-fix"
 
 !!! ai "AI가 하는 일"
 
@@ -555,7 +574,7 @@ title: 실습 A — 바이어 표 정제 파이프라인
 
     **규칙 한 줄 바꿔 보기**
 
-    단위 의심 기준을 한도의 10배 → 5배로 바꿔 테스트 · 보고서에서 무엇이 달라지는지 봅니다. 새 브랜치 `d2-try`에서 하고 커밋하지 않습니다 — 규칙 한 줄이 결과를 얼마나 바꾸는지. 시작: [ax2](../prompts/day2.md#ax2)
+    단위 의심 기준을 한도의 10배 → 5배로 바꿔 테스트 · 보고서에서 무엇이 달라지는지 봅니다(미리 해 본 실행: 정상 바이어 한 곳이 더 잡히고 B072 테스트가 실패 — 스크립트에 숫자가 따로 박혀 있으면 규칙 문서만 고쳐서는 안 바뀐다는 것도 보입니다). 새 브랜치 `d2-try`에서 하고 커밋하지 않습니다. 끝나면 "이 실험의 변경을 되돌려 줘"(`git restore .`) → `git switch main`. 시작: [ax2](../prompts/day2.md#ax2)
 
 -   <span class="tf-level">응용 · 15분 · Claude Code</span>
 

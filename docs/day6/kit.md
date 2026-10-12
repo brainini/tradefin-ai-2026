@@ -82,7 +82,7 @@ title: 6일차 솔루션 킷
 | 조각 합치기 | 하루 내내 | 작업 하나 = 이슈 하나 = 브랜치 하나 = PR 하나. SOP · README · `data/`처럼 큰 변경은 **PR**로 올리고 **다른 역할 1명이 보고 사람이 병합**. 오탈자는 바로 커밋해도 됩니다. 한 사람이 두 역할이면 [worktree](lab-a.md#a-worktree) |
 | 중간 고정 | 11:45 | 태그 `v0.5`(재등급 · 한도 결과, 인젝트 I-1 반영 여부) = **CP2** |
 | 사람 결정 기록 | 13:15 이후 | 인젝트 I-2의 결정 · 근거 · 결정자를 `docs/decision_log.md`에 |
-| 최종 고정 | 15:40–15:50 | 코드 프리즈 → README 5항목 · 보안 점검 → **`v1.0` 릴리스** + 릴리스 노트 = **CP4** |
+| 최종 고정 | 15:40–15:50 | 코드 프리즈 → **CP4**(README 5항목 · 보안 점검 확인) → **`v1.0` 릴리스** + 릴리스 노트 → 새 폴더 재현 · 15:50 링크 |
 
 **웹에서 PR 올리기**: 파일 → 연필 아이콘 → 고친 뒤 **Commit changes** 창에서 **Create a new branch for this commit and start a pull request** → **Propose changes** → PR 양식(무엇을 · 왜 · 관련 이슈 `Closes #번호` · 올리기 전 확인 5) → **Create pull request** → 리뷰어 1명이 **Files changed**에서 확인 → **Merge pull request**.
 
@@ -131,7 +131,7 @@ title: 6일차 솔루션 킷
 
 릴리스는 **고정해 두는 판**입니다 — 태그는 옮기지 않고, 15:50 뒤에 고친 것은 `v1.1`로 새 릴리스를 만듭니다. 심사는 `v1.0` 기준입니다. 커밋 = 세이브 포인트, 태그 = 이름 붙인 세이브 포인트, 릴리스 = 태그 + 설명 + 첨부입니다.
 
-**명령(권장)** — 브랜치 `release/v1.0`에 릴리스 노트 `docs/release_v1.0.md`를 커밋하고 PR을 열어 **사람이 병합**한 뒤:
+**명령(권장)** — 브랜치 `release/v1.0`에 릴리스 노트 `docs/release_v1.0.md`를 커밋하고 PR을 열어 **사람이 병합**한 뒤(15:40 전), 15:40 코드 프리즈가 지나면:
 
 ```text
 git switch main
@@ -177,9 +177,9 @@ uv sync
 - 대본은 [P6-4](../prompts/day6.md#p6-4)로 받아 `docs/demo_script.md`에 둡니다. 라이브가 실패하면 **60초 녹화 · 캡처**로 바로 바꿉니다(영상은 발표 PC로 옮기고 저장소에는 올리지 않습니다).
 - 발표 순서는 15:45에 추첨하고, 16:05부터 10분 간격(데모 7분 + 질의응답 3분)으로 진행합니다.
 
-## 킷 체크리스트 — CP4 15:40 {#checklist}
+## 킷 체크리스트 — CP4 15:40 → 15:50 {#checklist}
 
-<div class="tf-checklist" data-title="CP4 15:40 — 코드 프리즈 전에" markdown>
+<div class="tf-checklist" data-title="CP4 15:40 → 15:50 — 링크를 내기 전에" markdown>
 
 - [ ] README 5항목(목적 · 구성 · 실행 방법 · 데이터 원천과 가상 여부 · 담당자)
 - [ ] 폴더 6개가 제자리(README · data · app · sop · roi · docs)

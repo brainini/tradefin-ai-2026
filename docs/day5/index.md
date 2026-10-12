@@ -52,7 +52,7 @@ title: 5일차 — AI 금융 에이전트 및 채권 관리 종합 제어 대시
 6. <time>13:00–14:50</time> **4–5교시** <span class="tf-chip tf-chip--must">실습 A</span> [규정 RAG 챗봇과 검색 평가](lab-a.md) — 13:50–14:00 쉬는 시간
 7. <time>15:00–16:50</time> **6–7교시** <span class="tf-chip tf-chip--must">실습 B</span> [환율 타일 · 독촉 워크플로 · 배포 · 승인 기록 DB](lab-b.md) — 15:50–16:00 쉬는 시간
 8. <time>17:00–17:50</time> **8교시** AI 에이전트(워크플로 대 에이전트 · 5패턴 · 사람 승인 · MCP · SDK · 가드레일) · 운영 — **시연 5** 독촉 에이전트 · [내일의 작업대(팀 저장소)](lab-b.md#period8) · 정리
-9. <time>21:00</time> 개인 AI 도입 기획서 초안 1–6장 → <span data-tf-link="plan_form">기획서 비공개 폼</span>
+9. <time>21:00</time> 개인 AI 도입 기획서 초안 1–6장 → <span data-tf-link="plan_form" data-tf-empty="기획서 비공개 폼(수업 중 화면 · 오픈채팅 공지로 받은 주소)">기획서 비공개 폼</span>
 
 </div>
 
@@ -130,7 +130,7 @@ title: 5일차 — AI 금융 에이전트 및 채권 관리 종합 제어 대시
 
     **[내일의 작업대 — 팀 저장소](lab-b.md#period8)**
 
-    조장이 `tradefin-kit-T{조}`를 만들고 팀원 · 강사를 초대 → 팀원은 오늘 밤 수락 · README 한 줄 PR
+    조장이 [킷 템플릿](https://github.com/brainini/tradefin-kit-template)으로 `tradefin-kit-T{조}`를 만들고 팀원 · 강사를 초대 → 팀원은 오늘 밤 수락 · README 한 줄 PR
 
     <small>만드는 것: 팀 저장소 주소 · 팀원 PR 1건씩(내일 09:00 전)</small>
 
@@ -160,7 +160,7 @@ uv run python tools/get_day_files.py 5
 
 - 카드에 잠금 표시가 있는 파일은 그 시각 뒤에 받습니다 — `d5_start.csv`와 칸 영향표는 **10/20(화) 08:30**. 그 전에는 명령도 `[열기 전]`으로 알려 주고, 시각이 지난 뒤 같은 명령을 다시 실행하면 새로 열린 파일만 더 받습니다.
 - **원본(`data/` · `labs/` · `rag/`)은 고치지 않습니다.** 요구사항 카드 · 톤 표는 `workbench/day5/data/`의 작업 사본에서, 코드는 `scripts/`와 `app/`에, 결과는 `workbench/day5/outputs/`에 둡니다.
-- 저장소 없이 채팅 경로로 하는 분은 아래 카드에서 받습니다 — 맨 위 **`day5_files.zip`**을 받아 압축을 풀면 `D5` 폴더 하나에 지금 열린 파일이 모두 들어 있습니다.
+- 저장소 없이 채팅 경로로 하는 분은 아래 카드에서 받습니다 — 맨 위 **`day5_files.zip`**을 받아 압축을 풀면 `D5` 폴더 하나에 지금 열린 파일이 들어 있습니다. 규정 PDF(`hanbit_credit_policy.pdf`)는 압축 파일 안 `rag/corpus/` 폴더에 있습니다 — 실습 A2에서 채팅 프로젝트에 올리는 파일입니다(카드에서 따로 받아도 됩니다).
 
 --8<-- "docs/_snippets/day5/files_all_cards.md"
 
@@ -183,8 +183,8 @@ uv run python tools/get_day_files.py 5
 - [ ] **PR③ 실습 B**(`d5-store`) — 승인 기록 SQLite(`receivables.db`는 커밋 제외), **병합은 내가**
 - [ ] **내 앱 주소** — ⓪이 내 PC와 같은 화면 · 저장소에 키 0
 - [ ] **`links.md`** — 앱 주소 · PR 3개 · 점검 네 칸
-- [ ] **제출** — PR 링크와 앱 주소를 <span data-tf-link="submit_form">제출 폼</span>에
-- [ ] **21:00 기획서 초안 1–6장** — 양식 `ax_proposal_template.md`를 Word · Google Docs로 옮겨 `plan_draft__T{조}-{번호}.docx`로 → <span data-tf-link="plan_form">기획서 비공개 폼</span>(저장소에 올리지 않고, 실명 · 회사 이름은 익명화 — [6일차 기획서 11장](../day6/submit.md#proposal))
+- [ ] **제출** — PR 링크와 앱 주소를 <span data-tf-link="submit_form" data-tf-empty="제출 폼(수업 중 화면 · 오픈채팅 공지로 받은 주소)">제출 폼</span>에
+- [ ] **21:00 기획서 초안 1–6장** — 양식 `ax_proposal_template.md`를 Word · Google Docs로 옮겨 `plan_draft__T{조}-{번호}.docx`로 → <span data-tf-link="plan_form" data-tf-empty="기획서 비공개 폼(수업 중 화면 · 오픈채팅 공지로 받은 주소)">기획서 비공개 폼</span>. 저장소에 올리지 않고, 실명 · 회사 이름은 익명화합니다 — [6일차 기획서 11장](../day6/submit.md#proposal)
 - [ ] **팀 저장소** — 조장은 `tradefin-kit-T{조}` 만들기 · 초대, 팀원은 오늘 밤 수락 + PR 1건
 
 </div>
@@ -201,7 +201,7 @@ uv run python tools/get_day_files.py 5
 - **요구사항을 먼저, 한 번에 하나**: 이미 도는 앱에 기능을 더할 때는 "기존 것은 바꾸지 말 것 · 새 패키지 금지 · 테스트 통과"를 매번 적습니다.
 - **허락 창은 읽고 승인**: 무엇을 · 어디에 · 지우는지 세 가지를 읽고 `1 Yes`. 파일 삭제 · 강제 push · `git reset --hard`는 거절하고, **병합은 내가 GitHub 화면에서** 누릅니다.
 - **키는 금고에**: Secrets에만 두고 저장소 · 채팅창 · 단체방에 붙이지 않습니다. 노출되면 폐기와 재발급이 먼저입니다.
-- **현장 이야기**: "우리 회사에서는 이렇게 한다"는 이야기는 6일차 도입 기획의 재료가 됩니다 — <span data-tf-link="open_chat" data-tf-empty="오픈채팅(첫날 안내)">오픈채팅</span>에도 남겨 주세요.
+- **현장 이야기**: "우리 회사에서는 이렇게 한다"는 이야기는 6일차 도입 기획의 재료가 됩니다 — <span data-tf-link="open_chat" data-tf-empty="오픈채팅(과정 안내 메시지(문자 · 메일)로 받은 주소)">오픈채팅</span>에도 남겨 주세요.
 
 ## 정리 · 자가 점검 · 내일 예고 {#tomorrow}
 

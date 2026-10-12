@@ -144,7 +144,7 @@ title: 4일차 — 수출채권 회수 전략 최적화 및 조기 경보 시뮬
 | 실습 | 프롬프트 |
 |---|---|
 | A 01–06 | [A1 시작(Plan)](../prompts/day4.md#a1) · [A2 질문에 답하기](../prompts/day4.md#a2) · [A3 테스트 실패 시](../prompts/day4.md#a3) · [A3-기록](../prompts/day4.md#a3-log) · [A4 정책 실험](../prompts/day4.md#a4) · [A4-가져오기](../prompts/day4.md#a4-bring) · [A5 스트레스](../prompts/day4.md#a5) · [A6 PR](../prompts/day4.md#a6) |
-| B 01–05 | [B1 경보 엔진 + 자동 실행](../prompts/day4.md#b1) · [B1-기준일](../prompts/day4.md#b1-asof) · [B2-CC 해석](../prompts/day4.md#b2-cc) · [B3 독자 카드 ② ③](../prompts/day4.md#b3) · [B4 레드팀](../prompts/day4.md#b4) · [B4-표](../prompts/day4.md#b4-table) · [B6 PR](../prompts/day4.md#b6) |
+| B 01–05 | [B1 경보 엔진 + 자동 실행](../prompts/day4.md#b1) · [B1-기준일](../prompts/day4.md#b1-asof) · [B1-멱등](../prompts/day4.md#b1-idem) · [B2-CC 해석](../prompts/day4.md#b2-cc) · [B3 독자 카드 ② ③](../prompts/day4.md#b3) · [B4 레드팀](../prompts/day4.md#b4) · [B4-표](../prompts/day4.md#b4-table) · [B4-고침](../prompts/day4.md#b4-fix) · [B4-점검](../prompts/day4.md#b4-check) · [B6 PR](../prompts/day4.md#b6) |
 | 막힐 때 · 더 하기 | [어디서 갈렸나](../prompts/day4.md#mismatch) · [채팅 경로](../prompts/day4.md#chat-path) · [확장 프롬프트](../prompts/day4.md#more) · [시연 프롬프트](../prompts/day4.md#demos) |
 
 ## 쓰는 도구 {#tools}
@@ -159,7 +159,7 @@ title: 4일차 — 수출채권 회수 전략 최적화 및 조기 경보 시뮬
 
 !!! note "Claude Code는 유료 구독이 필요합니다"
 
-    Claude Code는 Pro 이상 구독이나 API(Console) 계정으로 로그인합니다. 설치가 막힌 PC는 내 저장소의 **Codespaces**를, 계정이 없으면 **채팅 경로**로 같은 실습을 합니다 → [실습 A 채팅 경로](lab-a.md#chat-path) · [실습 B 채팅 경로](lab-b.md#chat-path). 실습 B 03의 Word 렌더에 `docxtpl`이 없다고 나오면 `uv add docxtpl`을 한 번 하고, 바뀐 `pyproject.toml` · `uv.lock`을 함께 커밋합니다.
+    Claude Code는 Pro 이상 구독이나 API(Console) 계정으로 로그인합니다. 설치가 막힌 PC는 내 저장소의 **Codespaces**를, 계정이 없으면 **채팅 경로**로 같은 실습을 합니다 → [실습 A 채팅 경로](lab-a.md#chat-path) · [실습 B 채팅 경로](lab-b.md#chat-path). 실습 B 03의 Word 렌더에 쓰는 `docxtpl`은 과정 환경에 들어 있습니다 — 없다고 나오면 `uv sync`를 한 번 합니다.
 
 ## 파일 받기 {#files}
 
@@ -193,8 +193,8 @@ uv run python tools/get_day_files.py 4
 - [ ] **실험 기록** — `workbench/day4/experiments.md`(기준 모델 · 실험 한 줄 · 스트레스 3줄 · 기대값 대조)
 - [ ] **스트레스 표** — `stress_results.csv` · `loss_hist.png` · 내 시나리오 해석('가정 시나리오에서의 추정')
 - [ ] **경보 워크플로** — 내 규칙 1개 · `scripts/ews.py` · `.github/workflows/d4-ews.yml` · 초록 체크 · 자동 이슈 1건
-- [ ] **보고 파일** — 독자 카드 1장(docx · xlsx · txt) · `number_trace.csv` 불일치 0 · `redteam.md`(반영 / 기각과 이유) · 체크리스트
-- [ ] **PR 3개** — `d4-limits` · `d4-ews`(병합) · `d4-report` — 링크를 <span data-tf-link="submit_form" data-tf-empty="제출 폼(주소는 첫날 안내)">제출 폼</span>에
+- [ ] **보고 파일** — 독자 카드 1장(docx · xlsx · txt) · `number_trace.csv` 불일치 0 · `redteam.md`(반영 / 기각과 이유) · 체크리스트 사본 `review_checklist.md`(체크 · 서명)
+- [ ] **PR 3개** — `d4-limits` · `d4-ews`(병합) · `d4-report` — 링크를 <span data-tf-link="submit_form">제출 폼</span>에
 
 </div>
 

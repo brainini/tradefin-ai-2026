@@ -212,7 +212,7 @@ body { background: var(--tf-bg); }
 .md-typeset .keys kbd::before, .md-typeset .keys kbd::after { display: none; }
 .md-typeset .keys span { color: var(--tf-muted); padding: 0 .1em; }
 /* 코드 블록 : 줄바꿈해서 보여 주되 복사는 원래 줄 그대로 */
-.md-typeset pre > code { white-space: pre-wrap; word-break: normal; overflow-wrap: anywhere; padding: .9em 3em .9em 1.1em; border-radius: var(--tf-radius-sm); }
+.md-typeset pre > code { white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; padding: .9em 3em .9em 1.1em; border-radius: var(--tf-radius-sm); }   /* keep-all : 줄 끝 한글 주석이 '무/엇이'처럼 음절 중간에서 갈리지 않게(영문 · 기호는 그대로) */
 .md-typeset .highlight { border-radius: var(--tf-radius-sm); }
 .md-typeset .highlight pre { margin: 0; }
 .md-typeset .md-clipboard { color: var(--tf-muted); }
@@ -231,7 +231,7 @@ body { background: var(--tf-bg); }
 .md-typeset table:not([class]) td { padding: .65em 1em; vertical-align: top; border-top: 1px solid var(--tf-border); }
 .md-typeset table:not([class]) tbody tr:first-child td { border-top: 0; }
 .md-typeset table:not([class]) tbody tr:hover { background: var(--md-typeset-table-color--light); box-shadow: none; }
-.md-typeset table:not([class]) code { word-break: normal; overflow-wrap: anywhere; font-size: .9em; }  /* 표 안의 긴 경로 · 파일 이름은 칸에 맞춰 끊는다(글자는 break-word로 어절을 지킨다) */
+.md-typeset table:not([class]) code { word-break: normal; overflow-wrap: break-word; font-size: .9em; }  /* 표 안의 긴 경로 · 파일 이름 : JS가 _ / . 뒤에 <wbr>을 넣어 마디에서 끊는다. anywhere는 열의 최소 폭을 한 글자로 만들어 휴대폰에서 한 열이 손가락 굵기로 짓눌린다 — 그래도 안 들어가는 표는 JS가 줄 카드로 바꾼다 */
 .md-typeset table:not([class]) td:first-child code:only-child { white-space: nowrap; }
 .md-typeset table:not([class]) td:last-child > a:only-child { white-space: nowrap; }
 .md-typeset table:not([class]) td > p:first-child { margin-top: 0; }
@@ -307,15 +307,16 @@ dialog.tf-lightbox p { color: #e8eef5; font-size: 14px; line-height: 1.5; text-a
 .md-typeset .chip--virtual { border: 1px dashed currentColor; background: transparent; }
 .md-typeset .chip--f { background: var(--tf-accent-soft); color: var(--tf-accent); }
 
-/* 강사만 아는 주소(mkdocs.yml extra.course_links) — 비어 있으면 '첫날 안내' */
+/* 강사만 아는 주소(mkdocs.yml extra.course_links) — 비어 있으면 주소를 받는 곳을 점선 알약으로(overrides/hooks/course_links.py) */
 .md-typeset a.tf-link { font-weight: 700; }
 .md-typeset a.tf-link::after {
   content: ""; display: inline-block; width: .8em; height: .8em; margin-left: .2em; vertical-align: -.05em; background: currentColor;
   -webkit-mask: var(--tf-icon-out) center/contain no-repeat; mask: var(--tf-icon-out) center/contain no-repeat;
 }
-.md-typeset .tf-link--pending {
-  display: inline-block; padding: 0 .6em; border-radius: 999px; border: 1px dashed var(--tf-border);
-  color: var(--tf-muted); font-size: .9em; font-weight: 650; line-height: 1.7; white-space: nowrap;
+.md-typeset .tf-link--pending {   /* 이름(받는 곳) — 좁은 칸에서는 줄을 바꾸고 줄마다 알약 모양을 잇는다 */
+  display: inline; padding: .08em .6em; border-radius: 999px; border: 1px dashed var(--tf-border);
+  color: var(--tf-muted); font-size: .9em; font-weight: 650; white-space: normal;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 .md-typeset .tf-link--text { font-weight: 650; color: var(--tf-ink); }
 
@@ -379,13 +380,14 @@ dialog.tf-lightbox p { color: #e8eef5; font-size: 14px; line-height: 1.5; text-a
   border: 1px solid color-mix(in srgb, var(--tf-accent) 35%, var(--tf-border)) !important; border-left-width: 1px;
   background: var(--tf-surface); border-radius: var(--tf-radius); padding: 0 .9rem; box-shadow: var(--tf-shadow);
 }
-.md-typeset .prompt > .admonition-title, .md-typeset .prompt > summary { color: var(--tf-accent); font-size: .74rem; padding-left: 1.75rem; }
+.md-typeset .prompt > .admonition-title, .md-typeset .prompt > summary { color: var(--tf-accent); font-size: .74rem; padding-left: 1.75rem; margin: 0 -.9rem; }   /* 제목 폭 = 상자 안쪽 폭(여백 .9rem과 같게 — 아이콘 · 접기 화살표가 테두리 밖으로 나가지 않게) */
 .md-typeset .prompt > .admonition-title::before, .md-typeset .prompt > summary::before { background-color: var(--tf-accent); -webkit-mask-image: var(--tf-icon-prompt); mask-image: var(--tf-icon-prompt); left: .3rem; }
 .md-typeset .prompt .highlight { margin: .35rem 0 .9rem; }
 .md-typeset .prompt pre > code, .md-typeset .tf-promptlib .language-text pre > code {
   word-break: keep-all; font-family: var(--md-text-font-family); font-size: .8rem; line-height: 1.75; color: var(--tf-ink);
   background: color-mix(in srgb, var(--tf-accent) 5%, var(--tf-surface)); border: 1px dashed color-mix(in srgb, var(--tf-accent) 30%, transparent);
 }
+.md-typeset .prompt pre > code, .md-typeset .tf-promptlib .language-text pre > code { overflow-x: hidden; }   /* 줄을 바꾸는 글이라 가로로 밀 일이 없다 — 줄 끝 {빈칸} 표시의 여백 3px 때문에 생기던 가로 스크롤 막대를 없앤다 */
 .md-typeset .prompt .md-clipboard, .md-typeset .tf-promptlib .language-text .md-clipboard { color: var(--tf-accent); }
 .md-typeset .prompt .md-clipboard::after { width: 1.15em; height: 1.15em; }
 .md-typeset .prompt > p, .md-typeset .prompt > ul { font-size: .72rem; color: var(--tf-muted); }
@@ -501,6 +503,7 @@ dialog.tf-lightbox p { color: #e8eef5; font-size: 14px; line-height: 1.5; text-a
 /* 하루 → 다음 날 사슬(과정 소개) : <div class="grid cards tf-chain" markdown> */
 .md-typeset .grid.cards.tf-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
 @media screen and (min-width: 45em) { .md-typeset .grid.cards.tf-chain { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media screen and (max-width: 29.9375em) { .md-typeset .grid.cards.tf-chain { grid-template-columns: minmax(0, 1fr); } }   /* 휴대폰 : 두 칸이면 파일 이름이 글자 중간에서 끊긴다 → 한 칸 */
 .md-typeset .tf-chain > ul > li { position: relative; padding: .8rem .85rem; font-size: .72rem; }
 .md-typeset .tf-chain > ul > li > p:first-child { font-size: .62rem; font-weight: 800; color: var(--tf-accent); }
 .md-typeset .tf-chain > ul > li > p:nth-child(2) { font-size: .86rem; font-weight: 800; color: var(--tf-ink); margin: .1rem 0 .3rem; }
@@ -617,8 +620,9 @@ dialog.tf-lightbox p { color: #e8eef5; font-size: 14px; line-height: 1.5; text-a
 
 /* 제목 하나를 카드로(FAQ 등) : ### 질문 {#q-x .tf-card} → JS가 다음 같은 수준 제목까지 감싼다 */
 .md-typeset .tf-qa { border: 1px solid var(--tf-border); border-radius: var(--tf-radius); background: var(--tf-surface); padding: .1rem 1.1rem .7rem; margin: .8rem 0; }
-.md-typeset .tf-qa > h3, .md-typeset .tf-qa > h4 { margin: .8rem 0 .4rem; display: flex; gap: .55rem; align-items: baseline; }
-.md-typeset .tf-qa > h3::before, .md-typeset .tf-qa > h4::before { content: "Q"; flex: none; display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 7px; background: var(--tf-accent-soft); color: var(--tf-accent); font-size: .68rem; font-weight: 800; }
+/* 'Q' 표는 제목 왼쪽에 띄워 둔다 — 제목을 flex로 만들면 제목 안의 `코드`마다 따로 놓여 글이 칸칸이 흩어진다(휴대폰) */
+.md-typeset .tf-qa > h3, .md-typeset .tf-qa > h4 { position: relative; margin: .8rem 0 .4rem; padding-left: 1.9rem; }
+.md-typeset .tf-qa > h3::before, .md-typeset .tf-qa > h4::before { content: "Q"; position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 7px; background: var(--tf-accent-soft); color: var(--tf-accent); font-size: .68rem; font-weight: 800; line-height: 1; }
 .md-typeset .tf-qa > :last-child { margin-bottom: .2rem; }
 
 /* ---------- 13. 내려받기 카드(생성기가 만든다 — tools/sync_site_assets.py) ---------- */
@@ -644,6 +648,7 @@ dialog.tf-lightbox p { color: #e8eef5; font-size: 14px; line-height: 1.5; text-a
 .md-typeset .tf-dl__desc code { font-size: .92em; }
 .md-typeset .tf-dl__item--zip { grid-column: 1 / -1; background: var(--tf-deep) !important; border-color: var(--tf-deep) !important; color: var(--tf-deep-text) !important; }
 .md-typeset .tf-dl__item--zip .tf-dl__name { color: #fff; font-family: var(--md-text-font-family); font-size: .8rem; }
+.md-typeset .tf-dl__ext[data-ext="zip"] + .tf-dl__name { font-family: var(--md-text-font-family); }   /* 묶음 카드 이름은 글(한글) — 고정폭 글꼴이면 '원천  데이터  ·  생성기'처럼 벌어진다(잠긴 묶음 카드 포함) */
 .md-typeset .tf-dl__item--zip .tf-dl__desc { color: #b7c6d6; }
 .md-typeset .tf-dl__item--zip .tf-dl__ext { background: var(--tf-sky-fixed); color: #08131d; }
 .md-typeset a.tf-dl__item--zip[href]:hover { color: var(--tf-deep-text); filter: brightness(1.1); }
@@ -662,7 +667,7 @@ dialog.tf-lightbox p { color: #e8eef5; font-size: 14px; line-height: 1.5; text-a
 .md-typeset a.md-button.tf-locked-link, .md-typeset a.md-button--primary.tf-locked-link { background: var(--tf-panel-2); border-color: var(--tf-border); color: var(--tf-muted); }   /* 잠긴 단추: 파란 바탕에 회색 글자가 묻히지 않게 */
 
 /* ---------- 14. 진행 추적(오른쪽 사이드바 · 모바일 아래 막대) ---------- */
-.tf-progress { font-size: .68rem; padding: .2rem .6rem 1rem 0; }
+.tf-progress { font-size: .68rem; padding: .2rem .6rem 1rem 0; word-break: keep-all; overflow-wrap: break-word; }   /* 사이드바는 .md-typeset 밖이라 따로 — '다음 점/검'처럼 낱말 중간에서 줄이 갈리지 않게 */
 .tf-progress__card { border: 1px solid var(--tf-border); border-radius: var(--tf-radius); background: var(--tf-surface); padding: .8rem .85rem .7rem; box-shadow: var(--tf-shadow); }
 .tf-progress__head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; font-weight: 800; color: var(--tf-ink); font-size: .74rem; }
 .tf-progress__count { color: var(--tf-accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -702,7 +707,7 @@ body.tf-has-progress .md-sidebar--secondary .md-nav--secondary { display: none; 
 /* 모바일 · 태블릿(오른쪽 사이드바가 없는 폭) 아래 막대 */
 .tf-mini { display: none; }
 @media screen and (max-width: 59.9844em) {
-  body.tf-has-progress .md-main { padding-bottom: 4.4rem; }
+  body.tf-has-progress .md-footer-meta { padding-bottom: 4.6rem; }   /* 쪽 맨 끝에서 아래 막대가 바닥글(저작권 줄)을 가리지 않게 — 여백은 바닥글 안에(남색 바탕이 막대 밑까지) */
   .tf-mini {
     display: block; position: fixed; z-index: 3; left: .6rem; right: .6rem; bottom: .6rem; border-radius: 16px;
     background: #0c1b28; color: #e8eef5; box-shadow: 0 8px 30px rgba(0, 0, 0, .3); font-size: .7rem; overflow: hidden;
@@ -778,8 +783,13 @@ body.tf-has-progress .md-sidebar--secondary .md-nav--secondary { display: none; 
   .md-typeset .tf-lab__grid { grid-template-columns: 1fr; }
   .md-typeset .tf-flow { grid-template-columns: 1fr; }
   .md-typeset .tf-flow > span, .md-typeset .tf-flow > p { display: none; }
-  .md-typeset .admonition.prompt { padding: 0 .55rem; }
+  .md-typeset .admonition.prompt, .md-typeset details.prompt { padding: 0 .55rem; }
+  .md-typeset .prompt > .admonition-title, .md-typeset .prompt > summary { margin: 0 -.55rem; }
   .md-typeset .prompt pre > code { padding: .7rem 2.4rem .7rem .75rem; font-size: .76rem; }
+  /* 2–3열 표 : 머리 칸도 줄을 바꾸고 칸 여백을 줄여 화면 폭 안에 들어오게(가로 스크롤은 .tf-scroll로 정한 표만) */
+  .md-typeset table:not([class]) th { white-space: normal; }
+  .md-typeset table:not([class]) th, .md-typeset table:not([class]) td { padding: .5em .65em; }
+  .md-typeset table:not([class]) td:first-child code:only-child[data-tf-wbr="br"], .md-typeset table:not([class]) td:last-child > a:only-child { white-space: normal; }   /* 긴 파일 이름(_ / . 마디가 있는 것)만 — cron '0 9 * * 1-5' 같은 짧은 코드는 한 줄 */
   .md-typeset .tf-lab { padding: 1rem .9rem .8rem; }
   .md-typeset .tf-phase { padding: .9rem .9rem .7rem; }
   .md-typeset .tf-step { padding: .1rem .9rem .8rem; margin: 1rem -.3rem; }
@@ -803,8 +813,13 @@ body.tf-has-progress .md-sidebar--secondary .md-nav--secondary { display: none; 
   .md-typeset table[data-tf-stack] td[data-label=""]::before { display: none; }
   .md-typeset table[data-tf-stack] td:first-child { font-weight: 700; color: var(--tf-ink); }
   .md-typeset table[data-tf-stack] tbody tr:hover { background: var(--tf-surface); }
+  .md-typeset table[data-tf-stack] code { overflow-wrap: anywhere; }   /* 줄 카드에서는 칸이 화면 폭 — 긴 코드도 그 안에서 끊는다 */
+  .md-typeset .tf-phase table[data-tf-stack] tr, .md-typeset .tf-phase table[data-tf-stack] tbody tr:hover { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .16); }   /* 남색 구간 카드 안의 줄 카드 */
+  .md-typeset .tf-phase table[data-tf-stack] td:first-child { color: #fff; }
+  .md-typeset .tf-phase table[data-tf-stack] td::before { color: #9fb3c8; }
   /* 용어집 줄 카드 : 번호 · 용어를 한 줄로 */
-  .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(1), .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(2) { display: inline-block; width: auto !important; padding-right: 0 !important; vertical-align: baseline; }
+  .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(1), .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(2) { display: inline-block; width: auto !important; padding-right: 0 !important; vertical-align: top; }
+  .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(2) { max-width: calc(100% - 4.6rem); }   /* 긴 용어는 번호 옆 칸 안에서 줄을 바꾼다(다음 줄로 떨어져 카드 오른쪽 테두리에 붙지 않게) */
   .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(1)::before, .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(2)::before, .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(3)::before { display: none; }
   .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(1) { padding-left: .85rem !important; }
   .md-typeset .tf-gloss table[data-tf-stack] td:nth-child(2) { padding-left: .35rem !important; }

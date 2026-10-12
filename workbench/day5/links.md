@@ -5,7 +5,7 @@
 - 배포한 앱 주소: https://
 - PR ① 규정 챗봇 평가 (실습 A, 브랜치 `d5-rag`):
 - PR ② 환율 타일 · 톤 규칙 (실습 B, 브랜치 `d5-dashboard`):
-- PR ③ 승인 기록 DB (실습 B):
+- PR ③ 승인 기록 DB (실습 B, 브랜치 `d5-store`):
 - 팀 저장소 (조장만, 내일 해커톤): https://github.com/내아이디/tradefin-kit-T조번호
 
 ## 점검

@@ -1,5 +1,5 @@
 ---
-title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 기록 DB
+title: 5일차 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 기록 DB
 ---
 
 <div class="tf-lab" markdown>
@@ -78,7 +78,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
     2. 브라우저에 `http://localhost:8501`이 열리고 **⓪ 통합 상황판**이 먼저 뜹니다. 맨 위 숫자 6칸을 읽습니다.
     3. 왼쪽 메뉴의 **④ 조기경보**를 열어 P1 · P2 대화상자를 읽고 **확인하고 기록**을 누릅니다.
-    4. 나머지는 아래 앱 지도대로 **30초씩** 눈으로만 봅니다. 앱을 끌 때는 터미널에서 ++ctrl+c++.
+    4. 나머지는 아래 앱 지도대로 **30초씩** 눈으로만 봅니다. 앱을 끌 때는 터미널에서 ++ctrl+c++(macOS도 Control 키 — ++cmd+c++는 복사입니다).
 
 **앱 지도** — 필수는 ⓪ 숫자와 ④ 대화상자, 나머지는 눈으로 30초씩.
 
@@ -141,7 +141,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
 ??? fix "내 PC에서 앱이 안 돌아요"
 
-    <span data-tf-link="demo_app" data-tf-empty="강사가 화면에 띄우는 데모 앱">강사 데모 앱</span>으로 ⓪–⑦을 보고, 이후 단계는 [채팅 경로](#chat-path)로 갑니다.
+    <span data-tf-link="demo_app" data-tf-empty="강사 데모 앱(수업 중 화면 · 오픈채팅 공지로 받은 주소)">강사 데모 앱</span>으로 ⓪–⑦을 보고, 이후 단계는 [채팅 경로](#chat-path)로 갑니다.
 
 <p class="tf-check"><time>15:13</time> 손 점검 — 앱 한 바퀴: ⓪ 미결 $4.28M · 경보 P1 7 · P2 34 · 독촉 대상 29건</p>
 
@@ -151,7 +151,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
 !!! me "내가 할 일"
 
-    1. `workbench/day5/data/spec_fx_tile.md`(작업 사본)를 열고 ++ctrl+shift+v++ 로 미리 봅니다 — 결정 질문 · 화면 · **완료 기준 3줄(Given · When · Then)** · 데이터와 계산 · 하지 않을 것.
+    1. `workbench/day5/data/spec_fx_tile.md`(작업 사본)를 열고 ++ctrl+shift+v++(macOS ++cmd+shift+v++)로 미리 봅니다 — 결정 질문 · 화면 · **완료 기준 3줄(Given · When · Then)** · 데이터와 계산 · 하지 않을 것.
     2. 완료 기준 **4번 줄**을 내 말로 채웁니다. 예: *Given 환율을 받은 시각이 있다 · When ⓪을 연다 · Then 캡션의 받은 시각이 한국 시각으로 보인다* / *증감이 마이너스일 때 글자로도 '감소'가 보인다*(색만으로 구분하지 않는 것이 이 앱의 원칙).
     3. 막막하면 아래 도움 문장으로 **후보 3개**를 받아 하나를 골라 **내 말로** 고쳐 씁니다.
     4. 카드의 두 약속을 눈여겨봅니다 — **기존 타일 · 세션 키는 바꾸지 않는다 · 새 패키지는 더하지 않는다.** 이미 도는 앱에 기능을 더할 때 AI가 가장 자주 어기는 것입니다.
@@ -189,7 +189,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 !!! me "내가 할 일"
 
     1. Claude Code **새 대화** · 모드 **Plan** → 아래 P5-B1을 보냅니다.
-    2. 계획을 **읽습니다** — ① 바꿀 파일이 `fx_live.py`(새) · `p0_overview.py`뿐인가 ② 캐시 10분(`ttl=600`) · 실패하면 저장된 환율로 가는가 ③ 기존 타일 · 세션 키를 건드리지 않는가 ④ 새 패키지 없이 `requests`인가. 마음에 안 드는 줄에는 코멘트를 달아 고치게 합니다.
+    2. 계획을 **읽습니다** — ① 바꿀 파일이 `fx_live.py`(새) · `p0_overview.py` · 새 테스트 파일(`app/tests/`)뿐인가 ② 캐시 10분(`ttl=600`) · 실패하면 저장된 환율로 가는가 ③ 기존 타일 · 세션 키를 건드리지 않는가 ④ 새 패키지 없이 `requests`인가. 마음에 안 드는 줄에는 코멘트를 달아 고치게 합니다.
     3. 승인 창에서 `2 Yes, and manually approve edits` → 파일마다 `1 Yes`.
     4. 끝나면 테스트가 통과하는지 봅니다: `uv run pytest app/tests -q`
     5. 앱을 **껐다 켭니다**(++ctrl+c++ → `uv run streamlit run app/streamlit_app.py`) — `core/`를 고치면 다시 켜야 반영됩니다. ⓪에서 카드의 Then 4줄을 눈으로 확인합니다.
@@ -221,7 +221,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
 !!! me "내가 판단"
 
-    1. 타일의 `오늘 총액 − 증감(원)`이 **57.89억**인지 봅니다.
+    1. 타일의 `오늘 총액 − 증감(원)`이 **약 57.9억**인지 봅니다(타일 총액은 소수 첫째 자리까지라 57.8–57.9억이면 맞습니다 — 원 단위까지는 아래 도움 문장이 통화별로 견줍니다).
     2. 다르면 아래 도움 문장으로 통화마다 나란히 놓고, 원인을 **내가** 고릅니다(엔 100엔 단위 · 환산 방향 · 기준일).
 
 ??? prompt "도움 문장 — 내 타일과 검산표 견주기(Claude Code)"
@@ -233,11 +233,19 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
     - [ ] `uv run pytest app/tests -q` 통과(기존 20개 + 새 테스트)
     - [ ] ⓪에 `원화 환산(오늘 환율)` 타일 — 억 원 총액(57억 원대) · 기준일 대비 증감(원 · %) · 캡션(환율 날짜 · 받은 시각 · 제공처)
     - [ ] 기존 숫자 6칸이 그대로다
-    - [ ] `오늘 총액 − 증감` = 57.89억(검산표)
+    - [ ] `오늘 총액 − 증감` ≈ 57.9억 — 도움 문장의 통화별 대조에서 합계 5,788,865,573원(검산표)과 같다
 
 ??? fix "타일이 안 보여요 · `has no attribute` 오류가 나요"
 
     `core/`를 고쳤는데 앱을 다시 켜지 않았습니다. ++ctrl+c++ 후 다시 실행합니다(앱 오른쪽 위 ⋮ → **Rerun**으로는 부족할 수 있습니다).
+
+??? fix "타일 글자가 '원화 환산(오…' · '57.2…'처럼 잘려요"
+
+    타일이 기존 6칸과 같은 좁은 칸에 들어갔습니다. 먼저 사이드바를 « 로 접어 봅니다. 그래도 잘리면 "새 타일만 한 줄 전체 폭(또는 두 칸 폭)으로 넓혀 줘 — 기존 6칸은 그대로"를 보냅니다.
+
+??? fix "증감이 '감소'인데 화살표가 ↑(초록)예요"
+
+    `st.metric`의 증감 칸에 '감소 −…원'처럼 **글자를 앞에 붙이면** Streamlit이 부호를 읽지 못해 위쪽 화살표를 그립니다. "증감(delta)에는 숫자(음수)만 넘기고, '감소' 글자는 캡션이나 증감 뒤쪽에 써 줘"를 보냅니다 — 카드의 Then(색만으로 구분하지 않는다)과 화살표가 같은 방향인지 화면에서 확인합니다.
 
 ??? fix "총액 자릿수가 이상해요(570억 · 0.57억 …)"
 
@@ -377,7 +385,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
         git add -f data/checkpoints/d5_start.csv data/checkpoints/d3_start_scoring.csv data/checkpoints/d3_start_features.csv data/checkpoints/d4_start_scored.csv data/checkpoints/d4_params.csv data/checkpoints/d4_scenarios.csv models/
         ```
 
-    2. Claude Code에 아래 PR 프롬프트를 보냅니다. 보여 주는 목록을 읽습니다 — `app/`의 코드 · 테스트, `workbench/day5/data/`의 사본(배포 앱이 내 톤 표 사본을 읽으려면 함께 올라가야 합니다), 방금 더한 데이터 · 모델. **`secrets.toml` · 키 · 약관 PDF · `.db`는 없어야** 합니다.
+    2. Claude Code에 아래 PR 프롬프트를 보냅니다. 보여 주는 목록을 읽습니다 — ① 브랜치 `d5-dashboard` ② `app/`의 코드 · 테스트 ③ `workbench/day5/data/`에서 **내가 고친 사본 두 개**(`tone_matrix.csv` · `spec_fx_tile.md` — 배포 앱이 내 톤 표를 읽으려면 함께 올라가야 합니다. 나머지 사본은 원본과 같아서 빠집니다) ④ 방금 `git add -f`한 **`data/checkpoints/` 6개 · `models/` 6개**. **`secrets.toml` · 키 · 약관 PDF · `.db`는 없어야** 합니다. ④가 '관계없는 파일'로 빠져 있으면 "스테이징한 데이터 · 모델도 배포용이니 함께 커밋해 줘"라고 답합니다 — 빠지면 배포한 앱이 빈 화면입니다.
     3. 커밋 메시지(`5일차: …` · 빈 줄 · `왜: …`)를 확인하고 허락 창에서 커밋 · push를 승인합니다. `gh`가 없으면 알려 준 주소나 **Compare & pull request**로 PR을 엽니다.
     4. GitHub 화면에서 PR을 읽고 **Merge pull request → Confirm merge**를 **내가** 누릅니다. 병합은 Claude Code에게 시키지 않습니다.
 
@@ -396,6 +404,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
 !!! ok "확인"
 
+    - [ ] 커밋에 `data/checkpoints/` 6개 · `models/` 6개가 들어갔다(`git show --stat HEAD` 또는 PR의 Files changed)
     - [ ] PR②가 main에 **병합**됐다(내가 누름)
     - [ ] 저장소에 키 0 · `.db` 0 · 약관 PDF 0
     - [ ] PR② 링크를 메모했다(`links.md`에는 B8에서)
@@ -441,7 +450,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
     --8<-- "labs/day5/prompts.md:p5-b3"
 
-완성된 모습은 <span data-tf-link="demo_app" data-tf-empty="강사 화면의 데모 앱">강사 데모 앱</span>과 같습니다.
+완성된 모습은 <span data-tf-link="demo_app" data-tf-empty="강사 데모 앱(수업 중 화면 · 오픈채팅 공지로 받은 주소)">강사 데모 앱</span>과 같습니다.
 
 !!! ok "확인"
 
@@ -458,7 +467,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
 ??? fix "⓪에 '먼저 ① 업로드…' · ② 등급이 비어 있어요"
 
-    B5의 `git add -f`를 빠뜨렸습니다 — 데이터(⓪) · `models/`(②)를 커밋 · push하면 1–2분 뒤 다시 배포됩니다.
+    배포한 main에 데이터가 없습니다 — B5의 `git add -f`를 빠뜨렸거나, Claude Code가 커밋 목록에서 뺐습니다(`git show --stat main`에 `data/checkpoints/` · `models/`가 있는지 봅니다). 데이터(⓪) · `models/`(②)를 커밋 · push · 병합하면 1–2분 뒤 다시 배포됩니다.
 
 ??? fix "앱이 잠들었어요(Zzz)"
 
@@ -480,11 +489,11 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
         git switch -c d5-store
         ```
 
-    2. 모드 **Plan** → P5-B4. 계획 앞에 **요구사항 카드**(목적 1줄 · Given/When/Then 2개 · 하지 않을 것)가 먼저 나옵니다 — 읽고 고쳐서 승인합니다.
+    2. Claude Code **새 대화** · 모드 **Plan** → P5-B4(긴 대화를 이어 가면 Claude Code가 이전 브랜치 `d5-dashboard`를 지금 브랜치로 착각하기도 합니다). 계획 앞에 **요구사항 카드**(목적 1줄 · Given/When/Then 2개 · 하지 않을 것)가 먼저 나옵니다 — 읽고 고쳐서 승인합니다.
     3. `uv run pytest app/tests -q`('오류 시 롤백' 테스트 포함) → 앱을 다시 켜고 ⑤에서 **승인 1건** → ⑦ 로그 아래 **'DB에 남은 기록(최근 10건)'** 표에 그 행이 있는지 봅니다.
     4. ⑦ 위쪽 감사로그 줄과 아래 DB 행이 **같은 결정 · 같은 인보이스**인지 견줍니다 — 같은 사실이 두 곳에 맞게 남았나.
     5. `git status`에 `.db` 파일이 **나오지 않아야** 합니다(`.gitignore`가 `*.db`를 막습니다).
-    6. PR 프롬프트로 커밋 · push · PR③ → **내가 병합** → Community Cloud가 1–2분 뒤 자동으로 다시 배포 → 내 주소에서도 승인 1건을 눌러 같은 표가 생기는지 봅니다.
+    6. PR 프롬프트로 커밋 · push · PR③(목록의 브랜치가 `d5-store`인지 봅니다) → **내가 병합** → Community Cloud가 1–2분 뒤 자동으로 다시 배포 → 내 주소에서도 승인 1건을 눌러 같은 표가 생기는지 봅니다.
 
 !!! prompt "프롬프트 P5-B4 — 승인 기록을 SQLite에 · Claude Code(Plan)"
 
@@ -526,10 +535,10 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
 !!! me "내가 할 일"
 
-    1. 아래 도움 문장을 보내 **키 0**(`git ls-files | grep -i secret` 결과에 `secrets.toml.example`만)을 보고, 앱 주소와 PR 세 개(① 실습 A `d5-rag` · ② `d5-dashboard` · ③ `d5-store`)로 `links.md`를 채우게 합니다. 내가 읽고 커밋 · push를 승인합니다.
+    1. 내 앱 오른쪽 아래 **Manage app**을 눌러 마지막 실행 로그를 한 번 엽니다.
     2. **발송 0** — 오늘 나간 메일은 없습니다. 초안과 승인 기록만 남았습니다.
-    3. 내 앱 오른쪽 아래 **Manage app**을 눌러 마지막 실행 로그를 한 번 엽니다.
-    4. `links.md`의 점검 네 칸을 **내가** 체크합니다.
+    3. 아래 도움 문장을 보내 **키 0**(`git ls-files | grep -i secret` 결과가 `.example` 두 줄 — `app/.streamlit/`과 `kit_template/`의 `secrets.toml.example`)을 보고, 앱 주소와 PR 세 개(① 실습 A `d5-rag` · ② `d5-dashboard` · ③ `d5-store`)로 `links.md`를 채우게 합니다.
+    4. 채워진 `links.md`를 열어 점검 네 칸을 **내가** 체크한 뒤 "확인 — 커밋 · push"로 답합니다. 링크와 체크가 커밋 한 번에 함께 올라갑니다.
 
 ??? prompt "도움 문장 — 점검과 links.md 채우기(Claude Code)"
 
@@ -559,7 +568,7 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 | 16:22 | 배포 | 내 주소에서 같은 화면 · 저장소에 키 0 |
 | 16:45 | DB·제출 | `receivables.db`에 승인 행 · PR 2개 · `links.md` |
 
-**제출** — PR 링크와 앱 주소를 <span data-tf-link="submit_form">제출 폼</span>에 붙입니다. 짝과 서로 배포 주소 · PR 두 개 · `links.md`를 확인합니다. 못 끝낸 단계는 내일 팀 저장소에서 이어 가도 됩니다.
+**제출** — PR 링크와 앱 주소를 <span data-tf-link="submit_form" data-tf-empty="제출 폼(수업 중 화면 · 오픈채팅 공지로 받은 주소)">제출 폼</span>에 붙입니다. 짝과 서로 배포 주소 · PR 두 개 · `links.md`를 확인합니다. 못 끝낸 단계는 내일 팀 저장소에서 이어 가도 됩니다.
 
 ## 다 했으면 — 내 손으로 넓혀 보기 {#extend}
 
@@ -597,15 +606,15 @@ title: 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 
 
 Claude Code 계정이 없거나 내 PC에서 앱이 안 돌면 **Claude 또는 ChatGPT 웹**과 **GitHub 웹 편집기**로 합니다(슬라이드 확인 기준 장 아래 '채팅만으로' 띠 — 고칠 파일 전체를 채팅에 붙여 '수정된 파일 전체'를 받기 → 웹 편집기에 붙여넣기 → 커밋 → 자동 재배포).
 
-1. **B1은 그대로** — 로컬이 안 되면 <span data-tf-link="demo_app" data-tf-empty="강사가 화면에 띄우는 데모 앱">강사 데모 앱</span>으로 ⓪–⑦을 봅니다.
-2. **B6 배포를 먼저** 합니다(웹 폼이라 Claude Code가 필요 없습니다). 배포용 데이터는 GitHub 웹의 **Add file → Upload files**로 `data/checkpoints/` · `models/`에 올립니다(위 카드와 `get_day_files.py`가 받는 파일 — 가상 데이터).
+1. **B1은 그대로** — 로컬이 안 되면 <span data-tf-link="demo_app" data-tf-empty="강사 데모 앱(수업 중 화면 · 오픈채팅 공지로 받은 주소)">강사 데모 앱</span>으로 ⓪–⑦을 봅니다.
+2. **B6 배포를 먼저** 합니다(웹 폼이라 Claude Code가 필요 없습니다). 배포용 데이터는 위 카드의 **`d5_start.csv` 하나**면 됩니다 — 내 저장소에서 `data/checkpoints/` 폴더로 들어가 **Add file → Upload files**로 올립니다(가상 데이터). ⓪ · ④ · ⑤는 이 파일 하나로 돌고, ② 예측·등급은 강사 모델(`models/`)이 있어야 해서 채팅 경로에서는 건너뜁니다.
 3. **B3 · B4 · B7**은 GitHub 웹에서 고칠 파일(`app/views/p0_overview.py` · `app/core/dunning.py` · `app/views/p5_dunning.py` 등)을 열어 **Raw → 전체 복사**한 뒤 채팅에 붙이고, 요구사항 카드와 함께 아래 문장을 보냅니다.
 
     ??? prompt "채팅 경로 프롬프트 — 수정된 파일 전체 받기"
 
         --8<-- "labs/day5/prompts.md:chat-b"
 
-4. 받은 파일 전체를 GitHub 웹 편집기(연필 아이콘)에서 ++ctrl+a++ 로 덮어 붙이고 **Commit**합니다. 새 파일(`app/core/fx_live.py` 등)은 **Add file → Create new file**로 만듭니다.
+4. 받은 파일 전체를 GitHub 웹 편집기(연필 아이콘)에서 ++ctrl+a++(macOS ++cmd+a++)로 덮어 붙이고 **Commit**합니다. 새 파일(`app/core/fx_live.py` 등)은 **Add file → Create new file**로 만듭니다.
 5. 톤 규칙은 `workbench/day5/data/tone_matrix.csv`(없으면 `labs/day5/tone_matrix.csv`를 복사해 만듭니다)를 웹 편집기로 고칩니다 — `route()`가 표를 읽게 바꾸는 코드도 3번 방식으로 받아야 ⑤에서 결과가 바뀝니다.
 6. 커밋하면 1–2분 뒤 **자동으로 다시 배포**됩니다 → 내 주소에서 Then을 확인합니다. 오류는 Manage app 로그를 P5-B3에 붙입니다.
 
@@ -632,7 +641,7 @@ GitHub 웹의 Upload files는 `.gitignore`를 보지 않습니다 — 올리기 
 
 <div class="tf-checklist" data-title="팀 저장소 — 네 단계" markdown>
 
-- [ ] **조장 · 지금** — `brainini/tradefin-kit-template`에서 초록 **Use this template → Create a new repository** → 이름 `tradefin-kit-T{조}`(예: `tradefin-kit-T2`) · **Private**
+- [ ] **조장 · 지금** — [`brainini/tradefin-kit-template`](https://github.com/brainini/tradefin-kit-template)에서 초록 **Use this template → Create a new repository** → 이름 `tradefin-kit-T{조}`(예: `tradefin-kit-T2`) · **Private**
 - [ ] **조장 · 지금** — 새 저장소 **Settings → Collaborators → Add people**로 팀원과 강사를 초대
 - [ ] **팀원 · 오늘 밤** — 초대 메일 수락 → README의 **팀원 표에 한 줄**(아이디 · 내일 역할 · 맡을 일 — 실명 · 회사 이름 금지) → 브랜치를 만들어 PR
 - [ ] **다른 팀원 · 오늘 밤** — 그 PR에 리뷰 한 줄 → 병합(내일 09:00 전)
@@ -649,9 +658,13 @@ GitHub 웹의 Upload files는 `.gitignore`를 보지 않습니다 — 올리기 
   <figcaption>팀 저장소의 출발 모양 — 내일 이 폴더들을 팀이 채웁니다. <code>CLAUDE.md</code>는 팀이 AI에게 먼저 읽히는 규칙서로, 내일 설계 단계에서 팀 규칙 세 줄을 씁니다</figcaption>
 </figure>
 
+??? fix "Use this template 단추가 없어요 · 템플릿 저장소가 안 열려요(404)"
+
+    GitHub에 **로그인**했는지 먼저 봅니다 — 로그아웃 화면에는 단추가 없습니다. 로그인했는데도 저장소가 열리지 않으면 손을 들어 강사에게 알립니다. 그날 템플릿을 쓸 수 없으면 강사가 내일 09:00 전에 조마다 팀 저장소를 만들어 초대하니, 팀원은 초대 메일을 수락하면 됩니다.
+
 - README 한 줄 PR은 웹에서도 됩니다 — 저장소에서 README의 연필 아이콘 → 한 줄 추가 → **Create a new branch for this commit and start a pull request** → Propose changes.
 - 팀 저장소에는 **가상 데이터만** 둡니다. 실명 · 다니는 회사 이름 · 키는 넣지 않습니다. 채팅 대안은 없습니다 — 웹 화면만으로 할 수 있습니다.
-- 오늘 밤 21:00까지 **개인 AI 도입 기획서 초안 1–6장**을 <span data-tf-link="plan_form">기획서 비공개 폼</span>으로 냅니다(양식과 이름 규칙은 [5일차 개요](index.md#submit)).
+- 오늘 밤 21:00까지 **개인 AI 도입 기획서 초안 1–6장**을 <span data-tf-link="plan_form" data-tf-empty="기획서 비공개 폼(수업 중 화면 · 오픈채팅 공지로 받은 주소)">기획서 비공개 폼</span>으로 냅니다 — 양식과 이름 규칙은 [5일차 개요](index.md#submit).
 
 ## 막힐 때 {#troubleshooting}
 

@@ -149,7 +149,9 @@ class Item:
         self.placeholder = bool(e.get("placeholder"))
         self.open_at = e.get("open_at")
         self.is_pdf = self.dest.lower().endswith(".pdf")
-        self.in_zip = bool(e.get("zip", True)) and not self.is_pdf
+        # PDF는 기본으로 ZIP에서 뺀다(슬라이드 PDF — files_build.py가 zip: false를 적는다). 선언에 zip: true가 있는 PDF만 넣는다
+        # (예: 5일차 채팅 경로의 필수 입력인 규정 PDF)
+        self.in_zip = bool(e.get("zip", not self.is_pdf))
         self.timed = bool(self.open_at) and parse_z(self.open_at) > now        # 빌드 시각에 아직 열리지 않았다
         self.src: Path | None = None
         if not self.placeholder and e.get("path"):
@@ -223,12 +225,30 @@ def make_zip(day, name: str, items: list[Item], dry: bool) -> int:
     y, m, d = DAY_DATES.get(day, (2026, 10, 14))
     path.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as z:
-        for it in sorted(present, key=lambda x: x.dest):
-            info = zipfile.ZipInfo(f"{zip_root(day)}/{it.dest}", date_time=(y, m, d, 9, 0, 0))
+        members = [(it.dest, it.src.read_bytes()) for it in sorted(present, key=lambda x: x.dest)]
+        if day != "after":                       # 과정 뒤 묶음은 이미 저장소 경로 그대로다
+            members.insert(0, ("README.txt", zip_readme(day, present)))
+        for name, data in members:
+            info = zipfile.ZipInfo(f"{zip_root(day)}/{name}", date_time=(y, m, d, 9, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o644 << 16
-            z.writestr(info, it.src.read_bytes())
+            z.writestr(info, data)
     return path.stat().st_size
+
+
+def zip_readme(day, present: list[Item]) -> bytes:
+    """ZIP 안 안내문 — 압축 안에서는 파일이 한 폴더에 모여 있으니, 내 저장소의 어느 자리에 두는지(= get_day_files.py가 받는 자리)를 적는다."""
+    rows = sorted(((it.dest, it.e.get("path") or it.dest) for it in present), key=lambda r: r[1])
+    w = max(len(a) for a, _ in rows)
+    lines = [f"{zip_root(day)} — {day_label(day)} 파일 · 압축을 푼 뒤 둘 자리",
+             "",
+             "내 저장소(VS Code)에서 쓰려면 아래 왼쪽 파일을 오른쪽 자리(저장소 맨 위 폴더 기준)에 그대로 둡니다.",
+             f"uv run python tools/get_day_files.py {day} 가 받는 자리와 같아서 프롬프트의 @경로가 그대로 맞습니다.",
+             "그 명령이 되면 이 압축 파일은 필요 없습니다. 채팅(ChatGPT · Claude)으로 하는 분은 필요한 파일만 첨부합니다.",
+             "이 안내문(README.txt)은 저장소에 넣지 않아도 됩니다.",
+             ""]
+    lines += [f"{a.ljust(w)}  ->  {b}" for a, b in rows]
+    return ("﻿" + "\r\n".join(lines) + "\r\n").encode("utf-8")
 
 
 # ---------------------------------------------------------------- 카드(§6.8)
@@ -240,11 +260,11 @@ def card(it: Item, prefix: str) -> str:
     if it.placeholder:
         when = kst_label(it.open_at) if it.open_at else ""
         return (f'<span class="tf-dl__item is-locked is-sealed" data-tf-release="{esc(it.open_at or "")}" data-tf-open-label="{esc(when)}">'
-                f'{head}<span class="tf-dl__desc"><span class="tf-chip tf-chip--opt">자동 공개</span><b>{esc(it.label)}</b> · '
-                f'<span class="tf-dl__when">{esc(when)} 자동 공개</span></span></span>')
+                f'{head}<span class="tf-dl__desc"><span class="tf-chip tf-chip--opt">자동 공개</span><b>{esc(it.label)}</b>'
+                f'<span class="tf-dl__when"> · {esc(when)} 자동 공개</span></span></span>')   # 가운뎃점도 when 안에 — JS가 when을 감추면 '데이터 팩 ·'처럼 끝에 점만 남지 않게
     if not it.ready:
         return (f'<span class="tf-dl__item is-locked">{head}<span class="tf-dl__desc">{chip}<b>{esc(it.label)}</b> · '
-                f'준비 중 — 화면을 새로 고쳐도 없으면 강사에게 알려 주세요</span></span>')
+                f'아직 올라오지 않았습니다 — 화면을 새로 고쳐도 없으면 강사에게 알려 주세요</span></span>')
     desc = f"<b>{esc(it.label)}</b> · {esc(it.desc)} · {human_size(it.size)}" if it.desc else f"<b>{esc(it.label)}</b> · {human_size(it.size)}"
     attrs, when = "", ""
     if it.open_at:
@@ -280,7 +300,7 @@ def link_cell(it: Item, prefix: str) -> str:
     if it.placeholder:
         return f"자동 공개<br>{kst_label(it.open_at)}" if it.open_at else "자동 공개"
     if not it.ready:
-        return "준비 중"
+        return "아직 없음"
     name = Path(it.dest).name
     attrs = f' data-tf-open="{it.open_at}"' if it.open_at else ""
     tail = f"<br><small>{kst_label(it.open_at)} 이후 열기</small>" if it.timed else ""

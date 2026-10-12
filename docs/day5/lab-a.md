@@ -1,5 +1,5 @@
 ---
-title: 실습 A — 규정 RAG 챗봇과 검색 평가
+title: 5일차 실습 A — 규정 RAG 챗봇과 검색 평가
 ---
 
 <div class="tf-lab" markdown>
@@ -65,7 +65,7 @@ title: 실습 A — 규정 RAG 챗봇과 검색 평가
 !!! me "내가 할 일"
 
     1. VS Code에서 **내 저장소** 폴더를 엽니다(폴더 '신뢰'). 오른쪽 위 Claude 아이콘으로 **Claude Code 패널**을 열고, 입력창 아래 모드 표시가 **Plan 또는 Manual**인지 봅니다 — Auto로 시작했다면 눌러서 바꿉니다.
-    2. 터미널(++ctrl+grave++)에서 한 줄씩 실행합니다. 처음 쓰는 PC면 `uv sync`가 1–3분 걸립니다.
+    2. 터미널(++ctrl+grave++ — macOS도 Control 키)에서 한 줄씩 실행합니다. 처음 쓰는 PC면 `uv sync`가 1–3분 걸립니다.
 
         ```bash
         git switch main
@@ -114,11 +114,18 @@ title: 실습 A — 규정 RAG 챗봇과 검색 평가
     2. 프로젝트의 **지침(Instructions) 칸**에 아래 P5-A1을 붙여 넣습니다 — 대화창이 아니라 지침 칸입니다.
     3. 프로젝트 안에서 **새 대화**를 열고, `workbench/day5/outputs/baseline.md`의 질문 네 개(Q07 · Q15 · Q16 · Q19)를 **하나씩** 묻습니다.
     4. 다섯째는 아래 후보 중 하나(또는 규정 안에 답이 있는 내 질문)를 묻습니다.
-    5. 다섯 개를 다 물었으면 같은 대화에 '표로 정리' 도움 문장을 보내 표를 받고, `baseline.md` 표에 붙입니다 — 손으로 옮겨 적지 않습니다.
+    5. 다섯 개를 다 물었으면 같은 대화에 '표로 정리' 도움 문장을 보내 표를 받고, `baseline.md`의 빈 표를 **통째로 바꿔 붙입니다**(열이 같습니다 — 문항 · 질문 · 답 한 줄 · 인용한 조항 · 점수). 손으로 옮겨 적지 않습니다.
+
+    **어디를 누르나**(처음이면 — 메뉴 이름은 화면 언어 · 판에 따라 조금 다를 수 있습니다)
+
+    - **claude.ai** — 왼쪽 **Projects** → 오른쪽 위 **+ New Project** → 이름만 넣고 만들기 → 프로젝트 화면 오른쪽 파일 칸(프로젝트 지식)의 **+**로 PDF 올리기 → **Set project instructions**에 P5-A1 → **Save instructions**
+    - **chatgpt.com** — 왼쪽 **New project**(새 프로젝트) → 이름 → 만들기 → 프로젝트 화면의 파일 추가(**Add files**)로 PDF → **Instructions**(지침 — 안 보이면 프로젝트 이름 옆 ⋯ 메뉴 안)에 P5-A1 → 저장
 
 !!! prompt "프롬프트 P5-A1 — 프로젝트 '지침' 칸에 · Claude 또는 ChatGPT"
 
     --8<-- "labs/day5/prompts.md:p5-a1"
+
+슬라이드 A2의 '지시문'이 이 P5-A1입니다 — 슬라이드 49 '인용·기권·충돌 지시문'을 프로젝트 지침 칸에 맞게 고친 글이고(오전 시연 4의 프로젝트와 같은 글), 슬라이드와 다른 곳은 [프롬프트 쪽 P5-A1](../prompts/day5.md#p5-a1)에 적어 두었습니다.
 
 **다섯째 질문 후보**(답이 한 조에 있습니다) — "등급의 유효기간은 얼마인가?" · "바이어 한도를 30% 이상 줄이는 결정은 누가 최종 승인하나?" · "독촉 메일을 보내면 안 되는 시간대는?"
 
@@ -135,7 +142,7 @@ title: 실습 A — 규정 RAG 챗봇과 검색 평가
 !!! file "완성본 제공 — a2_baseline_check.md (채점 카드)"
 
     <dl markdown>
-    <dt>무엇</dt><dd markdown>정해진 4문항(Q07 · Q15 · Q16 · Q19)의 **1점이 되는 답**과 인용해야 할 조항, 그 조항의 **규정 원문**, 다섯째 질문 후보 3개의 답과 원문. 저장소에서는 `labs/day5/a2_baseline_check.md`(작업 사본 `workbench/day5/data/`)입니다.</dd>
+    <dt>무엇</dt><dd markdown>정해진 4문항(Q07 · Q15 · Q16 · Q19)의 **1점이 되는 답**과 인용해야 할 조항, 그 조항의 **규정 원문**, 다섯째 질문 후보 3개의 답과 원문. 저장소에서는 `labs/day5/a2_baseline_check.md`입니다(A1의 명령이 받습니다).</dd>
     <dt>왜</dt><dd markdown>점수를 매기는 기준을 한 장에 모아, **AI 답 ↔ 기준 ↔ 원문**을 나란히 보게 하려고. 5문항을 **다 물은 뒤** 엽니다. 이 파일도 채팅 프로젝트에 올리지 않습니다.</dd>
     <dt>어떻게 만들었나</dt><dd markdown>공개 골든셋의 네 행(`expected_answer` · `gold_ids` · `grading_rubric`)과 같은 규정의 텍스트판 `hanbit_credit_policy.md`의 해당 조를 **글자 그대로** 옮겼습니다. Q07만 '규정 PDF만 올린 경로'에 맞췄습니다 — 골든셋의 Q07 기대 답은 약관까지 넣은 `[규정 충돌]` 판이라, PDF만 올린 기본 경로에서는 **제27조 제2항을 맞게 인용하면 1점**입니다.</dd>
     </dl>
@@ -460,7 +467,7 @@ title: 실습 A — 규정 RAG 챗봇과 검색 평가
 !!! me "내가 할 일"
 
     1. 아래 PR 프롬프트를 보냅니다. Claude Code가 올릴 **파일 목록**과 점검 결과를 먼저 보여 줍니다.
-    2. 목록을 읽습니다 — `scripts/rag_lab/` · `workbench/day5/outputs/` · **`pyproject.toml` · `uv.lock`**(A3 · A4의 `uv add`)이 있어야 하고, 약관 PDF · 키 · 실명은 없어야 합니다.
+    2. 목록을 읽습니다 — 브랜치가 `d5-rag`이고, `scripts/rag_lab/` · `workbench/day5/outputs/` · **`pyproject.toml` · `uv.lock`**(A3 · A4의 `uv add`)이 있어야 하며, 약관 PDF · 키 · 실명은 없어야 합니다. A1의 명령이 만든 `workbench/day5/data/`의 작업 사본 두 개(요구사항 카드 · 톤 표 — 실습 B에서 고친다)는 아직 원본과 같아서 **이 PR에 넣지 않습니다** — Claude Code가 '뺀 파일'로 보여 주면 그대로 둡니다.
     3. 커밋 메시지(첫 줄 `5일차: …` · 빈 줄 · `왜: …`)를 확인하고 허락 창에서 커밋 · push를 승인합니다.
     4. `gh`가 없으면 Claude Code가 알려 준 주소나 GitHub 화면의 **Compare & pull request**로 PR을 열고 설명을 붙여 넣습니다.
     5. PR 설명을 **읽고** 키 · 실명 · 회사 이름이 없는지 봅니다. 병합은 하지 않아도 됩니다 — 하려면 GitHub 화면에서 내가 직접 누릅니다.
@@ -481,7 +488,7 @@ title: 실습 A — 규정 RAG 챗봇과 검색 평가
 !!! ok "확인"
 
     - [ ] 내 저장소에 PR①(`d5-rag`)이 열렸다
-    - [ ] 커밋 메시지가 첫 줄 · 빈 줄 · `왜:` 두 줄이다
+    - [ ] 커밋 메시지가 첫 줄 · 빈 줄 · `왜:` 두 줄이다(끝에 Claude Code가 붙이는 `Co-Authored-By:` 줄은 그대로 둬도 된다)
     - [ ] 목록에 `pyproject.toml` · `uv.lock`이 있고 키 · 실명 · 약관 PDF는 0
     - [ ] PR 링크는 메모해 두었다 — `links.md`에는 실습 B 마지막(B8)에 한꺼번에 적는다
 
@@ -543,7 +550,7 @@ title: 실습 A — 규정 RAG 챗봇과 검색 평가
 
 ## 채팅 경로 — Claude Code를 못 쓸 때 {#chat-path}
 
-Claude Code 계정이 없거나(무료 플랜은 쓸 수 없습니다) 확장이 로그인되지 않으면 **Claude 또는 ChatGPT 웹**과 **평가 시트**로 같은 F1@K를 계산합니다(슬라이드 확인 기준 장 아래 '채팅만으로' 띠). 파일은 위 '입력 파일 받기'의 카드에서 받습니다.
+Claude Code 계정이 없거나(무료 플랜은 쓸 수 없습니다) 확장이 로그인되지 않으면 **Claude 또는 ChatGPT 웹**과 **평가 시트**로 같은 F1@K를 계산합니다(슬라이드 확인 기준 장 아래 '채팅만으로' 띠). 파일은 위 '입력 파일 받기'의 카드에서 받습니다 — 규정 PDF는 ZIP 안 `rag/corpus/` 폴더에 있습니다(PDF 카드에서 따로 받아도 됩니다).
 
 1. **A2는 그대로** — 프로젝트에 **PDF만** 올리고 지침 칸에 P5-A1, 5문항으로 `baseline.md`, 채점 카드로 0/1.
 2. A3–A6 대신 **같은 프로젝트에 새 대화**를 열고, `goldset_questions.csv`의 20줄(q_id · question 두 열 — 정답 칸이 있는 `goldset_20.csv`는 올리지 않습니다)을 아래 문장의 `{질문 목록}` 자리에 붙여 보냅니다.
@@ -557,7 +564,7 @@ Claude Code 계정이 없거나(무료 플랜은 쓸 수 없습니다) 확장이
 5. A7은 **지침 한 줄 바꾸기** — 예: "먼저 조 제목에서 찾고 답한다"를 지침에 더하고 2번을 다시 보내, 두 번째 표를 **`eval_B` 탭 F2**에 붙여 `summary`의 전 · 후를 견줍니다.
 6. `baseline.md` · `rag_report.md`를 채워 GitHub 웹에서 올리고 PR을 만듭니다 — 브랜치 선택(`main ▾`)에 `d5-rag` 입력 → **Create branch** → `workbench/day5/outputs/` 폴더에서 **Add file → Upload files** → 커밋 메시지 두 줄 → **Commit directly to the `d5-rag` branch** → **Pull requests → New pull request**.
 
-평가 시트의 MRR은 상위 5개만 받아 5위 밖의 정답을 0으로 세므로 코드 경로보다 0.01쯤 낮을 수 있습니다(P@K · R@K · F1@K · Hit@3은 같습니다). GitHub 웹의 Upload files는 `.gitignore`를 보지 않으니 올리기 전에 파일 이름과 내용을 한 번 봅니다.
+채팅 경로는 AI가 PDF 전체를 읽고 조항을 고르므로 F1@1 · Hit@3이 코드 경로(BM25)보다 높게 나오는 일이 많습니다 — 10문항이 모두 1위로 맞으면 `rag_report.md` 4절에는 '놓친 문항 없음'과, 그래도 K = 3 · 5의 F1이 낮은 이유(정답 조항이 하나라 정밀도가 1/K)를 한 줄로 씁니다. 평가 시트의 MRR은 상위 5개만 받아 5위 밖의 정답을 0으로 세므로 코드 경로보다 0.01쯤 낮을 수 있습니다(P@K · R@K · F1@K · Hit@3은 같습니다). GitHub 웹의 Upload files는 `.gitignore`를 보지 않으니 올리기 전에 파일 이름과 내용을 한 번 봅니다.
 
 ## 막힐 때 {#troubleshooting}
 

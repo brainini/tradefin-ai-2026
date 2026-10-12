@@ -65,6 +65,8 @@ VS Code는 파일 · 편집기 · 터미널 · Git · AI(Claude Code)가 한 창
     2. VS Code를 열고 ++cmd+shift+p++ → `Shell Command: Install 'code' command in PATH`를 실행합니다.
     3. 터미널을 새로 열어 `code --version`으로 확인합니다.
 
+    이 사이트의 단축키는 Windows 기준입니다. macOS에서는 **Ctrl → Cmd**, **Alt → Option**으로 누릅니다 — Ctrl 그대로인 것까지 [FAQ](faq.md#q-mac-keys)에 표로 있습니다.
+
 이미 설치돼 있다면 **수업 전날 업데이트**합니다. 오래된 VS Code에서는 Claude Code 확장의 아이콘이 보이지 않을 수 있습니다.
 
 !!! ok "확인"
@@ -92,15 +94,15 @@ Git은 파일이 바뀐 이력을 기록하는 도구입니다. GitHub은 그 �
 설치한 뒤 **이름과 이메일을 한 번** 정해 둡니다. 이 값은 로그인이 아니라 커밋에 찍히는 작성자 표시입니다.
 
 ```bash
-git config --global user.name "my-github-id"
-git config --global user.email "12345678+my-github-id@users.noreply.github.com"
+git config --global user.name "내 별명"
+git config --global user.email "숫자ID+아이디@users.noreply.github.com"
 git config --global init.defaultBranch main
 git --version
 ```
 
 !!! warning "공개 저장소에는 커밋한 사람의 이름과 이메일이 그대로 보입니다"
 
-    실명과 회사 이메일 대신 **GitHub 아이디(또는 별명)**와 GitHub이 만들어 주는 **noreply 주소**를 권합니다. GitHub → **Settings → Emails**에서 "Keep my email addresses private"를 켜면 `...@users.noreply.github.com` 주소가 보입니다. 그 주소를 위 `user.email`에 넣습니다.
+    실명과 회사 이메일 대신 **GitHub 아이디(또는 별명)**와 GitHub이 만들어 주는 **noreply 주소**를 권합니다. GitHub → **Settings → Emails**에서 "Keep my email addresses private"를 켜면 `숫자ID+아이디@users.noreply.github.com` 모양의 주소가 보입니다. 화면의 주소를 **그대로 복사**해 위 `user.email`에 넣습니다.
 
 (선택) 2일차에 터미널에서 PR · 이슈를 다루고 싶다면 GitHub CLI도 설치합니다 — Windows `winget install --id GitHub.cli --source winget`, macOS `brew install gh` 뒤 `gh auth login`. 없어도 GitHub 웹 화면으로 같은 일을 할 수 있습니다.
 
@@ -254,10 +256,10 @@ Claude Code에게 시킬 수도 있습니다: `바뀐 내용을 요약해 커밋
 uv run python tools/get_day_files.py 1    # 1~6 중 오늘 일차
 ```
 
-- 그날 파일을 **같은 경로**(예: `data/checkpoints/d2_start.xlsx`)로 내려받고, `data/`와 `labs/`의 파일은 `workbench/day1/data/`처럼 **작업 사본**도 만듭니다. 원본은 고치지 않고 사본에서 작업합니다.
+- 그날 파일을 **같은 경로**(예: `data/checkpoints/d2_start.xlsx`)로 내려받고, 실습에서 고쳐 쓸 데이터 파일(`data/`의 표 · JSON — 5일차는 요구사항 카드 · 톤 표)은 `workbench/day2/data/`처럼 **작업 사본**도 만듭니다. 원본은 고치지 않고 사본에서 작업합니다. 프롬프트 · 양식 · 완성본 · 비교 기준은 사본 없이 원본 자리에서 읽습니다.
 - 이미 있는 파일은 덮어쓰지 않습니다. 같은 명령을 다시 실행하면 새로 열린 파일만 더 받습니다. 목록만 보려면 뒤에 `--list`를 붙입니다.
-- **[열기 전]** 이라고 나오는 파일은 정답이 담긴 비교 기준 파일입니다. 실습에서 먼저 내 결과를 만든 뒤 그 시각이 지나 같은 명령을 다시 실행하면 받습니다(꼭 필요하면 `--now`). 시각은 [과정 소개 → 자료는 언제 열리나](course.md#release)에 있습니다.
-- 6일차 위기 카드처럼 **정한 시각에 자동으로 올라오는 파일**은 그 전에는 **[공개 전]** 으로 나옵니다. 시각이 지난 뒤 다시 실행하세요.
+- **[열기 전]** 은 정한 시각에 여는 파일입니다 — 전날 결과가 든 다음 날 시작 파일, 완성본, 비교 기준(정답), 실습 시각에 맞춰 여는 파일이 그렇습니다. 여는 시각과 이유는 줄 끝 괄호에 나옵니다. 그 시각이 지난 뒤 같은 명령을 다시 실행하면 받습니다(꼭 필요하면 `--now` — 비교 기준은 먼저 내 결과를 만든 뒤에). 시각은 [과정 소개 → 자료는 언제 열리나](course.md#release)에 있습니다.
+- 6일차 위기 카드처럼 **정한 시각에 자동으로 올라오는 파일**은 출력 끝의 **자동 공개 시각** 목록에 나옵니다. 그 시각이 지난 뒤 다시 실행하세요. 시각이 지났는데 아직 올라오지 않았으면 맨 끝 줄에 그렇게 알려 줍니다 — 1–2분 뒤 다시 실행합니다.
 - 인터넷이 막혀 있으면 과정 사이트 각 일차 쪽의 **파일 받기** 카드에서 직접 내려받습니다.
 
 ### 0-9. 설치가 막힌 PC라면 — GitHub Codespaces {#codespaces}
@@ -295,7 +297,7 @@ Codespaces는 GitHub이 빌려주는 클라우드 컴퓨터에서 브라우저�
 | GitHub | **필수** | [github.com](https://github.com/signup) | **1일차 오후에 전원이** 이 과정 저장소로 내 저장소를 만들고 첫 커밋을 합니다. 5일차에는 같은 계정으로 Streamlit 앱을 배포하고, 6일차에는 팀 저장소를 만듭니다. 가입 → **이메일 인증**까지 집에서 끝내 오세요. 사용자 이름(아이디)은 공개되므로 회사명은 넣지 않기를 권합니다 → [5. GitHub](#github) |
 | ChatGPT | 선택(권장) | [chatgpt.com](https://chatgpt.com) | 같은 결과를 다른 AI로 교차 확인할 때 씁니다(**ChatGPT 또는 Claude 웹** 중 하나면 됩니다). 무료 계정은 파일 업로드가 **하루 3개**라 실습량에 부족할 수 있어 Claude를 먼저 쓰고, ChatGPT는 강사 공용 프로젝트(초대 링크는 당일 안내) 또는 유료 개인 계정이 있을 때 씁니다 |
 | Google | 선택 | [accounts.google.com](https://accounts.google.com/signup) | 제출 폼(Google Forms)을 열고 기획서를 Google Docs로 쓸 때만 필요합니다(Word로 써도 됩니다). **개인 계정**을 권합니다 — 회사 계정은 외부 폼 · 문서 공유가 막혀 있는 경우가 있습니다 |
-| Streamlit Community Cloud | **필수**(5일차) | [share.streamlit.io](https://share.streamlit.io) | 따로 가입하지 않고 **GitHub 계정으로 로그인**(Continue with GitHub)하면 됩니다. 5일차 실습 B6에서 함께 합니다 → [6. 5일차 도구](#day5-tools) |
+| Streamlit Community Cloud | **필수**(5일차) | [share.streamlit.io](https://share.streamlit.io) | 따로 가입하지 않고 **GitHub 계정으로 로그인**(Continue with GitHub)하면 됩니다. 5일차 실습 B6에서 함께 합니다 → [6. 도구(5일차)](#day5-tools) |
 
 ### 언제 가입하나 — 날짜별 계정 달력 {#account-timeline}
 
@@ -386,7 +388,7 @@ Codespaces는 GitHub이 빌려주는 클라우드 컴퓨터에서 브라우저�
 - 저장소는 **공개(Public)가 기본**이라 **가상 데이터만** 올립니다. 비공개로 하고 싶다면 비공개로 만들고 강사 계정을 협업자로 추가합니다(**Settings → Collaborators**). 어느 쪽이든 자사 자료는 올리지 않습니다 → [저장소 · 앱 규칙](#repo-hygiene).
 - 웹 화면만으로도 파일을 올리고 고칠 수 있습니다 → [기초 F2](foundations/f2.md#first-commit).
 
-## 6. 5일차 도구 — Claude Code · Git/GitHub · Streamlit · uv {#day5-tools}
+## 6. 도구(5일차) — Claude Code · Git/GitHub · Streamlit · uv {#day5-tools}
 
 5일차에 새로 가입할 곳은 없습니다 — **Claude · ChatGPT · GitHub 계정**(이미 있음)과 VS Code의 **Claude Code**로 합니다. 요금제별 사용 한도는 자주 바뀌니 개강 전에 계정 화면에서 한 번 확인하세요.
 

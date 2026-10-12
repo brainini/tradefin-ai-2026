@@ -316,7 +316,12 @@
       }
     });
     var stepItems = items.filter(function (i) { return i.kind === "step"; });
-    stepItems.forEach(function (i, k) { if (!i.num) i.num = String(k + 1); if (!i.full) i.full = i.num; });
+    stepItems.forEach(function (i, k) {
+      if (!i.num) i.num = String(k + 1); if (!i.full) i.full = i.num;
+      /* 제목의 data-phase(예: 8교시)로 구간을 정한 단계는 이름 앞에 구간을 붙인다 — '실습 B · 02'와 '8교시 · 02'가 섞이지 않게 */
+      var ph = i.sec.getAttribute("data-phase") || "";
+      if (ph && ph !== short && i.full.indexOf(ph) !== 0) i.full = ph + " · " + i.full;
+    });
 
     function build() {
       var nav = el("nav", "tf-progress"); nav.setAttribute("aria-label", "실습 진행");
@@ -512,14 +517,75 @@
   }
 
   /* ---------- 표 : 4열 이상(또는 .tf-stack 안)은 모바일에서 줄마다 카드 ---------- */
+  function stack(t) {
+    var heads = $$("thead th", t).map(function (th) { return norm(th.textContent); });
+    t.setAttribute("data-tf-stack", "");
+    $$("tbody tr", t).forEach(function (tr) { $$("td", tr).forEach(function (td, k) { td.setAttribute("data-label", heads[k] || ""); }); });
+  }
   function tables(content) {
     $$("table:not([class])", content).forEach(function (t) {
       if (t.hasAttribute("data-tf-stack") || t.closest(".tf-scroll")) return;
-      var heads = $$("thead th", t).map(function (th) { return norm(th.textContent); });
-      if (heads.length >= 4 || (heads.length >= 2 && t.closest(".tf-stack, .tf-gloss"))) {
-        t.setAttribute("data-tf-stack", "");
-        $$("tbody tr", t).forEach(function (tr) { $$("td", tr).forEach(function (td, k) { td.setAttribute("data-label", heads[k] || ""); }); });
+      var n = $$("thead th", t).length;
+      if (n >= 4 || (n >= 2 && t.closest(".tf-stack, .tf-gloss"))) stack(t);
+    });
+  }
+  /* 2–3열 표도 휴대폰 폭에 안 들어가면(가로 스크롤이 생기면) 줄 카드로 — 줄 카드 모양은 CSS가 휴대폰 폭에서만 쓴다.
+     <wbr>(긴 파일 이름의 끊을 자리)을 넣은 뒤에 잰다. 화면을 돌려 좁아지면 다시 잰다. */
+  var NARROW = "(max-width: 44.9375em)";
+  function fitTables(content) {
+    function fit() {
+      if (!window.matchMedia || !window.matchMedia(NARROW).matches) return;
+      $$("table:not([class]):not([data-tf-stack])", content).forEach(function (t) {
+        if (t.closest(".tf-scroll")) return;
+        var wrap = t.closest(".md-typeset__scrollwrap") || t.parentElement;
+        if (wrap && wrap.scrollWidth > wrap.clientWidth + 2) stack(t);
+      });
+    }
+    fit();
+    var tm = null, onResize = function () { window.clearTimeout(tm); tm = window.setTimeout(fit, 200); };
+    window.addEventListener("resize", onResize);
+    onCleanup(function () { window.removeEventListener("resize", onResize); window.clearTimeout(tm); });
+  }
+
+  /* ---------- 긴 경로 · 파일 이름(코드 · 내려받기 카드 이름) : _ / . 뒤에 줄 바꿈 자리(<wbr>) ----------
+     좁은 칸(표 · 휴대폰)에서 'd3_start_fe/atures.csv'처럼 글자 중간이 아니라 마디(d3_start_ · features.csv)에서 끊기게. 복사되는 글자는 그대로. */
+  function breaks(content) {
+    var narrow = !!(window.matchMedia && window.matchMedia(NARROW).matches);
+    $$("code, .tf-dl__name", content).forEach(function (c) {
+      if (c.hasAttribute("data-tf-wbr") || c.children.length || c.closest("pre")) return;
+      /* 넓은 화면에서 표 첫 칸의 이름 하나(CSS가 한 줄로 둔다)는 건드리지 않는다 — <wbr>은 nowrap 안에서도 줄을 바꾼다 */
+      var td = c.parentElement;
+      if (!narrow && td && td.tagName === "TD" && !td.previousElementSibling && td.children.length === 1) return;
+      var s = c.textContent; c.setAttribute("data-tf-wbr", "");
+      if (s.length < 14 || !/[_\/.]/.test(s)) return;
+      var frag = document.createDocumentFragment(), last = 0;
+      for (var i = 1; i < s.length - 1; i++) {
+        if ("_/.".indexOf(s[i]) >= 0 && !/[\s_\/.]/.test(s[i + 1]) && i - last >= 2 && !(s[i] === "." && /^[A-Za-z0-9]{1,5}$/.test(s.slice(i + 1)))) {   /* 확장자(.md · .xlsx)는 이름에 붙여 둔다 */
+          frag.appendChild(document.createTextNode(s.slice(last, i + 1))); frag.appendChild(document.createElement("wbr")); last = i + 1;
+        }
       }
+      if (!last) return;
+      frag.appendChild(document.createTextNode(s.slice(last)));
+      c.textContent = ""; c.appendChild(frag); c.setAttribute("data-tf-wbr", "br");   /* 끊을 자리가 생긴 코드 — 휴대폰 표 첫 칸에서도 줄을 바꿔도 된다(CSS) */
+    });
+    /* 프롬프트(본문 글꼴 · 어절 단위 줄바꿈) 안의 긴 경로 'workbench/day3/outputs/d3_scores.csv에'도 / _ 뒤에서 끊기게 — 복사 글자는 그대로 */
+    $$(".prompt pre code, .tf-promptlib .language-text pre code", content).forEach(function (code) {
+      if (code.hasAttribute("data-tf-wbr")) return; code.setAttribute("data-tf-wbr", "");
+      var walker = document.createTreeWalker(code, NodeFilter.SHOW_TEXT, null), nodes = [], n;
+      while ((n = walker.nextNode())) if (/\S{16,}/.test(n.nodeValue) && /[\/_]/.test(n.nodeValue)) nodes.push(n);
+      nodes.forEach(function (tx) {
+        var s = tx.nodeValue, frag = document.createDocumentFragment(), last = 0;
+        s.replace(/\S{16,}/g, function (tok, at) {
+          for (var i = 1; i < tok.length - 1; i++) {
+            if ((tok[i] === "/" || tok[i] === "_") && !/[\s\/_]/.test(tok[i + 1]) && at + i + 1 - last >= 3) {
+              frag.appendChild(document.createTextNode(s.slice(last, at + i + 1))); frag.appendChild(document.createElement("wbr")); last = at + i + 1;
+            }
+          }
+          return tok;
+        });
+        if (!last) return;
+        frag.appendChild(document.createTextNode(s.slice(last))); tx.parentNode.replaceChild(frag, tx);
+      });
     });
   }
 
@@ -576,7 +642,7 @@
     checkboxes(content, state, render);
     checklists(content);
     locks(content);
-    lightbox(content); tables(content); fills(content); filters(content);
+    lightbox(content); tables(content); fills(content); breaks(content); fitTables(content); filters(content);
   }
   var booted = false;
   function boot() { booted = true; init(); }

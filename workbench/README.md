@@ -17,8 +17,8 @@ workbench/
 ```
 
 - `.gitkeep`은 빈 서랍이 GitHub 화면에 보이게 하는 빈 파일입니다. 그대로 두어도 됩니다.
-- 그날 파일은 `uv run python tools/get_day_files.py N`이 받아 `data/` 서랍에 **작업 사본**을 만듭니다.
-  원본(`data/`, `labs/`)은 고치지 않고, 고쳐 쓸 파일은 이 사본에서 다룹니다.
+- 그날 파일은 `uv run python tools/get_day_files.py N`이 받고, 고쳐 쓸 데이터 파일은 `data/` 서랍에 **작업 사본**도 만듭니다.
+  원본(`data/`, `labs/`)은 고치지 않고, 고쳐 쓸 파일은 이 사본에서 다룹니다(프롬프트 · 양식 · 완성본 · 비교 기준은 원본 자리에서 읽습니다).
 
 ## 커밋 메시지는 두 줄
 
