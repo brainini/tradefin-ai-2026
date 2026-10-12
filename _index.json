@@ -231,8 +231,8 @@
    "zip": true,
    "order": 700,
    "path": "data/day1/reports/plug_power.md",
-   "size": 17534,
-   "sha256": "0799c5c2a7f359183707d99b1de1249c75d557c2999423d30407872ee517dcd9"
+   "size": 17371,
+   "sha256": "aac080ae9aa0d843f697bb9979ecf86725a6f9210e590afbfd973af05a71b3cd"
   },
   {
    "day": 1,
@@ -303,8 +303,8 @@
    "zip": true,
    "order": 1100,
    "path": "data/day1/real_buyers_ratios.xlsx",
-   "size": 12755,
-   "sha256": "42328044223d37d70f4986f3be224892a3d1eaa05a60029cd9a702103471e89f"
+   "size": 12752,
+   "sha256": "4f3691cfce6b321d40667bfcdb1e45e5ba21810ec7d00f8ca2b73bdeea7dfabc"
   },
   {
    "day": 1,
@@ -578,8 +578,8 @@
    "zip": true,
    "order": 700,
    "path": "workbench/day2/rules/수집점검.md",
-   "size": 1465,
-   "sha256": "73cf9622c2dfacee6078ba249af844fc899ee0f6cc51ffe7addba496360dc9a9"
+   "size": 1561,
+   "sha256": "dd32c7eae348fb8ae99f71c9442de8243a30b24a82328992822029752f56a861"
   },
   {
    "day": 2,
@@ -1456,8 +1456,8 @@
    "zip": true,
    "order": 1600,
    "path": "labs/day4/audience_cards.md",
-   "size": 4380,
-   "sha256": "e9e43a1e4004021f7cfefda32aee2b7f853ee4df52188ce8937adf54b9971188"
+   "size": 4474,
+   "sha256": "d784650337aabfd0881b34a2b442573e157a547525dc5f2da522cb018ceb176c"
   },
   {
    "day": 4,
@@ -1693,8 +1693,8 @@
    "order": 2900,
    "open_at": "2026-10-19T06:00:00Z",
    "path": "labs/day4/make_report.py",
-   "size": 14120,
-   "sha256": "1b8080555db17935ef96d82044db99555484e1e4024b65781e625943bceb3dc7"
+   "size": 14256,
+   "sha256": "f5956fb7c8e633dd87bce4d95fe318eb54999eb0b7ed6ed386c424fd0f43c736"
   },
   {
    "day": 4,
@@ -1769,8 +1769,8 @@
    "order": 3300,
    "open_at": "2026-10-19T05:45:00Z",
    "path": "labs/day4/tests/test_limits_expected.py",
-   "size": 2685,
-   "sha256": "621d90ebefa468d0c69d64f45d6d90554a056cbc5585e16139b58cbecd83f986"
+   "size": 2971,
+   "sha256": "898cf3a828a432b1919bcd523a81200b2691b4bccc070ee2c3d4f5db3fe66576"
   },
   {
    "day": 4,
@@ -1862,7 +1862,7 @@
    "desc": "가상 사내 규정(11쪽 · 35조 + 부칙 + 별표 4개). 채팅 프로젝트에 올리고(실습 A2) Claude Code가 조 단위로 자른다(A3)",
    "dest": "rag/corpus/hanbit_credit_policy.pdf",
    "site": true,
-   "zip": false,
+   "zip": true,
    "order": 200,
    "path": "rag/corpus/hanbit_credit_policy.pdf",
    "size": 574948,
@@ -2045,8 +2045,8 @@
    "zip": true,
    "order": 1200,
    "path": "workbench/day5/links.md",
-   "size": 841,
-   "sha256": "d9afd0c16d4f0735b3097a7a7d25deae9b7abc33866de19bfeeb73ec1c592ff4"
+   "size": 863,
+   "sha256": "c61afd4b346d09a0db2040f749adf9727bb2ab42c535b41f232479420e6fb0bd"
   },
   {
    "day": 5,
@@ -2153,8 +2153,8 @@
    "zip": true,
    "order": 1800,
    "path": "labs/day6/ax_proposal_template.md",
-   "size": 8409,
-   "sha256": "69d3fbe7f63ecbaf9e0a3fa6cd6b1e0611ab782beed2cf569175bf0536ad10a2"
+   "size": 8434,
+   "sha256": "6d230cb401b361c793be0e544af786b574009af02ff003123b61476b9910b1f0"
   },
   {
    "day": 5,
@@ -2312,8 +2312,8 @@
    "zip": true,
    "order": 200,
    "path": "labs/day6/role_cards.md",
-   "size": 7757,
-   "sha256": "f2f2c2a96f590a1bd0fd0302364cc342c2f10baf5200d2dcf8577744d6148107"
+   "size": 7770,
+   "sha256": "14bf0e34554bba89cfec91409d66fc94177d1c5a01f1b0e7218ae2b32365a4f4"
   },
   {
    "day": 6,
@@ -2406,8 +2406,8 @@
    "zip": true,
    "order": 700,
    "path": "labs/day6/kit_checklist.md",
-   "size": 5460,
-   "sha256": "c9f846d8f8438527a9bcf12dcdb2025bc48b81153c9b234f8fcf06176c8caca1"
+   "size": 5548,
+   "sha256": "7f53f61230859657b942373ecd52437d221c3eb95fea6f63794b3c20796ec3e3"
   },
   {
    "day": 6,
@@ -2463,8 +2463,8 @@
    "zip": true,
    "order": 1000,
    "path": "labs/day6/ax_proposal_template.md",
-   "size": 8409,
-   "sha256": "69d3fbe7f63ecbaf9e0a3fa6cd6b1e0611ab782beed2cf569175bf0536ad10a2"
+   "size": 8434,
+   "sha256": "6d230cb401b361c793be0e544af786b574009af02ff003123b61476b9910b1f0"
   },
   {
    "day": 6,
@@ -2934,6 +2934,66 @@
    "size": 5729546,
    "sha256": "56c617a2ae1223c2f9a82c8de5e8db4b50fcce7baa70c960d46a3c8d7b279612",
    "src_note": "promoted"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "선택",
+   "practices": [
+    "cards",
+    "lab-a"
+   ],
+   "label": "변형 카드 V1",
+   "desc": "10/21(수) 09:28 자동 공개",
+   "dest": "cards/variant_v1.md",
+   "site": true,
+   "zip": true,
+   "order": 3600,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r1",
+   "open_at": "2026-10-21T00:28:00Z"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "필수",
+   "practices": [
+    "cards",
+    "lab-a"
+   ],
+   "label": "인젝트 1",
+   "desc": "10/21(수) 11:30 자동 공개",
+   "dest": "injects/inject1.md",
+   "site": true,
+   "zip": true,
+   "order": 3700,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r3",
+   "open_at": "2026-10-21T02:30:00Z"
+  },
+  {
+   "day": 6,
+   "where": "sealed",
+   "role": "surprise",
+   "badge": "필수",
+   "practices": [
+    "cards",
+    "lab-a"
+   ],
+   "label": "인젝트 2",
+   "desc": "10/21(수) 13:15 자동 공개",
+   "dest": "injects/inject2.md",
+   "site": true,
+   "zip": true,
+   "order": 3800,
+   "path": null,
+   "placeholder": true,
+   "bundle": "r4",
+   "open_at": "2026-10-21T04:15:00Z"
   },
   {
    "day": 6,

@@ -4,7 +4,7 @@
 표의 숫자는 narrative 가 아니라 지표 JSON 에서 코드가 직접 채운다. 문장만 narrative.json 에서 온다.
 채우기 전에 핵심 숫자를 원본에서 다시 계산해 지표 JSON 과 맞는지 보고, 다르면 멈춘다(종료 코드 1).
 저장소 맨 위 폴더에서:  uv run python labs/day4/make_report.py [--input …] [--narrative …] [--out …]
-처음 한 번 docxtpl 이 필요하다:  uv add docxtpl   (Claude Code 가 물으면 승인)
+docxtpl 은 과정 환경(pyproject.toml)에 들어 있다 — 없다고 나오면 uv sync (그래도 없으면 uv add docxtpl)
 
 읽는 것                                                   쓰는 것
   labs/day4/report_template.docx  (docxtpl 템플릿 · 읽기만)        workbench/day4/outputs/credit_report_YYYY-MM.docx
@@ -32,7 +32,7 @@ try:
     from docxtpl import DocxTemplate
     from jinja2 import Environment, StrictUndefined
 except ImportError:
-    sys.exit("멈춤: docxtpl 이 없습니다 — 터미널에서 'uv add docxtpl' 을 실행한 뒤 다시 돌립니다.")
+    sys.exit("멈춤: docxtpl 이 없습니다 — 터미널에서 'uv sync' 를 실행한 뒤 다시 돌립니다(그래도 없으면 'uv add docxtpl').")
 
 # 저장소 맨 위 폴더 = pyproject.toml이 있는 가장 가까운 위 폴더 — scripts/ 로 복사하거나 작업 사본 폴더에서 돌려도 같은 곳을 읽는다
 ROOT = next((p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").exists()), Path(__file__).resolve().parents[2])
@@ -197,7 +197,7 @@ def recheck(ri: dict) -> tuple[list[dict], float]:
                      "recalc": round(proposed), "ok": abs(proposed - ri["limits"]["proposed"]) <= 150,
                      "근거": "limits_proposed.xlsx · limits 시트 L 합(오차 150달러 이내)"})
     else:
-        print("(한도안 limits_proposed.xlsx 가 없어 '제안 한도 합계' 재검산은 건너뜀 — 실습 A 02를 마치면 대조됩니다)\n")
+        print("(이 브랜치에 한도안 workbench/day4/outputs/limits_proposed.xlsx 가 없어 '제안 한도 합계' 재검산은 건너뜀 — 한도안은 실습 A 브랜치 d4-limits 에 있으니 정상입니다)\n")
     return rows, float(unpaid["amount_usd"].sum())
 
 
