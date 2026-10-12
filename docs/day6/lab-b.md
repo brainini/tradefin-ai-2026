@@ -396,7 +396,7 @@ AI의 그럴듯한 답이 표와 다르면 **표가 맞습니다** — 같은 �
 
     1. **15:40 코드 프리즈** — 이후에는 기능을 더하지 않습니다. README · 오타는 `v1.0`을 만들기 전(6-5)에만 고칩니다.
     2. 15:45 발표 순서 추첨(저장소 관리자).
-    3. **15:50까지** 릴리스 주소(`…/releases/tag/v1.0`)를 <span data-tf-link="team_form">팀 제출 폼</span>에 붙여 냅니다(팀당 한 번). GitHub이 막히면 `d6_team_solution__T{조}.zip`(README 포함)을 내면 강사가 대신 올립니다 — 감점 없음.
+    3. **15:50까지** 릴리스 주소(`…/releases/tag/v1.0`)를 <span data-tf-link="team_form">팀 제출 폼</span>에 붙여 냅니다(팀당 한 번). GitHub이 막히면 `d6_team_solution__T{조}.zip`(README 포함)을 USB로 강사에게 건네면 강사가 대신 올립니다 — 감점 없음(폼은 파일을 받지 않습니다).
     4. `v1.0`을 낸 뒤 고친 것은 `v1.1`로 냅니다 — 태그는 옮기지 않습니다. 심사는 `v1.0` 기준입니다.
 
 !!! ok "확인 — CP4"
@@ -617,7 +617,7 @@ AI의 그럴듯한 답이 표와 다르면 **표가 맞습니다** — 같은 �
 - **ROI**는 우리 카드 완성본 엑셀을 ChatGPT · Claude에 첨부해 S5 → S5b를 보냅니다. 엑셀이 없으면 웹용 Excel · 구글 시트로 엽니다.
 - **README · 릴리스 노트**는 커밋 목록 · 폴더 목록을 붙여 [P6-3](../prompts/day6.md#p6-3)으로 초안을 받고 GitHub 웹에서 편집합니다. 릴리스는 웹 **Releases → Draft a new release**.
 - **재현 테스트**는 다른 팀원이 저장소 zip을 받아(**Code → Download ZIP**) README대로 따라 합니다. 터미널을 못 쓰면 README의 단계를 소리 내어 따라 읽으며 빠진 줄을 찾는 것도 재현 점검입니다.
-- GitHub 전체가 막히면 `d6_team_solution__T{조}.zip`(README 포함, 폴더 구조 그대로)을 냅니다.
+- GitHub 전체가 막히면 `d6_team_solution__T{조}.zip`(README 포함, 폴더 구조 그대로)을 USB로 강사에게 건넵니다.
 
 ## 막힐 때 {#troubleshooting}
 

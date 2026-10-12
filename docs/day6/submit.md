@@ -29,7 +29,7 @@ title: 6일차 제출
 3. 저장소 관리자: 프리즈 뒤 `gh release create v1.0 …` 또는 **Releases** → **Draft a new release** → 태그 `v1.0` → **Publish release** → [릴리스 만들기](kit.md#release).
 4. 다른 역할 1명이 `v1.0`을 새 폴더에서 다시 돌려 '차이 0줄'을 확인합니다 → [재현 테스트](lab-b.md#b6-repro).
 5. **15:50까지** 릴리스 주소(`…/releases/tag/v1.0`)를 <span data-tf-link="team_form">팀 제출 폼</span>에 붙이고 제출합니다. 팀당 한 번이면 됩니다.
-6. GitHub가 막히면 `d6_team_solution__T{조}.zip`(README 포함, 폴더 구조 그대로)으로 내고, 강사가 대신 올립니다.
+6. GitHub가 막히면 `d6_team_solution__T{조}.zip`(README 포함, 폴더 구조 그대로)을 USB로 강사에게 건네고, 강사가 대신 올립니다(팀 제출 폼은 파일을 받지 않습니다).
 
 - `v1.0`을 낸 뒤 고친 것은 `v1.1`로 새 릴리스를 만듭니다 — 태그는 옮기지 않습니다. 심사는 `v1.0` 기준입니다.
 - 15:45에 발표 순서를 추첨합니다 → [7분 데모](kit.md#demo).
