@@ -22,7 +22,9 @@
    "date": "10/16(금)",
    "practices": {
     "lab-a": "실습 A",
-    "lab-b": "실습 B"
+    "lab-b": "실습 B",
+    "lab-c": "실습 C",
+    "lab-d": "실습 D"
    }
   },
   "4": {
@@ -1165,6 +1167,102 @@
    "path": "labs/day3/quality_gate/demo/train.yml",
    "size": 1322,
    "sha256": "3dee4f33c13813d7bdc7a4776ab00d5993e78334e07b5e9e317425c0c38e0dd0"
+  },
+  {
+   "day": 3,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "한빛식당 점심 기록(1년)",
+   "desc": "(가상) 구내식당 영업일 약 1년 · 날짜 · 요일 · 날씨 · 최고기온 · 메인메뉴 · 행사 · 월급날 · 출근예정 · 식수 · 비고 — 일부러 엉망인 줄이 섞여 있다(정제 연습)",
+   "dest": "hanbit_lunch_log.csv",
+   "site": true,
+   "zip": true,
+   "order": 1400,
+   "path": "labs/day3/lab-c/hanbit_lunch_log.csv",
+   "size": 14101,
+   "sha256": "7eeb1bd242e194bfe5af5864305a1a82e6011dd83828a82187888e96568e2f43",
+   "src_note": "promoted"
+  },
+  {
+   "day": 3,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "다음 주 식단 · 일정",
+   "desc": "10/19(월)–10/23(금) 메뉴 · 날씨 예보 · 행사 · 월급날 · 출근예정 — 식수 칸은 없다(예보할 대상)",
+   "dest": "next_week_plan.csv",
+   "site": true,
+   "zip": true,
+   "order": 1500,
+   "path": "labs/day3/lab-c/next_week_plan.csv",
+   "size": 337,
+   "sha256": "44f4e100f2af43d3b64adeabfc377bde6102e3ee9ad6fbaa214bab3f461794ef",
+   "src_note": "promoted"
+  },
+  {
+   "day": 3,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "정 영양사의 감 노트",
+   "desc": "믿음 다섯 가지 · 준비 공식 · 지난달 사건 두 개 — 데이터로 맞는지 확인할 현장 지식",
+   "dest": "nutritionist_memo.md",
+   "site": true,
+   "zip": true,
+   "order": 1600,
+   "path": "labs/day3/lab-c/nutritionist_memo.md",
+   "size": 2011,
+   "sha256": "e7e3680a5704717957ff1070d3d3669f2d0076989bcabd8f62677672a5f7e9f2",
+   "src_note": "promoted"
+  },
+  {
+   "day": 3,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-d"
+   ],
+   "label": "바이어 150곳 리스크 표",
+   "desc": "기준일 2026-09-30 · 이름 · 국가 · 지역 · 업종 · 결제조건 · 미결 채권 · 연체 금액 · 31일+ 비중 · 연체 확률(pd_30d) · 등급(선 0.17) · 쉬운 말 위험 신호 3개 — 보드 한 장의 재료",
+   "dest": "buyer_board.csv",
+   "site": true,
+   "zip": true,
+   "order": 1700,
+   "open_at": "2026-10-15T23:30:00Z",
+   "path": "labs/day3/lab-d/buyer_board.csv",
+   "size": 26594,
+   "sha256": "1c82e98eb02cb4f5a0c662b6dda9abc907512bad31b129b3f99c609832643200",
+   "src_note": "promoted"
+  },
+  {
+   "day": 3,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-d"
+   ],
+   "label": "대표님 요청 메모",
+   "desc": "한 화면에 꼭 보여야 할 것 다섯 가지 · 휴대폰 · '만든 티' 금지 — 화면의 요구사항",
+   "dest": "ceo_request.md",
+   "site": true,
+   "zip": true,
+   "order": 1800,
+   "path": "labs/day3/lab-d/ceo_request.md",
+   "size": 1419,
+   "sha256": "a463f0b9a44a1f0e63bf8fbddad4deace191c5f15f50c88169771841eb4e0f71",
+   "src_note": "promoted"
   },
   {
    "day": 4,
