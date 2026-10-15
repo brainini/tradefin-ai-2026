@@ -32,6 +32,8 @@ title: 3일차 실습 B — 등급 · 근거 · 환율
 <div data-tf-map></div>
 </div>
 
+<span class="tf-chip tf-chip--warn">10/16 수업은 실습 C · D</span> 오늘 오후 수업은 [실습 C](lab-c.md) · [실습 D](lab-d.md)로 진행합니다. 이 실습 B는 수업 뒤 선택 자습용입니다 — 쪽과 파일은 그대로입니다.
+
 ## 입력 파일 받기 {#files}
 
 실습 A에서 `uv run python tools/get_day_files.py 3`을 했다면 모두 들어 있습니다 — 완성본 두 개는 `labs/day3/`에 있습니다. 저장소 없이 채팅 경로로 하는 분만 카드에서 받으세요. **완성본**(녹색 칩) 두 개는 슬라이드 B-1 · 02–04의 엑셀 손작업 대신 여는 파일입니다(B-1 · 02에 무엇 · 왜 · 어떻게 만들었는지).

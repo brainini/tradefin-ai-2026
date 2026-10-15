@@ -183,8 +183,10 @@ nav:
   - "3일차 10/16":
       - day3/index.md
       - "이론 요약": day3/theory.md
-      - "실습 A · 13:00": day3/lab-a.md
-      - "실습 B · 15:00": day3/lab-b.md
+      - "실습 C · 13:00 식수 예보": day3/lab-c.md
+      - "실습 D · 15:00 리스크 보드": day3/lab-d.md
+      - "실습 A(수업 뒤 자습)": day3/lab-a.md
+      - "실습 B(수업 뒤 자습)": day3/lab-b.md
   - "4일차 10/19":
       - day4/index.md
       - "이론 요약": day4/theory.md
