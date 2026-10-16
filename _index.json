@@ -1265,6 +1265,44 @@
    "src_note": "promoted"
   },
   {
+   "day": 3,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "AI 작업 안내서(실습 C)",
+   "desc": "정제 규칙 10개 · 감 검증 기준 · 예보관 설정 · 페이지 규칙 · 2부 옵션 메모 — 프롬프트가 '@안내서의 ○○ 절대로'라고 가리키는 파일(사람이 읽어도 된다)",
+   "dest": "lab_c_guide.md",
+   "site": true,
+   "zip": true,
+   "order": 1900,
+   "path": "labs/day3/lab-c/lab_c_guide.md",
+   "size": 24335,
+   "sha256": "49fdf5a9a2310e3c7193c61fa819e942e47e0f14443c36076fca8a3894935823",
+   "src_note": "promoted"
+  },
+  {
+   "day": 3,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-d"
+   ],
+   "label": "AI 작업 안내서(실습 D)",
+   "desc": "등급 규칙 · 화면 구역 · 디자인 토큰과 'AI 티' 금지 목록 · 숫자 규칙 · 2부 스타일 · 기능 옵션 메모 — 프롬프트가 가리키는 파일",
+   "dest": "lab_d_guide.md",
+   "site": true,
+   "zip": true,
+   "order": 2000,
+   "path": "labs/day3/lab-d/lab_d_guide.md",
+   "size": 26035,
+   "sha256": "7877fe8b01b1fb64daf642c8c650405f9ec41b5b1baa76d8569415eb14ac990c",
+   "src_note": "promoted"
+  },
+  {
    "day": 4,
    "where": "files",
    "role": "start",
