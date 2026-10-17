@@ -2,6 +2,8 @@
 title: 6일차 실습 B — 증명하고, 남기고, 보여 준다
 ---
 
+!!! info "인쇄본 자료(참고) — 실제 수업은 [수업판 해커톤](hack.md)으로 진행합니다"
+
 <div class="tf-lab" markdown>
 <span class="tf-eyebrow">6일차 · 해커톤 오후 · 실습 B · 14:12–17:50 <span class="tf-daystate" data-tf-daystate="6"></span></span>
 

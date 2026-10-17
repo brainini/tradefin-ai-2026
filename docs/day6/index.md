@@ -2,6 +2,8 @@
 title: 6일차 — 실전 적응력 고도화 및 자사 솔루션 도입 기획(해커톤)
 ---
 
+!!! info "실제 10/21은 자유 주제 개인 해커톤으로 진행합니다 — [수업판 해커톤](hack.md). 아래는 인쇄본의 원래 계획(참고)."
+
 <div class="tf-hero" markdown>
 <span class="tf-eyebrow">6일차 · 10/21(수) · 09:00–17:50 · 해커톤 — 도입 기획 · 솔루션 킷 · 거버넌스 · ROI <span class="tf-daystate" data-tf-daystate="6"></span></span>
 

@@ -164,12 +164,14 @@ nav:
   # 사이트 맵 = 위쪽 탭. 일차 탭 = 개요(index) · 이론 요약 · 실습 A(4–5교시) · 실습 B(6–7교시). 6일차는 해커톤 쪽이 더 있다.
   # 쪽 파일 경로 · 주소 · 앵커는 바꾸지 않는다(덱 노트 · 다른 쪽이 day1/lab-b.html#b1-diagnose처럼 부른다).
   # 옛 주소(day1/lab1–3.md)는 안내 한 줄만 남기고 메뉴에서 뺐다(위 not_in_nav).
+  # 4–6일차 수업판(10/17): 새 쪽(수업판 · 실습 C · D · 해커톤)을 일차마다 앞에 두고, 인쇄본의 옛 쪽은 이름 · 주소 그대로 '인쇄본 자료(참고)' 묶음으로 옮겼다.
   - 홈: index.md
   - 시작하기:
       - 과정 소개: course.md
       - 사전 준비: setup.md
       - 데이터: data.md
       - FAQ·트러블슈팅: faq.md
+      - "웹 작업대(4–6일차)": web.md
   - "1일차 10/14":
       - day1/index.md
       - "이론 요약": day1/theory.md
@@ -189,23 +191,36 @@ nav:
       - "실습 B(수업 뒤 자습)": day3/lab-b.md
   - "4일차 10/19":
       - day4/index.md
-      - "이론 요약": day4/theory.md
-      - "실습 A · 13:00": day4/lab-a.md
-      - "실습 B · 15:00": day4/lab-b.md
+      - "수업판 · 오늘 진행": day4/class.md
+      - "실습 C · 13:00 메일함 당번 로봇": day4/lab-c.md
+      - "실습 D · 15:00 첫 웹앱 배포": day4/lab-d.md
+      - "인쇄본 자료(참고)":
+          - "이론 요약": day4/theory.md
+          - "실습 A · 13:00": day4/lab-a.md
+          - "실습 B · 15:00": day4/lab-b.md
   - "5일차 10/20":
       - day5/index.md
-      - "이론 요약": day5/theory.md
-      - "실습 A · 13:00": day5/lab-a.md
-      - "실습 B · 15:00": day5/lab-b.md
+      - "수업판 · 오늘 진행": day5/class.md
+      - "실습 C · 13:00 확인 기록 DB": day5/lab-c.md
+      - "실습 D · 15:00 환율 · 독촉 승인": day5/lab-d.md
+      - "인쇄본 자료(참고)":
+          - "이론 요약": day5/theory.md
+          - "실습 A · 13:00": day5/lab-a.md
+          - "실습 B · 15:00": day5/lab-b.md
   - "6일차 10/21":
       - day6/index.md
-      - "이론 요약": day6/theory.md
-      - "실습 A · 09:31": day6/lab-a.md
-      - "실습 B · 14:12": day6/lab-b.md
-      - "위기 카드": day6/cards.md
-      - "솔루션 킷": day6/kit.md
-      - "심사 기준": day6/judging.md
-      - "제출": day6/submit.md
+      - "수업판 해커톤": day6/hack.md
+      - "해커톤 단계": day6/hack-build.md
+      - "아이디어 씨앗": day6/hack-ideas.md
+      - "심사 · 발표 · 투표": day6/hack-rules.md
+      - "인쇄본 자료(참고)":
+          - "이론 요약": day6/theory.md
+          - "실습 A · 09:31": day6/lab-a.md
+          - "실습 B · 14:12": day6/lab-b.md
+          - "위기 카드": day6/cards.md
+          - "솔루션 킷": day6/kit.md
+          - "심사 기준": day6/judging.md
+          - "제출": day6/submit.md
   - 자료실:
       - 프롬프트 라이브러리:         # 이름에 '프롬프트'를 붙인다 — 6일차 '제출' 쪽 아래 '다음' 단추가 '1일차'로만 보이면 1일차 개요로 오해한다
           - "1일차 프롬프트": prompts/day1.md

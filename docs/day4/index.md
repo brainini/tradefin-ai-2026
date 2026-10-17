@@ -2,6 +2,8 @@
 title: 4일차 — 수출채권 회수 전략 최적화 및 조기 경보 시뮬레이션
 ---
 
+!!! info "오늘(10/19) 실제 수업은 수업판으로 — [수업판](class.md) · [실습 C](lab-c.md) · [실습 D](lab-d.md) · [강의 슬라이드 PDF](class.md#slides)"
+
 <div class="tf-hero" markdown>
 <span class="tf-eyebrow">4일차 · 10/19(월) · 09:00–17:50 · 최적화 · 시뮬레이션 · 경보 자동화 · 보고서 파이프라인 <span class="tf-daystate" data-tf-daystate="4"></span></span>
 

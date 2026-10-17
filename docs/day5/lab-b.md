@@ -2,6 +2,8 @@
 title: 5일차 실습 B — 환율 상황판 · 독촉 워크플로 · 배포 · 승인 기록 DB
 ---
 
+!!! info "인쇄본 자료(참고) — 실제 수업은 [수업판](class.md)으로 진행합니다"
+
 <div class="tf-lab" markdown>
 <span class="tf-eyebrow">5일차 · 실습 B · 6–7교시 · 15:00–16:50 <span class="tf-daystate" data-tf-daystate="5"></span></span>
 

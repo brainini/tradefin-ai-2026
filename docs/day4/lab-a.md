@@ -2,6 +2,8 @@
 title: 4일차 실습 A — 한도 최적화와 스트레스 테스트
 ---
 
+!!! info "인쇄본 자료(참고) — 실제 수업은 [수업판](class.md)으로 진행합니다"
+
 <div class="tf-lab" markdown>
 <span class="tf-eyebrow">4일차 · 실습 A · 4–5교시 · 13:00–14:50 <span class="tf-daystate" data-tf-daystate="4"></span></span>
 

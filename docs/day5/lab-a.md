@@ -2,6 +2,8 @@
 title: 5일차 실습 A — 규정 RAG 챗봇과 검색 평가
 ---
 
+!!! info "인쇄본 자료(참고) — 실제 수업은 [수업판](class.md)으로 진행합니다"
+
 <div class="tf-lab" markdown>
 <span class="tf-eyebrow">5일차 · 실습 A · 4–5교시 · 13:00–14:50 <span class="tf-daystate" data-tf-daystate="5"></span></span>
 

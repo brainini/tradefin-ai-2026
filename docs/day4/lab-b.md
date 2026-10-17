@@ -2,6 +2,8 @@
 title: 4일차 실습 B — 경보 자동화와 경영진 리포트
 ---
 
+!!! info "인쇄본 자료(참고) — 실제 수업은 [수업판](class.md)으로 진행합니다"
+
 <div class="tf-lab" markdown>
 <span class="tf-eyebrow">4일차 · 실습 B · 6–7교시 · 15:00–16:50 <span class="tf-daystate" data-tf-daystate="4"></span></span>
 

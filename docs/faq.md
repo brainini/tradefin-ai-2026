@@ -270,3 +270,91 @@ AI 화면의 '복사' 버튼은 표를 글자(마크다운)로 복사할 때가 
 ### 실습을 다 못 끝냈어요 / 결석했어요 {#q-checkpoint .tf-card}
 
 괜찮습니다. 다 못 끝냈어도 그대로 제출하세요. 다음 날은 그날의 **시작 파일**을 `uv run python tools/get_day_files.py N`으로 받아 바로 합류합니다([자료는 언제 열리나](course.md#release)). 수료 기준은 출석 80% 이상입니다.
+
+## 4–6일차 웹 실습 {#web}
+
+4–6일차 수업판(웹 저장소 · Vercel · Supabase · 해커톤)에서 자주 나오는 질문입니다. 막히면 먼저 웹 저장소 터미널에서 `npm run doctor`(DB면 `npm run doctor:db`)를 돌려 보세요 — 실패한 줄마다 고치는 법이 나옵니다. 지도 · 명령은 [웹 작업대](web.md), 설치 · 가입은 [사전 준비 9](setup.md#web-setup)에 있습니다.
+
+### PowerShell에서 npm이 "스크립트를 실행할 수 없습니다"라고 나와요 {#q-npm-ps1 .tf-card}
+
+`npm.ps1 파일을 로드할 수 없습니다`는 Windows PowerShell의 기본 보안 설정 때문입니다.
+
+1. 웹 저장소를 VS Code로 열고 폴더를 '신뢰'하면 터미널이 명령 프롬프트(cmd)로 열려 보통 생기지 않습니다. 터미널 오른쪽 위 **+** 옆 ∨에서 **Command Prompt**를 골라도 됩니다.
+2. PowerShell 그대로라면 `npm` 대신 `npm.cmd`(예: `npm.cmd ci`).
+3. 한 번만 바꾸려면 `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` → `Y` → 터미널을 새로 엽니다(내 계정에만 적용). 회사 정책으로 막혀 있으면 1이나 2로 합니다 → [사전 준비 9-2](setup.md#npm-policy).
+
+### `node`나 `npm`을 찾을 수 없다고 나와요 {#q-node-path .tf-card}
+
+Node.js를 설치한 뒤 **VS Code를 완전히 닫았다가 다시** 열었는지 봅니다 — 창 하나만 닫으면 열려 있던 터미널이 새 설치를 모릅니다. 그래도 안 되면 [9-1](setup.md#node)대로 다시 설치합니다(설치 화면의 "Automatically install the necessary tools"는 체크 해제). 관리자 권한이 없어 설치가 막히면 [Codespaces](setup.md#web-codespaces)로 갑니다.
+
+### `npm ci`가 끝나지 않거나 ETIMEDOUT이 나와요 {#q-npm-ci .tf-card}
+
+- 기다리는 동안 걱정하지 않아도 됩니다 — 첫 배포는 Vercel의 클라우드에서 이미 끝나 있어 내 주소는 살아 있습니다.
+- 20명이 한꺼번에 받으면 Wi-Fi가 느립니다. **15:25(4일차)까지 끝나지 않으면 [Codespaces](web.md#codespaces)로** 옮깁니다.
+- 출력에 `binaries.prisma.sh`가 보이며 멈췄다면 회사 망이 그 주소를 막은 것입니다 — 휴대폰 핫스팟이나 Codespaces.
+- 강사가 안내하면 USB의 부품 사본으로 설치할 수도 있습니다.
+
+### 친구에게 보낸 내 주소가 Vercel 로그인 화면으로 열려요 {#q-vercel-login .tf-card}
+
+배포마다 생기는 **긴 주소**(`…-해시-….vercel.app`)를 보냈기 때문입니다. 이 주소는 남이 열면 로그인을 묻습니다. Vercel 프로젝트 화면의 **Domains**에 보이는 짧은 **운영 주소**(`tradefin-web-t2-07.vercel.app` 같은 것)를 보냅니다. 보내기 전에 시크릿 창에서 열어 봅니다.
+
+### 내 PC에서는 되는데 Vercel 빌드만 실패해요 {#q-vercel-build .tf-card}
+
+1. 가장 흔한 원인은 **파일 이름의 대소문자**입니다 — Windows는 `KpiCard`와 `kpicard`를 같게 보지만 Vercel(Linux)은 다르게 봅니다.
+2. Vercel의 **Deployments → 실패한 배포 → Build Logs** 맨 아래 10줄을 복사해, 실습 쪽의 '원인부터' 프롬프트에 붙입니다(아직 고치지 말고 원인 후보부터).
+3. 내 PC에서 `npm run build`가 통과하는지 먼저 봅니다 — 내 PC에서 실패하면 Vercel도 실패합니다.
+
+빌드가 실패해도 **마지막으로 성공한 화면은 그대로** 남아 있습니다.
+
+### 배포한 주소에서 500 오류가 나거나 DB 값이 안 보여요 {#q-vercel-500 .tf-card}
+
+대개 **환경 변수가 없거나, 넣은 뒤 다시 배포하지 않아서**입니다. Vercel **Settings → Environment Variables**에 이름(`DATABASE_URL` · `APPROVER_PIN`)과 값을 넣고, 대상(Production · Preview)을 고른 뒤 **Redeploy**합니다. 그래도 안 되면 **Logs**의 빨간 줄을 '원인부터' 프롬프트에 붙입니다. `DATABASE_URL`은 포트 **6543**(트랜잭션 풀러) 줄입니다.
+
+### DB 연결 오류가 나요 — P1001 · 28P01 · Tenant or user not found {#q-db-connect .tf-card}
+
+먼저 `npm run doctor:db`를 돌립니다(비밀번호는 가려서 보여 줍니다). 흔한 오류는 이렇습니다.
+
+| 화면의 말 | 뜻 | 이렇게 |
+|---|---|---|
+| `P1001` … `db.….supabase.co` | 직접 연결 주소(IPv6 전용)를 썼다 | **Connect → ORMs → Prisma**의 풀러 주소(6543 · 5432)로 바꾼다 |
+| `28P01` · password authentication failed | `[YOUR-PASSWORD]`를 안 바꿨거나 비밀번호가 틀렸다 | 두 줄 모두 바꾼다. 잊었으면 Supabase **Database settings**에서 비밀번호를 새로(영문 + 숫자) → 두 줄 다시 |
+| `Tenant or user not found` | 사용자 이름이 `postgres.프로젝트ID` 모양이 아니다 | Connect에서 주소를 다시 복사한다 |
+| `P1010` · permission denied | 사용자 이름이 `postgres.프로젝트ID` 모양이 아니다 | Connect에서 두 줄을 다시 복사한다 |
+| `self-signed certificate` · SSL 인증서 오류 | 주소 끝에 `sslmode`를 손으로 붙였다 | 지운다 — 스타터의 `lib/db.ts`가 SSL을 처리한다 |
+| `DATABASE_URL이 없습니다` · `Connection url is empty` · `P1001` … `localhost:5432` | `.env`가 없거나, 붙여 넣은 뒤 저장하지 않았다 | `npm run env:init` → `.env`에 두 줄 붙여 넣고 저장(++ctrl+s++) → `npm run doctor:db` |
+| 연결이 멈춘다 · `ETIMEDOUT` | 회사 망이 5432 · 6543 포트를 막았다 | 휴대폰 핫스팟 · [Codespaces](web.md#codespaces) |
+
+`db push`가 "데이터가 지워진다"고 물으면 **N**을 누르고 손을 듭니다.
+
+### Supabase 프로젝트가 일시정지(Paused)됐어요 {#q-supabase-pause .tf-card}
+
+무료 프로젝트는 **일주일 동안 쓰지 않으면 일시정지**됩니다. supabase.com 대시보드에서 프로젝트를 열고 **Restore**를 누르면 몇 분 뒤 돌아옵니다(데이터는 그대로). 무료는 프로젝트가 2개까지라, 6일차에 새 프로젝트가 필요한데 한도에 걸리면 5일차 프로젝트를 일시정지합니다.
+
+### `.env`를 실수로 커밋했어요 {#q-env-committed .tf-card}
+
+파일을 지우는 것으로 끝나지 않습니다 — 공개 저장소의 이력에 남습니다. 순서대로 합니다.
+
+1. `git rm --cached .env` → 커밋 → push(앞으로는 올라가지 않게).
+2. **Supabase에서 DB 비밀번호를 새로** 정합니다(이게 진짜 해결입니다).
+3. 새 비밀번호로 `.env`의 두 줄과 Vercel 환경 변수를 고치고 **Redeploy**.
+4. 강사에게 알립니다(비난하지 않습니다). 다음부터는 push 전에 `npm run doctor:secrets`.
+
+### 웹 실습 중에 사용 한도에 걸렸어요 {#q-web-usage .tf-card}
+
+Claude Code 입력창에서 `/model`로 **Sonnet**을 고르고, 큰 일은 짝과 한 화면으로 나눠 합니다. 한도가 풀릴 때까지는 실습 쪽의 채팅 경로로 계속합니다 → [사용 한도](#q-usage-limit). 5일차 `npm run drafts` 도중에 걸렸다면 나중에 다시 돌리면 됩니다 — 이미 쓴 초안은 건너뜁니다.
+
+### 지난 실습을 못 끝냈어요 — 웹 저장소는 어디서부터? {#q-web-catchup .tf-card}
+
+**기준본으로 합류**합니다. 웹 저장소 터미널에서 `npm run catchup -- day4-d`(5일차는 `day5-c` · `day5-d`) → `npm run build` → 커밋 → push. 작업 트리에 커밋하지 않은 변경이 있으면 멈추니 먼저 커밋합니다. 5일차 기준본이면 내 DB에 `npm run db:push` → `npm run db:seed`를 한 번 합니다 → [웹 작업대 → 합류](web.md#update). 웹 저장소가 아예 없다면 4일차 실습 D의 처음(템플릿 → Vercel → clone)부터 15분이면 됩니다.
+
+### 안내서가 고쳐졌다는데 내 웹 저장소에는 어떻게 받나요? {#q-guide-update .tf-card}
+
+`npm run guide:update` 한 줄입니다. 웹 스타터의 새 판에서 `guide/` · `data/` · `hackathon/`만 가져오고, 끝에 바뀐 파일 목록을 보여 줍니다 → 커밋. 그 폴더에 커밋하지 않은 변경이 있으면 멈추니 먼저 커밋합니다. `git pull`로는 오지 않습니다(템플릿으로 만든 저장소는 원본과 이력이 이어져 있지 않습니다).
+
+### AI 엔진(`claude`)을 못 찾는다고 나와요 {#q-claude-bin .tf-card}
+
+AI 엔진은 따로 설치하지 않고 **VS Code의 Claude Code 확장 안에 든 것**을 씁니다. 확장이 설치 · 업데이트돼 있는지 보고, Claude Code 패널에서 한 번 로그인합니다. 그래도 못 찾으면 `npm run doctor`가 어디를 찾아봤는지 알려 줍니다 → 손을 들거나 Codespaces로. 4일차 메일 로봇은 그동안 `--no-ai`로 계속 돌릴 수 있습니다(덜 잡지만, 그 차이가 좋은 토론거리입니다).
+
+### 2부 자유 퀘스트에서 뭘 해야 할지 모르겠어요 {#q-free-quest .tf-card}
+
+정상입니다 — 정해진 답이 없는 시간입니다. 실습 쪽의 '씨앗' 한 줄을 고르거나, 아무것도 떠오르지 않으면 이렇게 보냅니다: "지금 결과로 할 수 있는 가장 놀라운 것 3가지를 제안해 줘". AI가 방향 세 개를 내면 하나를 고르고, 계획 3줄을 읽고 승인합니다. 새 패키지 · 키 · 실제 발송이 필요하다고 하면 거기서 멈추고 키 없이 되는 방향으로 바꿔 달라고 합니다.

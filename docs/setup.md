@@ -493,3 +493,132 @@ AI 대화창에 무언가를 붙여넣는 순간 그 데이터는 회사 밖으�
     1. 그 대화를 바로 삭제합니다.
     2. 강사 · 도우미에게 알립니다(비난하지 않습니다. 기록만 합니다).
     3. 가상 데이터로 바꿔 계속합니다.
+
+## 9. 4–6일차 웹 실습 준비 — Node 24 · Vercel · Supabase {#web-setup}
+
+4–6일차 수업판은 **웹앱**을 만들어 인터넷 주소로 내보냅니다. 그래서 프로그램 하나(Node.js)와 무료 계정 둘(Vercel · Supabase)이 더 필요합니다. **4일차 실습 C 중간에 강사가 시각에 맞춰 불러 드리며 함께 합니다** — 미리 해 와도 됩니다. 웹 저장소의 지도 · 명령 · 점검 도구는 [웹 작업대(4–6일차)](web.md)에 있습니다.
+
+<div class="tf-checklist" data-title="웹 실습 준비 — 누르면 이 브라우저에 저장됩니다" markdown>
+
+- [ ] **Node.js 24 LTS**를 설치했고, VS Code를 완전히 닫았다 연 뒤 `node -v`가 `v24.22.0`이다 <span class="tf-chip tf-chip--must">필수</span> → [9-1](#node)
+- [ ] PowerShell에서 `npm`이 막히지 않는다(막히면 `npm.cmd`) → [9-2](#npm-policy)
+- [ ] **Vercel**에 Hobby로, GitHub 계정으로 가입했다 — 프로젝트는 아직 <span class="tf-chip tf-chip--must">필수</span> → [9-3](#vercel)
+- [ ] **Supabase**에 GitHub 계정으로 가입했다 — 프로젝트는 5일차 13:00에 <span class="tf-chip tf-chip--must">필수</span> → [9-4](#supabase)
+- [ ] 웹 실습 접속 테스트의 주소가 열린다 → [9-6](#web-connection-test)
+- [ ] 막힐 때 웹 저장소를 Codespaces로 여는 법을 안다 → [9-5](#web-codespaces)
+
+</div>
+
+### 9-1. Node.js 24 LTS 설치 {#node .step data-tool="내 PC"}
+
+Node.js는 브라우저 밖에서 자바스크립트를 돌리는 실행기이고, 함께 깔리는 **npm**은 부품(패키지)을 받아 오는 가게입니다. 1일차의 uv와 같은 자리입니다. 과정은 **24.22.0(LTS · 장기 지원판)**에 맞춥니다 — 26은 'Current'(최신판)라 쓰지 않습니다.
+
+=== "Windows"
+
+    1. 설치 파일을 바로 받습니다 → [node-v24.22.0-x64.msi](https://nodejs.org/dist/v24.22.0/node-v24.22.0-x64.msi). 같은 판의 다른 파일은 [nodejs.org/dist/v24.22.0/](https://nodejs.org/dist/v24.22.0/)에 있습니다. 강의장 Wi-Fi가 느리면 강사의 USB 사본을 씁니다.
+    2. 받은 파일을 실행 → **Next**를 누르며 기본값으로 진행 → **Install**. '이 앱이 디바이스를 변경하도록 허용'을 물으면 **예**.
+    3. 중간 화면의 **"Automatically install the necessary tools…" 체크 상자는 체크를 해제합니다.** 켜 두면 이 과정에 필요 없는 큰 도구들을 한참 더 설치합니다.
+    4. 설치가 끝나면 **VS Code를 완전히 닫았다가**(열린 창 전부) 다시 엽니다. 열려 있던 터미널은 새 설치를 모릅니다.
+
+    - 관리자 권한이 없어 설치가 막히면 그 자리에서 멈추고 [9-5 Codespaces](#web-codespaces)로 갑니다.
+    - 이미 다른 판이 있다면: 20 · 22는 위 파일로 그대로 덮어 설치합니다. 26처럼 더 새 판이 있으면 설치 파일이 거절하니 **설정 → 앱 → 설치된 앱**에서 Node.js를 먼저 지우고 설치합니다.
+
+=== "macOS"
+
+    1. 설치 파일을 바로 받습니다 → [node-v24.22.0.pkg](https://nodejs.org/dist/v24.22.0/node-v24.22.0.pkg).
+    2. 실행해 기본값으로 설치합니다.
+    3. 터미널과 VS Code를 완전히 닫았다가(++cmd+q++) 다시 엽니다.
+
+새 터미널에서 확인합니다.
+
+```bash
+node -v
+npm -v
+```
+
+!!! ok "확인"
+
+    - [ ] `node -v`가 `v24.22.0`을 보여 준다
+    - [ ] `npm -v`가 `11.19.1`(11로 시작하면 됩니다)을 보여 준다
+
+### 9-2. PowerShell에서 npm이 막히면 {#npm-policy}
+
+Windows PowerShell에서 `npm`을 치면 이런 빨간 글자가 나올 수 있습니다 — `npm.ps1 파일을 로드할 수 없습니다 … 이 시스템에서 스크립트를 실행할 수 없으므로`. 회사 PC의 기본 보안 설정 때문이고, 고장이 아닙니다.
+
+1. **웹 스타터 저장소를 VS Code로 열면** 터미널이 **명령 프롬프트(cmd)**로 열리게 설정돼 있어 보통은 생기지 않습니다(폴더를 '신뢰'해야 설정이 적용됩니다).
+2. PowerShell에서 바로 하려면 `npm` 대신 **`npm.cmd`**를 씁니다 — `npm.cmd ci` · `npm.cmd run dev`.
+3. 한 번만 바꾸려면(내 계정에만 적용 · 관리자 권한 불필요) 아래를 실행하고 `Y` → 터미널을 새로 엽니다.
+
+    ```powershell
+    Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+    ```
+
+4. 회사 정책으로 3이 막혀 있으면 1이나 2로 합니다. 회사 규정을 어기며 우회하지 않습니다.
+
+### 9-3. Vercel 가입 — Hobby · GitHub로 {#vercel .step data-tool="브라우저"}
+
+Vercel은 GitHub 저장소를 가져와 빌드하고 **인터넷 주소**(`이름.vercel.app`)로 내보내는 배포 서비스입니다. push할 때마다 새로 배포합니다.
+
+1. [vercel.com/signup](https://vercel.com/signup)을 엽니다. 요금제를 묻는 칸에서 **Hobby**(개인 프로젝트)를 고르고 이름(별명)을 적습니다.
+2. **Continue with GitHub** → GitHub 화면에서 승인(**Authorize**)합니다. 1일차부터 쓰던 GitHub 계정입니다.
+3. 휴대폰 문자 인증을 물으면 그대로 합니다.
+4. **프로젝트는 아직 만들지 않습니다** — 4일차 실습 D(15:07)에 내 웹 저장소를 **Import**해 함께 만듭니다.
+
+- Hobby는 **무료 · 개인 · 비상업용**입니다. 카드를 등록하지 않습니다 — 결제 화면이 나오면 멈추고 손을 듭니다.
+- 팀(Team)을 만들라거나 유료 체험을 권하는 화면은 건너뜁니다.
+
+!!! ok "확인"
+
+    - [ ] vercel.com에 로그인하면 내 대시보드(빈 목록)가 보인다
+
+### 9-4. Supabase 가입 — GitHub로 {#supabase .step data-tool="브라우저"}
+
+Supabase는 클라우드에서 빌려 쓰는 데이터베이스(PostgreSQL)입니다. 5일차에 확인 기록 · 독촉 초안 · 감사 기록을 여기에 저장합니다.
+
+1. [supabase.com](https://supabase.com) → **Start your project** → **Continue with GitHub** → GitHub 화면에서 승인합니다.
+2. 처음 만들어지는 **조직(organization)은 기본값 그대로**, 요금제는 **Free**로 둡니다.
+3. **프로젝트는 아직 만들지 않습니다** — 5일차 13:00에 함께 만듭니다. 그때 정할 것: 이름 `tradefin-web` · 지역 **Northeast Asia (Seoul)** · DB 비밀번호는 **영문 + 숫자 16자 이상, 기호 없이**(내 메모에만).
+
+- Free는 프로젝트 **2개**까지이고, **일주일 동안 쓰지 않으면 일시정지**됩니다(대시보드에서 **Restore**).
+- DB 비밀번호는 금고 열쇠입니다 — 채팅 · 저장소 · 캡처에 남기지 않습니다.
+
+!!! ok "확인"
+
+    - [ ] supabase.com에 로그인하면 내 조직과 빈 프로젝트 목록이 보인다
+
+### 9-5. 설치가 막히면 — 웹 저장소를 Codespaces로 {#web-codespaces}
+
+관리자 권한이 없어 Node를 못 깔거나, 회사 망이 npm을 막거나, `npm ci`가 끝나지 않으면 **브라우저 안의 VS Code(Codespaces)**로 같은 실습을 합니다. 웹 스타터에는 Node 24 설치와 `npm ci`까지 알아서 해 주는 설정이 들어 있습니다.
+
+1. 4일차 15:03에 만든 **내 웹 저장소**(`tradefin-web-T{조}-{번호}`)를 github.com에서 엽니다.
+2. 초록색 **Code** → **Codespaces** 탭 → **Create codespace on main**.
+3. `npm ci`가 끝나면 터미널에서 `npm run doctor` → `npm run dev` → 포트 3000('내 웹앱')을 **브라우저에서 열기**.
+4. Claude Code 패널에서 **Sign in**. 쓰지 않을 때는 왼쪽 아래 **Codespaces** → **Stop Current Codespace**.
+
+과정 저장소의 [0-9 Codespaces](#codespaces)와 같은 무료 한도를 나눠 씁니다. 자세한 순서는 [웹 작업대 → Codespaces](web.md#codespaces)에 있습니다.
+
+### 9-6. 웹 실습 접속 테스트 {#web-connection-test}
+
+회사 망에서 아래 주소가 막혀 있으면 4–5일차 웹 실습이 멈춥니다. **실습할 노트북**에서 하나씩 열어 보세요. 4일차에 웹 저장소를 만든 뒤에는 터미널의 `npm run doctor`가 npm · Prisma 엔진 · GitHub · Vercel · Supabase · 환율 API 연결을 한 번에 확인합니다.
+
+| 주소 | 무엇에 쓰나 | 이렇게 확인 | 막히면 |
+|---|---|---|---|
+| nodejs.org | Node 24 설치 파일 | [9-1](#node)의 받기 링크가 내려받아지는지 | 강사의 USB 사본 |
+| registry.npmjs.org | `npm ci`(부품 받기) | 브라우저로 열어 글자(JSON)가 보이는지 | 휴대폰 핫스팟 · [Codespaces](#web-codespaces) |
+| binaries.prisma.sh | `npm ci` 중 DB 도구(Prisma) 엔진 받기 | 주소가 열리는지(오류 글자가 보여도 연결만 되면 됩니다) | 휴대폰 핫스팟 · [Codespaces](#web-codespaces) |
+| vercel.com · *.vercel.app | 가입 · 배포 · 내 웹앱 주소 | 로그인 화면이 열리는지 · 아무 `….vercel.app` 주소가 열리는지 | 개인 노트북 · 휴대폰으로 내 주소 확인 |
+| supabase.com | 가입 · 5일차 DB 만들기 | 로그인 화면이 열리는지 | 개인 노트북 |
+| *.pooler.supabase.com(포트 5432 · 6543) | 5일차 DB 연결 | 5일차에 `npm run doctor:db`가 '연결 OK'를 보여 주는지 | 휴대폰 핫스팟 · [Codespaces](#web-codespaces) |
+| api.frankfurter.dev | 5일차 환율 타일 | 브라우저로 열어 JSON이 보이는지 | 괜찮습니다 — 저장된 환율(대체 값)로 진행합니다 |
+| github.com/codespaces | 막힐 때의 웹 작업대 | 내 Codespaces 목록이 열리는지 | 짝의 화면으로 |
+
+### 9-7. 4–6일차 설치 · 가입 달력 {#web-timeline}
+
+| 언제 | 무엇 | 왜 그때 |
+|---|---|---|
+| 4일차 13:03(실습 C 중) | Node.js 24 설치 → [9-1](#node) | AI가 일하는 동안 |
+| 4일차 13:22 | Vercel 가입(Hobby · GitHub) → [9-3](#vercel) | 15:07에 바로 Import |
+| 4일차 14:03 | Supabase 가입(GitHub) → [9-4](#supabase) | 5일차 13:00 프로젝트 |
+| 4일차 15:03–15:25 | 웹 저장소 → Vercel 첫 배포 → clone → `npm ci` | 내 주소(운영 주소)부터 |
+| 5일차 13:00 | Supabase 프로젝트(서울) | 실습 C |
+| 6일차 10:00 | 같은 웹 스타터로 해커톤 저장소 | 해커톤의 첫 단계 |

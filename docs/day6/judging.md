@@ -2,6 +2,8 @@
 title: 6일차 심사 기준
 ---
 
+!!! info "인쇄본 자료(참고) — 실제 수업은 [수업판 해커톤](hack.md)으로 진행합니다"
+
 <div class="tf-hero tf-hero--sm" markdown>
 <span class="tf-eyebrow">6일차 · 심사 기준 · 09:09 강의장에서 다시 공개 <span class="tf-daystate" data-tf-daystate="6"></span></span>
 

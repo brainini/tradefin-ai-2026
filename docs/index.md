@@ -3,6 +3,8 @@ hide:
   - toc
 ---
 
+!!! info "4–6일차(10/19–21) 실제 수업은 수업판으로 — [4일차 수업판](day4/class.md) · [5일차 수업판](day5/class.md) · [6일차 수업판 해커톤](day6/hack.md). 아래 4–6일차 카드와 하루 시간표(실습 A · B)는 인쇄본 계획(참고)입니다."
+
 <div class="tf-hero tf-home" markdown>
 <span class="tf-eyebrow">2026-10-14(수) – 10-21(수) · 주말 빼고 6일 · 매일 09:00–18:00 · 대전</span>
 

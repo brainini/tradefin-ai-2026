@@ -2,6 +2,8 @@
 title: 5일차 — AI 금융 에이전트 및 채권 관리 종합 제어 대시보드 구축
 ---
 
+!!! info "오늘(10/20) 실제 수업은 수업판으로 — [수업판](class.md) · [실습 C](lab-c.md) · [실습 D](lab-d.md) · [강의 슬라이드 PDF](class.md#slides)"
+
 <div class="tf-hero" markdown>
 <span class="tf-eyebrow">5일차 · 10/20(화) · 09:00–17:50 · 웹 · API · 실시간 연동 · DB · RAG · 에이전트 <span class="tf-daystate" data-tf-daystate="5"></span></span>
 
