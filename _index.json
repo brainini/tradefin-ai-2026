@@ -31,7 +31,8 @@
    "date": "10/19(월)",
    "practices": {
     "lab-a": "실습 A",
-    "lab-b": "실습 B"
+    "lab-b": "실습 B",
+    "lab-c": "실습 C"
    }
   },
   "5": {
@@ -1655,7 +1656,8 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-b"
+    "lab-b",
+    "lab-c"
    ],
    "label": "사기 신호 점수표(13가지)",
    "desc": "의심 메일을 읽는 기준 — 신호 · 점수 · 상태(멈춤 · 확인 · 기록) · 콜백 3원칙. 더 하기와 오전 시연 3에서 쓴다",
@@ -1673,7 +1675,8 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-b"
+    "lab-b",
+    "lab-c"
    ],
    "label": "바이어 연락처(가상)",
    "desc": "메일 예제 5통의 바이어 등록 도메인과 등록 전화번호(가상) — 콜백은 메일에 적힌 번호가 아니라 이 표의 번호로 한다",
@@ -1691,7 +1694,8 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-b"
+    "lab-b",
+    "lab-c"
    ],
    "label": "메일 예제 ① 입금 통지(정상)",
    "desc": "미결 5건을 한 번에 갚는다는 입금 안내 — 신호가 없는 정상 메일. 점수표로 판독하는 연습의 기준선",
@@ -1709,7 +1713,8 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-b"
+    "lab-b",
+    "lab-c"
    ],
    "label": "메일 예제 ② 새 계좌 송금 통보",
    "desc": "'새 계좌로 오늘 보낸다' — 새 계좌 · 제3국 명의 · 회신 주소 · 급박한 표현이 겹친 의심 메일",
@@ -1727,7 +1732,8 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-b"
+    "lab-b",
+    "lab-c"
    ],
    "label": "메일 예제 ③ 유사 도메인 대량 주문",
    "desc": "보낸 주소의 철자가 한 글자 다른 사칭 메일 — 큰 주문 · 보험 안심 · 제3국 선적 · 메신저 협의",
@@ -1745,7 +1751,8 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-b"
+    "lab-b",
+    "lab-c"
    ],
    "label": "메일 예제 ④ 결제기간 연장 요청",
    "desc": "결제기간 연장 · 분할 요청 — 사기가 아니라 확인이 필요한 메일(결제조건 변경)",
@@ -1763,7 +1770,8 @@
    "role": "tool",
    "badge": "선택",
    "practices": [
-    "lab-b"
+    "lab-b",
+    "lab-c"
    ],
    "label": "메일 예제 ⑤ 입금 전 서류 인도 요구",
    "desc": "입금 확인 전에 surrender B/L을 풀어 달라는 메일 — 실습 B 더 하기의 기본 메일",
@@ -1965,6 +1973,120 @@
    "path": "data/checkpoints/d4_end_limits.xlsx",
    "size": 42184,
    "sha256": "fbe4d3eeed13645b256852938bc3ce12becf77fc84d1b29ffd4d7628166aca59",
+   "src_note": "promoted"
+  },
+  {
+   "day": 4,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "AI 작업 안내서(실습 C)",
+   "desc": "받은편지함 · 헤더 검사 · AI에게 주는 글 · 점수와 상태 · 당번 보드 · 장부 · 자유 퀘스트 · 커밋 규칙 — 프롬프트가 '@안내서의 ○○ 절대로'라고 가리키는 파일(사람이 읽어도 된다)",
+   "dest": "lab_c_guide.md",
+   "site": true,
+   "zip": true,
+   "order": 3700,
+   "path": "labs/day4/lab-c/lab_c_guide.md",
+   "size": 22293,
+   "sha256": "672cb7712b50af1a8ca2a10cacb91963a32efdff83b6ae913d2e4bd722014471",
+   "src_note": "promoted"
+  },
+  {
+   "day": 4,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "AI 엔진 도우미",
+   "desc": "VS Code 확장에 든 Claude(claude)를 찾아 질문 하나 → JSON 답 하나로 부른다 — 따로 설치 없음 · 구독 사용(API 키 없음). `scripts/`로 복사해 `--check`부터",
+   "dest": "ask_claude.py",
+   "site": true,
+   "zip": true,
+   "order": 3800,
+   "path": "labs/day4/lab-c/ask_claude.py",
+   "size": 12516,
+   "sha256": "4dfda1667ab07bd2fe640c856fe5cf3c253a641654ba46caa0746a82f09f385f",
+   "src_note": "promoted"
+  },
+  {
+   "day": 4,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "박 팀장 메모",
+   "desc": "수출팀 박 팀장의 의뢰 — 바라는 것 다섯 · 지켜 줄 것 넷(답장 · 송금은 로봇이 하지 않는다)",
+   "dest": "team_lead_note.md",
+   "site": true,
+   "zip": true,
+   "order": 3900,
+   "path": "labs/day4/lab-c/team_lead_note.md",
+   "size": 2904,
+   "sha256": "894c2b2df16b6093b99bf12545a879c88f7f07c62b20c7c2bbc519e3e30189b2",
+   "src_note": "promoted"
+  },
+  {
+   "day": 4,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "바이어 평소 모습(6곳)",
+   "desc": "바이어 6곳의 월 매출(달러) · 결제기간 · 결제방식 · 평소 선적지 — '평소보다 큰 주문인가 · 평소와 다른 목적지인가'를 견주는 기준",
+   "dest": "buyer_profile.csv",
+   "site": true,
+   "zip": true,
+   "order": 4000,
+   "open_at": "2026-10-18T23:30:00Z",
+   "path": "labs/day4/lab-c/buyer_profile.csv",
+   "size": 589,
+   "sha256": "053aa57b685dc9caf089e2a7d35577057782cce28cab75b7b0342a0f8cd7a915",
+   "src_note": "promoted"
+  },
+  {
+   "day": 4,
+   "where": "files",
+   "role": "tool",
+   "badge": "필수",
+   "practices": [
+    "lab-c"
+   ],
+   "label": "새 메일 06 · 수하인 변경(14:00)",
+   "desc": "14:00에 도착하는 보스전 메일 — 로봇이 이 한 통만 새로 읽는다. 받은 뒤 `uv run python scripts/mail_bot.py`",
+   "dest": "06_consignee_change_B050.eml",
+   "site": true,
+   "zip": true,
+   "order": 4100,
+   "open_at": "2026-10-19T05:00:00Z",
+   "path": "labs/day4/lab-c/new_mail/06_consignee_change_B050.eml",
+   "size": 2555,
+   "sha256": "970127f567fd101aaffdaf58c3fd68627bcca9ba85f278faa08e4cdf11dcf5e7",
+   "src_note": "promoted"
+  },
+  {
+   "day": 4,
+   "where": "files",
+   "role": "handout",
+   "badge": "참고",
+   "practices": [],
+   "label": "강의 슬라이드(PDF · 수업판)",
+   "desc": "10/19(월) 실제 수업에서 띄우는 수업판 슬라이드의 수강생판 — 발표자 노트 제외",
+   "dest": "day4_slides_v5.pdf",
+   "site": true,
+   "zip": false,
+   "order": 4200,
+   "path": "handouts/day4_slides_v5.pdf",
+   "size": 7480867,
+   "sha256": "24c7e96e51b6b92a6921955af84605ee79f9eb5934af92cc6f40c57784f68b6b",
    "src_note": "promoted"
   },
   {
@@ -2414,6 +2536,23 @@
    "sha256": "07267134780b6d52ca9ce318183a11da350c2787995602ff1bed651648adae7f"
   },
   {
+   "day": 5,
+   "where": "files",
+   "role": "handout",
+   "badge": "참고",
+   "practices": [],
+   "label": "강의 슬라이드(PDF · 수업판)",
+   "desc": "10/20(화) 실제 수업에서 띄우는 수업판 슬라이드의 수강생판 — 발표자 노트 제외",
+   "dest": "day5_slides_v5.pdf",
+   "site": true,
+   "zip": false,
+   "order": 2100,
+   "path": "handouts/day5_slides_v5.pdf",
+   "size": 7658385,
+   "sha256": "be0d1e977b169e440a2dc873c294a7b19fe7485beb8543c5e9eab0580034f31f",
+   "src_note": "promoted"
+  },
+  {
    "day": 6,
    "where": "main",
    "role": "tool",
@@ -2542,8 +2681,8 @@
    "zip": true,
    "order": 700,
    "path": "labs/day6/kit_checklist.md",
-   "size": 5548,
-   "sha256": "7f53f61230859657b942373ecd52437d221c3eb95fea6f63794b3c20796ec3e3"
+   "size": 5600,
+   "sha256": "410ca6a7f02a67951ca03efdbbe1291662d3c4ced67520ee4e66b183d90e33c7"
   },
   {
    "day": 6,
@@ -3409,6 +3548,23 @@
    "placeholder": true,
    "bundle": "r1",
    "open_at": "2026-10-21T00:28:00Z"
+  },
+  {
+   "day": 6,
+   "where": "files",
+   "role": "handout",
+   "badge": "참고",
+   "practices": [],
+   "label": "강의 슬라이드(PDF · 수업판)",
+   "desc": "10/21(수) 실제 수업에서 띄우는 수업판 슬라이드의 수강생판 — 발표자 노트 제외",
+   "dest": "day6_slides_v5.pdf",
+   "site": true,
+   "zip": false,
+   "order": 5400,
+   "path": "handouts/day6_slides_v5.pdf",
+   "size": 3747109,
+   "sha256": "dbc89af15ed856cc176abc89e6ef002370f1cf9a6a0449ac840fc863f7cfcb7b",
+   "src_note": "promoted"
   }
  ]
 }

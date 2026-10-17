@@ -1,0 +1,7 @@
+﻿buyer_id,buyer_name,monthly_sales_usd,terms_days,payment_method,usual_ship_to
+B050,Korolin Instruments LLC,30864.17,60,외상(O/A),"Houston, USA"
+B087,Yorura Outlets Corp.,101719.17,30,송금 30% 선급 · 70% 후급,"Kaohsiung, Taiwan"
+B030,Calaro Endüstriyel Ölçüm A.Ş.,14069.17,60,외상(O/A),"Istanbul, Türkiye"
+B005,"Xanolin Distribution Co., Ltd.",56373.33,90,외상(O/A),"Ho Chi Minh City, Vietnam"
+B119,Galost Automation Ltd.,8791.67,90,인수인도(D/A),"Nhava Sheva (Mumbai), India"
+B048,"Changzhou Wenant Engineering Co., Ltd.",3662.50,30,외상(O/A),"Shanghai, China"
